@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           loadingPage(),
-          Center(child: Text('This is Home',style: TextStyle(fontSize: dynamicSize(0.1),color: Colors.black))),
+          Center(child: Text('This is Home Page',style: TextStyle(fontSize: dynamicSize(0.1),color: Colors.black))),
         ],
       ),
     );
