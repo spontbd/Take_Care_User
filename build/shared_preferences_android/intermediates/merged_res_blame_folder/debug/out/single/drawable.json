@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\FlutterProject\\Take_Care_Main\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\Glamworld IT\\.gradle\\caches\\transforms-2\\files-2.1\\264d9551c65e454ca4a13f554e4afe35\\core-1.6.0\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "D:\\FlutterProject\\Take_Care_Main\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\Glamworld IT\\.gradle\\caches\\transforms-2\\files-2.1\\264d9551c65e454ca4a13f554e4afe35\\core-1.6.0\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "D:\\FlutterProject\\Take_Care_Main\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\Glamworld IT\\.gradle\\caches\\transforms-2\\files-2.1\\264d9551c65e454ca4a13f554e4afe35\\core-1.6.0\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "D:\\FlutterProject\\Take_Care_Main\\build\\shared_preferences_android\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\Glamworld IT\\.gradle\\caches\\transforms-2\\files-2.1\\264d9551c65e454ca4a13f554e4afe35\\core-1.6.0\\res\\drawable\\notification_tile_bg.xml"
+    }
+]

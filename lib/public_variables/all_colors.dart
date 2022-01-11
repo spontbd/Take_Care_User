@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 class AllColor{
 
   static const Color themeColor= Color(0xffFF0054);
+
   static const Map<int, Color> themeMapColor = {
     50: Color.fromRGBO(255, 0, 84, .1),
     100: Color.fromRGBO(255, 0, 84, .2),
