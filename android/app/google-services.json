@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "227666593233",
+    "project_id": "take-care2021",
+    "storage_bucket": "take-care2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227666593233:android:c90e2137bcc417982cccf0",
+        "android_client_info": {
+          "package_name": "com.example.takecare_user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227666593233-4fb4oqi7cddorgfcv3o2qlvmlpjmkfev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.takecare_user",
+            "certificate_hash": "f7392e8bbb76af27a660752fa332be102914fda5"
+          }
+        },
+        {
+          "client_id": "227666593233-dq5vt24i4ghes175ldmi1o99gduvi39f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHFtOLCNclwJeKcC_t05K1fYAjcrp_rpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227666593233-dq5vt24i4ghes175ldmi1o99gduvi39f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

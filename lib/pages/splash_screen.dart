@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:takecare_user/pages/home_page.dart';
+import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -31,7 +32,8 @@ class _SplashScreenState extends State<SplashScreen> {
           Center(
               child: Text(
             'Splash Screen',
-            style: TextStyle(color: Theme.of(context).primaryColor,fontSize: dynamicSize(0.1)),
+            style: TextStyle(color: AllColor.themeColor,
+                fontSize: dynamicSize(0.1)),
           ))
         ],
       ),

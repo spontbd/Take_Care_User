@@ -19,12 +19,13 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 FlutterLocalNotificationsPlugin();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
+  //await Firebase.initializeApp();
   print('A bg message just showed up :  ${message.messageId}');
 }
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
@@ -89,7 +90,7 @@ class _MyAppState extends State<MyApp> {
       print('A new onMessageOpenedApp event was published!');
       RemoteNotification? notification = message!.notification;
       AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null) {
+      if(notification != null && android != null) {
         print('yes');
       }
     });
