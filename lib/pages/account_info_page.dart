@@ -6,6 +6,8 @@ import 'package:takecare_user/public_variables/size_config.dart';
 import 'package:takecare_user/widgets/check_box.dart';
 import 'package:takecare_user/widgets/radio_button.dart';
 
+import 'otp_verification_page.dart';
+
 class AccountInfoPage extends StatefulWidget {
   const AccountInfoPage({Key? key}) : super(key: key);
 
@@ -45,7 +47,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     style: TextStyle(
                         fontSize: dynamicSize(0.05),
                         color: AllColor.black,
-                        fontWeight: FontWeight.bold),
+                       ),
                   ),
                 ),
               ),
