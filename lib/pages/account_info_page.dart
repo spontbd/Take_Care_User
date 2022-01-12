@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 import 'package:takecare_user/widgets/check_box.dart';
 import 'package:takecare_user/widgets/radio_button.dart';
@@ -15,180 +16,186 @@ class AccountInfoPage extends StatefulWidget {
 class _AccountInfoPageState extends State<AccountInfoPage> {
   @override
   Widget build(BuildContext context) {
-
     //Get.put(DataControllers());
     // return Obx(()
     // {
 
-      return
-
-
-
-        SafeArea(
-          child: Scaffold(
-            body: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: dynamicSize(0.16),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/clip_path_shape.png"),
+                      //fit:BoxFit.cover
+                      alignment: Alignment.topRight),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Account',
+                    style: TextStyle(
+                        fontSize: dynamicSize(0.05),
+                        color: AllColor.black,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Information',
+                    style: TextStyle(
+                        fontSize: dynamicSize(0.03), color: AllColor.black),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        child: TextFormField(
+                          // controller: DataControllers.to.name.value,
+                          keyboardType: TextInputType.name,
+                          obscureText: false,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Name*",
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                        child: Image.asset("assets/images/person_icon.png")),
+                  ],
+                ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height:dynamicSize(0.16),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/clip_path_shape.png"),
-                          //fit:BoxFit.cover
-                          alignment: Alignment.topRight),
+                  Expanded(
+                    child: Container(
+                      height: dynamicSize(0.08),
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.center,
+                      child: RadioButton(),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Account',
-                        style: TextStyle(
-                            fontSize: dynamicSize(0.05),
-                            color: Colors.black54,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Information',
-                        style: TextStyle(fontSize: 25, color: Colors.black54),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: Container(
-                            child: TextFormField(
-                             // controller: DataControllers.to.name.value,
-                              keyboardType: TextInputType.name,
-                              obscureText: false,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: "Name*",
-                              ),
-                            ),
-                          ),),
-                        Expanded(child: Image.asset("assets/images/person_icon.png")),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  children: [
+                    Expanded(
                         child: Container(
-                          height: 100,
-                          width: MediaQuery.of(context).size.width,
-                          alignment: Alignment.center,
-                          child: RadioButton(),
+                      height: dynamicSize(0.057),
+                      padding: const EdgeInsets.all(3.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black54),
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          '+88',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize:18,
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Container(
-                              height: MediaQuery.of(context).size.height/11.5,
-                              padding: const EdgeInsets.all(3.0),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black54),
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  '+88',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 18),
-                                ),),
-                            )),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Expanded(
-                            flex: 3,
-                            child: Container(
-                              child: TextFormField(
-                                //controller: DataControllers.to.phoneNumber.value,
-                                keyboardType: TextInputType.number,
-                                obscureText: false,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: "Mobile Number*",
-                                ),
-                              ),
-                            ))
-                      ],
+                    )),
+                    SizedBox(
+                      width: dynamicSize(0.01),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Expanded(
-                      //flex: 3,
+                    Expanded(
+                        flex: 3,
                         child: Container(
                           child: TextFormField(
-                            //controller: DataControllers.to.password.value,
-                            //keyboardType: TextInputType.name,
+                            //controller: DataControllers.to.phoneNumber.value,
+                            keyboardType: TextInputType.number,
                             obscureText: false,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: "Password*",
+                              labelText: "Mobile Number*",
                             ),
                           ),
-                        )),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height/18,),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CheckBox(),
-                      RichText(
-                        text: TextSpan(
-                          text: 'By singing up I agree to the all ',
-                          style:TextStyle(fontSize: 11,color: Colors.black),
-                          children:  <TextSpan>[
-                            TextSpan(text: 'Terms & Condition',
-
-                                recognizer: new TapGestureRecognizer()..onTap = () => print('Tap Here onTap'),
-
-                                style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red,decoration: TextDecoration.underline)),
-
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height/18,),
-                  SizedBox(
-                    height: 60,
-                    width: MediaQuery.of(context).size.width,
+                        ))
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Expanded(
+                    //flex: 3,
                     child: Container(
-                      //margin: EdgeInsets.only(bottom: 5),
-                      padding: const EdgeInsets.only(left: 5, right: 5, bottom: 10),
-                      child: RaisedButton(
-                        elevation: 9,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        onPressed: () async{
-
-                          /*           Fluttertoast.showToast(
+                  child: TextFormField(
+                    //controller: DataControllers.to.password.value,
+                    //keyboardType: TextInputType.name,
+                    obscureText: false,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Password*",
+                    ),
+                  ),
+                )),
+              ),
+              SizedBox(
+                height: dynamicSize(0.08),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CheckBox(),
+                  RichText(
+                    text: TextSpan(
+                      text: 'By singing up I agree to the all ',
+                      style: TextStyle(fontSize: dynamicSize(0.01), color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Terms & Condition',
+                            recognizer: new TapGestureRecognizer()
+                              ..onTap = () => print('Tap Here onTap'),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                                decoration: TextDecoration.underline)),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: dynamicSize(0.14),
+              ),
+              SizedBox(
+                height: dynamicSize(0.06),
+                width: MediaQuery.of(context).size.width,
+                child: Container(
+                  //margin: EdgeInsets.only(bottom: 5),
+                  padding: const EdgeInsets.only(left: 5, right: 5, bottom: 10),
+                  child: RaisedButton(
+                    elevation: 9,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    onPressed: () async {
+                      /*           Fluttertoast.showToast(
                               msg: "Click",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.CENTER,
@@ -198,7 +205,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                               fontSize: 16.0
                           );*/
 
-                         /* if(
+                      /* if(
                           DataControllers.to.phoneNumber.value.text.isNotEmpty  &&
                               DataControllers.to.password.value.text.isNotEmpty &&
                               DataControllers.to.name.value.text.isNotEmpty
@@ -245,31 +252,27 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                           }
 */
 
-
-                          /*     Navigator.push(
+                           Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const OtpVerificationPage()),
-                      );*/
-                        },
-                        color: Colors.redAccent,
-                        textColor: Colors.white,
-                        child: const Text(
-                          "Verify",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
+                      );
+                    },
+                    color: Colors.redAccent,
+                    textColor: Colors.white,
+                    child: const Text(
+                      "Verify",
+                      style: TextStyle(fontSize: 18),
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        );
-   // }
-  //  );
-
-
-
+        ),
+      ),
+    );
+    // }
+    //  );
   }
 }
