@@ -1,6 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-com/example/takecare_user/BuildConfig.java
- com.example.takecare_user.BuildConfig
-com/example/takecare_user/MainActivity.java
- com.example.takecare_user.MainActivity

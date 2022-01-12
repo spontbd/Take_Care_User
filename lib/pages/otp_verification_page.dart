@@ -6,6 +6,8 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:takecare_user/controllers/DataContollers.dart';
+import 'package:takecare_user/pages/sign_in_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 
@@ -63,13 +65,13 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 ),
                 FlatButton(
                     onPressed: () {},
-                    child: Text("01758351395",style: TextStyle(fontSize: dynamicSize(0.025),color: AllColor.themeColor),
-                      // DataControllers.to.phoneNumber.value.text,
-                      //
-                      // style: TextStyle(
-                      //     color: Colors.red,
-                      //     fontWeight: FontWeight.bold,
-                      //     fontSize: 23),
+                    child: Text(
+                      DataControllers.to.phoneNumber.value.text,
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 23),
+
                     )
                 ),
               ],
@@ -101,7 +103,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               child: Expanded(
                 child: OTPTextField(
                   length: 6,
-                  // numberOfFields: 5,
+                  //numberOfFields: 5,
                   width: size.width ,
                   fieldWidth: size.width*.13,
                   style: TextStyle(
@@ -111,7 +113,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   fieldStyle: FieldStyle.box,
                   onCompleted: (pin) {
                     print("Completed: " + pin);
-                    //DataControllers.to.name.value.text = pin;
+                    DataControllers.to.name.value.text = pin;
                   },
                 ),
               ),
@@ -148,7 +150,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
 
 
 
-                /*    if(DataControllers.to.name.value.text.isNotEmpty)
+                    if(DataControllers.to.name.value.text.isNotEmpty)
                     {
 
                       await DataControllers.to.postVerifyOTP(DataControllers.to.phoneNumber.value.text, DataControllers.to.name.value.text);
@@ -164,10 +166,10 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       );
                       if(DataControllers.to.userLoginResponse.value.success == true)
                       {
-                        // Get.offAll(SingInPage());
+                         Get.offAll(SignInPage());
 
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (_) => HomePage()));
+                       /* Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => HomePage()));*/
                       }
 
                     }else
@@ -181,7 +183,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                           textColor: Colors.white,
                           fontSize: 16.0
                       );
-                    }*/
+                    }
 
 
                     Navigator.push(

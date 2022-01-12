@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 import 'package:takecare_user/widgets/check_box.dart';
@@ -18,9 +24,9 @@ class AccountInfoPage extends StatefulWidget {
 class _AccountInfoPageState extends State<AccountInfoPage> {
   @override
   Widget build(BuildContext context) {
-    //Get.put(DataControllers());
-    // return Obx(()
-    // {
+    Get.put(DataControllers());
+    return Obx(()
+    {
 
     return SafeArea(
       child: Scaffold(
@@ -70,7 +76,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                       flex: 3,
                       child: Container(
                         child: TextFormField(
-                          // controller: DataControllers.to.name.value,
+                           controller: DataControllers.to.name.value,
                           keyboardType: TextInputType.name,
                           obscureText: false,
                           decoration: const InputDecoration(
@@ -128,7 +134,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         flex: 3,
                         child: Container(
                           child: TextFormField(
-                            //controller: DataControllers.to.phoneNumber.value,
+                            controller: DataControllers.to.phoneNumber.value,
                             keyboardType: TextInputType.number,
                             obscureText: false,
                             decoration: const InputDecoration(
@@ -146,7 +152,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                     //flex: 3,
                     child: Container(
                   child: TextFormField(
-                    //controller: DataControllers.to.password.value,
+                    controller: DataControllers.to.password.value,
                     //keyboardType: TextInputType.name,
                     obscureText: false,
                     decoration: const InputDecoration(
@@ -197,7 +203,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     onPressed: () async {
-                      /*           Fluttertoast.showToast(
+                            /*     Fluttertoast.showToast(
                               msg: "Click",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.CENTER,
@@ -207,7 +213,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                               fontSize: 16.0
                           );*/
 
-                      /* if(
+                       if(
                           DataControllers.to.phoneNumber.value.text.isNotEmpty  &&
                               DataControllers.to.password.value.text.isNotEmpty &&
                               DataControllers.to.name.value.text.isNotEmpty
@@ -232,12 +238,12 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                             );
                             if(DataControllers.to.regsiter.value.success == true)
                             {
-                              // Get.to(OtpVerificationPage());
-                              Navigator.push(
+                               Get.to(OtpVerificationPage());
+                           /*   Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const OtpVerificationPage()),
-                              );
+                              );*/
                             }
 
                           }else
@@ -252,13 +258,12 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 fontSize: 16.0
                             );
                           }
-*/
 
-                           Navigator.push(
+                       /*    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const OtpVerificationPage()),
-                      );
+                      );*/
                     },
                     color: Colors.redAccent,
                     textColor: Colors.white,
@@ -274,7 +279,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         ),
       ),
     );
-    // }
-    //  );
+    }
+     );
   }
 }

@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 
 class SingIn extends StatefulWidget {
@@ -24,8 +28,8 @@ class _SingInState extends State<SingIn> {
 
   @override
   Widget build(BuildContext context) {
-   // Get.put(DataControllers());
-    //return Obx(() {
+   Get.put(DataControllers());
+    return Obx(() {
       return Scaffold(
         body: SingleChildScrollView(
           child: Column(
@@ -38,7 +42,7 @@ class _SingInState extends State<SingIn> {
                   height:dynamicSize(0.05),
                   child: TextFormField(
 
-                    //controller: DataControllers.to.phoneNumber.value,
+                    controller: DataControllers.to.phoneNumber.value,
                     keyboardType: TextInputType.number,
                     obscureText: false,
                     style: new TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
@@ -56,7 +60,7 @@ class _SingInState extends State<SingIn> {
                   width: dynamicSize(0.4),
                   height:dynamicSize(0.05),
                   child: TextFormField(
-                    //controller: DataControllers.to.password.value,
+                    controller: DataControllers.to.password.value,
                     obscureText: isHiddenPassword,
                     decoration: InputDecoration(
                       contentPadding: new EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
@@ -86,8 +90,8 @@ class _SingInState extends State<SingIn> {
             ],
           ),
         ),
-      //);
-    //}
+      );
+    }
     );
   }
 }

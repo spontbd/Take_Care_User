@@ -93,7 +93,7 @@
     },
     {
       "name": "firebase_core",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.10.6",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.11.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -111,19 +111,19 @@
     },
     {
       "name": "firebase_messaging",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-11.2.4",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-11.2.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "firebase_messaging_platform_interface",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_platform_interface-3.1.4",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_platform_interface-3.1.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "firebase_messaging_web",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_web-2.2.5",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_web-2.2.6",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -273,19 +273,19 @@
     },
     {
       "name": "path_provider_linux",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.4",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "path_provider_platform_interface",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_platform_interface-2.0.1",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_platform_interface-2.0.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "path_provider_windows",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.4",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -309,7 +309,7 @@
     },
     {
       "name": "plugin_platform_interface",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.0",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -321,25 +321,25 @@
     },
     {
       "name": "shared_preferences",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-2.0.11",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-2.0.12",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "shared_preferences_android",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_android-2.0.9",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_android-2.0.10",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "shared_preferences_ios",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_ios-2.0.8",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_ios-2.0.9",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "shared_preferences_linux",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_linux-2.0.3",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_linux-2.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -357,13 +357,13 @@
     },
     {
       "name": "shared_preferences_web",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-2.0.2",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-2.0.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "shared_preferences_windows",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-2.0.3",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-2.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -458,7 +458,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-01-12T12:25:23.669035Z",
+  "generated": "2022-01-12T15:04:50.170381Z",
   "generator": "pub",
   "generatorVersion": "2.15.1"
 }

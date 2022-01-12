@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 
 class HomePage extends StatefulWidget {
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
                               "Good Morning",
                               style: TextStyle(fontSize: dynamicSize(0.02)),
                             )),
-                     /*   Container(
+                        Container(
                             margin:
                             EdgeInsets.only(left: 10, bottom: 10, top: 5),
                             child: Text(
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                                   .toString()),
                               style:
                               TextStyle(fontSize: 25, color: Colors.pink),
-                            )),*/
+                            )),
                       ],
                     ),
                   ),
