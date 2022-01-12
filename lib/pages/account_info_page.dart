@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:takecare_user/public_variables/size_config.dart';
 import 'package:takecare_user/widgets/check_box.dart';
 import 'package:takecare_user/widgets/radio_button.dart';
 
@@ -30,7 +31,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.2,
+                    height:dynamicSize(0.16),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -46,7 +47,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                       child: Text(
                         'Account',
                         style: TextStyle(
-                            fontSize: 30,
+                            fontSize: dynamicSize(0.05),
                             color: Colors.black54,
                             fontWeight: FontWeight.bold),
                       ),

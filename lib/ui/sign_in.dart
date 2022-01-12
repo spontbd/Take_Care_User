@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:takecare_user/public_variables/size_config.dart';
 
 class SingIn extends StatefulWidget {
   const SingIn({Key? key}) : super(key: key);
@@ -31,10 +32,10 @@ class _SingInState extends State<SingIn> {
             key: fromkey,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 8.0,right: 8),
+                padding: const EdgeInsets.only(left: 8.0,right: 8,top: 5),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height:MediaQuery.of(context).size.height/15,
+                  width: dynamicSize(0.4),
+                  height:dynamicSize(0.05),
                   child: TextFormField(
 
                     //controller: DataControllers.to.phoneNumber.value,
@@ -52,8 +53,8 @@ class _SingInState extends State<SingIn> {
               Padding(
                 padding: const EdgeInsets.only(left: 8.0,right: 8,top: 6),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height:MediaQuery.of(context).size.height/15,
+                  width: dynamicSize(0.4),
+                  height:dynamicSize(0.05),
                   child: TextFormField(
                     //controller: DataControllers.to.password.value,
                     obscureText: isHiddenPassword,
@@ -67,7 +68,7 @@ class _SingInState extends State<SingIn> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height*.02,
+                height:dynamicSize(0.02),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 10.0),
@@ -77,7 +78,7 @@ class _SingInState extends State<SingIn> {
                     "Forget Password?",
                     style: TextStyle(
                       color: Colors.red,
-                      fontSize: 16,
+                      fontSize: dynamicSize(0.02)
                     ),
                   ),
                 ),

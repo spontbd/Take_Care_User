@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:takecare_user/pages/sing_in_page.dart';
+import 'package:takecare_user/public_variables/size_config.dart';
 import 'package:takecare_user/ui/home.dart';
 import 'package:takecare_user/ui/sign_in.dart';
 import 'package:takecare_user/widgets/button.dart';
@@ -19,8 +20,8 @@ class StackHomeCenter extends StatelessWidget {
         overflow: Overflow.visible,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height / 3,
-            width: MediaQuery.of(context).size.width / 1.2,
+            height: dynamicSize(0.28),
+            width:dynamicSize(0.4),
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(color: Colors.white),
@@ -37,7 +38,7 @@ class StackHomeCenter extends StatelessWidget {
           ),
           Positioned(
             child: ToggleButtonSTF(
-              value: MediaQuery.of(context).size.width / 2.4,
+              value:dynamicSize(0.2),
               lableValue: ["Sign in", "Sign Up"],
             ),
             top: -10,
@@ -58,7 +59,7 @@ class StackHomeCenter extends StatelessWidget {
           Positioned(
             left: MediaQuery.of(context).size.width * .25,
             //  right:   MediaQuery.of(context).size.width *.2, bottom: -25,
-            bottom: -25,
+            bottom: dynamicSize(-0.02),
             child: HomeButton(),
           ),
 
@@ -109,7 +110,7 @@ class StackHome extends StatelessWidget {
         ),
         Positioned(
           child: StackHomeCenter(),
-          top: MediaQuery.of(context).size.height / 2.9,
+          top:dynamicSize(0.28),
         )
       ],
     );

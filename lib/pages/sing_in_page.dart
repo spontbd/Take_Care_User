@@ -13,16 +13,18 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              StackHome(),
-            ],
-          ),
-        ));
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                StackHome(),
+              ],
+            ),
+          )),
+    );
   }
 }
 
@@ -36,7 +38,7 @@ class PageStructure extends StatelessWidget {
         children: [
           Container(
            // height: MediaQuery.of(context).size.height * 0.4,
-            height: dynamicSize(0.3),
+            height: dynamicSize(0.32),
             width: MediaQuery.of(context).size.width,
             child: Image.asset(
               'assets/images/home_header.png',
@@ -45,7 +47,7 @@ class PageStructure extends StatelessWidget {
             ),
           ),
           SizedBox(
-           height: dynamicSize(0.5),
+           height: dynamicSize(0.33),
           ),
           Container(
             padding: EdgeInsets.only(right: 10),
@@ -57,7 +59,7 @@ class PageStructure extends StatelessWidget {
                   child: TextButton(
                     child: Text(
                       "Continue as Guest",
-                      style: TextStyle(fontSize: dynamicSize(0.03),color:AllColor.blue ),
+                      style: TextStyle(fontSize: dynamicSize(0.025),color:AllColor.blue ),
                     ),
                     onPressed: () {},
                   ),
@@ -68,7 +70,7 @@ class PageStructure extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Text(
                         "Or",
-                        style: TextStyle(fontSize:dynamicSize(0.03)),
+                        style: TextStyle(fontSize:dynamicSize(0.025)),
                       ),
                     )),
                 Align(
@@ -77,7 +79,7 @@ class PageStructure extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8.0, top: 10),
                       child: Text(
                         "Sing Up With",
-                        style: TextStyle(fontSize: dynamicSize(0.03)),
+                        style: TextStyle(fontSize: dynamicSize(0.025)),
                       ),
                     )),
                 SizedBox(height: dynamicSize(0.01),),
@@ -85,8 +87,8 @@ class PageStructure extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      width: dynamicSize(0.07),
-                      height: dynamicSize(0.07),
+                      width: dynamicSize(0.05),
+                      height: dynamicSize(0.05),
                       decoration: BoxDecoration(
                         // color: const Color(0xff7c94b6),
                         image: DecorationImage(
@@ -102,12 +104,12 @@ class PageStructure extends StatelessWidget {
                     ),
                     SizedBox(width: dynamicSize(0.01),),
                     Container(
-                      width: dynamicSize(0.07),
-                      height: dynamicSize(0.07),
+                      width: dynamicSize(0.05),
+                      height: dynamicSize(0.05),
                       decoration: BoxDecoration(
                         // color: const Color(0xff7c94b6),
                         image: DecorationImage(
-                          image: AssetImage('assets/images/email.png'),
+                          image: AssetImage('assets/images/facebook.png'),
                           fit: BoxFit.none,
                         ),
                         borderRadius: BorderRadius.all( Radius.circular(50.0)),
@@ -120,12 +122,12 @@ class PageStructure extends StatelessWidget {
 
                     SizedBox(width: dynamicSize(0.01),),
                     Container(
-                      width: dynamicSize(0.07),
-                      height: dynamicSize(0.07),
+                      width: dynamicSize(0.05),
+                      height: dynamicSize(0.05),
                       decoration: BoxDecoration(
                         // color: const Color(0xff7c94b6),
                         image: DecorationImage(
-                          image: AssetImage('assets/images/email.png'),
+                          image: AssetImage('assets/images/google.png'),
                           fit: BoxFit.none,
                         ),
                         borderRadius: BorderRadius.all( Radius.circular(50.0)),

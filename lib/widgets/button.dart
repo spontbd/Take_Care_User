@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:takecare_user/public_variables/all_colors.dart';
 
 class HomeButton extends StatelessWidget {
   const HomeButton({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class HomeButton extends StatelessWidget {
       child: new RaisedButton(
         elevation: 9,
         child: new Text('Sign In',style: TextStyle(color: Colors.white,fontSize: 18),),
-        color: Colors.redAccent,
+        color: AllColor.themeColor,
         onPressed: () async{
 
           // if(DataControllers.to.phoneNumber.value.text.isNotEmpty  &&
