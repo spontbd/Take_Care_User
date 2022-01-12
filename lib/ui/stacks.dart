@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
-import 'package:takecare_user/ui/home.dart';
 import 'package:takecare_user/ui/sign_in.dart';
 import 'package:takecare_user/widgets/button.dart';
 import 'package:takecare_user/widgets/toggle_button.dart';

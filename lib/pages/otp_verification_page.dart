@@ -2,15 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-
-
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
-import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
-
 import 'home_page.dart';
 
 class OtpVerificationPage extends StatefulWidget {

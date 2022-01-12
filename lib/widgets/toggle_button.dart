@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:takecare_user/pages/account_info_page.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
-import 'package:takecare_user/ui/home.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'AnimatedToggleButton.dart';
 
