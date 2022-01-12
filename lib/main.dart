@@ -38,12 +38,12 @@ void main() async{
   );
 
   /// Set Device orientation
-  final bool _isPhone = Device.get().isPhone;
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  if(_isPhone) {AllColor.portraitMood;}
-  else {AllColor.landscapeMood;}
-  AllColor.systemOverlay;
-  pref.setBool('isPhone', _isPhone);
+  // final bool _isPhone = Device.get().isPhone;
+  // SharedPreferences pref = await SharedPreferences.getInstance();
+  // if(_isPhone) {AllColor.portraitMood;}
+  // else {AllColor.landscapeMood;}
+  // AllColor.systemOverlay;
+  // pref.setBool('isPhone', _isPhone);
   runApp(const MyApp());
 }
 
