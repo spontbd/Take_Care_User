@@ -9,6 +9,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 
+import 'home_page.dart';
+
 class OtpVerificationPage extends StatefulWidget {
   const OtpVerificationPage({Key? key}) : super(key: key);
 
@@ -132,7 +134,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
 
             Spacer(),
             SizedBox(
-              height: dynamicSize(0.1),
+              height: dynamicSize(0.06),
               width: MediaQuery.of(context).size.width,
               child: Container(
                 //margin: EdgeInsets.only(bottom: 5),
@@ -182,11 +184,11 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     }*/
 
 
-                  /*  Navigator.push(
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>  HomePage()),
-                    );*/
+                    );
                   },
                   //padding: EdgeInsets.all(10.0),
                   color: Colors.redAccent,

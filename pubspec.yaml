@@ -43,6 +43,10 @@ flutter:
     - assets/images/facebook.png
     - assets/images/clip_path_shape.png
     - assets/images/person_icon.png
+    - assets/images/baby.png
+    - assets/images/pet.png
+    - assets/images/doc.png
+    - assets/images/inject_1.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
