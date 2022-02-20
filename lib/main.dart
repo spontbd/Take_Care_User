@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:takecare_user/pages/splash_screen.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 import 'controller/data_controller.dart';
+import 'controllers/DataContollers.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel', // id
@@ -100,6 +101,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final DataController dataController = Get.put(DataController());
+    final DataControllers dataControllers = Get.put(DataControllers());
     return GetMaterialApp(
         title: 'Take Care',
         theme: AllColor.theme,
