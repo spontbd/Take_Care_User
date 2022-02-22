@@ -143,8 +143,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   ),
                   onPressed: () async{
 
-
-
                     if(DataControllers.to.name.value.text.isNotEmpty)
                     {
 

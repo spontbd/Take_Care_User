@@ -17,9 +17,9 @@ class DataControllers extends GetxController {
   Rx<TextEditingController> password = TextEditingController().obs;
   Rx<TextEditingController> phoneNumber = TextEditingController().obs;
   RxBool isLoading = false.obs;
-  Rx<RegisterResponse> regsiter = new RegisterResponse().obs;
-  Rx<UserLoginResponse> userLoginResponse = new UserLoginResponse().obs;
-  Rx<ResendOTPResponse> resendOtpResponse = new ResendOTPResponse().obs;
+  Rx<RegisterResponse> regsiter = RegisterResponse().obs;
+  Rx<UserLoginResponse> userLoginResponse = UserLoginResponse().obs;
+  Rx<ResendOTPResponse> resendOtpResponse = ResendOTPResponse().obs;
 
 
 
