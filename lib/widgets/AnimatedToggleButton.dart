@@ -1,67 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:takecare_user/controllers/language_controller.dart';
+import 'package:takecare_user/public_variables/size_config.dart';
 
-class AnimatedToggle extends StatefulWidget {
+class AnimatedToggleButton extends StatefulWidget {
   final List<String> values;
+  late  bool toggleValue;
+  final double? height;
+  final double? fontSize;
+  final double width;
   final ValueChanged onToggleCallback;
-  final Color backgroundColor;
-  final Color buttonColor;
-  final Color textColor;
-
-  AnimatedToggle({
+  AnimatedToggleButton({
+    Key? key,
     required this.values,
     required this.onToggleCallback,
-    this.backgroundColor = const Color(0xFFe7e7e8),
-    this.buttonColor = const Color(0xFFFFFFFF),
-    this.textColor = const Color(0xFF000000),
-  });
+    required this.toggleValue,
+    this.height,
+    this.fontSize,
+    required this.width
+  }) : super(key: key);
+
   @override
-  _AnimatedToggleState createState() => _AnimatedToggleState();
+  _AnimatedToggleButtonState createState() => _AnimatedToggleButtonState();
 }
 
-class _AnimatedToggleState extends State<AnimatedToggle> {
-  bool initialPosition = true;
+class _AnimatedToggleButtonState extends State<AnimatedToggleButton> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width * 0.6,
-      height: Get.width * 0.13,
-      margin: EdgeInsets.all(20),
+    return SizedBox(
+      width: widget.width,
       child: Stack(
-        children: <Widget>[
+        children: [
           GestureDetector(
             onTap: () {
-              initialPosition = !initialPosition;
-              var index = 0;
-              if (!initialPosition) {
-                index = 1;
-              }
-              widget.onToggleCallback(index);
-              setState(() {});
+              widget.onToggleCallback(1);
+              setState(() {
+                widget.toggleValue=! widget.toggleValue;
+                LanguageController.lc.changeLanguage(widget.toggleValue);
+              });
             },
             child: Container(
-              width: Get.width * 0.6,
-              height: Get.width * 0.13,
+              width: widget.width,
+              height: widget.height?? dynamicSize(.12),
               decoration: ShapeDecoration(
-                color: widget.backgroundColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(Get.width * 0.1),
-                ),
-              ),
+                  color: Colors.grey.shade400,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(dynamicSize(.1)))),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: List.generate(
                   widget.values.length,
                       (index) => Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+                    padding: EdgeInsets.symmetric(horizontal: dynamicSize(.04)),
                     child: Text(
                       widget.values[index],
                       style: TextStyle(
-                        fontFamily: 'Rubik',
-                        fontSize: Get.width * 0.045,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xAA000000),
-                      ),
+                          fontSize: widget.fontSize?? dynamicSize(.04),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                   ),
                 ),
@@ -69,31 +65,29 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
             ),
           ),
           AnimatedAlign(
-            duration: const Duration(milliseconds: 250),
-            curve: Curves.decelerate,
-            alignment:
-            initialPosition ? Alignment.centerLeft : Alignment.centerRight,
+            alignment:  widget.toggleValue
+                ? Alignment.centerLeft
+                : Alignment.centerRight,
+            duration: const Duration(milliseconds: 350),
+            curve: Curves.ease,
             child: Container(
-              width: Get.width * 0.33,
-              height: Get.width * 0.13,
-              decoration: ShapeDecoration(
-                color: widget.buttonColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(Get.width * 0.1),
-                ),
-              ),
-              child: Text(
-                initialPosition ? widget.values[0] : widget.values[1],
-                style: TextStyle(
-                  fontFamily: 'Rubik',
-                  fontSize: Get.width * 0.045,
-                  color: widget.textColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
               alignment: Alignment.center,
+              width: (widget.width)/2,
+              height: widget.height?? dynamicSize(.12),
+              decoration: ShapeDecoration(
+                  color: Colors.blue,
+                  //shadows: themeProvider.themeMode().shadow,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(dynamicSize(.1)))),
+              child: Text(
+                widget.toggleValue
+                    ? widget.values[0]
+                    : widget.values[1],
+                style: TextStyle(
+                    fontSize: widget.fontSize?? dynamicSize(.04), fontWeight: FontWeight.bold,color: Colors.white),
+              ),
             ),
-          ),
+          )
         ],
       ),
     );

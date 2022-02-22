@@ -13,7 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_device_type: ^0.4.0
   get: ^4.6.1
-  fluttertoast: ^8.0.8
+  fluttertoast: ^8.0.6
   shared_preferences: ^2.0.11
   flutter_spinkit: ^5.1.0
   firebase_messaging: ^11.2.4
@@ -37,16 +37,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/home_header.png
-    - assets/images/email.png
-    - assets/images/google.png
-    - assets/images/facebook.png
-    - assets/images/clip_path_shape.png
-    - assets/images/person_icon.png
-    - assets/images/baby.png
-    - assets/images/pet.png
-    - assets/images/doc.png
-    - assets/images/inject_1.png
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

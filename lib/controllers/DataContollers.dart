@@ -20,6 +20,7 @@ class DataControllers extends GetxController {
   Rx<RegisterResponse> regsiter = RegisterResponse().obs;
   Rx<UserLoginResponse> userLoginResponse = UserLoginResponse().obs;
   Rx<ResendOTPResponse> resendOtpResponse = ResendOTPResponse().obs;
+  RxString gender = ''.obs;
 
 
 
