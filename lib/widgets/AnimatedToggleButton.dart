@@ -35,7 +35,9 @@ class _AnimatedToggleButtonState extends State<AnimatedToggleButton> {
               widget.onToggleCallback(1);
               setState(() {
                 widget.toggleValue=! widget.toggleValue;
-                LanguageController.lc.changeLanguage(widget.toggleValue);
+               if(widget.values[0]=='English') {
+                 LanguageController.lc.changeLanguage(widget.toggleValue);
+               }
               });
             },
             child: Container(
