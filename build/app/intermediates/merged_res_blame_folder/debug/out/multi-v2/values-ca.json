@@ -1,27 +1,27 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\FlutterProject\\Take_Care_App\\take_care_user\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ca\\values-ca.xml",
+            "outputFile": "I:\\Android\\Take_Care_Main\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ca\\values-ca.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Glamworld IT\\.gradle\\caches\\transforms-2\\files-2.1\\40bcec037e7208c6113f792c68247cf7\\jetified-firebase-messaging-23.0.0\\res\\values-ca\\values.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-2\\files-2.1\\875654acb8fd75501dc33efa1bebb479\\core-1.6.0\\res\\values-ca\\values-ca.xml",
                     "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "207",
-                        "endColumns": "70",
-                        "endOffsets": "277"
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "3",
+                        "startLines": "4",
                         "startColumns": "4",
-                        "startOffsets": "299",
-                        "endColumns": "74",
-                        "endOffsets": "369"
+                        "startOffsets": "374",
+                        "endColumns": "100",
+                        "endOffsets": "470"
                     }
                 },
                 {
-                    "source": "C:\\Users\\Glamworld IT\\.gradle\\caches\\transforms-2\\files-2.1\\b8e5988e0bc615162088959e72f15f1d\\jetified-play-services-basement-17.0.0\\res\\values-ca\\values.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-2\\files-2.1\\b8e5988e0bc615162088959e72f15f1d\\jetified-play-services-basement-17.0.0\\res\\values-ca\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -38,20 +38,20 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Glamworld IT\\.gradle\\caches\\transforms-2\\files-2.1\\875654acb8fd75501dc33efa1bebb479\\core-1.6.0\\res\\values-ca\\values-ca.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-2\\files-2.1\\40bcec037e7208c6113f792c68247cf7\\jetified-firebase-messaging-23.0.0\\res\\values-ca\\values.xml",
                     "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "207",
+                        "endColumns": "70",
+                        "endOffsets": "277"
                     },
                     "to": {
-                        "startLines": "4",
+                        "startLines": "3",
                         "startColumns": "4",
-                        "startOffsets": "374",
-                        "endColumns": "100",
-                        "endOffsets": "470"
+                        "startOffsets": "299",
+                        "endColumns": "74",
+                        "endOffsets": "369"
                     }
                 }
             ]

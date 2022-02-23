@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\FlutterProject\\Take_Care_App\\take_care_user\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
+            "outputFile": "I:\\Android\\Take_Care_Main\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Glamworld IT\\.gradle\\caches\\transforms-2\\files-2.1\\4b82e8f8c069a644353efb8ee65fce15\\media-1.1.0\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-2\\files-2.1\\4b82e8f8c069a644353efb8ee65fce15\\media-1.1.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
