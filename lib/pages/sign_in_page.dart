@@ -28,8 +28,8 @@ class _SignInPageState extends State<SignInPage> {
   bool signIn = true;
 
 
-  TextEditingController _mobileNumber = TextEditingController(text: '');
-  TextEditingController _signInPass = TextEditingController(text: '');
+  final TextEditingController _mobileNumber = TextEditingController(text: '');
+  final TextEditingController _signInPass = TextEditingController(text: '');
 
 
 
@@ -175,7 +175,7 @@ class _SignInPageState extends State<SignInPage> {
                     return Positioned(
                       top: dynamicSize(.6),
                       child: AnimatedToggleButton(
-                        values: ['${languageController.sigIn.value}', '${languageController.signUp.value}'],
+                        values: [(languageController.sigIn.value), (languageController.signUp.value)],
                         toggleValue: signIn,
                         width: dynamicSize(.85),
                         height: dynamicSize(0.12),
