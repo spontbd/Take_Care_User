@@ -37,7 +37,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 child: Text(
                   'Enter 5 digit code that ',
                   style: TextStyle(
-                    fontSize: dynamicSize(0.025),
+                    fontSize: dynamicSize(0.09),
                     color: Colors.black,
                   ),
                 ),
@@ -52,7 +52,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     child: Text(
                       'sent you in',
                       style: TextStyle(
-                        fontSize: dynamicSize(0.025),
+                        fontSize: dynamicSize(0.09),
                         color: Colors.black,
                       ),
                     ),
@@ -84,25 +84,25 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
-                          fontSize: dynamicSize(0.025)),
+                          fontSize: dynamicSize(0.09)),
                     )),
               ),
             ),
 
             SizedBox(
-              height:dynamicSize(0.04),
+              height:dynamicSize(0.09),
             ),
             Container(
               padding: const EdgeInsets.only(left:10.0,right: 10),
               width:  MediaQuery.of(context).size.width,
               child: Expanded(
                 child: OTPTextField(
-                  length: 6,
+                  length: 5,
                   //numberOfFields: 5,
                   width: size.width ,
                   fieldWidth: size.width*.13,
                   style: TextStyle(
-                      fontSize: dynamicSize(0.02)
+                      fontSize: dynamicSize(0.08)
                   ),
                   textFieldAlignment: MainAxisAlignment.spaceAround,
                   fieldStyle: FieldStyle.box,
@@ -120,7 +120,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 child: Text(
                   '59 sec.',
                   style: TextStyle(
-                    fontSize: dynamicSize(0.025),
+                    fontSize: dynamicSize(0.09),
                     color: Colors.blue,
                   ),
                 ),
@@ -131,7 +131,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
 
             Spacer(),
             SizedBox(
-              height: dynamicSize(0.06),
+              height: dynamicSize(0.2),
               width: MediaQuery.of(context).size.width,
               child: Container(
                 //margin: EdgeInsets.only(bottom: 5),
@@ -190,7 +190,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   textColor: Colors.white,
                   child: Text(
                     "Verify",
-                    style: TextStyle(fontSize: dynamicSize(0.02)),
+                    style: TextStyle(fontSize: dynamicSize(0.07)),
                   ),
                 ),
               ),
