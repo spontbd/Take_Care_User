@@ -61,35 +61,41 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           ),
                          addedlist? Container(
                             alignment: Alignment.topLeft,
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0, top: 5),
-                                  child: Text(
-                                    "02",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.04),
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
+                            child: InkWell(
+                              onTap: (){
+                                BottomSheetAddedListDialog(context);
+                              },
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0, top: 5),
+                                    child: Text(
+                                      "02",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.04),
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only( top: 5),
-                                  child: Text(
-                                    " Service Added",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.04),
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
+                                  Padding(
+                                    padding: const EdgeInsets.only( top: 5),
+                                    child: Text(
+                                      " Service Added",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.04),
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(Icons.keyboard_arrow_up,color: Colors.white,),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Icon(Icons.keyboard_arrow_up,color: Colors.white,),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ):Container(
+                          )
+                             :Container(
                            alignment: Alignment.topLeft,
                            child: Padding(
                              padding: const EdgeInsets.only(left: 8.0, top: 5),
@@ -530,12 +536,12 @@ class _OnDemandPageState extends State<OnDemandPage> {
         });
   }
 
- /* void BottomSheetAddedListDialog(BuildContext context) {
+  void BottomSheetAddedListDialog(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bcs) {
           return Container(
-            height: dynamicSize(0.6),
+            height: dynamicSize(0.9),
             child: Column(
               children: [
                 Align(
@@ -550,7 +556,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           size: 35,
                         ))),
                 Container(
-                  height: dynamicSize(0.45),
+                  height: dynamicSize(0.55),
                   child: ListView(
                     padding: const EdgeInsets.all(8),
                     children: new List.generate(
@@ -574,7 +580,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           child: Row(
                             children: [
                               Image.asset(
-                                "assets/images/treatment.png",
+                                "assets/images/image.png",
                               ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -604,162 +610,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                   ),
                                 ],
                               ),
-                              Spacer(),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text(
-                                            LanguageController.lc.doYouWantToRemove.value,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: dynamicSize(0.03),
-                                                color: Colors.red),
-                                          ),
-                                          actions: [
-                                            Column(
-                                              children: [
-                                                SizedBox(
-                                                  height: dynamicSize(0.07),
-                                                ),
-                                                Container(
-                                                  height: dynamicSize(0.003),
-                                                  width: dynamicSize(1),
-                                                  color: Colors.grey,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Flexible(
-                                                      flex: 1,
-                                                      child: SizedBox(
-                                                        height:
-                                                        dynamicSize(0.10),
-                                                        width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width,
-                                                        child: Container(
-                                                          *//*decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        width: 1,
-                                                        color: Colors.black,
-                                                      ),
-                                                      borderRadius:
-                                                      BorderRadius.circular(0.0),
-                                                    ),*//*
-                                                          //margin: EdgeInsets.only(bottom: 5),
-                                                          *//*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*//*
-                                                          child: RaisedButton(
-                                                            shape:
-                                                            RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius
-                                                                  .only(
-                                                                bottomLeft: Radius
-                                                                    .circular(
-                                                                    10.0),
-                                                              ),
-                                                            ),
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                              *//* Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const Dashboard()),
-            );*//*
-                                                            },
-                                                            //color: AllColor.button_color,
-                                                            textColor:
-                                                            Colors.black,
-                                                            child:  Text(
-                                                              LanguageController.lc.yes.value,
-                                                              style: TextStyle(
-                                                                  fontSize: 18),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      height: dynamicSize(0.1),
-                                                      width: dynamicSize(0.003),
-                                                      color: Colors.grey,
-                                                    ),
-                                                    Flexible(
-                                                      flex: 1,
-                                                      child: SizedBox(
-                                                        height:
-                                                        dynamicSize(0.10),
-                                                        width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width,
-                                                        child: Container(
-                                                          *//*  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        width: 1,
-                                                        color: Colors.black,
-                                                      ),
-                                                      borderRadius:
-                                                      BorderRadius.circular(5.0),
-                                                    ),*//*
-                                                          //margin: EdgeInsets.only(bottom: 5),
-                                                          *//*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*//*
-                                                          child: RaisedButton(
-                                                            shape:
-                                                            RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius
-                                                                  .only(
-                                                                bottomRight: Radius
-                                                                    .circular(
-                                                                    10.0),
-                                                              ),
-                                                            ),
-                                                            onPressed: () {
-                                                              *//* Navigator.pop(
-                                                                  context);
-                                                                setState(()=>addedservice=true);*//*
-                                                              Navigator
-                                                                  .pushReplacement(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
 
-                                                                    const ServiceSetup()),
-                                                              );
-                                                              //showBottomSheetAddedDialog(context);
-                                                            },
-                                                            //color: AllColor.button_color,
-                                                            textColor:
-                                                            Colors.black,
-                                                            child:  Text(
-                                                              LanguageController.lc.no.value,
-                                                              style: TextStyle(
-                                                                  fontSize: 18,
-                                                                  color: Colors
-                                                                      .lightBlue),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        );
-                                      });
-                                },
-                                child: Image.asset(
-                                  "assets/images/demand_service_cross_button.png",
-                                ),
-                              ),
                             ],
                           ),
                         ),
@@ -771,5 +622,5 @@ class _OnDemandPageState extends State<OnDemandPage> {
             ),
           );
         });
-  }*/
+  }
 }
