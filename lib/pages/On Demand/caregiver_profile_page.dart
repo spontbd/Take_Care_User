@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:takecare_user/pages/home_page.dart';
 
 import '../../controllers/DataContollers.dart';
 import '../../controllers/language_controller.dart';
@@ -22,8 +23,8 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
             title: Text("Caregiver Profile"),
             leading: InkWell(
               onTap: () {
-              /*  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => Dashboard()));*/
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (_) => HomePage()));
               },
               child: Image.asset("assets/images/cross.png"),
             ),
@@ -36,8 +37,8 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                   overflow: Overflow.visible,
                   children: [
                     Container(
-                      height: dynamicSize(.2),
-                      width: dynamicSize(1),
+                      height: dynamicSize(.3),
+                      width: dynamicSize(1.4),
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.only(
@@ -47,7 +48,7 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                       ),
                     ),
                     Positioned(
-                      top: dynamicSize(0.1),
+                      top: dynamicSize(0.15),
                       left: MediaQuery.of(context).size.width / 2.5,
                       child: Container(
                         width: 110.0,
@@ -66,8 +67,8 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                       ),
                     ),
                     Positioned(
-                      top: dynamicSize(0.28),
-                      left: MediaQuery.of(context).size.width / 2.35,
+                      top: dynamicSize(0.38),
+                      left: MediaQuery.of(context).size.width / 2.25,
                       child: Container(
                           width: dynamicSize(0.18),
                           //color: Colors.red,
@@ -95,14 +96,14 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                           )),
                     ),
                     Positioned(
-                      top: dynamicSize(0.4),
-                      left: MediaQuery.of(context).size.width / 2.7,
+                      top: dynamicSize(0.45),
+                      left: MediaQuery.of(context).size.width / 2.8,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            ("${DataControllers.to.userLoginResponse.value.data!.user!.fullName}"),
+                          Text("Fahim",
+                           // ("${DataControllers.to.userLoginResponse.value.data!.user!.fullName}"),
                             style: TextStyle(
                                 fontSize: dynamicSize(0.05),
                                 fontWeight: FontWeight.bold,

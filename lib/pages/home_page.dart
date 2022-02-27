@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:takecare_user/controllers/DataContollers.dart';
+//import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,14 +38,14 @@ class _HomePageState extends State<HomePage> {
                         Container(
                             margin:
                             EdgeInsets.only(left: 10, bottom: 10, top: 5),
-                            child: Text(
-                              (
+                            child: Text("Fahim",
+                             /* (
                                   DataControllers.to.userLoginResponse.value.data!
                                   .user!.fullName!.isEmpty
                                   ? " "
                                   : DataControllers.to.userLoginResponse.value
                                   .data!.user!.fullName
-                                  .toString()),
+                                  .toString()),*/
                               style:
                               TextStyle(fontSize: 25, color: Colors.pink),
                             )),

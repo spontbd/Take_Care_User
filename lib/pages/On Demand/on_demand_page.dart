@@ -6,6 +6,7 @@ import 'package:takecare_user/pages/On%20Demand/categories_page.dart';
 import 'package:takecare_user/pages/On%20Demand/popular_page.dart';
 import 'package:takecare_user/pages/On%20Demand/caregiver_profile_page.dart';
 import 'package:takecare_user/pages/home_page.dart';
+import 'package:takecare_user/widgets/check_box.dart';
 
 import '../../controllers/language_controller.dart';
 import '../../public_variables/all_colors.dart';
@@ -351,7 +352,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                   children: [
                     InkWell(
                       onTap: () {
-
+                        showButtonListDialog(context);
                       },
                       child: Container(
                         child: Row(
@@ -847,4 +848,50 @@ class _OnDemandPageState extends State<OnDemandPage> {
           );
         });
   }
+
+  void showButtonListDialog(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+
+                children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.08),fontWeight: FontWeight.bold),),
+                  Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),),
+                ],
+              ),
+SizedBox(height: dynamicSize(0.05),),
+Row(
+  crossAxisAlignment: CrossAxisAlignment.center,
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+        Text("Dressing",style: TextStyle(fontSize: dynamicSize(0.05)),),
+    CheckBox(),
+  ],
+),
+Row(
+  crossAxisAlignment: CrossAxisAlignment.center,
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+        Text("Dressing",style: TextStyle(fontSize: dynamicSize(0.05)),),
+    CheckBox(),
+  ],
+),
+
+
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
 }

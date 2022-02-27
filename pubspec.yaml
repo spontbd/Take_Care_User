@@ -42,6 +42,8 @@ flutter:
     - assets/images/image.png
     - assets/images/add.png
     - assets/images/added_now_button.png
+    - assets/images/cross.png
+    - assets/images/baby.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
