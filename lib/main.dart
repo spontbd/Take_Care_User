@@ -30,6 +30,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async{
+
   WidgetsFlutterBinding.ensureInitialized();
   final DataController dataController = Get.put(DataController());
   final DataControllers dataControllers = Get.put(DataControllers());

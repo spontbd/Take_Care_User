@@ -19,6 +19,10 @@ MERGED from [com.google.firebase:firebase-common:20.0.0] C:\Users\User\.gradle\c
 MERGED from [com.google.firebase:firebase-common:20.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\be1f31d795f15c1bd24708ca9c440629\jetified-firebase-common-20.0.0\AndroidManifest.xml:25:5-38:19
 MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\15aec5644bd549b097f72d346048eb5f\jetified-play-services-stats-17.0.0\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\15aec5644bd549b097f72d346048eb5f\jetified-play-services-stats-17.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:30:5-36:19
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:30:5-36:19
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\b513423f2ebe04286dfcb594785725db\jetified-play-services-base-17.0.0\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\b513423f2ebe04286dfcb594785725db\jetified-play-services-base-17.0.0\AndroidManifest.xml:22:5-27:19
 MERGED from [com.google.firebase:firebase-iid-interop:17.1.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\2b1e572b3be9ac55cbd2d19d47b6262a\jetified-firebase-iid-interop-17.1.0\AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.firebase:firebase-iid-interop:17.1.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\2b1e572b3be9ac55cbd2d19d47b6262a\jetified-firebase-iid-interop-17.1.0\AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\57198e2e5399f1dcf97655ee6fa74ae4\jetified-play-services-tasks-17.0.0\AndroidManifest.xml:7:5-20
@@ -52,6 +56,7 @@ MERGED from I:\Android\Take_Care_Main\android\app\src\main\AndroidManifest.xml:1
 MERGED from [:shared_preferences_android] I:\Android\Take_Care_Main\build\shared_preferences_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:firebase_messaging] I:\Android\Take_Care_Main\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-46:12
 MERGED from [:firebase_core] I:\Android\Take_Care_Main\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
+MERGED from [:google_maps_flutter] I:\Android\Take_Care_Main\build\google_maps_flutter\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:image_picker] I:\Android\Take_Care_Main\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-19:12
 MERGED from [:flutter_plugin_android_lifecycle] I:\Android\Take_Care_Main\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_local_notifications] I:\Android\Take_Care_Main\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-28:12
@@ -66,6 +71,8 @@ MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\User\.g
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\620ef525a74e68563fec041d3225d230\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\ced0efc3d9a68006b6f4e94d9a24d813\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.media:media:1.1.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\4b82e8f8c069a644353efb8ee65fce15\media-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:17:1-38:12
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\b513423f2ebe04286dfcb594785725db\jetified-play-services-base-17.0.0\AndroidManifest.xml:17:1-29:12
 MERGED from [com.google.android.gms:play-services-cloud-messaging:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\9475210b76bdfd49ca44aed29fd92245\jetified-play-services-cloud-messaging-17.0.0\AndroidManifest.xml:2:1-13:12
 MERGED from [com.google.firebase:firebase-iid-interop:17.1.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\2b1e572b3be9ac55cbd2d19d47b6262a\jetified-firebase-iid-interop-17.1.0\AndroidManifest.xml:2:1-10:12
 MERGED from [com.google.firebase:firebase-installations-interop:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7255b8cc08658a7ed8d10d1a89df5cab\jetified-firebase-installations-interop-17.0.0\AndroidManifest.xml:15:1-23:12
@@ -124,6 +131,8 @@ MERGED from [:firebase_messaging] I:\Android\Take_Care_Main\build\firebase_messa
 MERGED from [:firebase_messaging] I:\Android\Take_Care_Main\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] I:\Android\Take_Care_Main\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] I:\Android\Take_Care_Main\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:google_maps_flutter] I:\Android\Take_Care_Main\build\google_maps_flutter\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:google_maps_flutter] I:\Android\Take_Care_Main\build\google_maps_flutter\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:image_picker] I:\Android\Take_Care_Main\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:image_picker] I:\Android\Take_Care_Main\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] I:\Android\Take_Care_Main\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -152,6 +161,10 @@ MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\User
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\ced0efc3d9a68006b6f4e94d9a24d813\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.media:media:1.1.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\4b82e8f8c069a644353efb8ee65fce15\media-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.media:media:1.1.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\4b82e8f8c069a644353efb8ee65fce15\media-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\b513423f2ebe04286dfcb594785725db\jetified-play-services-base-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\b513423f2ebe04286dfcb594785725db\jetified-play-services-base-17.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-cloud-messaging:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\9475210b76bdfd49ca44aed29fd92245\jetified-play-services-cloud-messaging-17.0.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-cloud-messaging:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\9475210b76bdfd49ca44aed29fd92245\jetified-play-services-cloud-messaging-17.0.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-iid-interop:17.1.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\2b1e572b3be9ac55cbd2d19d47b6262a\jetified-firebase-iid-interop-17.1.0\AndroidManifest.xml:5:5-44
@@ -228,6 +241,8 @@ MERGED from [:firebase_messaging] I:\Android\Take_Care_Main\build\firebase_messa
 MERGED from [:firebase_messaging] I:\Android\Take_Care_Main\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-67
 MERGED from [com.google.firebase:firebase-installations:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\86011a2a756648dd12cb067ceab80ecd\jetified-firebase-installations-17.0.0\AndroidManifest.xml:11:5-67
 MERGED from [com.google.firebase:firebase-installations:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\86011a2a756648dd12cb067ceab80ecd\jetified-firebase-installations-17.0.0\AndroidManifest.xml:11:5-67
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:24:5-67
 MERGED from [com.google.android.gms:play-services-cloud-messaging:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\9475210b76bdfd49ca44aed29fd92245\jetified-play-services-cloud-messaging-17.0.0\AndroidManifest.xml:8:5-67
 MERGED from [com.google.android.gms:play-services-cloud-messaging:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\9475210b76bdfd49ca44aed29fd92245\jetified-play-services-cloud-messaging-17.0.0\AndroidManifest.xml:8:5-67
 MERGED from [com.google.android.datatransport:transport-backend-cct:3.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\5dd60b3344d4f34208d2252d987ef16e\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:26:5-67
@@ -248,6 +263,8 @@ MERGED from [com.google.firebase:firebase-messaging:23.0.0] C:\Users\User\.gradl
 MERGED from [com.google.firebase:firebase-messaging:23.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\40bcec037e7208c6113f792c68247cf7\jetified-firebase-messaging-23.0.0\AndroidManifest.xml:22:5-79
 MERGED from [com.google.firebase:firebase-installations:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\86011a2a756648dd12cb067ceab80ecd\jetified-firebase-installations-17.0.0\AndroidManifest.xml:10:5-79
 MERGED from [com.google.firebase:firebase-installations:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\86011a2a756648dd12cb067ceab80ecd\jetified-firebase-installations-17.0.0\AndroidManifest.xml:10:5-79
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
 MERGED from [com.google.android.gms:play-services-cloud-messaging:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\9475210b76bdfd49ca44aed29fd92245\jetified-play-services-cloud-messaging-17.0.0\AndroidManifest.xml:7:5-79
 MERGED from [com.google.android.gms:play-services-cloud-messaging:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\9475210b76bdfd49ca44aed29fd92245\jetified-play-services-cloud-messaging-17.0.0\AndroidManifest.xml:7:5-79
 MERGED from [com.google.android.datatransport:transport-backend-cct:3.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\5dd60b3344d4f34208d2252d987ef16e\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:25:5-79
@@ -446,6 +463,26 @@ ADDED from [com.google.firebase:firebase-common:20.0.0] C:\Users\User\.gradle\ca
 		ADDED from [com.google.firebase:firebase-common:20.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\be1f31d795f15c1bd24708ca9c440629\jetified-firebase-common-20.0.0\AndroidManifest.xml:31:13-36
 	android:name
 		ADDED from [com.google.firebase:firebase-common:20.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\be1f31d795f15c1bd24708ca9c440629\jetified-firebase-common-20.0.0\AndroidManifest.xml:27:13-77
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:26:5-28:35
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:27:9-41
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:28:9-32
+uses-library#org.apache.http.legacy
+ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:35:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:34:13-50
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\b513423f2ebe04286dfcb594785725db\jetified-play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\b513423f2ebe04286dfcb594785725db\jetified-play-services-base-17.0.0\AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\b513423f2ebe04286dfcb594785725db\jetified-play-services-base-17.0.0\AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\b513423f2ebe04286dfcb594785725db\jetified-play-services-base-17.0.0\AndroidManifest.xml:24:13-79
 meta-data#com.google.android.gms.version
 ADDED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\User\.gradle\caches\transforms-2\files-2.1\b8e5988e0bc615162088959e72f15f1d\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
 	android:value

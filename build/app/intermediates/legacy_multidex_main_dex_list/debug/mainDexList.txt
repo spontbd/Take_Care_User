@@ -168,12 +168,17 @@ com/google/android/datatransport/runtime/dagger/multibindings/Multibinds.class
 com/google/android/datatransport/runtime/dagger/multibindings/StringKey.class
 com/google/android/datatransport/runtime/time/Monotonic.class
 com/google/android/datatransport/runtime/time/WallTime.class
+com/google/android/gms/auth/api/signin/internal/Storage.class
 com/google/android/gms/cloudmessaging/CloudMessage$MessagePriority.class
 com/google/android/gms/common/GoogleSignatureVerifier.class
+com/google/android/gms/common/SignInButton$ButtonSize.class
+com/google/android/gms/common/SignInButton$ColorScheme.class
 com/google/android/gms/common/annotation/KeepForSdk.class
 com/google/android/gms/common/annotation/KeepForSdkWithFieldsAndMethods.class
 com/google/android/gms/common/annotation/KeepForSdkWithMembers.class
 com/google/android/gms/common/annotation/KeepName.class
+com/google/android/gms/common/internal/AuthAccountRequest.class
+com/google/android/gms/common/internal/ClientSettings.class
 com/google/android/gms/common/internal/HideFirstParty.class
 com/google/android/gms/common/internal/ShowFirstParty.class
 com/google/android/gms/common/internal/StringResourceValueReader.class
@@ -236,6 +241,7 @@ kotlin/ExperimentalStdlibApi.class
 kotlin/ExperimentalUnsignedTypes.class
 kotlin/ExtensionFunctionType.class
 kotlin/Function.class
+kotlin/Metadata$DefaultImpls.class
 kotlin/Metadata.class
 kotlin/OptIn.class
 kotlin/OptionalExpectation.class
@@ -300,6 +306,7 @@ kotlin/internal/NoInfer.class
 kotlin/internal/OnlyInputTypes.class
 kotlin/internal/PlatformDependent.class
 kotlin/internal/PureReifiable.class
+kotlin/internal/RequireKotlin$Container.class
 kotlin/internal/RequireKotlin.class
 kotlin/internal/RequireKotlinVersionKind.class
 kotlin/io/ByteStreamsKt.class
@@ -355,6 +362,7 @@ kotlin/jvm/functions/Function7.class
 kotlin/jvm/functions/Function8.class
 kotlin/jvm/functions/Function9.class
 kotlin/jvm/internal/FunctionImpl.class
+kotlin/jvm/internal/RepeatableContainer.class
 kotlin/jvm/internal/markers/KMappedMarker.class
 kotlin/ranges/RangesKt__RangesKt.class
 kotlin/ranges/RangesKt___RangesKt.class
@@ -376,6 +384,8 @@ kotlin/text/StringsKt__StringsJVMKt.class
 kotlin/text/StringsKt__StringsKt.class
 kotlin/text/StringsKt___StringsJvmKt.class
 kotlin/text/StringsKt___StringsKt.class
+kotlin/text/Typography.class
+kotlin/time/Duration$Companion.class
 kotlin/time/Duration.class
 kotlin/time/DurationKt.class
 kotlin/time/ExperimentalTime.class

@@ -99,39 +99,39 @@
     },
     {
       "name": "firebase_core",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.13.0",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.13.1",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
     {
       "name": "firebase_core_platform_interface",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.2.4",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.2.5",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.16"
     },
     {
       "name": "firebase_core_web",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.0",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.16"
     },
     {
       "name": "firebase_messaging",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-11.2.7",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-11.2.8",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.16"
     },
     {
       "name": "firebase_messaging_platform_interface",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_platform_interface-3.2.0",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_platform_interface-3.2.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.16"
     },
     {
       "name": "firebase_messaging_web",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_web-2.2.8",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_web-2.2.9",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.16"
     },
     {
       "name": "flutter",
@@ -201,13 +201,25 @@
     },
     {
       "name": "fluttertoast",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.8",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.9",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "get",
       "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/get-4.6.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "google_maps_flutter",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-2.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "google_maps_flutter_platform_interface",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-2.1.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -225,7 +237,7 @@
     },
     {
       "name": "image_picker",
-      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.4+9",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.4+10",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -398,6 +410,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "stream_transform",
+      "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/stream_transform-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "string_scanner",
       "rootUri": "file:///I:/flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0",
       "packageUri": "lib/",
@@ -464,7 +482,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-02-24T21:11:57.227181Z",
+  "generated": "2022-02-27T14:01:58.233448Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }

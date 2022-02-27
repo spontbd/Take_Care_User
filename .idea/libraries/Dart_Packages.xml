@@ -117,42 +117,42 @@
         <entry key="firebase_core">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.13.0/lib" />
+              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.13.1/lib" />
             </list>
           </value>
         </entry>
         <entry key="firebase_core_platform_interface">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.2.4/lib" />
+              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.2.5/lib" />
             </list>
           </value>
         </entry>
         <entry key="firebase_core_web">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.0/lib" />
+              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.1/lib" />
             </list>
           </value>
         </entry>
         <entry key="firebase_messaging">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-11.2.7/lib" />
+              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-11.2.8/lib" />
             </list>
           </value>
         </entry>
         <entry key="firebase_messaging_platform_interface">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_platform_interface-3.2.0/lib" />
+              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_platform_interface-3.2.1/lib" />
             </list>
           </value>
         </entry>
         <entry key="firebase_messaging_web">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_web-2.2.8/lib" />
+              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_web-2.2.9/lib" />
             </list>
           </value>
         </entry>
@@ -236,7 +236,7 @@
         <entry key="fluttertoast">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.8/lib" />
+              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.9/lib" />
             </list>
           </value>
         </entry>
@@ -244,6 +244,20 @@
           <value>
             <list>
               <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/get-4.6.1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_maps_flutter">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-2.1.1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="google_maps_flutter_platform_interface">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-2.1.5/lib" />
             </list>
           </value>
         </entry>
@@ -264,7 +278,7 @@
         <entry key="image_picker">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.4+9/lib" />
+              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.4+10/lib" />
             </list>
           </value>
         </entry>
@@ -464,6 +478,13 @@
             </list>
           </value>
         </entry>
+        <entry key="stream_transform">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/stream_transform-2.0.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="string_scanner">
           <value>
             <list>
@@ -553,12 +574,12 @@
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/fake_async-1.2.0/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/ffi-1.1.2/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.2/lib" />
-      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.13.0/lib" />
-      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.2.4/lib" />
-      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.0/lib" />
-      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-11.2.7/lib" />
-      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_platform_interface-3.2.0/lib" />
-      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_web-2.2.8/lib" />
+      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.13.1/lib" />
+      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.2.5/lib" />
+      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.1/lib" />
+      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-11.2.8/lib" />
+      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_platform_interface-3.2.1/lib" />
+      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_web-2.2.9/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_device_type-0.4.0/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_local_notifications-9.3.2/lib" />
@@ -567,11 +588,13 @@
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_otp_text_field-1.0.0/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.5/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-5.1.0/lib" />
-      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.8/lib" />
+      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.9/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/get-4.6.1/lib" />
+      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-2.1.1/lib" />
+      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter_platform_interface-2.1.5/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0/lib" />
-      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.4+9/lib" />
+      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.4+10/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_for_web-2.1.6/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_platform_interface-2.4.4/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.3/lib" />
@@ -599,6 +622,7 @@
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.1/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.10.0/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.0/lib" />
+      <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/stream_transform-2.0.0/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.0/lib" />
       <root url="file://$PROJECT_DIR$/../../flutter_windows_v1.5.4-hotfix.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.8/lib" />

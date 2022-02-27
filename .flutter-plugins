@@ -1,12 +1,13 @@
 # This is a generated file; do not edit or check into version control.
-firebase_core=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-1.13.0\\
-firebase_core_web=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core_web-1.6.0\\
-firebase_messaging=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_messaging-11.2.7\\
-firebase_messaging_web=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_messaging_web-2.2.8\\
+firebase_core=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-1.13.1\\
+firebase_core_web=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core_web-1.6.1\\
+firebase_messaging=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_messaging-11.2.8\\
+firebase_messaging_web=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_messaging_web-2.2.9\\
 flutter_local_notifications=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_local_notifications-9.3.2\\
 flutter_plugin_android_lifecycle=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_plugin_android_lifecycle-2.0.5\\
-fluttertoast=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\fluttertoast-8.0.8\\
-image_picker=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker-0.8.4+9\\
+fluttertoast=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\fluttertoast-8.0.9\\
+google_maps_flutter=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\google_maps_flutter-2.1.1\\
+image_picker=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker-0.8.4+10\\
 image_picker_for_web=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker_for_web-2.1.6\\
 path_provider_linux=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider_linux-2.1.5\\
 path_provider_windows=I:\\flutter_windows_v1.5.4-hotfix.2-stable\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider_windows-2.0.5\\
