@@ -756,54 +756,59 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                         SizedBox(
                           height: dynamicSize(0.06),
                         ),
+                        SizedBox(
+                          height: dynamicSize(0.04),
+                        ),
+                        SizedBox(
+                          height: dynamicSize(0.05),
+                        ),
+                        Container(
+                          color: AllColor.shado_color,
+                          height: dynamicSize(0.015),
+                        ),
+                        SizedBox(
+                          height: dynamicSize(0.05),
+                        ),
+                        Container(
+                          child: Text(
+                            "Moments",
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.04), color: Colors.blue),
+                          ),
+                          alignment: Alignment.topLeft,
+                        ),
+                        Container(
+                            child: Wrap(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset("assets/images/image.png"),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset("assets/images/image.png"),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset("assets/images/image.png"),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset("assets/images/image.png"),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset("assets/images/image.png"),
+                                ),
+                              ],
+                            )
+                        ),
+
                       ],
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: dynamicSize(0.05),
-                ),
-                Container(
-                  color: AllColor.shado_color,
-                  height: dynamicSize(0.015),
-                ),
-                SizedBox(
-                  height: dynamicSize(0.04),
-                ),
-                Container(
-                  child: Text(
-                    "Moments",
-                    style: TextStyle(
-                        fontSize: dynamicSize(0.04), color: Colors.blue),
-                  ),
-                  alignment: Alignment.topLeft,
-                ),
-                Container(
-                  child: Wrap(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset("assets/images/image.png"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset("assets/images/image.png"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset("assets/images/image.png"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset("assets/images/image.png"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset("assets/images/image.png"),
-                      ),
-                    ],
-                  )
-                )
+
               ],
             ),
           ),
