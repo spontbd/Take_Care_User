@@ -10,7 +10,8 @@ class DataController extends GetxController{
   Future<void> iniatializeApp(BuildContext context) async {
     preferences = await SharedPreferences.getInstance();
 
-    if (MediaQuery.of(context).size.width<=500) {size.value = MediaQuery.of(context).size.width;
+    if (MediaQuery.of(context).size.width<=500) {
+      size.value = MediaQuery.of(context).size.width;
     } else {
       size.value = MediaQuery.of(context).size.height;
     }
