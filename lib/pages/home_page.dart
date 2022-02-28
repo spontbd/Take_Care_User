@@ -133,6 +133,7 @@ class _HomePageState extends State<HomePage> {
                                     onPressed: () {},
                                     child: Icon(Icons.chevron_right,
                                         size: size.width * .06,
+
                                         color: Colors.white),
                                     style: ElevatedButton.styleFrom(
                                       shape: const CircleBorder(),
