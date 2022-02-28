@@ -29,6 +29,9 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('A bg message just showed up :  ${message.messageId}');
 }
 
+
+
+
 void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,6 +50,9 @@ void main() async{
     badge: true,
     sound: true,
   );
+
+
+
 
   /// Set Device orientation
   AllColor.portraitMood;

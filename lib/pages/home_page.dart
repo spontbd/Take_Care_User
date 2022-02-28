@@ -130,6 +130,11 @@ class _HomePageState extends State<HomePage> {
                                   bottom: size.width * .008,
                                   right: -size.width * .02,
                                   child: ElevatedButton(
+
+
+
+
+
                                     onPressed: () {},
                                     child: Icon(Icons.chevron_right,
                                         size: size.width * .06,

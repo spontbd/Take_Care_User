@@ -127,8 +127,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               ),
             ),
 
-// SizedBox(height: MediaQuery.of(context).size.height/2.8,),
-
             Spacer(),
             SizedBox(
               height: dynamicSize(0.2),
