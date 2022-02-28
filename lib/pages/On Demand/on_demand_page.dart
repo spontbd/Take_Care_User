@@ -857,38 +857,30 @@ class _OnDemandPageState extends State<OnDemandPage> {
             color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Column(
+              child:
 
-                children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.08),fontWeight: FontWeight.bold),),
-                  Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),),
-                ],
-              ),
-SizedBox(height: dynamicSize(0.05),),
-Row(
-  crossAxisAlignment: CrossAxisAlignment.center,
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  children: [
-        Text("Dressing",style: TextStyle(fontSize: dynamicSize(0.05)),),
-    CheckBox(),
-  ],
-),
-Row(
-  crossAxisAlignment: CrossAxisAlignment.center,
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  children: [
-        Text("Dressing",style: TextStyle(fontSize: dynamicSize(0.05)),),
-    CheckBox(),
-  ],
-),
+/*Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.08),fontWeight: FontWeight.bold),),
+                      Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),),
+                    ],
+                  ),*/
 
 
-                ],
-              ),
+                  ListView(
+                    children: List.generate(50, (index) => Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Dressing",style: TextStyle(fontSize: dynamicSize(0.05)),),
+                        CheckBox(),
+                      ],
+                    ),
+                    ),
+                  ),
+
             ),
           );
         });
