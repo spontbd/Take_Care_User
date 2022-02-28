@@ -37,10 +37,10 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                   overflow: Overflow.visible,
                   children: [
                     Container(
-                      height: dynamicSize(.3),
+                      height: dynamicSize(.4),
                       width: dynamicSize(1.4),
                       decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: AllColor.themeColor,
                         borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(30.0),
                           bottomLeft: Radius.circular(30.0),
@@ -48,7 +48,7 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                       ),
                     ),
                     Positioned(
-                      top: dynamicSize(0.15),
+                      top: dynamicSize(0.24),
                       left: MediaQuery.of(context).size.width / 2.5,
                       child: Container(
                         width: 110.0,
@@ -67,7 +67,7 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                       ),
                     ),
                     Positioned(
-                      top: dynamicSize(0.38),
+                      top: dynamicSize(0.5),
                       left: MediaQuery.of(context).size.width / 2.25,
                       child: Container(
                           width: dynamicSize(0.18),
@@ -96,7 +96,7 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                           )),
                     ),
                     Positioned(
-                      top: dynamicSize(0.45),
+                      top: dynamicSize(0.6),
                       left: MediaQuery.of(context).size.width / 2.8,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -123,149 +123,165 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                 SizedBox(
                   height: dynamicSize(0.32),
                 ),
+
                 Container(
-                  color: AllColor.shado_color,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                         "Personal Details",
-                          style: TextStyle(
-                            fontSize: dynamicSize(0.04),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              color: AllColor.white_blue,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    child: Text(
+                                      "Gender",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.03),
+                                          color: Colors.grey),
+                                    ),
+                                    top: dynamicSize(0.05),
+                                    left: dynamicSize(0.03),
+                                  ),
+                                  Positioned(
+                                    child: Text(
+                                      "Female",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.04),
+                                          color: AllColor.button_color,fontWeight: FontWeight.bold),
+                                    ),
+                                    top: dynamicSize(0.09),
+                                    left: dynamicSize(0.03),
+                                  ),
+                                  Positioned(
+                                      top: dynamicSize(0.18),
+                                      left: dynamicSize(0.15),
+                                      child:
+                                      Image.asset("assets/images/p1.png")),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              color: AllColor.white_yellow,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    child: Text(
+                                      "Height",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.03),
+                                          color: Colors.grey),
+                                    ),
+                                    top: dynamicSize(0.05),
+                                    left: dynamicSize(0.03),
+                                  ),
+                                  Positioned(
+                                    child: Text(
+                                      "5ft- 7in",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.04),
+                                          color: Colors.green),
+                                    ),
+                                    top: dynamicSize(0.09),
+                                    left: dynamicSize(0.03),
+                                  ),
+                                  Positioned(
+                                      top: dynamicSize(0.18),
+                                      left: dynamicSize(0.15),
+                                      child:
+                                      Image.asset("assets/images/p2.png")),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              color: AllColor.white_pink,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    child: Text(
+                                      "Weight",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.03),
+                                          color: Colors.grey),
+                                    ),
+                                    top: dynamicSize(0.05),
+                                    left: dynamicSize(0.03),
+                                  ),
+                                  Positioned(
+                                    child: Text(
+                                      "75 Kg",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.04),
+                                          color: Colors.pink),
+                                    ),
+                                    top: dynamicSize(0.09),
+                                    left: dynamicSize(0.03),
+                                  ),
+                                  Positioned(
+                                      top: dynamicSize(0.18),
+                                      left: dynamicSize(0.15),
+                                      child:
+                                      Image.asset("assets/images/p3.png")),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              color: AllColor.white_orange,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    child: Text(
+                                      "Experience",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.03),
+                                          color: Colors.grey),
+                                    ),
+                                    top: dynamicSize(0.05),
+                                    left: dynamicSize(0.03),
+                                  ),
+                                  Positioned(
+                                    child: Text(
+                                      "2 yrs",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.04),
+                                          color: Colors.pink),
+                                    ),
+                                    top: dynamicSize(0.09),
+                                    left: dynamicSize(0.03),
+                                  ),
+                                  Positioned(
+                                      top: dynamicSize(0.18),
+                                      left: dynamicSize(0.15),
+                                      child:
+                                      Image.asset("assets/images/p4.png")),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                        ],
                       ),
-                      TextButton(
-                        child: Text(
-                          "Edit",
-                          style: TextStyle(
-                              fontSize: dynamicSize(0.04), color: Colors.black),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 100,
-                            width: 100,
-                            color: AllColor.white_blue,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  child: Text(
-                                    "Gender",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.03),
-                                        color: Colors.grey),
-                                  ),
-                                  top: dynamicSize(0.03),
-                                  left: dynamicSize(0.01),
-                                ),
-                                Positioned(
-                                  child: Text(
-                                    "Female",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.04),
-                                        color: AllColor.button_color),
-                                  ),
-                                  top: dynamicSize(0.07),
-                                  left: dynamicSize(0.01),
-                                ),
-                                Positioned(
-                                    top: dynamicSize(0.13),
-                                    left: dynamicSize(0.11),
-                                    child:
-                                    Image.asset("assets/images/gender_icon.png")),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 100,
-                            width: 100,
-                            color: AllColor.white_yellow,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  child: Text(
-                                    "Height",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.03),
-                                        color: Colors.grey),
-                                  ),
-                                  top: dynamicSize(0.03),
-                                  left: dynamicSize(0.01),
-                                ),
-                                Positioned(
-                                  child: Text(
-                                    "5ft- 7in",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.04),
-                                        color: Colors.green),
-                                  ),
-                                  top: dynamicSize(0.07),
-                                  left: dynamicSize(0.01),
-                                ),
-                                Positioned(
-                                    top: dynamicSize(0.14),
-                                    left: dynamicSize(0.11),
-                                    child:
-                                    Image.asset("assets/images/height_icon.png")),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 100,
-                            width: 100,
-                            color: AllColor.white_pink,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  child: Text(
-                                    "Weight",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.03),
-                                        color: Colors.grey),
-                                  ),
-                                  top: dynamicSize(0.03),
-                                  left: dynamicSize(0.01),
-                                ),
-                                Positioned(
-                                  child: Text(
-                                    "75 Kg",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.04),
-                                        color: Colors.pink),
-                                  ),
-                                  top: dynamicSize(0.07),
-                                  left: dynamicSize(0.01),
-                                ),
-                                Positioned(
-                                    top: dynamicSize(0.14),
-                                    left: dynamicSize(0.11),
-                                    child:
-                                    Image.asset("assets/images/weight_icon.png")),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
                     )),
 
 //Personal Details
@@ -276,7 +292,7 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                       children: [
                         Container(
                           child: Text(
-                            "Mobile Number",
+                            "BNMC Number",
                             style: TextStyle(
                                 fontSize: dynamicSize(0.04), color: Colors.blue),
                           ),
@@ -289,107 +305,6 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                           child: Text(
                             "01758351395",
                             style: TextStyle(fontSize: dynamicSize(0.04)),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.03),
-                        ),
-                        Container(
-                          child: Text(
-                            "Email address",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.04), color: Colors.blue),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.01),
-                        ),
-                        Container(
-                          child: Text(
-                            "nazmulbd534@gmail.com",
-                            style: TextStyle(fontSize: dynamicSize(0.04)),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: dynamicSize(0.06),
-                ),
-                Container(
-                  color: AllColor.shado_color,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Academic Details",
-                          style: TextStyle(
-                            fontSize: dynamicSize(0.04),
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        child: Text(
-                          "Edit",
-                          style: TextStyle(
-                              fontSize: dynamicSize(0.04), color: Colors.black),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                ),
-//Academic Details
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0, top: 10),
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Text(
-                            "Education",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.04), color: Colors.blue),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.01),
-                        ),
-                        Container(
-                          child: Text(
-                            "Diploma in Nursing from SPKS Medical Institute",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.04), color: Colors.black),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.01),
-                        ),
-                        Container(
-                          child: Text(
-                            "Completion year: 2014",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.04), color: Colors.black45),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.01),
-                        ),
-                        Container(
-                          child: Text(
-                            "Hamida Nursing Institute",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.04), color: Colors.black45),
                           ),
                           alignment: Alignment.topLeft,
                         ),
@@ -423,6 +338,10 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                 ),
                 Container(
                   color: AllColor.shado_color,
+                  height: dynamicSize(0.015),
+                ),
+             /*   Container(
+                  color: AllColor.shado_color,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -430,7 +349,7 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Professional Details",
+                          "Academic Details",
                           style: TextStyle(
                             fontSize: dynamicSize(0.04),
                           ),
@@ -446,8 +365,11 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                       ),
                     ],
                   ),
+                ),*/
+//Academic Details
+                SizedBox(
+                  height: dynamicSize(0.05),
                 ),
-//Professional Details
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0, top: 10),
@@ -455,7 +377,7 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                       children: [
                         Container(
                           child: Text(
-                            "BNMC Number",
+                            "Specialty within Domain:",
                             style: TextStyle(
                                 fontSize: dynamicSize(0.04), color: Colors.blue),
                           ),
@@ -466,19 +388,18 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                         ),
                         Container(
                           child: Text(
-                            "0125458696",
+                            "- Specialty 01",
                             style: TextStyle(fontSize: dynamicSize(0.04)),
                           ),
                           alignment: Alignment.topLeft,
                         ),
                         SizedBox(
-                          height: dynamicSize(0.03),
+                          height: dynamicSize(0.01),
                         ),
                         Container(
                           child: Text(
-                            "Experience",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.04), color: Colors.blue),
+                            "- Specialty 02",
+                            style: TextStyle(fontSize: dynamicSize(0.04)),
                           ),
                           alignment: Alignment.topLeft,
                         ),
@@ -487,7 +408,7 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                         ),
                         Container(
                           child: Text(
-                            "6 Years",
+                            "- Specialty 03",
                             style: TextStyle(fontSize: dynamicSize(0.04)),
                           ),
                           alignment: Alignment.topLeft,
@@ -496,6 +417,136 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: dynamicSize(0.05),
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0, top: 10),
+                    child: Column(
+                      children: [
+                        Container(
+                          child: Text(
+                            "Other Specility",
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.04), color: Colors.black45),
+                          ),
+                          alignment: Alignment.topLeft,
+                        ),
+                        SizedBox(
+                          height: dynamicSize(0.01),
+                        ),
+                        Container(
+                          child: Text(
+                            "- Specialty 01",
+                            style: TextStyle(fontSize: dynamicSize(0.04)),
+                          ),
+                          alignment: Alignment.topLeft,
+                        ),
+                        SizedBox(
+                          height: dynamicSize(0.01),
+                        ),
+                        Container(
+                          child: Text(
+                            "- Specialty 02",
+                            style: TextStyle(fontSize: dynamicSize(0.04)),
+                          ),
+                          alignment: Alignment.topLeft,
+                        ),
+                        SizedBox(
+                          height: dynamicSize(0.01),
+                        ),
+                        Container(
+                          child: Text(
+                            "- Specialty 03",
+                            style: TextStyle(fontSize: dynamicSize(0.04)),
+                          ),
+                          alignment: Alignment.topLeft,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: dynamicSize(0.05),
+                ),
+                Container(
+                  color: AllColor.shado_color,
+                  height: dynamicSize(0.015),
+                ),
+
+                SizedBox(
+                  height: dynamicSize(0.02),
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0, top: 10),
+                    child: Column(
+                      children: [
+                        Container(
+                          child: Text(
+                            "Personal Commitment",
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.04), color: Colors.blue),
+                          ),
+                          alignment: Alignment.topLeft,
+                        ),
+                        SizedBox(
+                          height: dynamicSize(0.01),
+                        ),
+                        Container(
+                          child: Text(
+                            "I will do my best to make you comfortable. I strongly believe in ethics; as a health provider being ethical is not just a remembered value, but a strongly observed one.",
+                            style: TextStyle(fontSize: dynamicSize(0.04)),
+                          ),
+                          alignment: Alignment.topLeft,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: dynamicSize(0.05),
+                ),
+                Container(
+                  color: AllColor.shado_color,
+                  height: dynamicSize(0.015),
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0, top: 10),
+                    child: Column(
+                      children: [
+                        Container(
+                          child: Text(
+                            "Education",
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.04), color: Colors.blue),
+                          ),
+                          alignment: Alignment.topLeft,
+                        ),
+                        SizedBox(
+                          height: dynamicSize(0.01),
+                        ),
+                        Container(
+                          child: Text(
+                            "Diploma in Nursing from SPKS Medical Institute",
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.04), color: Colors.black),
+                          ),
+                          alignment: Alignment.topLeft,
+                        ),
+
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: dynamicSize(0.06),
+                ),
+
+//Professional Details
+
 
                 SizedBox(
                   height: dynamicSize(0.06),
@@ -562,174 +613,13 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                     ),
                   ),
                 ),
-
                 SizedBox(
-                  height: dynamicSize(0.05),
-                ),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0, top: 10),
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Text(
-                            "Specialty within Domain:",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.04), color: Colors.blue),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.01),
-                        ),
-                        Container(
-                          child: Text(
-                            "- Specialty 01",
-                            style: TextStyle(fontSize: dynamicSize(0.04)),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.01),
-                        ),
-                        Container(
-                          child: Text(
-                            "- Specialty 02",
-                            style: TextStyle(fontSize: dynamicSize(0.04)),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.01),
-                        ),
-                        Container(
-                          child: Text(
-                            "- Specialty 03",
-                            style: TextStyle(fontSize: dynamicSize(0.04)),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                SizedBox(
-                  height: dynamicSize(0.05),
-                ),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0, top: 10),
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Text(
-                            "Other Specility",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.04), color: Colors.black45),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.01),
-                        ),
-                        Container(
-                          child: Text(
-                            "- Specialty 01",
-                            style: TextStyle(fontSize: dynamicSize(0.04)),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.01),
-                        ),
-                        Container(
-                          child: Text(
-                            "- Specialty 02",
-                            style: TextStyle(fontSize: dynamicSize(0.04)),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.01),
-                        ),
-                        Container(
-                          child: Text(
-                            "- Specialty 03",
-                            style: TextStyle(fontSize: dynamicSize(0.04)),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                SizedBox(
-                  height: dynamicSize(0.06),
+                  height: dynamicSize(0.04),
                 ),
                 Container(
                   color: AllColor.shado_color,
-                  height: dynamicSize(0.03),
+                  height: dynamicSize(0.015),
                 ),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0, top: 10),
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Text(
-                            "Personal Commitment",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.04), color: Colors.blue),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.01),
-                        ),
-                        Container(
-                          child: Text(
-                            "I will do my best to make you comfortable. I strongly believe in ethics; as a health provider being ethical is not just a remembered value, but a strongly observed one.",
-                            style: TextStyle(fontSize: dynamicSize(0.04)),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                SizedBox(
-                  height: dynamicSize(0.06),
-                ),
-                Container(
-                  color: AllColor.shado_color,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Professional Details",
-                          style: TextStyle(
-                            fontSize: dynamicSize(0.04),
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        child: Text(
-                          "Edit",
-                          style: TextStyle(
-                              fontSize: dynamicSize(0.04), color: Colors.black),
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                ),
-
                 SizedBox(
                   height: dynamicSize(0.04),
                 ),
@@ -776,7 +666,7 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                 ),
                 Container(
                   color: AllColor.shado_color,
-                  height: dynamicSize(0.01),
+                  height: dynamicSize(0.015),
                 ),
                 SizedBox(
                   height: dynamicSize(0.04),
@@ -867,6 +757,50 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: dynamicSize(0.05),
+                ),
+                Container(
+                  color: AllColor.shado_color,
+                  height: dynamicSize(0.015),
+                ),
+                SizedBox(
+                  height: dynamicSize(0.04),
+                ),
+                Container(
+                  child: Text(
+                    "Moments",
+                    style: TextStyle(
+                        fontSize: dynamicSize(0.04), color: Colors.blue),
+                  ),
+                  alignment: Alignment.topLeft,
+                ),
+                Container(
+                  child: Wrap(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset("assets/images/image.png"),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset("assets/images/image.png"),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset("assets/images/image.png"),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset("assets/images/image.png"),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset("assets/images/image.png"),
+                      ),
+                    ],
+                  )
+                )
               ],
             ),
           ),

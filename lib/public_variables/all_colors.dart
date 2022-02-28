@@ -14,6 +14,7 @@ class AllColor{
 
   static const Color shado_color= Color(0xffeeecec);
   static const Color white_blue= Color(0xffe3f2fd);
+  static const Color white_orange= Color(0xffffeece);
   static const Color white_yellow= Color(0xfff1f8e9);
   static const Color white_pink= Color(0xffffebee);
   static const Color pink_button= Color(0xffff0163);
