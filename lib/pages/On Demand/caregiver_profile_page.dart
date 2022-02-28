@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:takecare_user/pages/On%20Demand/image_page.dart';
 import 'package:takecare_user/pages/home_page.dart';
 
 import '../../controllers/DataContollers.dart';
@@ -14,6 +16,8 @@ class CaregiverProfile extends StatefulWidget {
 }
 
 class _CaregiverProfileState extends State<CaregiverProfile> {
+  late bool requestView = false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -50,18 +54,24 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                     Positioned(
                       top: dynamicSize(0.24),
                       left: MediaQuery.of(context).size.width / 2.5,
-                      child: Container(
-                        width: 110.0,
-                        height: 110.0,
-                        decoration: new BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 2.0,
-                              style: BorderStyle.solid),
-                          image: new DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage("assets/images/baby.png"),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (_) => ImageViewPage()));
+                        },
+                        child: Container(
+                          width: 110.0,
+                          height: 110.0,
+                          decoration: new BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: Colors.white,
+                                width: 2.0,
+                                style: BorderStyle.solid),
+                            image: new DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage("assets/images/baby.png"),
+                            ),
                           ),
                         ),
                       ),
@@ -675,6 +685,7 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0, top: 10),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           child: Text(
@@ -684,72 +695,54 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                           ),
                           alignment: Alignment.topLeft,
                         ),
-                        Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "NID",
-                                style: TextStyle(fontSize: dynamicSize(0.04)),
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  "VIEW",
-                                  style: TextStyle(
-                                      fontSize: dynamicSize(0.04),
-                                      color: Colors.pink),
-                                ),
-                              )
-                            ],
+                        SizedBox(height: dynamicSize(.03),),
+                        Text("If you need to see the document of this caregiver, please request us to get the view. We will give you access after some while."),
+                        SizedBox(height: dynamicSize(.03),),
+                        InkWell(
+                          onTap: (){
+                            setState(() {
+                              requestView = true;
+                            });
+                          },
+                          child: Container(
+                            width: dynamicSize(0.4),
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: const EdgeInsets.all(18),
+                              child: Text('Sent Request',style: TextStyle(fontSize: dynamicSize(0.05)),),
+                            ),
+                            decoration: BoxDecoration(
+                              color: AllColor.shado_color,
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
                           ),
-                          alignment: Alignment.topLeft,
                         ),
-                        Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "License",
-                                style: TextStyle(fontSize: dynamicSize(0.04)),
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  "VIEW",
-                                  style: TextStyle(
-                                      fontSize: dynamicSize(0.04),
-                                      color: Colors.pink),
-                                ),
-                              )
-                            ],
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
-                        Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Chairman Certificate",
-                                style: TextStyle(fontSize: dynamicSize(0.04)),
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  "VIEW",
-                                  style: TextStyle(
-                                      fontSize: dynamicSize(0.04),
-                                      color: Colors.pink),
-                                ),
-                              )
-                            ],
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
+                       SizedBox(height: dynamicSize(0.02),),
+                       Visibility(
+                         visible: requestView,
+                         child: Container(
+                           child: Row(
+                             crossAxisAlignment: CrossAxisAlignment.center,
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             children: [
+                               Text(
+                                 "All Documents",
+                                 style: TextStyle(fontSize: dynamicSize(0.04)),
+                               ),
+                               TextButton(
+                                 onPressed: () {},
+                                 child: Text(
+                                   "VIEW",
+                                   style: TextStyle(
+                                       fontSize: dynamicSize(0.04),
+                                       color: Colors.pink),
+                                 ),
+                               )
+                             ],
+                           ),
+                           alignment: Alignment.topLeft,
+                         ),
+                       ),
                         SizedBox(
                           height: dynamicSize(0.06),
                         ),
