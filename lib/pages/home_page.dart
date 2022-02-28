@@ -446,7 +446,7 @@ class _HomePageState extends State<HomePage> {
                                         )),
                                     Container(
                                         alignment: Alignment.topLeft,
-                                        margin: EdgeInsets.only(
+                                        margin: const EdgeInsets.only(
                                             left: 10, bottom: 5, top: 5),
                                         child: Text(
                                           "Starts from 21,000 Tk",
