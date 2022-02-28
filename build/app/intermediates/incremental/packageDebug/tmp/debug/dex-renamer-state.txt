@@ -1,7 +1,7 @@
-#Tue Feb 22 23:16:14 BDT 2022
-base.1=D\:\\FlutterProject\\Take_Care_App\\take_care_user\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
+#Mon Feb 28 01:55:13 BDT 2022
+base.1=I\:\\Android\\Take_Care_Main\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
 path.1=classes2.dex
-base.0=D\:\\FlutterProject\\Take_Care_App\\take_care_user\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+base.0=I\:\\Android\\Take_Care_Main\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
 path.0=classes.dex

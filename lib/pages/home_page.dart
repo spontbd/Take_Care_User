@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:takecare_user/controllers/DataContollers.dart';
+//import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,10 +14,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      // appBar: AppBar(title: Text('Goog Morning'),),
-      body: SafeArea(
-        child: Padding(
+    return SafeArea(
+      child: Scaffold(
+        // appBar: AppBar(title: Text('Goog Morning'),),
+        body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
@@ -38,14 +38,14 @@ class _HomePageState extends State<HomePage> {
                         Container(
                             margin:
                             EdgeInsets.only(left: 10, bottom: 10, top: 5),
-                            child: Text(
-                              (
+                            child: Text("Fahim",
+                             /* (
                                   DataControllers.to.userLoginResponse.value.data!
                                   .user!.fullName!.isEmpty
                                   ? " "
                                   : DataControllers.to.userLoginResponse.value
                                   .data!.user!.fullName
-                                  .toString()),
+                                  .toString()),*/
                               style:
                               TextStyle(fontSize: 25, color: Colors.pink),
                             )),
@@ -446,7 +446,7 @@ class _HomePageState extends State<HomePage> {
                                         )),
                                     Container(
                                         alignment: Alignment.topLeft,
-                                        margin: EdgeInsets.only(
+                                        margin: const EdgeInsets.only(
                                             left: 10, bottom: 5, top: 5),
                                         child: Text(
                                           "Starts from 21,000 Tk",

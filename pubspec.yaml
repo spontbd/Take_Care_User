@@ -26,6 +26,8 @@ dependencies:
   flutter_otp_text_field: ^1.0.0
   extended_tabs: any
   image_picker: ^0.8.4+4
+  buttons_tabbar: ^1.3.2
+  google_maps_flutter: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -37,7 +39,11 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/
+    - assets/images/image.png
+    - assets/images/add.png
+    - assets/images/added_now_button.png
+    - assets/images/cross.png
+    - assets/images/baby.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

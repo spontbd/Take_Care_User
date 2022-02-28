@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
+import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
+import 'package:takecare_user/pages/home_page.dart';
+import 'package:takecare_user/pages/otp_verification_page.dart';
+import 'package:takecare_user/pages/sign_up_page.dart';
 import 'package:takecare_user/pages/splash_screen.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 import 'controller/data_controller.dart';
@@ -24,6 +28,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async{
+
   WidgetsFlutterBinding.ensureInitialized();
   final DataController dataController = Get.put(DataController());
   final DataControllers dataControllers = Get.put(DataControllers());
@@ -102,7 +107,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Take Care',
         theme: AllColor.theme,
         debugShowCheckedModeBanner: false,
-        home: const SplashScreen()
+        home: const OnDemandPage()
     );
   }
 }

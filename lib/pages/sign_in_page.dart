@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
+import 'package:takecare_user/pages/otp_verification_page.dart';
+import 'package:takecare_user/pages/sign_up_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/notifications.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
@@ -14,7 +16,7 @@ import 'package:takecare_user/ui/variables.dart';
 import 'package:takecare_user/widgets/AnimatedToggleButton.dart';
 import 'package:takecare_user/widgets/loading_widget.dart';
 import 'package:takecare_user/widgets/text_field_tile.dart';
-import 'account_info_page.dart';
+
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -67,7 +69,7 @@ class _SignInPageState extends State<SignInPage> {
                         Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (_) =>
-                                    const AccountInfoPage()
+                                    const OtpVerificationPage()
                             ));
                       }
                       else

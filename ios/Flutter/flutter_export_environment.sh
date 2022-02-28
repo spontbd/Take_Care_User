@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\src\flutter"
-export "FLUTTER_APPLICATION_PATH=D:\FlutterProject\Take_Care_App\take_care_user"
+export "FLUTTER_ROOT=I:\flutter_windows_v1.5.4-hotfix.2-stable\flutter"
+export "FLUTTER_APPLICATION_PATH=I:\Android\Take_Care_Main"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"
