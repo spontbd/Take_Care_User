@@ -7,6 +7,7 @@ import '../../controllers/DataContollers.dart';
 import '../../controllers/language_controller.dart';
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
+import 'document_page.dart';
 
 class CaregiverProfile extends StatefulWidget {
   const CaregiverProfile({Key? key}) : super(key: key);
@@ -16,7 +17,8 @@ class CaregiverProfile extends StatefulWidget {
 }
 
 class _CaregiverProfileState extends State<CaregiverProfile> {
-  late bool requestView = false;
+   bool requestView = false;
+   bool requestButton = true;
 
   @override
   Widget build(BuildContext context) {
@@ -702,18 +704,22 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                           onTap: (){
                             setState(() {
                               requestView = true;
+                              requestButton = false;
                             });
                           },
-                          child: Container(
-                            width: dynamicSize(0.4),
-                            alignment: Alignment.center,
-                            child: Padding(
-                              padding: const EdgeInsets.all(18),
-                              child: Text('Sent Request',style: TextStyle(fontSize: dynamicSize(0.05)),),
-                            ),
-                            decoration: BoxDecoration(
-                              color: AllColor.shado_color,
-                              borderRadius: BorderRadius.circular(30.0),
+                          child: Visibility(
+                            visible: requestButton,
+                            child: Container(
+                              width: dynamicSize(0.4),
+                              alignment: Alignment.center,
+                              child: Padding(
+                                padding: const EdgeInsets.all(18),
+                                child: Text('Sent Request',style: TextStyle(fontSize: dynamicSize(0.05)),),
+                              ),
+                              decoration: BoxDecoration(
+                                color: AllColor.shado_color,
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
                             ),
                           ),
                         ),
@@ -730,7 +736,11 @@ class _CaregiverProfileState extends State<CaregiverProfile> {
                                  style: TextStyle(fontSize: dynamicSize(0.04)),
                                ),
                                TextButton(
-                                 onPressed: () {},
+                                 onPressed: () {
+                                   Navigator.of(context).pushReplacement(
+                                       MaterialPageRoute(builder: (_) => DocumentPage()));
+
+                                 },
                                  child: Text(
                                    "VIEW",
                                    style: TextStyle(
