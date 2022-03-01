@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:takecare_user/pages/On%20Demand/image_page.dart';
 
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
@@ -149,17 +150,19 @@ class _DocumentPageState extends State<DocumentPage> {
               height: dynamicSize(0.04),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0,right: 8),
+              padding: const EdgeInsets.only(left: 8.0, right: 8),
               child: Container(
                 child: Text(
                   "Documents",
-                  style: TextStyle(fontSize: dynamicSize(0.04), color: Colors.blue),
+                  style: TextStyle(
+                      fontSize: dynamicSize(0.04), color: Colors.blue),
                 ),
                 alignment: Alignment.topLeft,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0,right: 8,top: 10,bottom: 10),
+              padding: const EdgeInsets.only(
+                  left: 8.0, right: 8, top: 10, bottom: 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,12 +171,20 @@ class _DocumentPageState extends State<DocumentPage> {
                     "NID",
                     style: TextStyle(fontSize: dynamicSize(0.04)),
                   ),
-                  Image.asset("assets/images/image.png")
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (_) => ImageViewPage()));
+
+                    },
+                    child: Image.asset("assets/images/image.png"),
+                  ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0,right: 8,top: 10,bottom: 10),
+              padding: const EdgeInsets.only(
+                  left: 8.0, right: 8, top: 10, bottom: 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -182,12 +193,18 @@ class _DocumentPageState extends State<DocumentPage> {
                     "Experience Certificate",
                     style: TextStyle(fontSize: dynamicSize(0.04)),
                   ),
-                  Image.asset("assets/images/image.png")
+                  InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => ImageViewPage()));
+                      },
+                      child: Image.asset("assets/images/image.png"))
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0,right: 8,top: 10,bottom: 10),
+              padding: const EdgeInsets.only(
+                  left: 8.0, right: 8, top: 10, bottom: 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,7 +213,12 @@ class _DocumentPageState extends State<DocumentPage> {
                     "SSC Certificate",
                     style: TextStyle(fontSize: dynamicSize(0.04)),
                   ),
-                  Image.asset("assets/images/image.png")
+                  InkWell(
+                      onTap: (){
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => ImageViewPage()));
+                      },
+                      child: Image.asset("assets/images/image.png"))
                 ],
               ),
             ),
