@@ -82,6 +82,7 @@ class _MapePageState extends State<MapePage> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
+        elevation: 0,
         //color: AllColor.themeColor,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
