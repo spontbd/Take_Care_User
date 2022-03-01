@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:takecare_user/pages/On%20Demand/request_page.dart';
 
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
@@ -84,16 +85,22 @@ class _MapePageState extends State<MapePage> {
         //color: AllColor.themeColor,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: AllColor.themeColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            alignment: Alignment.center,
-            height: dynamicSize(0.15),
-            child: Text(
-              "Request this GP Doctor",
-              style: TextStyle(fontSize: dynamicSize(0.05), color: Colors.white),
+          child: InkWell(
+            onTap: (){
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => RequestPage()));
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: AllColor.themeColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              alignment: Alignment.center,
+              height: dynamicSize(0.15),
+              child: Text(
+                "Request this GP Doctor",
+                style: TextStyle(fontSize: dynamicSize(0.05), color: Colors.white),
+              ),
             ),
           ),
         ),
