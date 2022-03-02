@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:takecare_user/pages/On%20Demand/success_order_page.dart';
 
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
@@ -161,8 +162,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
               onTap: () {
-                /* Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => ConfirmOrderPage()));*/
+                 Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (_) => SuccessOrderPage()));
               },
               child: Container(
                 decoration: BoxDecoration(
