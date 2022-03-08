@@ -29,9 +29,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('A bg message just showed up :  ${message.messageId}');
 }
 
-
-
-
 void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
