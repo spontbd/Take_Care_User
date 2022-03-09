@@ -6,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
+import 'package:takecare_user/pages/On%20Demand/feedback_page.dart';
 import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/pages/otp_verification_page.dart';
@@ -112,7 +113,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Take Care',
         theme: AllColor.theme,
         debugShowCheckedModeBanner: false,
-        home: const HomePage()
+        home: const FeedBackPage()
     );
   }
 }

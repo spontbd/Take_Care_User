@@ -6,6 +6,15 @@ class DataController extends GetxController{
   static DataController dc =Get.find();
   SharedPreferences? preferences;
   RxDouble size = 360.0.obs;
+  var feedbackController = TextEditingController(text:'').obs;
+  void updateFeedController(String val){
+    feedbackController.value.text=val;
+    update();
+  }
+  void clearFeedController(){
+    feedbackController.value.clear();
+    update();
+  }
 
   Future<void> iniatializeApp(BuildContext context) async {
     preferences = await SharedPreferences.getInstance();
