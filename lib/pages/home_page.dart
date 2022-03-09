@@ -70,10 +70,10 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Container(
                             alignment: Alignment.centerLeft,
-                            child: const Text(
+                            child: Text(
                               "On demand",
                               style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
+                                  fontSize: dynamicSize(0.08), fontWeight: FontWeight.bold),
                             ),),
                       ),
                       Row(
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 ///Red Back
                                 Container(
-                                  height: dynamicSize(0.2),
+                                  height: dynamicSize(0.5),
                                   decoration: const BoxDecoration(
                                     color: Colors.red,
                                     borderRadius:
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 ///Red Back
                                 Container(
-                                  height: dynamicSize(0.2),
+                                  height: dynamicSize(0.5),
                                   decoration: const BoxDecoration(
                                     color: Colors.blue,
                                     borderRadius:
@@ -218,6 +218,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
+                      SizedBox(height: dynamicSize(0.03),),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8.0, top: 20),
                         child: Container(
@@ -225,16 +226,17 @@ class _HomePageState extends State<HomePage> {
                             child: Text(
                               "Offers & News",
                               style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
+                                  fontSize: dynamicSize(0.08), fontWeight: FontWeight.bold),
                             )),
                       ),
+
                       Row(
                         children: [
                           Expanded(
                             flex: 1,
                             child: Container(
                               //color: Colors.pinkAccent,
-                              height: dynamicSize(0.2),
+                              height: dynamicSize(0.5),
                               // width: MediaQuery.of(context).size.width/2,
                               decoration: BoxDecoration(
                                 // color: Colors.pinkAccent,
@@ -256,9 +258,9 @@ class _HomePageState extends State<HomePage> {
                                       padding: const EdgeInsets.only(
                                           left: 10, bottom: 10),
                                       child: Text(
-                                        "Right Now",
+                                        "Dementia Patient",
                                         style: TextStyle(
-                                            fontSize: dynamicSize(0.027),
+                                            fontSize: dynamicSize(0.075),
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -272,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Text(
                                         "Total take care for 12 hrs.or 24 hrs. ",
                                         style: TextStyle(
-                                          fontSize: dynamicSize(0.02),
+                                          fontSize: dynamicSize(0.045),
                                           color: Colors.white,
                                         ),
                                       ),
@@ -284,6 +286,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
+                      SizedBox(height: dynamicSize(0.05),),
                       Padding(
                         padding: const EdgeInsets.only(top: 20, bottom: 8),
                         child: Container(
@@ -291,7 +294,7 @@ class _HomePageState extends State<HomePage> {
                             child: Text(
                               "Long Time Service",
                               style: TextStyle(
-                                  fontSize: dynamicSize(0.027), fontWeight: FontWeight.bold),
+                                  fontSize: dynamicSize(0.08), fontWeight: FontWeight.bold),
                             )),
                       ),
                       SingleChildScrollView(
@@ -302,10 +305,10 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Container(
                                 width: size.width / 2,
-                                height: dynamicSize(0.22),
+                                height: dynamicSize(0.6),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black26,
@@ -317,12 +320,12 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height:dynamicSize(0.14),
+                                      height:dynamicSize(0.4),
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                         // color: Colors.pinkAccent,
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
+                                            Radius.circular(3)),
 
                                         image: DecorationImage(
                                           image: AssetImage(
@@ -337,7 +340,7 @@ class _HomePageState extends State<HomePage> {
                                         EdgeInsets.only(left: 10, top: 12),
                                         child: Text(
                                           "Dementia Patient",
-                                          style: TextStyle(fontSize: size.width*.04),
+                                          style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
                                         )),
                                     Container(
                                         alignment: Alignment.topLeft,
@@ -345,20 +348,20 @@ class _HomePageState extends State<HomePage> {
                                             left: 10, bottom: 5, top: 5),
                                         child: Text(
                                           "Starts from 21,000 Tk",
-                                          style: TextStyle(fontSize: dynamicSize(0.019)),
+                                          style: TextStyle(fontSize: dynamicSize(0.04)),
                                         )),
                                   ],
                                 ),
                               ),
                               SizedBox(
-                                width: dynamicSize(0.02),
+                                width: dynamicSize(0.04),
                               ),
                               Container(
                                 width: size.width / 2,
-                                height: dynamicSize(0.22),
+                                height: dynamicSize(0.6),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black26,
@@ -370,12 +373,12 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height:dynamicSize(0.14),
+                                      height:dynamicSize(0.4),
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                         // color: Colors.pinkAccent,
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
+                                            Radius.circular(3)),
 
                                         image: DecorationImage(
                                           image: AssetImage(
@@ -390,7 +393,7 @@ class _HomePageState extends State<HomePage> {
                                         EdgeInsets.only(left: 10, top: 12),
                                         child: Text(
                                           "Dementia Patient",
-                                          style: TextStyle(fontSize: size.width*.04),
+                                          style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
                                         )),
                                     Container(
                                         alignment: Alignment.topLeft,
@@ -398,21 +401,21 @@ class _HomePageState extends State<HomePage> {
                                             left: 10, bottom: 5, top: 5),
                                         child: Text(
                                           "Starts from 21,000 Tk",
-                                          style: TextStyle(fontSize: dynamicSize(0.019)),
+                                          style: TextStyle(fontSize: dynamicSize(0.04)),
                                         )),
                                   ],
                                 ),
                               ),
                               SizedBox(
-                                width: dynamicSize(0.02),
+                                width: dynamicSize(0.04),
                               ),
 
                               Container(
                                 width: size.width / 2,
-                                height: dynamicSize(0.22),
+                                height: dynamicSize(0.6),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black26,
@@ -424,12 +427,12 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height:dynamicSize(0.14),
+                                      height:dynamicSize(0.4),
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                         // color: Colors.pinkAccent,
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
+                                            Radius.circular(3)),
 
                                         image: DecorationImage(
                                           image: AssetImage(
@@ -444,60 +447,7 @@ class _HomePageState extends State<HomePage> {
                                         EdgeInsets.only(left: 10, top: 12),
                                         child: Text(
                                           "Dementia Patient",
-                                          style: TextStyle(fontSize: size.width*.04),
-                                        )),
-                                    Container(
-                                        alignment: Alignment.topLeft,
-                                        margin: const EdgeInsets.only(
-                                            left: 10, bottom: 5, top: 5),
-                                        child: Text(
-                                          "Starts from 21,000 Tk",
-                                          style: TextStyle(fontSize: dynamicSize(0.019)),
-                                        )),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: dynamicSize(0.02),
-                              ),
-                              Container(
-                                width: size.width / 2,
-                                height: dynamicSize(0.22),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black26,
-                                      blurRadius: 4,
-                                      offset: Offset(4, 4), // Shadow position
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height:dynamicSize(0.14),
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        // color: Colors.pinkAccent,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/pet.png"),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                        alignment: Alignment.topLeft,
-                                        margin:
-                                        EdgeInsets.only(left: 10, top: 12),
-                                        child: Text(
-                                          "Dementia Patient",
-                                          style: TextStyle(fontSize: size.width*.04),
+                                          style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
                                         )),
                                     Container(
                                         alignment: Alignment.topLeft,
@@ -505,17 +455,70 @@ class _HomePageState extends State<HomePage> {
                                             left: 10, bottom: 5, top: 5),
                                         child: Text(
                                           "Starts from 21,000 Tk",
-                                          style: TextStyle(fontSize: dynamicSize(0.019)),
+                                          style: TextStyle(fontSize: dynamicSize(0.04)),
                                         )),
                                   ],
                                 ),
                               ),
                               SizedBox(
-                                width: dynamicSize(0.02),
+                                width: dynamicSize(0.04),
                               ),
                               Container(
                                 width: size.width / 2,
-                                height: dynamicSize(0.22),
+                                height: dynamicSize(0.6),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 4,
+                                      offset: Offset(4, 4), // Shadow position
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height:dynamicSize(0.4),
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                        // color: Colors.pinkAccent,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(3)),
+
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/images/pet.png"),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                        alignment: Alignment.topLeft,
+                                        margin:
+                                        EdgeInsets.only(left: 10, top: 12),
+                                        child: Text(
+                                          "Dementia Patient",
+                                          style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
+                                        )),
+                                    Container(
+                                        alignment: Alignment.topLeft,
+                                        margin: EdgeInsets.only(
+                                            left: 10, bottom: 5, top: 5),
+                                        child: Text(
+                                          "Starts from 21,000 Tk",
+                                          style: TextStyle(fontSize: dynamicSize(0.04)),
+                                        )),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: dynamicSize(0.04),
+                              ),
+                              Container(
+                                width: size.width / 2,
+                                height: dynamicSize(0.6),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -530,12 +533,12 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height:dynamicSize(0.14),
+                                      height:dynamicSize(0.4),
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                         color: Colors.lightBlue,
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
+                                            Radius.circular(1)),
                                       ),
                                       child: Center(
                                         child: Container(
@@ -560,11 +563,11 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     Container(
                                         alignment: Alignment.center,
-                                        margin: EdgeInsets.only(top: 16),
+                                        margin: EdgeInsets.only(top: 18),
                                         child: Text(
                                           "See All",
                                           style: TextStyle(
-                                              fontSize: size.width*.04,
+                                              fontSize: dynamicSize(0.06),
                                               color: Colors.pinkAccent),
                                         )),
                                   ],

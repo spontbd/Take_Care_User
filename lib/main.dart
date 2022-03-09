@@ -112,7 +112,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Take Care',
         theme: AllColor.theme,
         debugShowCheckedModeBanner: false,
-        home: const OnDemandPage()
+        home: const HomePage()
     );
   }
 }
