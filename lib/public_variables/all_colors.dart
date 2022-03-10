@@ -20,6 +20,7 @@ class AllColor{
   static const Color white_pink= Color(0xffffebee);
   static const Color pink_button= Color(0xffff0163);
   static const Color buttomdialog= Color(0xff91515d);
+  static const Color blackOrange= Color(0xffa68400);
 
   static const Map<int, Color> themeMapColor = {
     50: Color.fromRGBO(255, 0, 84, .1),
