@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../public_variables/all_colors.dart';
 import '../public_variables/size_config.dart';
 import 'home_page.dart';
+import 'loved_form_page.dart';
 
 class LovedOnesPage extends StatefulWidget {
   const LovedOnesPage({Key? key}) : super(key: key);
@@ -232,7 +233,7 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
             child: InkWell(
               onTap: (){
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => HomePage()));
+                    MaterialPageRoute(builder: (_) => LovedFormPage()));
               },
               child: Container(
                 decoration: BoxDecoration(

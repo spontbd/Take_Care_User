@@ -13,6 +13,7 @@ import '../ui/common.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'On Demand/caregiver_profile_page.dart';
+import 'loved_ones_page.dart';
 import 'order_history/order_history_page.dart';
 
 
@@ -824,11 +825,11 @@ class _HomePageState extends State<HomePage> {
                               const EdgeInsets.only(left: 10.0),
                               child: TextButton(
                                 onPressed: () {
-                                  /*   Navigator.of(context)
+                                     Navigator.of(context)
                                       .pushReplacement(
                                       MaterialPageRoute(
                                           builder: (_) =>
-                                              EarningPage()));*/
+                                              LovedOnesPage()));
                                 },
                                 child: Text(
                                   "Loved One's",
