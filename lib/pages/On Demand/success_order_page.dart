@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
+import 'massage_page.dart';
 
 class SuccessOrderPage extends StatelessWidget {
   const SuccessOrderPage({Key? key}) : super(key: key);
@@ -39,8 +40,8 @@ class SuccessOrderPage extends StatelessWidget {
               ),
               TextButton(onPressed: (){
 
-               /* Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => MapePage()));*/
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (_) => MassagePage()));
               }, child:Text("Go to Home",style: TextStyle(fontSize: dynamicSize(0.05),color:Colors.blue),),
               )
             ],

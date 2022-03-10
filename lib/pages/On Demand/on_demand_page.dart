@@ -5,12 +5,15 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:takecare_user/pages/On%20Demand/categories_page.dart';
 import 'package:takecare_user/pages/On%20Demand/popular_page.dart';
 import 'package:takecare_user/pages/On%20Demand/caregiver_profile_page.dart';
+import 'package:takecare_user/pages/On%20Demand/submitted_review_page.dart';
+import 'package:takecare_user/pages/On%20Demand/write_review_page.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/widgets/check_box.dart';
 
 import '../../controllers/language_controller.dart';
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
+import 'feedback_page.dart';
 import 'map_page.dart';
 
 class OnDemandPage extends StatefulWidget {
@@ -420,7 +423,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>CaregiverProfile()),
+                              builder: (context) =>FeedBackPage()),
                         );
 
 

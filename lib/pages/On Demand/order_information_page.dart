@@ -14,6 +14,19 @@ class OrderInformationPage extends StatefulWidget {
 
 class _OrderInformationPageState extends State<OrderInformationPage> {
   bool orderList = false;
+  bool editInformation = false;
+
+
+  late FocusNode name;
+
+
+
+  @override
+  void initState() {
+    name = FocusNode();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +227,14 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                 color: AllColor.themeColor),
                           ),
                           TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  editInformation = true;
+
+                                  name = FocusNode();
+                                  name.requestFocus();
+                                });
+                              },
                               child: Text(
                                 "Edit",
                                 style: TextStyle(
@@ -228,63 +248,121 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                         height: dynamicSize(0.03),
                       ),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "Name ",
-                            style: TextStyle(fontSize: dynamicSize(0.05)),
+                          Expanded(
+                            flex:1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Name ",
+                                  style: TextStyle(fontSize: dynamicSize(0.05)),
+                                ),
+                                Text(
+                                  ": ",
+                                  style: TextStyle(fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
-                          SizedBox(
-                            width: dynamicSize(.4),
-                          ),
-                          Text(
-                            ": Rana Talukdar",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: dynamicSize(0.05)),
-                          ),
+                          Expanded(
+                            flex: 1,
+                            child: SizedBox(
+                              //height: dynamicSize(0.2),
+                                width: dynamicSize(.5),
+                                child: TextField (
+                                 // controller: et_gallery,
+                                enabled: editInformation,
+                                focusNode: name,
+                                  cursorHeight: dynamicSize(0.06),
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'Rana Talukder',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
+
+                                  ),
+                                )
+                            ),
+                          )
                         ],
                       ),
-                      SizedBox(
-                        height: dynamicSize(0.05),
-                      ),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "Age ",
-                            style: TextStyle(fontSize: dynamicSize(0.05)),
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Age ",
+                                  style: TextStyle(fontSize: dynamicSize(0.05)),
+                                ),
+                                Text(
+                                  ": ",
+                                  style: TextStyle(fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
-                          SizedBox(
-                            width: dynamicSize(.455),
-                          ),
-                          Text(
-                            ": 87 years",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: dynamicSize(0.05)),
-                          ),
+
+                          Expanded(
+                            flex: 1,
+                            child: SizedBox(
+                              //height: dynamicSize(0.2),
+                              width: dynamicSize(.5),
+                              child: TextField (
+                               // controller: et_gallery,
+                                enabled: editInformation,
+                                cursorHeight: dynamicSize(0.06),
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: '67',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
+
+                                ),
+                              )
+                            ),
+                          )
                         ],
                       ),
-                      SizedBox(
-                        height: dynamicSize(0.05),
-                      ),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "Contact Number",style: TextStyle(fontSize: dynamicSize(0.05))
+                          Expanded(
+                            flex:1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Contact Number",style: TextStyle(fontSize: dynamicSize(0.05))
+                                ),
+                                Text(
+                                  ": ",style: TextStyle(fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold)
+                                ),
+                              ],
+                            ),
                           ),
-                          SizedBox(
-                            width: dynamicSize(.19),
-                          ),
-                          Text(
-                            ": 01758351395",
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: dynamicSize(0.05)),
-                          ),
+                          Expanded(
+                            flex: 1,
+                            child: SizedBox(
+                              //height: dynamicSize(0.2),
+                                width: dynamicSize(.5),
+                                child: TextField (
+                                  /*controller: et_gallery,
+                                enabled: text_enabled_gallery,
+                                focusNode: gallery,*/
+                                  cursorHeight: dynamicSize(0.06),
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: '01758351395',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
+
+                                  ),
+                                )
+                            ),
+                          )
                         ],
                       ),
                     ],

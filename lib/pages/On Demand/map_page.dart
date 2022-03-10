@@ -120,78 +120,81 @@ class _MapePageState extends State<MapePage> {
               child:
                   ListView(
                 children: List.generate(
-                  1,
-                  (index) => Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Stack(
-                            overflow: Overflow.visible,
-                            children: [
-                              Positioned(
-                                child: CircleAvatar(
-                                  radius: 35,
-                                  child: ClipOval(
-                                      child: Image.asset(
-                                          "assets/images/imam.png")),
-                                ),
-                              ),
-                              Positioned(
-                                top: dynamicSize(0.17),
-                                left: dynamicSize(0.04),
-                                child: Container(
-                                    alignment: Alignment.center,
-                                    width: dynamicSize(0.12),
-                                    //color: Colors.red,
-                                    decoration: BoxDecoration(
-                                      color: AllColor.white_yeo,
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    child: Text(
-                                      "2 km",
-                                      style: TextStyle(color: Colors.green),
-                                    )),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                  5,
+                  (index) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Stack(
+                              overflow: Overflow.visible,
                               children: [
-                                Text("Leya Ajanta Mondol",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
-
-                                Padding(
-                                  padding: const EdgeInsets.all(3.0),
-                                  child: Row(children: [
-                                    Text("Caregiver ."),
-                                    Text(" 232 patient served"),
-                                  ],),
+                                Positioned(
+                                  child: CircleAvatar(
+                                    radius: 35,
+                                    child: ClipOval(
+                                        child: Image.asset(
+                                            "assets/images/imam.png")),
+                                  ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(3.0),
-                                  child: Row(children: [
-                                    Text("Service Cost: "),
-                                    Text(" 3000/-"),
-                                  ],),
+                                Positioned(
+                                  top: dynamicSize(0.17),
+                                  left: dynamicSize(0.04),
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      width: dynamicSize(0.12),
+                                      //color: Colors.red,
+                                      decoration: BoxDecoration(
+                                        color: AllColor.white_yeo,
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      child: Text(
+                                        "2 km",
+                                        style: TextStyle(color: Colors.green),
+                                      )),
                                 ),
                               ],
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Leya Ajanta Mondol",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
 
-                          Radio(
-                            value: 1,
-                            groupValue: id,
-                            onChanged: (val) {
-                              setState(() {
-                              });
-                            },
-                          ),
-                        ],
-                      )
-                    ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Row(children: [
+                                      Text("Caregiver ."),
+                                      Text(" 232 patient served"),
+                                    ],),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Row(children: [
+                                      Text("Service Cost: "),
+                                      Text(" 3000/-"),
+                                    ],),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+
+
+                        Radio(
+                          value: 1,
+                          groupValue: id,
+                          onChanged: (val) {
+                            setState(() {
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
