@@ -351,9 +351,9 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                               //height: dynamicSize(0.2),
                                 width: dynamicSize(.5),
                                 child: TextField (
-                                  /*controller: et_gallery,
-                                enabled: text_enabled_gallery,
-                                focusNode: gallery,*/
+                                 // controller: et_gallery,
+                                enabled: editInformation,
+
                                   cursorHeight: dynamicSize(0.06),
                                   decoration: InputDecoration(
                                       border: InputBorder.none,

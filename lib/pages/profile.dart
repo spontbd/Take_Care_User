@@ -333,7 +333,6 @@ mainAxisAlignment: MainAxisAlignment.center,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: '',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
-
                         ),
                       )
                     ),
