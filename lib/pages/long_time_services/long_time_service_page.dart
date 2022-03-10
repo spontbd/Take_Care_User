@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:takecare_user/pages/long_time_services/service_request_form_page.dart';
 
 import '../../controllers/language_controller.dart';
 import '../../public_variables/all_colors.dart';
@@ -129,119 +130,140 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            /* title: Text(
-                                    "Booking Information",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.03),
-                                        color: Colors.red),
-                                  ),*/
+                            title: Text(
+                              " How do you want to submit these service request?",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: dynamicSize(0.05),
+                                  color: Colors.red),
+                            ),
                             actions: [
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  width: dynamicSize(1),
-                                  alignment: Alignment.topLeft,
-                                  // height: dynamicSize(0.003),
-
-                                  child: Column(
+                              Column(
+                                children: [
+                                  SizedBox(
+                                    height: dynamicSize(0.07),
+                                  ),
+                                  Container(
+                                    height: dynamicSize(0.003),
+                                    width: dynamicSize(1.5),
+                                    color: Colors.grey,
+                                  ),
+                                  Row(
                                     children: [
-                                      Container(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(
-                                          "Booking Information",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight:
-                                              FontWeight.bold),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: dynamicSize(0.08),
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .spaceBetween,
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              "Service For Whom ",
-                                              style: TextStyle(
-                                                color: Colors.red,
+                                      Flexible(
+                                        flex: 1,
+                                        child: SizedBox(
+                                          height:
+                                          dynamicSize(0.10),
+                                          width: MediaQuery.of(
+                                              context)
+                                              .size
+                                              .width,
+                                          child: Container(
+
+                                            child: RaisedButton(
+                                              shape:
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius
+                                                    .only(
+                                                  bottomLeft: Radius
+                                                      .circular(
+                                                      10.0),
+                                                ),
+                                              ),
+                                              onPressed: () async{
+
+
+                                                Navigator.pop(context);
+
+
+
+                                                /* Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Dashboard()),
+            );*/
+                                              },
+                                              //color: AllColor.button_color,
+                                              textColor:
+                                              Colors.black,
+                                              child:  Text(
+                                                "Annonymusly",
+                                                style: TextStyle(
+                                                    fontSize: 18),
                                               ),
                                             ),
                                           ),
-                                          InkWell(
-                                            onTap:(){
-                                              print("hdjbfdh");
-                                            },
-                                            child: Container(
-                                                child: Text("Edit",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)
+                                        ),
+                                      ),
+                                      Container(
+                                        height: dynamicSize(0.1),
+                                        width: dynamicSize(0.003),
+                                        color: Colors.grey,
+                                      ),
+                                      Flexible(
+                                        flex: 1,
+                                        child: SizedBox(
+                                          height:
+                                          dynamicSize(0.10),
+                                          width: MediaQuery.of(
+                                              context)
+                                              .size
+                                              .width,
+                                          child: Container(
+                                            /*  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                        width: 1,
+                                                        color: Colors.black,
+                                                      ),
+                                                      borderRadius:
+                                                      BorderRadius.circular(5.0),
+                                                    ),*/
+                                            //margin: EdgeInsets.only(bottom: 5),
+                                            /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
+                                            child: RaisedButton(
+                                              shape:
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius
+                                                    .only(
+                                                  bottomRight: Radius
+                                                      .circular(
+                                                      10.0),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(
+                                                    context);
+                                                setState(()=>addedservice=true);
+                                                      Navigator
+                                                                  .pushReplacement(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+
+                                                                    const ServiceRequestFormPage()),
+                                                              );
+                                                //showBottomSheetAddedDialog(context);
+                                              },
+                                              //color: AllColor.button_color,
+                                              textColor:
+                                              Colors.black,
+                                              child:  Text(
+                                                "Login/Sign Up",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors
+                                                        .lightBlue),
+                                              ),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: dynamicSize(0.05),
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .start,
-                                        children: [
-
-                                          Text(
-                                            "Name ",
-                                          ),
-                                          SizedBox(width: dynamicSize(.3),),
-                                          Text(": Rana Talukdar",style: TextStyle(fontWeight: FontWeight.bold),),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: dynamicSize(0.03),
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .start,
-                                        children: [
-
-                                          Text(
-                                            "Age ",
-                                          ),
-                                          SizedBox(width: dynamicSize(.335),),
-                                          Text(": 87 years",style: TextStyle(fontWeight: FontWeight.bold),),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: dynamicSize(0.03),
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .start,
-                                        children: [
-
-                                          Text(
-                                            "Contact Number",
-                                          ),
-                                          SizedBox(width: dynamicSize(.13),),
-                                          Text(": 01758351395",style: TextStyle(fontWeight: FontWeight.bold),),
-                                        ],
+                                        ),
                                       ),
                                     ],
                                   ),
-                                ),
+                                ],
                               ),
                             ],
                           );
