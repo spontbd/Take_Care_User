@@ -76,6 +76,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     children: [
                       Expanded(
                           child: TextField(
+                            controller: DataControllers.to.name.value,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: 'Name*',
@@ -150,8 +151,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         .toList(),
                   ),
                 ),
-                SizedBox(height: dynamicSize(.15)),
+                SizedBox(height: dynamicSize(.04)),
 
+                /// Number
                 Row(
                   children: [
                     Expanded(
@@ -178,6 +180,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Container(
                           height: dynamicSize(0.15),
                           child: TextField(
+                            controller:  DataControllers.to.phoneNumber.value,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: 'Enter Your Mobile Number',
@@ -190,8 +193,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   ],
                 ),
                 SizedBox(
-                  height: dynamicSize(0.18),
+                  height: dynamicSize(0.04),
                 ),
+                ///Password
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, right: 8),
                   child: Container(
@@ -203,7 +207,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 
-                SizedBox(height: dynamicSize(0.2),),
+                SizedBox(height: dynamicSize(0.02),),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -249,7 +253,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 if(
                 DataControllers.to.phoneNumber.value.text.isNotEmpty  &&
                     DataControllers.to.password.value.text.isNotEmpty &&
-                    DataControllers.to.name.value.text.isNotEmpty
+                    DataControllers.to.gender.value.isNotEmpty  &&
+                    DataControllers.to.name.value.text.isNotEmpty  &&
+                    Variables.base64Image.isNotEmpty
                 )
                 {
 
@@ -257,7 +263,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       DataControllers.to.name.value.text,
                       DataControllers.to.phoneNumber.value.text,
                       DataControllers.to.password.value.text,
-                      "4"
+                      DataControllers.to.gender.value,
+                      "4",
+                      Variables.base64Image
                   );
 
                   Fluttertoast.showToast(

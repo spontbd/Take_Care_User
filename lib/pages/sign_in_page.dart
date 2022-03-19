@@ -29,6 +29,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   bool english = true;
   bool signIn = true;
+  bool language = true;
 
 
   final TextEditingController _mobileNumber = TextEditingController(text: '');
@@ -91,7 +92,7 @@ class _SignInPageState extends State<SignInPage> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Text('Great! Next',
+                          child: Text('Sign Up',
                               style: TextStyle(fontSize: dynamicSize(0.045))),
                         )
                       ],
@@ -145,7 +146,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
 
               ///English Bangla toggle button
-              signIn
+              language
                   ? GetBuilder<LanguageController>(
                   builder: (languageController) {
                     return Positioned(
@@ -184,7 +185,22 @@ class _SignInPageState extends State<SignInPage> {
                         height: dynamicSize(0.12),
                         fontSize: dynamicSize(0.045),
                         onToggleCallback: (v) async {
-                          setState(() => signIn = !signIn);
+
+                          if(signIn)
+                            {
+                              Get.to(SignUpPage());
+                            }
+                          else
+                            {
+                              setState(() {
+                                signIn = !signIn;
+                                language = !language;
+                              });
+                            }
+
+
+
+                        /*  setState(() => );*/
                         },
                       ),
                     );
@@ -262,6 +278,23 @@ class _SignInPageState extends State<SignInPage> {
             )
             {
 
+
+              await DataControllers.to.postLogin(_mobileNumber.value.text, _signInPass.value.text);
+
+              showToast(DataControllers.to.userLoginResponse.value.message!, Colors.white);
+
+
+              if(DataControllers.to.userLoginResponse.value.success!)
+              {
+                Get.offAll(HomePage());
+
+                // Navigator.of(context).pushReplacement(
+                //     MaterialPageRoute(builder: (_) => HomePage()));
+              }
+
+             // Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomePage()));
+
+
             }else
             {
               Fluttertoast.showToast(
@@ -280,8 +313,7 @@ class _SignInPageState extends State<SignInPage> {
 
             // onProgressBar(false);
 
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => HomePage()));
+
           },
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.04),vertical:  dynamicSize(0.04)),

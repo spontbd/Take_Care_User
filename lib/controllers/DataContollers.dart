@@ -33,13 +33,20 @@ class DataControllers extends GetxController {
       String first_name,
       String phone_no,
       String password,
-      String role,) async {
+      String gender,
+      String role,
+      String image,
+
+      ) async {
     isLoading(true);
     var response = await ApiService.postRegister(
         first_name,
         phone_no,
         password,
-        role);
+        gender,
+        role,
+        image
+    );
 
     if (response != null) {
        regsiter.value = response;

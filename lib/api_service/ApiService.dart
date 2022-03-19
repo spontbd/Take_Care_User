@@ -10,34 +10,29 @@ import 'package:takecare_user/model/UserLoginResponse.dart';
 
 class ApiService {
   static var client = http.Client();
-
+  static var BaseURL = 'https://takecare.ltd/api/v1/';
   /**
    *    get Request
    */
-
 
   /**
    *    Post Request
    */
 
-  static Future<RegisterResponse> postRegister(
-      String first_name,
-      String phone_no,
-      String password,
-      String role,
-      ) async {
+  static Future<RegisterResponse> postRegister(String first_name, String phone_no, String password, String gender, String role,String image,) async {
 
-      final response = await http.post(
-      Uri.parse('http://103.6.168.152/api/v1/register'),
+    final response = await http.post(
+      Uri.parse(BaseURL+'register'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       }, body: jsonEncode(<String, String>{
-        'full_name': first_name,
-        'phone': phone_no,
-        'password': password,
-        'gender': "Male",
-        'role': role,
-      }),
+      'full_name': first_name,
+      'phone': phone_no,
+      'password': password,
+      'gender': gender,
+      'role': role,
+      'profile_photo': image,
+    }),
     );
 
     if (response.statusCode == 200) {
@@ -62,13 +57,12 @@ class ApiService {
       throw Exception('Failed to create.');
     }
 
-      return registerResponseFromJson(response.body);
+    return registerResponseFromJson(response.body);
 
   }
-
   static Future<UserLoginResponse> postLogin(String phone_number,String pass) async {
     final response = await http.post(
-      Uri.parse('http://103.6.168.152/api/v1/login'),
+      Uri.parse(BaseURL+'login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -101,7 +95,7 @@ class ApiService {
   }
   static Future<UserLoginResponse> postVerifyOTP(String phone_number,String otp) async {
     final response = await http.post(
-      Uri.parse('http://103.6.168.152/api/v1/register/verify-otp'),
+      Uri.parse(BaseURL+'register/verify-otp'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -134,7 +128,7 @@ class ApiService {
   }
   static Future<ResendOTPResponse> postResendOTP(String phone_no) async {
     final response = await http.post(
-      Uri.parse('http://103.6.168.152/api/v1/register/resend-otp'),
+      Uri.parse(BaseURL+'register/resend-otp'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -162,8 +156,5 @@ class ApiService {
       throw Exception('Failed to login');
     }
   }
-
-
-
 
 }

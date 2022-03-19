@@ -97,7 +97,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               width:  MediaQuery.of(context).size.width,
               child: Expanded(
                 child: OTPTextField(
-                  length: 5,
+                  length: 6,
                   //numberOfFields: 5,
                   width: size.width ,
                   fieldWidth: size.width*.17,
@@ -141,7 +141,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   ),
                   onPressed: () async{
 
-                    /*if(DataControllers.to.name.value.text.isNotEmpty)
+                    if(DataControllers.to.name.value.text.isNotEmpty)
                     {
 
                       await DataControllers.to.postVerifyOTP(DataControllers.to.phoneNumber.value.text, DataControllers.to.name.value.text);
@@ -174,14 +174,14 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                           textColor: Colors.white,
                           fontSize: 16.0
                       );
-                    }*/
+                    }
 
-
+/*
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>  SignInPage()),
-                    );
+                    );*/
                   },
                   //padding: EdgeInsets.all(10.0),
                   color: Colors.redAccent,

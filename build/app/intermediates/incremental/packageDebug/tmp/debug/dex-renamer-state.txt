@@ -1,7 +1,7 @@
-#Fri Mar 11 00:51:12 BDT 2022
-base.1=I\:\\Android\\Take_Care_Main\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
+#Sun Mar 20 00:06:34 BDT 2022
+base.1=E\:\\TakeCare\\user_new\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
 path.1=classes2.dex
-base.0=I\:\\Android\\Take_Care_Main\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+base.0=E\:\\TakeCare\\user_new\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
 path.0=classes.dex

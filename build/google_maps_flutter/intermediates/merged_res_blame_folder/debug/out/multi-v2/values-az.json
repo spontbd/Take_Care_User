@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "I:\\Android\\Take_Care_Main\\build\\google_maps_flutter\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-az\\values-az.xml",
+            "outputFile": "E:\\TakeCare\\user_new\\build\\google_maps_flutter\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-az\\values-az.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-2\\files-2.1\\875654acb8fd75501dc33efa1bebb479\\core-1.6.0\\res\\values-az\\values-az.xml",
+                    "source": "C:\\Users\\zahidul_islam\\.gradle\\caches\\transforms-2\\files-2.1\\875654acb8fd75501dc33efa1bebb479\\core-1.6.0\\res\\values-az\\values-az.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-2\\files-2.1\\b513423f2ebe04286dfcb594785725db\\jetified-play-services-base-17.0.0\\res\\values-az\\values.xml",
+                    "source": "C:\\Users\\zahidul_islam\\.gradle\\caches\\transforms-2\\files-2.1\\b513423f2ebe04286dfcb594785725db\\jetified-play-services-base-17.0.0\\res\\values-az\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-2\\files-2.1\\b8e5988e0bc615162088959e72f15f1d\\jetified-play-services-basement-17.0.0\\res\\values-az\\values.xml",
+                    "source": "C:\\Users\\zahidul_islam\\.gradle\\caches\\transforms-2\\files-2.1\\b8e5988e0bc615162088959e72f15f1d\\jetified-play-services-basement-17.0.0\\res\\values-az\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -57,10 +57,10 @@
             ]
         },
         {
-            "outputFile": "I:\\Android\\Take_Care_Main\\build\\google_maps_flutter\\intermediates\\res\\merged\\debug\\values-az\\values-az.xml",
+            "outputFile": "E:\\TakeCare\\user_new\\build\\google_maps_flutter\\intermediates\\res\\merged\\debug\\values-az\\values-az.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-2\\files-2.1\\875654acb8fd75501dc33efa1bebb479\\core-1.6.0\\res\\values-az\\values-az.xml",
+                    "source": "C:\\Users\\zahidul_islam\\.gradle\\caches\\transforms-2\\files-2.1\\875654acb8fd75501dc33efa1bebb479\\core-1.6.0\\res\\values-az\\values-az.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -77,7 +77,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-2\\files-2.1\\b513423f2ebe04286dfcb594785725db\\jetified-play-services-base-17.0.0\\res\\values-az\\values.xml",
+                    "source": "C:\\Users\\zahidul_islam\\.gradle\\caches\\transforms-2\\files-2.1\\b513423f2ebe04286dfcb594785725db\\jetified-play-services-base-17.0.0\\res\\values-az\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -94,7 +94,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-2\\files-2.1\\b8e5988e0bc615162088959e72f15f1d\\jetified-play-services-basement-17.0.0\\res\\values-az\\values.xml",
+                    "source": "C:\\Users\\zahidul_islam\\.gradle\\caches\\transforms-2\\files-2.1\\b8e5988e0bc615162088959e72f15f1d\\jetified-play-services-basement-17.0.0\\res\\values-az\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
