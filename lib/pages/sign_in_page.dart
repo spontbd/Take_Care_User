@@ -18,6 +18,8 @@ import 'package:takecare_user/widgets/AnimatedToggleButton.dart';
 import 'package:takecare_user/widgets/loading_widget.dart';
 import 'package:takecare_user/widgets/text_field_tile.dart';
 
+import '../ui/common.dart';
+
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -47,6 +49,15 @@ class _SignInPageState extends State<SignInPage> {
       isLoading = progress;
     });
   }
+
+  @override
+  void initState()
+  {
+    sharePreferences(context);
+
+    super.initState();
+  }
+
 
 
   @override
@@ -278,19 +289,20 @@ class _SignInPageState extends State<SignInPage> {
             )
             {
 
+              loginClass(_mobileNumber.value.text.toString(),
+                  _signInPass.value.text.toString());
+            //  await DataControllers.to.postLogin(_mobileNumber.value.text, _signInPass.value.text);
 
-              await DataControllers.to.postLogin(_mobileNumber.value.text, _signInPass.value.text);
-
-              showToast(DataControllers.to.userLoginResponse.value.message!, Colors.white);
+              //showToast(DataControllers.to.userLoginResponse.value.message!, Colors.green);
 
 
-              if(DataControllers.to.userLoginResponse.value.success!)
+          /*    if(DataControllers.to.userLoginResponse.value.success!)
               {
-                Get.offAll(HomePage());
+                Get.offAll(HomePage());*/
 
                 // Navigator.of(context).pushReplacement(
                 //     MaterialPageRoute(builder: (_) => HomePage()));
-              }
+            //  }
 
              // Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomePage()));
 
@@ -477,6 +489,73 @@ class _SignInPageState extends State<SignInPage> {
   var userId ;
   var pass ;
 
+
+
+  void sharePreferences(BuildContext context) async
+  {
+    await Common.init();
+
+    try{
+      // storeSharedPreferences = await SharedPreferences.getInstance();
+
+
+      userId   =      Common.storeSharedPreferences.getString("userid");
+      pass   =      Common.storeSharedPreferences.getString("pass");
+
+      if(userId != "" && pass != "")
+      {
+        loginClass(userId,pass);
+
+      }
+
+    }catch(e)
+    {
+
+    }
+
+  }
+
+
+  void loginClass(String user, String pass) async{
+
+    onProgressBar(true);
+
+    try{
+      await DataControllers.to.postLogin(user, pass);
+
+    }catch(e)
+    {
+      onProgressBar(false);
+      //  isLoading = false;
+    }
+    if(DataControllers.to.userLoginResponse.value.success == true)
+    {
+      onProgressBar(false);
+      // isLoading = false;
+      // Get.offAll(HomePage());
+
+      bearerToken = "Bearer "+DataControllers.to.userLoginResponse.value.data!.token.toString();
+
+ /*     await DataControllers.to.fetchProfilePercentage(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
+      await DataControllers.to.fetchAcademicPercentage(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());*/
+
+      Common.storeSharedPreferences.setString('userid', _mobileNumber.value.text.toString());
+      Common.storeSharedPreferences.setString('pass',  _signInPass.value.text.toString());
+
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => HomePage()));
+    }
+    Fluttertoast.showToast(
+        msg: DataControllers.to.userLoginResponse.value.message ?? "",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.indigoAccent,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+
+  }
 
 
 

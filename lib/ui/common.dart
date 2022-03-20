@@ -23,5 +23,4 @@ class Common {
     storeSharedPreferences = await SharedPreferences.getInstance();
   }
 
-
 }

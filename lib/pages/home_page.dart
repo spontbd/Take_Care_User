@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
 import 'package:takecare_user/pages/long_time_services/long_time_service_page.dart';
+import 'package:takecare_user/pages/sign_in_page.dart';
 //import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 
@@ -39,7 +40,22 @@ class _HomePageState extends State<HomePage> {
             children: [
               Row(
                 children: [
-                  Image.asset("assets/images/baby.png"),
+                  // Image.asset("assets/images/baby.png"),
+
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    child: CachedNetworkImage(
+                      height: 55,
+                      width: 55,
+                      fit: BoxFit.cover,
+                      imageUrl:
+                      '${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          Image.asset('assets/images/baby.png'),
+                    ),
+                  ),
                   Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,14 +70,14 @@ class _HomePageState extends State<HomePage> {
                         Container(
                             margin:
                             EdgeInsets.only(left: 10, bottom: 10, top: 5),
-                            child: Text("Fahim",
-                             /* (
+                            child: Text(
+                              (
                                   DataControllers.to.userLoginResponse.value.data!
                                   .user!.fullName!.isEmpty
                                   ? " "
                                   : DataControllers.to.userLoginResponse.value
                                   .data!.user!.fullName
-                                  .toString()),*/
+                                  .toString()),
                               style:
                               TextStyle(fontSize: 25, color: Colors.pink),
                             )),
@@ -640,25 +656,24 @@ class _HomePageState extends State<HomePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+
                             ClipRRect(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(30)),
+                              borderRadius: BorderRadius.all(Radius.circular(30)),
                               child: CachedNetworkImage(
                                 height: 55,
                                 width: 55,
                                 fit: BoxFit.cover,
-                                imageUrl:"https://www.facebook.com/photo/?fbid=3159414330969818&set=a.1460608737517061",
-                                //'${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
+                                imageUrl:
+                                '${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
                                 placeholder: (context, url) =>
                                     CircularProgressIndicator(),
                                 errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                        'assets/images/dash_person.png'),
+                                    Image.asset('assets/images/baby.png'),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 8.0),
-                              child: Text("Rana Talukdar",style: TextStyle(fontWeight: FontWeight.bold,fontSize: dynamicSize(0.06),color: Colors.white),),
+                              child: Text('${DataControllers.to.userLoginResponse.value.data!.user!.fullName}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: dynamicSize(0.06),color: Colors.white),),
                             ),
                           ],
                         ),
@@ -689,8 +704,8 @@ class _HomePageState extends State<HomePage> {
                         )
                       ],
                     ),
-                    //SizedBox(height: dynamicSize(0.02),),
-                    Text(
+                    SizedBox(height: dynamicSize(0.08),),
+               /*     Text(
                       DataControllers.to.userLoginResponse.value.data !=
                           null
                           ? "${DataControllers.to.userLoginResponse.value.data!.user!.fullName}"
@@ -699,7 +714,7 @@ class _HomePageState extends State<HomePage> {
                           fontSize: dynamicSize(0.05),
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
-                    ),
+                    ),*/
                     SizedBox(
                       height: dynamicSize(0.02),
                     ),
@@ -741,7 +756,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         body: Container(
-          //color: Colors.white,
+          color: Colors.white,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child: Column(children: [
@@ -772,7 +787,7 @@ class _HomePageState extends State<HomePage> {
                                     "Order History",
                                     style: TextStyle(
                                         fontSize: dynamicSize(0.035),
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 )),
                           ],
@@ -803,7 +818,7 @@ class _HomePageState extends State<HomePage> {
                                     "Profile",
                                     style: TextStyle(
                                         fontSize: dynamicSize(0.035),
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 )),
                           ],
@@ -835,7 +850,7 @@ class _HomePageState extends State<HomePage> {
                                   "Loved One's",
                                   style: TextStyle(
                                       fontSize: dynamicSize(0.035),
-                                      color: Colors.white),
+                                      color: Colors.black),
                                 ),
                               )),
                         ],
@@ -864,7 +879,7 @@ class _HomePageState extends State<HomePage> {
                                     "Addresses",
                                     style: TextStyle(
                                         fontSize: dynamicSize(0.035),
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 )),
                           ],
@@ -893,7 +908,7 @@ class _HomePageState extends State<HomePage> {
                                     "Coupons",
                                     style: TextStyle(
                                         fontSize: dynamicSize(0.035),
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 )),
                           ],
@@ -924,7 +939,7 @@ class _HomePageState extends State<HomePage> {
                                     "Help Center",
                                     style: TextStyle(
                                         fontSize: dynamicSize(0.035),
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 )),
                           ],
@@ -954,7 +969,7 @@ class _HomePageState extends State<HomePage> {
                                     "Settings",
                                     style: TextStyle(
                                         fontSize: dynamicSize(0.035),
-                                        color: Colors.white),
+                                        color: Colors.black),
                                   ),
                                 )),
                           ],
@@ -973,6 +988,6 @@ void logOutMethod(BuildContext context) {
   Common.storeSharedPreferences.setString("userid", "");
   Common.storeSharedPreferences.setString("pass", "");
 
-/*  Navigator.of(context)
-      .pushReplacement(MaterialPageRoute(builder: (_) => SignInPage()));*/
+  Navigator.of(context)
+      .pushReplacement(MaterialPageRoute(builder: (_) => SignInPage()));
 }
