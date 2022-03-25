@@ -28,16 +28,7 @@ class DataControllers extends GetxController {
    *    Post Request
    */
 
-  Future postRegister(
-
-      String first_name,
-      String phone_no,
-      String password,
-      String gender,
-      String role,
-      String image,
-
-      ) async {
+  Future postRegister(String first_name, String phone_no, String password, String gender, String role, String image,) async {
     isLoading(true);
     var response = await ApiService.postRegister(
         first_name,
@@ -57,7 +48,6 @@ class DataControllers extends GetxController {
     
     return  regsiter.value;
   }
-
   Future postLogin(String phone_number, String pass) async {
     isLoading(true);
     var response = await ApiService.postLogin(phone_number, pass);
@@ -71,9 +61,6 @@ class DataControllers extends GetxController {
 
     return userLoginResponse.value;
   }
-
-
-
   Future postVerifyOTP(String phone_number, String otp) async {
     isLoading(true);
     var response = await ApiService.postVerifyOTP(phone_number, otp);
@@ -87,9 +74,7 @@ class DataControllers extends GetxController {
 
     return userLoginResponse.value;
   }
-
-
-   Future postResendOTP(String phone_no, ValueChanged<bool> responseSuccess) async {
+  Future postResendOTP(String phone_no, ValueChanged<bool> responseSuccess) async {
     isLoading(true);
     var response = await ApiService.postResendOTP(phone_no);
 
@@ -101,5 +86,8 @@ class DataControllers extends GetxController {
 
     return resendOtpResponse.value;
   }
+
+
+  
 
 }

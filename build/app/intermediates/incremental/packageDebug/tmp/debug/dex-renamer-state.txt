@@ -1,4 +1,4 @@
-#Sun Mar 20 00:06:34 BDT 2022
+#Sat Mar 26 02:05:46 BDT 2022
 base.1=E\:\\TakeCare\\user_new\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
 path.1=classes2.dex
 base.0=E\:\\TakeCare\\user_new\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
