@@ -93,7 +93,7 @@ class _SignInPageState extends State<SignInPage> {
                         ],
                       ),
                     )
-                  : Container(height: 50),
+                  : Container(height: 0),
             ),
           ),
           isLoading ? const LoadingWidget() : Container()
@@ -103,18 +103,32 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Widget _bodyUI(Size size, DataControllers dataControllers) => SafeArea(
+
         child: Stack(
 
           alignment: Alignment.center,
           children: [
             ///Bottom Image
-            Container(
-              width: size.width,
-              height: size.height,
-              alignment: Alignment.bottomLeft,
-              child: Container(),
-            ),
+            ///
+           /* Container(
+              color: Colors.greenAccent,
+              width: double.infinity,
+              height: double.infinity,
+            )*/
 
+            /*   Container(
+              margin: EdgeInsets.only(bottom: 0),
+              width: size.width,
+              height: size.height *2,
+              alignment: Alignment.bottomLeft,
+              child:
+              Image.asset('assets/images/image_below.png',
+                  fit:BoxFit.fill
+              )
+
+              ,
+            ),
+*/
             ///Nurse Image
             Positioned(
               top: 0.0,
@@ -125,14 +139,20 @@ class _SignInPageState extends State<SignInPage> {
               Image.asset('assets/images/home_header.png',
                   fit:BoxFit.fill
               )
-              /* Container(
-                width: size.width  ,
-                height: dynamicSize(.8),
-                decoration:  BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/home_header.png'),
-                        fit: BoxFit.fitHeight)),
-              ),*/
+            ),
+
+
+
+            ///Bottom
+            Positioned(
+              bottom: 0.0,
+              left: 0.0,
+              right: 0.0,
+              child:
+
+              Image.asset('assets/images/image_below.png',
+                  fit:BoxFit.fill
+              )
             ),
 
             ///English Bangla toggle button
@@ -195,7 +215,7 @@ class _SignInPageState extends State<SignInPage> {
                 bottom: 0,
                 right: 0,
                 child: Padding(
-                  padding: EdgeInsets.only(right: 16.0),
+                  padding: EdgeInsets.only(right: 16.0,bottom: 30),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -216,7 +236,7 @@ class _SignInPageState extends State<SignInPage> {
                                 onTap: () {},
                                 child: Container(
                                   child: Image.asset(
-                                    "assets/images/login_message_icon.jpg",
+                                    "assets/images/login_message_icon.png",
                                     height: 50,
                                     width: 50,
 
@@ -237,7 +257,7 @@ class _SignInPageState extends State<SignInPage> {
                                   ),
 
                                   height: 50,
-                                  width: 50,
+                                  width: 60,
 
                                 )),
                           ),

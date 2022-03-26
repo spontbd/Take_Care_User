@@ -237,7 +237,78 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
         ),
-        bottomNavigationBar: SizedBox(
+        bottomNavigationBar:
+
+
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
+          child: ElevatedButton(
+            onPressed: () async {
+              if(
+              DataControllers.to.phoneNumber.value.text.isNotEmpty  &&
+                  DataControllers.to.password.value.text.isNotEmpty &&
+                  DataControllers.to.gender.value.isNotEmpty  &&
+                  DataControllers.to.name.value.text.isNotEmpty  &&
+                  Variables.base64Image.isNotEmpty
+              )
+              {
+
+                await DataControllers.to.postRegister(
+                    DataControllers.to.name.value.text,
+                    DataControllers.to.phoneNumber.value.text,
+                    DataControllers.to.password.value.text,
+                    DataControllers.to.gender.value,
+                    "4",
+                    Variables.base64Image
+                );
+
+                Fluttertoast.showToast(
+                    msg: DataControllers.to.regsiter.value.message!,
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
+                if(DataControllers.to.regsiter.value.success == true)
+                {
+                  Get.to(OtpVerificationPage());
+                  /*   Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const OtpVerificationPage()),
+                              );*/
+                }
+
+              }else
+              {
+                Fluttertoast.showToast(
+                    msg: "Fil up the filed!!",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
+              }
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text('Sign Up',
+                      style: TextStyle(fontSize: dynamicSize(0.045))),
+                )
+              ],
+            ),
+          )
+        ),
+
+
+       /* SizedBox(
           height: dynamicSize(0.18),
           width: MediaQuery.of(context).size.width,
           child: Container(
@@ -280,11 +351,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   if(DataControllers.to.regsiter.value.success == true)
                   {
                     Get.to(OtpVerificationPage());
-                    /*   Navigator.push(
+                    *//*   Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const OtpVerificationPage()),
-                              );*/
+                              );*//*
                   }
 
                 }else
@@ -300,11 +371,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   );
                 }
 
-                /*    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const OtpVerificationPage()),
-                      );*/
+
               },
               color: Colors.redAccent,
               textColor: Colors.white,
@@ -314,7 +381,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
           ),
-        ) ,
+        ) ,*/
       ),
     );
   }
