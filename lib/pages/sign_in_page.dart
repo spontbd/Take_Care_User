@@ -26,10 +26,10 @@ class SignInPage extends StatefulWidget {
   @override
   _SignInPageState createState() => _SignInPageState();
 }
-
-class _SignInPageState extends State<SignInPage> {
+bool signIn = true;
+class _SignInPageState extends State<SignInPage>  {
   bool english = true;
-  bool signIn = true;
+
   bool language = true;
 
   final TextEditingController _mobileNumber = TextEditingController(text: '');
@@ -63,7 +63,7 @@ class _SignInPageState extends State<SignInPage> {
 
             bottomNavigationBar: Padding(
               padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
-              child: !signIn
+              child: /*!signIn
                   ? ElevatedButton(
                       onPressed: () async {
                         if (DataControllers.to.name.value.text.isNotEmpty &&
@@ -93,7 +93,7 @@ class _SignInPageState extends State<SignInPage> {
                         ],
                       ),
                     )
-                  : Container(height: 0),
+                  :*/ Container(height: 0),
             ),
           ),
           isLoading ? const LoadingWidget() : Container()
@@ -104,12 +104,17 @@ class _SignInPageState extends State<SignInPage> {
 
   Widget _bodyUI(Size size, DataControllers dataControllers) => SafeArea(
 
-        child: Stack(
+        child:
+
+        GetBuilder<LanguageController>(builder: (lg) {
+
+
+      return  Stack(
 
           alignment: Alignment.center,
           children: [
             ///Bottom Image
-            ///
+
            /* Container(
               color: Colors.greenAccent,
               width: double.infinity,
@@ -178,8 +183,8 @@ class _SignInPageState extends State<SignInPage> {
 
             ///Main Content
             Positioned(
-              top: signIn ? dynamicSize(.7) : dynamicSize(.75),
-              child: signIn ? _loginWidget(size) : _signUpWidget(size),
+              top: /*signIn ?*/ dynamicSize(.7) /*: dynamicSize(.75)*/,
+              child: /*signIn ?*/ _loginWidget(size,lg) /*: _signUpWidget(size)*/,
             ),
 
             ///Signin Signup Button
@@ -196,14 +201,25 @@ class _SignInPageState extends State<SignInPage> {
                   height: dynamicSize(0.12),
                   fontSize: dynamicSize(0.045),
                   onToggleCallback: (v) async {
-                    if (signIn) {
-                      Get.to(SignUpPage());
-                    } else {
-                      setState(() {
-                        signIn = !signIn;
-                        language = !language;
-                      });
-                    }
+
+
+
+                    if(signIn)
+                      {
+                        Get.to(SignUpPage());
+                        setState(() {
+                          signIn = !signIn;
+
+                        });
+                      }
+                    else
+                      {
+                        setState(() {
+                          signIn = !signIn;
+
+                        });
+                      }
+
 
                     /*  setState(() => );*/
                   },
@@ -283,10 +299,13 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ))
           ],
-        ),
-      );
+        );
 
-  Widget _loginWidget(Size size) => Stack(
+        }),
+
+        );
+
+  Widget _loginWidget(Size size, LanguageController lng) => Stack(
         clipBehavior: Clip.none,
         alignment: Alignment.center,
         children: [
@@ -319,7 +338,7 @@ class _SignInPageState extends State<SignInPage> {
                 children: [
                   SizedBox(height: dynamicSize(0.1)),
                   TextFieldBuilder(
-                      controller: _mobileNumber, hintText: 'Mobile Number*'),
+                      controller: _mobileNumber, hintText: lng.mobileNumber.value),
                   SizedBox(height: dynamicSize(0.02)),
                   Padding(
                     padding:
@@ -329,11 +348,11 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   TextFieldBuilder(
                       controller: _signInPass,
-                      hintText: 'Password*',
+                      hintText: lng.password.value,
                       obscure: true),
                   TextButton(
                     onPressed: () {},
-                    child: Text('Forgot Password?',
+                    child: Text(lng.forgotPassword.value,
                         style: TextStyle(
                             color: Colors.pink, fontSize: dynamicSize(0.035))),
                   )
@@ -578,7 +597,7 @@ class _SignInPageState extends State<SignInPage> {
 
       /*     await DataControllers.to.fetchProfilePercentage(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
       await DataControllers.to.fetchAcademicPercentage(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());*/
-
+      await DataControllers.to.getAllService();
       Common.storeSharedPreferences
           .setString('userid', _mobileNumber.value.text.toString());
       Common.storeSharedPreferences

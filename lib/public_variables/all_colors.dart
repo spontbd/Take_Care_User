@@ -11,6 +11,10 @@ class AllColor{
   static final Color textColor= Colors.grey.shade900;
   static const Color search_field_color= Color(0xffd8d8d8);
   static const Color cancel_icon_color= Color(0xff707070);
+  static const Color colorDashboardProfileRed = Color(0xffF17979);
+  static const Color colorDashboardOnDemand_blue = Color(0xff41C5DF);
+  static const Color colorArrow = Color(0xff2D75B8);
+
 
   static const Color shado_color= Color(0xffeeecec);
   static const Color white_blue= Color(0xffe3f2fd);

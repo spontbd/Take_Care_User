@@ -9,6 +9,10 @@ import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
 
+import '../model/AllServiceResponse.dart';
+import '../model/Erorr.dart';
+import '../model/Expertise.dart';
+
 class DataControllers extends GetxController {
   static DataControllers to = Get.find();
 
@@ -21,6 +25,74 @@ class DataControllers extends GetxController {
   Rx<UserLoginResponse> userLoginResponse = UserLoginResponse().obs;
   Rx<ResendOTPResponse> resendOtpResponse = ResendOTPResponse().obs;
   RxString gender = ''.obs;
+
+
+  /// Service
+  Rx<ExpertiseResponse> expertiseResponse =
+      ExpertiseResponse(message: '', data: [], success: false).obs;
+  Rx<ErrorResponse> errorResponse = ErrorResponse().obs;
+  Rx<AllServiceResponse> allServiceResponse = AllServiceResponse().obs;
+  Rx<AllServiceResponse> shortServiceResponse = AllServiceResponse().obs;
+  Rx<AllServiceResponse> longServiceResponse = AllServiceResponse().obs;
+
+
+
+
+
+  Future getAllLongService(String type) async {
+    isLoading(true);
+
+    var response = await ApiService.fetchAllLongShortServiceResponse(type);
+
+    if (response != null) {
+      longServiceResponse.value = response;
+
+      // responseSuccess(true);
+    }
+    isLoading(false);
+  }
+
+  Future getAllShortService(String type) async {
+    isLoading(true);
+
+    var response = await ApiService.fetchAllLongShortServiceResponse(type);
+
+    if (response != null) {
+      shortServiceResponse.value = response;
+
+      // responseSuccess(true);
+    }
+    isLoading(false);
+  }
+
+  Future getAllService() async {
+    isLoading(true);
+
+    var response = await ApiService.fetchServiceResponse();
+
+    if (response != null) {
+      allServiceResponse.value = response;
+
+      // responseSuccess(true);
+    }
+    isLoading(false);
+  }
+
+  Future getExpertise() async {
+    isLoading(true);
+    update();
+    var response = await ApiService.fetchExpertiseResponse();
+    print(expertiseResponse);
+    if (response != null) {
+      expertiseResponse.value = response;
+      update();
+      print(expertiseResponse.value.data.length);
+      // responseSuccess(true);
+    }
+    isLoading(false);
+    update();
+  }
+
 
 
 
@@ -87,7 +159,5 @@ class DataControllers extends GetxController {
     return resendOtpResponse.value;
   }
 
-
-  
 
 }

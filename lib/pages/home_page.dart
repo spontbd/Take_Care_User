@@ -13,6 +13,7 @@ import '../public_variables/notifications.dart';
 import '../ui/common.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import '../widgets/loading_widget.dart';
 import 'On Demand/caregiver_profile_page.dart';
 import 'loved_ones_page.dart';
 import 'order_history/order_history_page.dart';
@@ -25,540 +26,500 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-var loading = true;
+var isLoading = false;
 class _HomePageState extends State<HomePage> {
+
+
+
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    getAllService();
+  }
+
+
+
+  onProgressBar(bool progress) {
+    setState(() {
+      isLoading = progress;
+    });
+  }
+
+
+
+  void getAllService() async {
+    //DataControllers.to.profilePercentage.value.data.percentage = 0;
+
+   // onProgressBar(true);
+    //await DataControllers.to.getAllLongService("long");
+    //await DataControllers.to.getAllShortService("short");
+ await DataControllers.to.getAllService();
+    //onProgressBar(false);
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return SafeArea(
-      child: Scaffold(
-        key:_scaffoldKey ,
-        // appBar: AppBar(title: Text('Goog Morning'),),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Row(
+      child: Stack(
+        children: [
+          Scaffold(
+            key:_scaffoldKey ,
+            // appBar: AppBar(title: Text('Goog Morning'),),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
                 children: [
-                  // Image.asset("assets/images/baby.png"),
-
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    child: CachedNetworkImage(
-                      height: 55,
-                      width: 55,
-                      fit: BoxFit.cover,
-                      imageUrl:
-                      '${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) =>
-                          Image.asset('assets/images/baby.png'),
-                    ),
-                  ),
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                            margin: EdgeInsets.only(left: 10, top: 15),
-                            child: Text(
-                              "Good Morning",
-                              style: TextStyle(fontSize: dynamicSize(0.04)),
-                            )),
-                        Container(
-                            margin:
-                            EdgeInsets.only(left: 10, bottom: 10, top: 5),
-                            child: Text(
-                              (
-                                  DataControllers.to.userLoginResponse.value.data!
-                                  .user!.fullName!.isEmpty
-                                  ? " "
-                                  : DataControllers.to.userLoginResponse.value
-                                  .data!.user!.fullName
-                                  .toString()),
-                              style:
-                              TextStyle(fontSize: 25, color: Colors.pink),
-                            )),
-                      ],
-                    ),
-                  ),
-                  Spacer(),
-                  IconButton(
-                    onPressed: () {
-                      _scaffoldKey.currentState!.openEndDrawer();
-                    },
-                    icon: Icon(Icons.menu),
-                  )
-                ],
-              ), //appbar design
-
-              Flexible(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
+                  Row(
                     children: [
-                      SizedBox(height: dynamicSize(0.04)),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "On demand",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.08), fontWeight: FontWeight.bold),
-                            ),),
+                      // Image.asset("assets/images/baby.png"),
+                      ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        child: CachedNetworkImage(
+                          height: 55,
+                          width: 55,
+                          fit: BoxFit.cover,
+                          imageUrl:
+                          '${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Image.asset('assets/images/baby.png'),
+                        ),
                       ),
-                      Row(
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                                margin: EdgeInsets.only(left: 10, top: 15),
+                                child: Text(
+                                  "Good Morning",
+                                  style: TextStyle(fontSize: dynamicSize(0.04)),
+                                )),
+                            Container(
+                                margin:
+                                EdgeInsets.only(left: 10, bottom: 10, top: 5),
+                                child: Text(
+                                  (
+                                      DataControllers.to.userLoginResponse.value.data!
+                                      .user!.fullName!.isEmpty
+                                      ? " "
+                                      : DataControllers.to.userLoginResponse.value
+                                      .data!.user!.fullName
+                                      .toString()),
+                                  style: TextStyle(fontSize: 25, color: AllColor.colorDashboardOnDemand_blue))),
+                          ],
+                        ),
+                      ),
+                      Spacer(),
+                      IconButton(
+                        onPressed: () {
+                          _scaffoldKey.currentState!.openEndDrawer();
+                        },
+                        icon: Icon(Icons.menu),
+                      )
+                    ],
+                  ), //appbar design
+                  Flexible(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
                         children: [
-                          Expanded(
-                            child: Stack(
-                              children: [
-                                ///Red Back
-                                Container(
-                                  height: dynamicSize(0.5),
-                                  decoration: const BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                ),
-                                ///Top Image
-                                Positioned(
-                                  right: -size.width * .015,
-                                  top: -size.width * .06,
-                                  child: Image.asset(
-                                    'assets/images/inject_1.png',
-                                    height: size.width * .3,
-                                    width: size.width * .3,
-                                  ),
-                                ),
-                                Positioned(
-                                  left: -size.width * .01,
-                                  top: size.width * .12,
-                                  child: Padding(
-                                    padding:
-                                    EdgeInsets.only(left: size.width * .04),
-                                    child: Text(
-                                      "Right Now",
-                                      style: TextStyle(
-                                          fontSize: size.width * .05,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-
-                                Positioned(
-                                  bottom: size.width * .04,
-                                  left: size.width * .03,
-                                  right: -5.0,
-                                  child: Text('Book Service for\nRight now',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: size.width * .038,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                                Positioned(
-                                  bottom: size.width * .008,
-                                  right: -size.width * .02,
-                                  child: ElevatedButton(
-
-                                    onPressed: () {
-                                      Navigator.of(context).pushReplacement(
-                                          MaterialPageRoute(builder: (_) => OnDemandPage()));
-                                    },
-                                    child: Icon(Icons.chevron_right,
-                                        size: size.width * .06,
-
-                                        color: Colors.white),
-                                    style: ElevatedButton.styleFrom(
-                                      shape: const CircleBorder(),
-                                      padding:
-                                      EdgeInsets.all(size.width * .005),
-                                      primary: Colors.blue.shade900,
-                                      onPrimary: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(width:dynamicSize(0.01)),
-                          Expanded(
-                            child: Stack(
-                              children: [
-                                ///Red Back
-                                Container(
-                                  height: dynamicSize(0.5),
-                                  decoration: const BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                ),
-                                ///Top Image
-                                Positioned(
-                                  right: -size.width * .015,
-                                  top: -size.width * .06,
-                                  child: Image.asset(
-                                    'assets/images/inject_1.png',
-                                    height: size.width * .3,
-                                    width: size.width * .3,
-                                  ),
-                                ),
-                                Positioned(
-                                  left: -size.width * .01,
-                                  top: size.width * .12,
-                                  child: Padding(
-                                    padding:
-                                    EdgeInsets.only(left: size.width * .04),
-                                    child: Text(
-                                      "Schedule",
-                                      style: TextStyle(
-                                          fontSize: size.width * .05,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: size.width * .04,
-                                  left: size.width * .03,
-                                  right: -5.0,
-                                  child: Text('Book Service for\nLater',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: size.width * .038,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                                Positioned(
-                                  bottom: size.width * .008,
-                                  right: -size.width * .02,
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    child: Icon(Icons.chevron_right,
-                                        size: size.width * .06,
-                                        color: Colors.white),
-                                    style: ElevatedButton.styleFrom(
-                                      shape: const CircleBorder(),
-                                      padding:
-                                      EdgeInsets.all(size.width * .005),
-                                      primary: Colors.blue.shade900,
-                                      onPrimary: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: dynamicSize(0.03),),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0, top: 20),
-                        child: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Offers & News",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.08), fontWeight: FontWeight.bold),
-                            )),
-                      ),
-
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
+                          SizedBox(height: dynamicSize(0.04)),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
                             child: Container(
-                              //color: Colors.pinkAccent,
-                              height: dynamicSize(0.5),
-                              // width: MediaQuery.of(context).size.width/2,
-                              decoration: BoxDecoration(
-                                // color: Colors.pinkAccent,
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(10)),
-
-                                image: DecorationImage(
-                                  image: AssetImage("assets/images/doc.png"),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Container(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, bottom: 10),
-                                      child: Text(
-                                        "Dementia Patient",
-                                        style: TextStyle(
-                                            fontSize: dynamicSize(0.075),
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "On demand",
+                                  style: TextStyle(
+                                      fontSize: dynamicSize(0.08), fontWeight: FontWeight.bold),
+                                ),),
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Stack(
+                                  children: [
+                                    ///Red Back
+                                    Container(
+                                      height: dynamicSize(0.5),
+                                      decoration: const BoxDecoration(
+                                        color: AllColor.colorDashboardProfileRed,
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10.0, bottom: 15),
-                                      child: Text(
-                                        "Total take care for 12 hrs.or 24 hrs. ",
-                                        style: TextStyle(
-                                          fontSize: dynamicSize(0.045),
-                                          color: Colors.white,
+                                    ///Top Image
+                                    Positioned(
+                                      right: -size.width * .015,
+                                      top: -size.width * .06,
+                                      child: Image.asset(
+                                        'assets/images/inject_1.png',
+                                        height: size.width * .3,
+                                        width: size.width * .3,
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: -size.width * .01,
+                                      top: size.width * .12,
+                                      child: Padding(
+                                        padding:
+                                        EdgeInsets.only(left: size.width * .04),
+                                        child: Text(
+                                          "Right Now",
+                                          style: TextStyle(
+                                              fontSize: size.width * .05,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: dynamicSize(0.05),),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20, bottom: 8),
-                        child: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Long Time Service",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.08), fontWeight: FontWeight.bold),
-                            )),
-                      ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 5.0),
-                          child: Row(
-                            children: [
-                              InkWell(
-                                onTap: (){
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(builder: (_) => LongTimeServicesPage()));
-                                },
-                                child: Container(
-                                  width: size.width / 2,
-                                  height: dynamicSize(0.6),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(8),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black26,
-                                        blurRadius: 4,
-                                        offset: Offset(4, 4), // Shadow position
+
+                                    Positioned(
+                                      bottom: size.width * .04,
+                                      left: size.width * .03,
+                                      right: -5.0,
+                                      child: Text('Book Service for\nRight now',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: size.width * .038,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    Positioned(
+                                      bottom: size.width * .008,
+                                      right: -size.width * .02,
+                                      child: ElevatedButton(
+
+                                        onPressed: () {
+                                          Navigator.of(context).pushReplacement(
+                                              MaterialPageRoute(builder: (_) => OnDemandPage()));
+                                        },
+                                        child: Icon(Icons.chevron_right,
+                                            size: size.width * .06,
+
+                                            color: Colors.white),
+                                        style: ElevatedButton.styleFrom(
+                                          shape: const CircleBorder(),
+                                          padding:
+                                          EdgeInsets.all(size.width * .005),
+                                          primary: AllColor.colorArrow,
+                                          onPrimary: Colors.black,
+                                        ),
                                       ),
-                                    ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width:dynamicSize(0.01)),
+                              Expanded(
+                                child: Stack(
+                                  children: [
+                                    ///Red Back
+                                    Container(
+                                      height: dynamicSize(0.5),
+                                      decoration: const BoxDecoration(
+                                        color:AllColor.colorDashboardOnDemand_blue,
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                    ),
+                                    ///Top Image
+                                    Positioned(
+                                      right: -size.width * .015,
+                                      top: -size.width * .06,
+                                      child: Image.asset(
+                                        'assets/images/inject_1.png',
+                                        height: size.width * .3,
+                                        width: size.width * .3,
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: -size.width * .01,
+                                      top: size.width * .12,
+                                      child: Padding(
+                                        padding:
+                                        EdgeInsets.only(left: size.width * .04),
+                                        child: Text(
+                                          "Schedule",
+                                          style: TextStyle(
+                                              fontSize: size.width * .05,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: size.width * .04,
+                                      left: size.width * .03,
+                                      right: -5.0,
+                                      child: Text('Book Service for\nLater',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: size.width * .038,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    Positioned(
+                                      bottom: size.width * .008,
+                                      right: -size.width * .02,
+                                      child: ElevatedButton(
+                                        onPressed: () {},
+                                        child: Icon(Icons.chevron_right,
+                                            size: size.width * .06,
+                                            color: Colors.white),
+                                        style: ElevatedButton.styleFrom(
+                                          shape: const CircleBorder(),
+                                          padding:
+                                          EdgeInsets.all(size.width * .005),
+                                          primary: AllColor.colorArrow,
+                                          onPrimary: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: dynamicSize(0.03),),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0, top: 20),
+                            child: Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Offers & News",
+                                  style: TextStyle(
+                                      fontSize: dynamicSize(0.08), fontWeight: FontWeight.bold),
+                                )),
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  //color: Colors.pinkAccent,
+                                  height: dynamicSize(0.5),
+                                  // width: MediaQuery.of(context).size.width/2,
+                                  decoration: BoxDecoration(
+                                    // color: Colors.pinkAccent,
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+
+                                    image: DecorationImage(
+                                      image: AssetImage("assets/images/doc.png"),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                   child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Container(
-                                        height:dynamicSize(0.4),
-                                        width: MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                          // color: Colors.pinkAccent,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(3)),
-
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/images/pet.png"),
-                                            fit: BoxFit.cover,
+                                        alignment: Alignment.bottomLeft,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, bottom: 10),
+                                          child: Text(
+                                            "Dementia Patient",
+                                            style: TextStyle(
+                                                fontSize: dynamicSize(0.075),
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                       ),
                                       Container(
-                                          alignment: Alignment.topLeft,
-                                          margin:
-                                          EdgeInsets.only(left: 10, top: 12),
+                                        alignment: Alignment.bottomLeft,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10.0, bottom: 15),
                                           child: Text(
-                                            "Dementia Patient",
-                                            style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
-                                          )),
-                                      Container(
-                                          alignment: Alignment.topLeft,
-                                          margin: EdgeInsets.only(
-                                              left: 10, bottom: 5, top: 5),
-                                          child: Text(
-                                            "Starts from 21,000 Tk",
-                                            style: TextStyle(fontSize: dynamicSize(0.04)),
-                                          )),
+                                            "Total take care for 12 hrs.or 24 hrs. ",
+                                            style: TextStyle(
+                                              fontSize: dynamicSize(0.045),
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                width: dynamicSize(0.04),
-                              ),
-                              Container(
-                                width: size.width / 2,
-                                height: dynamicSize(0.6),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black26,
-                                      blurRadius: 4,
-                                      offset: Offset(4, 4), // Shadow position
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height:dynamicSize(0.4),
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        // color: Colors.pinkAccent,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(3)),
+                            ],
+                          ),
+                          SizedBox(height: dynamicSize(0.05),),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 8),
+                            child: Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Long Time Service",
+                                  style: TextStyle(
+                                      fontSize: dynamicSize(0.08), fontWeight: FontWeight.bold),
+                                )),
+                          ),
+                          Container(
+                            height: dynamicSize(.7),
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 2,
+                              itemBuilder: (context,index) =>
 
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/pet.png"),
-                                          fit: BoxFit.cover,
+                                  Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 15.0),
+                                child:
+
+                                InkWell(
+                                  onTap: (){
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(builder: (_) => LongTimeServicesPage()));
+                                  },
+                                  child: Container(
+                                    width: size.width / 2,
+                                    height: dynamicSize(0.2),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black26,
+                                          blurRadius: 4,
+                                          offset: Offset(4, 4), // Shadow position
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height:dynamicSize(0.4),
+                                          width: MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            // color: Colors.pinkAccent,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(3)),
+
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/pet.png"),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                            alignment: Alignment.topLeft,
+                                            margin:
+                                            EdgeInsets.only(left: 10, top: 12),
+                                            child: Text(
+                                              "Dementia Patient",
+                                              style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
+                                            )),
+                                        Container(
+                                            alignment: Alignment.topLeft,
+                                            margin: EdgeInsets.only(
+                                                left: 10, bottom: 5, top: 5),
+                                            child: Text(
+                                              "Starts from 21,000 Tk",
+                                              style: TextStyle(fontSize: dynamicSize(0.04)),
+                                            )),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      /*    Row(
+
+                            children: [
+
+
+
+                              Container(
+                                height: 200,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 2,
+                                  itemBuilder: (context,index)=>Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 15.0),
+                                    child:
+
+                                    InkWell(
+                                      onTap: (){
+                                        Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(builder: (_) => LongTimeServicesPage()));
+                                      },
+                                      child: Container(
+                                        width: size.width / 2,
+                                        height: dynamicSize(0.2),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black26,
+                                              blurRadius: 4,
+                                              offset: Offset(4, 4), // Shadow position
+                                            ),
+                                          ],
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              height:dynamicSize(0.4),
+                                              width: MediaQuery.of(context).size.width,
+                                              decoration: BoxDecoration(
+                                                // color: Colors.pinkAccent,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(3)),
+
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                      "assets/images/pet.png"),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                                alignment: Alignment.topLeft,
+                                                margin:
+                                                EdgeInsets.only(left: 10, top: 12),
+                                                child: Text(
+                                                  "Dementia Patient",
+                                                  style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
+                                                )),
+                                            Container(
+                                                alignment: Alignment.topLeft,
+                                                margin: EdgeInsets.only(
+                                                    left: 10, bottom: 5, top: 5),
+                                                child: Text(
+                                                  "Starts from 21,000 Tk",
+                                                  style: TextStyle(fontSize: dynamicSize(0.04)),
+                                                )),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                        alignment: Alignment.topLeft,
-                                        margin:
-                                        EdgeInsets.only(left: 10, top: 12),
-                                        child: Text(
-                                          "Dementia Patient",
-                                          style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
-                                        )),
-                                    Container(
-                                        alignment: Alignment.topLeft,
-                                        margin: EdgeInsets.only(
-                                            left: 10, bottom: 5, top: 5),
-                                        child: Text(
-                                          "Starts from 21,000 Tk",
-                                          style: TextStyle(fontSize: dynamicSize(0.04)),
-                                        )),
-                                  ],
+                                  ),
                                 ),
                               ),
+
+
+
+
+
                               SizedBox(
                                 width: dynamicSize(0.04),
                               ),
 
-                              Container(
-                                width: size.width / 2,
-                                height: dynamicSize(0.6),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black26,
-                                      blurRadius: 4,
-                                      offset: Offset(4, 4), // Shadow position
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height:dynamicSize(0.4),
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        // color: Colors.pinkAccent,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(3)),
-
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/pet.png"),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                        alignment: Alignment.topLeft,
-                                        margin:
-                                        EdgeInsets.only(left: 10, top: 12),
-                                        child: Text(
-                                          "Dementia Patient",
-                                          style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
-                                        )),
-                                    Container(
-                                        alignment: Alignment.topLeft,
-                                        margin: EdgeInsets.only(
-                                            left: 10, bottom: 5, top: 5),
-                                        child: Text(
-                                          "Starts from 21,000 Tk",
-                                          style: TextStyle(fontSize: dynamicSize(0.04)),
-                                        )),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: dynamicSize(0.04),
-                              ),
-                              Container(
-                                width: size.width / 2,
-                                height: dynamicSize(0.6),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black26,
-                                      blurRadius: 4,
-                                      offset: Offset(4, 4), // Shadow position
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height:dynamicSize(0.4),
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        // color: Colors.pinkAccent,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(3)),
-
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/pet.png"),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                        alignment: Alignment.topLeft,
-                                        margin:
-                                        EdgeInsets.only(left: 10, top: 12),
-                                        child: Text(
-                                          "Dementia Patient",
-                                          style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
-                                        )),
-                                    Container(
-                                        alignment: Alignment.topLeft,
-                                        margin: EdgeInsets.only(
-                                            left: 10, bottom: 5, top: 5),
-                                        child: Text(
-                                          "Starts from 21,000 Tk",
-                                          style: TextStyle(fontSize: dynamicSize(0.04)),
-                                        )),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: dynamicSize(0.04),
-                              ),
                               Container(
                                 width: size.width / 2,
                                 height: dynamicSize(0.6),
@@ -587,12 +548,12 @@ class _HomePageState extends State<HomePage> {
                                         child: Container(
                                             child: ElevatedButton(
                                               onPressed: () {
-                                               /* Navigator.push(
+                                               *//* Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           AnimatedSearch()),
-                                                );*/
+                                                );*//*
                                               },
                                               child: Icon(Icons.arrow_forward,
                                                   size: 45, color: Colors.white),
@@ -617,17 +578,18 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ],
-                          ),
-                        ),
+                          ),*/
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
+            endDrawer:_drawer() ,
           ),
-        ),
-        endDrawer:_drawer() ,
+          isLoading ?  LoadingWidget() : Container()
+        ],
       ),
     );
   }
@@ -678,17 +640,6 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
 
-                        /*   Container(
-                          margin: EdgeInsets.only(top: 5),
-                          height: dynamicSize(.15),
-                          width: dynamicSize(.15),
-                          decoration: BoxDecoration(
-                              color: Colors.blue,
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: AssetImage('assets/images/baby.png'),
-                                  fit: BoxFit.cover)),
-                        ),*/
                         Padding(
                           padding: EdgeInsets.all(dynamicSize(.04)),
                           child: Row(

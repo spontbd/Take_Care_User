@@ -7,6 +7,10 @@ import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
 
+import '../model/AllServiceResponse.dart';
+import '../model/Expertise.dart';
+import '../ui/variables.dart';
+
 
 class ApiService {
   static var client = http.Client();
@@ -14,6 +18,66 @@ class ApiService {
   /**
    *    get Request
    */
+
+  static Future<ExpertiseResponse?> fetchExpertiseResponse() async {
+    print(bearerToken);
+    var response = await client
+        .get(Uri.parse(BaseURL + 'specialities'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    });
+    print("Api Response : ${response.body}");
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return expertiseResponseFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+
+
+  static Future<AllServiceResponse?> fetchServiceResponse() async {
+    var response = await client
+        .get(Uri.parse(BaseURL + 'service/all'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    });
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return allServiceResponseFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+
+  static Future<AllServiceResponse?> fetchAllLongShortServiceResponse(String type) async {
+    var response = await client
+        .post(Uri.parse(BaseURL + 'service/allbytype'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    },
+      body: jsonEncode(<String, String>{
+        'service_type': type,
+      }),
+    );
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return allServiceResponseFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+
+
 
   /**
    *    Post Request
