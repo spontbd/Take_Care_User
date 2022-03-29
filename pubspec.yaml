@@ -34,6 +34,14 @@ dependencies:
   flutter_launcher_icons: ^0.9.2
 
 
+  barikoi_maps_place_picker:
+    git:
+      url: https://github.com/barikoi/barikoi_map_place_picker.git
+      ref: '9128ba9dbbfe2914d30e9ffa4b9834f8c1c7f684'
+#  barikoi_api:
+#    git: https://github.com/barikoi/barikoi_api_dartlib.git
+#      version: 'any'
+
 
 dev_dependencies:
   flutter_launcher_icons: "^0.9.2"

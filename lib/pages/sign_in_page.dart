@@ -1,5 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
+import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
+import 'package:maplibre_gl/mapbox_gl.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -22,14 +26,16 @@ import '../ui/common.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
+  static final initLatLng = LatLng(23.8567844, 90.213108);
 
   @override
   _SignInPageState createState() => _SignInPageState();
 }
 bool signIn = true;
+
 class _SignInPageState extends State<SignInPage>  {
   bool english = true;
-
+  late PickResult selectedPlace;
   bool language = true;
 
   final TextEditingController _mobileNumber = TextEditingController(text: '');
@@ -101,7 +107,6 @@ class _SignInPageState extends State<SignInPage>  {
       );
     });
   }
-
   Widget _bodyUI(Size size, DataControllers dataControllers) => SafeArea(
 
         child:
@@ -236,11 +241,88 @@ class _SignInPageState extends State<SignInPage>  {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        "Continue as  Guest",
-                        style: TextStyle(
-                            fontSize: dynamicSize(0.06),
-                            color: Colors.blue),
+                      InkWell(
+                        onTap: (){
+                          print("Bari Koi API");
+                      /*    PlacePicker(
+                            apiKey: "MjY5MzpHMEVBUExBNVM5", //Barikoi API key
+                            initialPosition: SignInPage.initLatLng, //initial location position to start the map with
+                            useCurrentLocation: true, // option to use the current location for picking a place, true by default
+                            selectInitialPosition: true, //option to load the initial position to start the map with
+                            usePinPointingSearch: true,  //option to use reversegeo api to get place from location point, default value is true
+                            onPlacePicked: (result) {   //returns the place object selected in the place picker
+                              selectedPlace = result;
+                              print("Bari Koi selectedPlace "+selectedPlace.latitude.toString() );
+                            },
+                          );*/
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return PlacePicker(
+                                  apiKey: "MjY5MzpHMEVBUExBNVM5",
+                                  initialPosition: SignInPage.initLatLng,
+                                  useCurrentLocation: true,
+                                  selectInitialPosition: true,
+                                  usePinPointingSearch: true,
+                                  onPlacePicked: (result) {
+                                    selectedPlace = result;
+                                    log("place ucode: "+result.toString());
+
+                                    Navigator.of(context).pop();
+                                    setState(() {
+                                      selectedPlace = result;
+
+                                    });
+                                  },
+
+                                  //forceSearchOnZoomChanged: true,
+                                  automaticallyImplyAppBarLeading: false,
+                                  //autocompleteLanguage: "ko",
+                                  //region: 'au',
+                                  selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
+                                    print("state: $state, isSearchBarFocused: $isSearchBarFocused");
+                                    return isSearchBarFocused
+                                        ? Container()
+                                        : FloatingCard(
+                                      bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
+                                      leftPosition: 0.0,
+                                      rightPosition: 0.0,
+                                      width: 500,
+
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      child: state == SearchingState.Searching
+                                          ? Center(child: CircularProgressIndicator())
+                                          : RaisedButton(
+                                        child: Text("Pick Here"),
+                                        onPressed: () {
+                                          // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
+                                          //            this will override default 'Select here' Button.
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  // pinBuilder: (context, state) {
+                                  //   if (state == PinState.Idle) {
+                                  //     return Icon(Icons.favorite_border);
+                                  //   } else {
+                                  //     return Icon(Icons.favorite);
+                                  //   }
+                                  // },
+                                );
+                              },
+                            ),
+                          );
+
+                        },
+                        child: Text(
+                          "Continue as  Guest",
+                          style: TextStyle(
+                              fontSize: dynamicSize(0.06),
+                              color: Colors.blue),
+                        ),
                       ),
                       Text("or"),
                       Text("Sign up with"),
@@ -367,15 +449,17 @@ class _SignInPageState extends State<SignInPage>  {
 
                 if (_mobileNumber.value.text.isNotEmpty &&
                     _signInPass.value.text.isNotEmpty) {
-                  loginClass(_mobileNumber.value.text.toString(),
-                      _signInPass.value.text.toString());
-                  //  await DataControllers.to.postLogin(_mobileNumber.value.text, _signInPass.value.text);
 
-                  //showToast(DataControllers.to.userLoginResponse.value.message!, Colors.green);
 
-                  /*    if(DataControllers.to.userLoginResponse.value.success!)
-              {
-                Get.offAll(HomePage());*/
+                  loginClass(_mobileNumber.value.text.toString(), _signInPass.value.text.toString());
+
+               /*     await DataControllers.to.postLogin(_mobileNumber.value.text, _signInPass.value.text);
+
+                  showToast(DataControllers.to.userLoginResponse.value.message!, Colors.green);
+
+                      if(DataControllers.to.userLoginResponse.value.success!) {
+                        Get.offAll(HomePage());
+                      }*/
 
                   // Navigator.of(context).pushReplacement(
                   //     MaterialPageRoute(builder: (_) => HomePage()));
