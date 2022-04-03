@@ -1,7 +1,9 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/pages/On%20Demand/categories_page.dart';
 import 'package:takecare_user/pages/On%20Demand/popular_page.dart';
 import 'package:takecare_user/pages/On%20Demand/caregiver_profile_page.dart';
@@ -9,10 +11,13 @@ import 'package:takecare_user/pages/On%20Demand/submitted_review_page.dart';
 import 'package:takecare_user/pages/On%20Demand/write_review_page.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/widgets/check_box.dart';
+import 'package:intl/intl.dart';
 
 import '../../controllers/language_controller.dart';
 import '../../public_variables/all_colors.dart';
+import '../../public_variables/notifications.dart';
 import '../../public_variables/size_config.dart';
+import '../../ui/common.dart';
 import 'feedback_page.dart';
 import 'map_page.dart';
 
@@ -79,7 +84,13 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                             padding: const EdgeInsets.only(
                                                 left: 8.0, top: 5),
                                             child: Text(
-                                              "02",
+                                              DataControllers
+                                                  .to
+                                                  .getAddCardResponse
+                                                  .value
+                                                  .data!
+                                                  .length
+                                                  .toString(),
                                               style: TextStyle(
                                                   fontSize: dynamicSize(0.04),
                                                   fontWeight: FontWeight.bold,
@@ -131,7 +142,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       flex: 2,
                       child: InkWell(
                         onTap: () {
-                          print("Fahim");
                           showDialog(
                               context: context,
                               builder: (context) {
@@ -144,7 +154,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                         color: Colors.red),
                                   ),*/
                                   actions: [
-
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
@@ -183,12 +192,17 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                                   ),
                                                 ),
                                                 InkWell(
-                                                  onTap:(){
+                                                  onTap: () {
                                                     print("hdjbfdh");
                                                   },
                                                   child: Container(
-                                                    child: Text("Edit",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)
-                                                  ),
+                                                      child: Text(
+                                                    "Edit",
+                                                    style: TextStyle(
+                                                        color: Colors.red,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )),
                                                 ),
                                               ],
                                             ),
@@ -197,17 +211,22 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                             ),
                                             Row(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .start,
+                                                  MainAxisAlignment.start,
                                               children: [
-
                                                 Text(
                                                   "Name ",
                                                 ),
-                                                SizedBox(width: dynamicSize(.3),),
-                                                Text(": Rana Talukdar",style: TextStyle(fontWeight: FontWeight.bold),),
+                                                SizedBox(
+                                                  width: dynamicSize(.3),
+                                                ),
+                                                Text(
+                                                  ": Rana Talukdar",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                               ],
                                             ),
                                             SizedBox(
@@ -215,17 +234,22 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                             ),
                                             Row(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .start,
+                                                  MainAxisAlignment.start,
                                               children: [
-
                                                 Text(
                                                   "Age ",
                                                 ),
-                                                SizedBox(width: dynamicSize(.335),),
-                                                Text(": 87 years",style: TextStyle(fontWeight: FontWeight.bold),),
+                                                SizedBox(
+                                                  width: dynamicSize(.335),
+                                                ),
+                                                Text(
+                                                  ": 87 years",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                               ],
                                             ),
                                             SizedBox(
@@ -233,17 +257,22 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                             ),
                                             Row(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .start,
+                                                  MainAxisAlignment.start,
                                               children: [
-
                                                 Text(
                                                   "Contact Number",
                                                 ),
-                                                SizedBox(width: dynamicSize(.13),),
-                                                Text(": 01758351395",style: TextStyle(fontWeight: FontWeight.bold),),
+                                                SizedBox(
+                                                  width: dynamicSize(.13),
+                                                ),
+                                                Text(
+                                                  ": 01758351395",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                               ],
                                             ),
                                           ],
@@ -390,8 +419,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) =>  MapePage()),
+                          MaterialPageRoute(builder: (context) => MapePage()),
                         );
                       },
                       child: Container(
@@ -423,10 +451,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>FeedBackPage()),
+                              builder: (context) => FeedBackPage()),
                         );
-
-
                       },
                       child: Container(
                         child: Row(
@@ -461,7 +487,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
         body: ListView(
           padding: const EdgeInsets.all(8),
           children: List.generate(
-            10,
+            DataControllers.to.shortServiceResponse.value.data!.length,
             (index) => Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Container(
@@ -480,8 +506,16 @@ class _OnDemandPageState extends State<OnDemandPage> {
                 ),
                 child: Row(
                   children: [
-                    Image.asset(
-                      "assets/images/image.png",
+                    CachedNetworkImage(
+                      width: 120,
+                      imageUrl:
+                          "${DataControllers.to.shortServiceResponse.value.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) =>
+                              CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Image.asset(
+                        "assets/images/image.png",
+                      ),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -490,7 +524,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0, left: 5),
                           child: Text(
-                            "Injection Push",
+                            "${DataControllers.to.shortServiceResponse.value.data![index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
                             style: TextStyle(
                                 fontSize: dynamicSize(0.04),
                                 fontWeight: FontWeight.bold),
@@ -500,7 +534,9 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           height: dynamicSize(0.02),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showButtonDialog(context, index);
+                          },
                           child: Text(
                             "Details",
                             style: TextStyle(
@@ -515,9 +551,16 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       onTap: () {
                         print("object");
                         // Navigator.pop(context);
-                        showButtonDialog(context);
+                        addCard(index);
                       },
-                      child: Image.asset(
+                      child:
+
+                          //  DataControllers.to.shortServiceResponse.value.data![index].status == "Done" ?
+
+                          /* Image.asset(
+                        "assets/images/done_image.png",
+                      ) :*/
+                          Image.asset(
                         "assets/images/add.png",
                       ),
                     ),
@@ -531,7 +574,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
     });
   }
 
-  void showButtonDialog(BuildContext context) {
+  void showButtonDialog(BuildContext context, int index) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
@@ -553,11 +596,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                 Container(
                   height: dynamicSize(0.7),
                   decoration: BoxDecoration(
-                    color: AllColor.buttomdialog,
-                    border: Border.all(
-                      width: 3,
-                      color: Colors.black,
-                    ),
+                    color: AllColor.button_color,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(15.0),
                       topLeft: Radius.circular(15.0),
@@ -581,154 +620,24 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           Column(
                             children: [
                               InkWell(
-                                onTap: () {
+                                onTap: () async {
                                   Navigator.pop(context);
-                                  setState(() {
+
+
+                                  addCard(index);
+
+                                  /*  if(DataControllers.to.addServiceResponse.value.success!)
+                                    {
+                                      DataControllers.to.shortServiceResponse.value.data![index].status = "Done";
+                                    }*/
+
+                                  //updatedUserService();
+
+                                  /*  setState(() {
                                     showBottom = true;
+                                 //   DataControllers.to.shortServiceResponse;
                                     addedlist = true;
-                                  });
-
-                                  /* Navigator.pop(context);
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text(
-                                            LanguageController.lc.youCanEditPrice.value,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: dynamicSize(0.03),
-                                                color: Colors.red),
-                                          ),
-                                          content: Row(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                width: 60,
-                                                child: TextField(),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 40.0),
-                                                child: Text(
-                                                  LanguageController.lc.tk.value,
-                                                  style: TextStyle(
-                                                      fontSize: dynamicSize(0.03)),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          actions: [
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  height: dynamicSize(0.003),
-                                                  width: dynamicSize(1),
-                                                  color: Colors.grey,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Flexible(
-                                                      flex: 1,
-                                                      child: SizedBox(
-                                                        height: dynamicSize(0.10),
-                                                        width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                        child: Container(
-
-                                                          child: RaisedButton(
-                                                            shape:
-                                                            RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius.only(
-                                                                bottomLeft:
-                                                                Radius.circular(
-                                                                    10.0),
-                                                              ),
-                                                            ),
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                               Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const Dashboard()),
-            );
-                                                            },
-                                                            //color: AllColor.button_color,
-                                                            textColor: Colors.black,
-                                                            child:  Text(
-                                                              LanguageController.lc.cancel.value,
-                                                              style: TextStyle(
-                                                                  fontSize: 18),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      height: dynamicSize(0.1),
-                                                      width: dynamicSize(0.003),
-                                                      color: Colors.grey,
-                                                    ),
-                                                    Flexible(
-                                                      flex: 1,
-                                                      child: SizedBox(
-                                                        height: dynamicSize(0.10),
-                                                        width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                        child: Container(
-                                                            decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                            width: 1,
-                                                            color: Colors.black,
-                                                          ),
-                                                          borderRadius:
-                                                          BorderRadius.circular(5.0),
-                                                        ),
-                                                          //margin: EdgeInsets.only(bottom: 5),
-                                                          padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),
-                                                          child: RaisedButton(
-                                                            shape:
-                                                            RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius.only(
-                                                                bottomRight:
-                                                                Radius.circular(
-                                                                    10.0),
-                                                              ),
-                                                            ),
-                                                            onPressed: () {
-                                                              Navigator.pop(context);
-                                                              setState(() => showBottom = true);
-                                                              //showBottomSheetAddedDialog(context);
-                                                            },
-                                                            //color: AllColor.button_color,
-                                                            textColor: Colors.black,
-                                                            child:  Text(
-                                                              LanguageController.lc.add.value,
-                                                              style: TextStyle(
-                                                                  fontSize: 18,
-                                                                  color: Colors
-                                                                      .lightBlue),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        );
-                                      });*/
+                                  });*/
                                 },
                                 child: Image.asset(
                                   "assets/images/added_now_button.png",
@@ -741,7 +650,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0, top: 5),
                         child: Text(
-                          "Attendant for Hospital Visit",
+                          DataControllers.to.shortServiceResponse.value
+                              .data![index].serviceName!,
                           style: TextStyle(
                               fontSize: dynamicSize(0.05),
                               fontWeight: FontWeight.bold),
@@ -750,7 +660,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0, top: 5),
                         child: Text(
-                          "Caregiver/ Nurse will go with patient when he/she needs to go hospital/Clinic for diagnosis or any major treatment like Dialysisor anything else. Caregiver/Nurse will stay with patient totaltime & get back with patient's premises.",
+                          DataControllers.to.shortServiceResponse.value
+                              .data![index].description!,
                           style: TextStyle(
                             fontSize: dynamicSize(0.03),
                           ),
@@ -785,11 +696,12 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           size: 35,
                         ))),
                 Container(
+                  color: AllColor.button_color,
                   height: dynamicSize(0.55),
                   child: ListView(
                     padding: const EdgeInsets.all(8),
                     children: new List.generate(
-                      8,
+                      DataControllers.to.getAddCardResponse.value.data!.length,
                       (index) => Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Container(
@@ -819,7 +731,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                     padding: const EdgeInsets.only(
                                         top: 8.0, left: 5),
                                     child: Text(
-                                      "Injection Push",
+                                      "${DataControllers.to.getAddCardResponse.value.data![index].bookingDate == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].bookingDate}",
                                       style: TextStyle(
                                           fontSize: dynamicSize(0.04),
                                           fontWeight: FontWeight.bold),
@@ -831,13 +743,26 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                   TextButton(
                                     onPressed: () {},
                                     child: Text(
-                                      "Details",
+                                      "",
                                       style: TextStyle(
                                           fontSize: dynamicSize(0.035),
                                           color: Colors.purple),
                                     ),
                                   ),
                                 ],
+                              ),
+                              Spacer(),
+                              Container(
+                                height: 40,
+                                width: 40,
+                                child: InkWell(
+                                  onTap: () {
+                                    deleteAddCardData(index);
+                                  },
+                                  child: Image.asset(
+                                    "assets/images/demand_service_cross_button.png",
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -871,22 +796,93 @@ class _OnDemandPageState extends State<OnDemandPage> {
                     ],
                   ),*/
 
-
                   ListView(
-                    children: List.generate(50, (index) => Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Dressing",style: TextStyle(fontSize: dynamicSize(0.05)),),
-                        CheckBox(),
-                      ],
-                    ),
-                    ),
+                children: List.generate(
+                  DataControllers.to.getCategoriesResponse.value.data!.length,
+                  (index) => Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "${DataControllers.to.getCategoriesResponse.value.data![index].categoryName}",
+                        style: TextStyle(fontSize: dynamicSize(0.05)),
+                      ),
+                      CheckBox(),
+                    ],
                   ),
-
+                ),
+              ),
             ),
           );
         });
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    showBottom = false;
+    getAddCardData();
+    /* if(DataControllers.to.userServiceResponse.value.data!.isNotEmpty)
+      {
+        showBottom = false;
+      }*/
+  }
+
+  void getAddCardData() async {
+    await DataControllers.to.getCard(
+        DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
+
+    if (DataControllers.to.getAddCardResponse.value.data!.length > 0) {
+      setState(() {
+        DataControllers.to.getAddCardResponse;
+        showBottom = true;
+        addedlist = true;
+      });
+    } else {
+      showBottom = false;
+      addedlist = false;
+    }
+  }
+
+  void deleteAddCardData(int index) async {
+    await DataControllers.to.deleteCard(
+        DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
+        DataControllers.to.getAddCardResponse.value.data![index].id.toString());
+    showToast(DataControllers.to.errorResponse.value.message!);
+
+    if (DataControllers.to.errorResponse.value.success!) {
+      getAddCardData();
+    }
+  }
+
+  void addCard(int index) async{
+
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yyyy-MM-dd');
+    String formattedDate = formatter.format(now);
+
+    await DataControllers.to.addCard(
+        DataControllers.to.userLoginResponse.value
+            .data!.user!.id
+            .toString(),
+        DataControllers.to.shortServiceResponse
+            .value.data![index].id
+            .toString(),
+        formattedDate);
+
+    showToast(
+        DataControllers
+            .to.addCardResponse.value.message!,
+        AllColor.blue);
+    Navigator.pop(context);
+
+    if (DataControllers
+        .to.addCardResponse.value.success!) {
+      Common.storeSharedPreferences.setString("service", "short");
+
+      getAddCardData();
+    }
+  }
 }

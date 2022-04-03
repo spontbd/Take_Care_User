@@ -3,12 +3,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:takecare_user/model/AddCardResponse.dart';
+import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
 
+import '../controllers/DataContollers.dart';
 import '../model/AllServiceResponse.dart';
+import '../model/Erorr.dart';
 import '../model/Expertise.dart';
+import '../model/ShortServiceResponse.dart';
+import '../model/UserServiceResponse.dart';
 import '../ui/variables.dart';
 
 
@@ -18,6 +24,9 @@ class ApiService {
   /**
    *    get Request
    */
+
+
+
 
   static Future<ExpertiseResponse?> fetchExpertiseResponse() async {
     print(bearerToken);
@@ -79,9 +88,31 @@ class ApiService {
 
 
 
+  static Future<CategoriesResponse?> fetchAllCategoriesResponse() async {
+    var response = await client
+        .get(Uri.parse(BaseURL + 'service/categories'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    }
+    );
+    if (response.statusCode == 200) {
+      print("Api Response categories : ${response.body}");
+      var jsonString = response.body;
+      return categoriesResponseFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+
+
+
   /**
    *    Post Request
    */
+
+
 
   static Future<RegisterResponse> postRegister(String first_name, String phone_no, String password, String gender, String role,String image,) async {
 
@@ -220,5 +251,270 @@ class ApiService {
       throw Exception('Failed to login');
     }
   }
+
+
+
+
+  /// Card Service
+
+  static Future<AddCardResponse?> fetchCard(String user_id
+      ) async {
+    var response = await client
+        .get(Uri.parse(BaseURL + 'user/cart/list?user_id=${user_id}'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    },
+    /*  body: jsonEncode(<String, String>{
+        'user_id': user_id,
+      }),*/
+
+    );
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return addCardResponseFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+
+
+
+  static Future<ErrorResponse?> placeOrder(String id,  String user_id
+      ) async {
+    var response = await client
+        .post(Uri.parse(BaseURL + 'user/order/place-order'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    });
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return errorResponseFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+
+
+  static Future<ErrorResponse?> deleteCard(String user_id ,String id
+      ) async {
+    var response = await client
+        .post(Uri.parse(BaseURL + 'user/cart/delete-cart'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    },
+      body: jsonEncode(<String, String>{
+        'id': id,
+        'user_id': user_id,
+      }),
+
+    );
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return errorResponseFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+
+
+
+  static Future<ErrorResponse?> deleteAllCard(String user_id
+      ) async {
+    var response = await client
+        .post(Uri.parse(BaseURL + 'user/cart/empty-cart'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    },
+      body: jsonEncode(<String, String>{
+
+        'user_id': user_id,
+      }),
+
+    );
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return errorResponseFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+
+
+
+  static Future<ErrorResponse?> addCard(String user_id ,
+      String user_service_id, String booking_date
+      ) async {
+    var response = await client
+        .post(Uri.parse(BaseURL + 'user/cart/add-service-to-cart'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    },
+      body: jsonEncode(<String, String>{
+        'user_id': user_id,
+        'user_service_id': user_service_id,
+        'booking_date': booking_date,
+      }),
+
+    );
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return errorResponseFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+
+
+  /// Service
+
+  static Future<UserServiceResponse?> postUserServiceResponse(String user_id) async {
+    var response = await client
+        .post(Uri.parse(BaseURL + 'user/service/all'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    },
+      body: jsonEncode(<String, String>{
+        'user_id': user_id,
+      }),
+
+    );
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return userServiceResponseFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+
+
+  static Future<ErrorResponse> addService(String user_id,String service_id) async {
+    final response = await http.post(
+      Uri.parse(BaseURL + 'user/service/add'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': bearerToken,
+      },
+      body: jsonEncode(<String, String>{
+        'user_id': user_id,
+        'service_id': service_id,
+        'service_price': "200",
+      }),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200)
+    {
+
+
+
+      return errorResponseFromJson(response.body);
+    } else {
+      DataControllers.to.addServiceResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.addServiceResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.addServiceResponse.value;
+      throw Exception('add service');
+    }
+  }
+
+  ///  Update or Edit
+  static Future<ErrorResponse> editService(String user_id,String service_id) async {
+    final response = await http.post(
+      Uri.parse(BaseURL + 'user/service/edit'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': bearerToken,
+      },
+      body: jsonEncode(<String, String>{
+        'user_id': user_id,
+        'service_id': service_id,
+        'service_price': "200",
+      }),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200)
+    {
+
+
+
+      return errorResponseFromJson(response.body);
+
+    } else {
+      DataControllers.to.addServiceResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.addServiceResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.addServiceResponse.value;
+      throw Exception('add service');
+    }
+  }
+
+  /// Delete Section
+  static Future<ErrorResponse> deleteService(String user_id,String id) async {
+    final response = await http.post(
+      Uri.parse(BaseURL + 'user/service/delete'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': bearerToken,
+      },
+      body: jsonEncode(<String, String>{
+        'user_id': user_id,
+        'id': id,
+
+      }),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200)
+    {
+      return errorResponseFromJson(response.body);
+    } else {
+      DataControllers.to.addServiceResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.addServiceResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.addServiceResponse.value;
+      throw Exception('add service');
+    }
+  }
+
+
+
+
+
+
+
 
 }

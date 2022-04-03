@@ -780,6 +780,7 @@ color dim_foreground_material_dark
 color dim_foreground_material_light
 color error_color_material_dark
 color error_color_material_light
+color fcm_test_color
 color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
@@ -1189,6 +1190,9 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable adaptive_icon
+drawable adaptive_icon_background
+drawable adaptive_icon_foreground
 drawable avd_hide_password
 drawable avd_show_password
 drawable common_full_open_on_phone
@@ -1217,12 +1221,15 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable gcm_icon
+drawable gcm_icon2
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable ic_cancel
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable icon_with_gradient
 drawable launch_background
 drawable mapbox_compass_icon
 drawable mapbox_ic_arrow_back
@@ -1630,6 +1637,7 @@ layout support_simple_spinner_dropdown_item
 layout toast_custom
 mipmap ic_launcher
 mipmap launcher_icon
+raw gcm_bip
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -1694,7 +1702,9 @@ string common_signin_button_text_long
 string default_web_client_id
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
+string fcm_2_args
 string fcm_fallback_notification_channel_label
+string fcm_no_args
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id

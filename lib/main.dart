@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +62,7 @@ void main() async{
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -71,20 +73,20 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage message) {
       if (message != null) {
         print('..............Hello Notification.............');
       }
     });
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage? message) {
-      RemoteNotification? notification = message!.notification;
-      AndroidNotification? android = message.notification?.android;
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
       if (android != null) {
 
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
-            notification!.title,
+            notification.title,
             notification.body,
             NotificationDetails(
               android: AndroidNotificationDetails(
@@ -98,10 +100,10 @@ class _MyAppState extends State<MyApp> {
       }
     });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage? message) {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
-      RemoteNotification? notification = message!.notification;
-      AndroidNotification? android = message.notification?.android;
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
       if(notification != null && android != null) {
         print('yes');
       }

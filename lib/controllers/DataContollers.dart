@@ -1,10 +1,12 @@
-// ignore_for_file: prefer_collection_literals
+// ignore_for_file : prefer_collection_literals
 
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:takecare_user/api_service/ApiService.dart';
+import 'package:takecare_user/model/AddCardResponse.dart';
+import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
@@ -12,10 +14,12 @@ import 'package:takecare_user/model/UserLoginResponse.dart';
 import '../model/AllServiceResponse.dart';
 import '../model/Erorr.dart';
 import '../model/Expertise.dart';
+import '../model/ShortServiceResponse.dart';
+import '../model/UserServiceResponse.dart';
 
 class DataControllers extends GetxController {
-  static DataControllers to = Get.find();
 
+  static DataControllers to = Get.find();
 
   Rx<TextEditingController> name = TextEditingController().obs;
   Rx<TextEditingController> password = TextEditingController().obs;
@@ -28,15 +32,23 @@ class DataControllers extends GetxController {
 
 
   /// Service
-  Rx<ExpertiseResponse> expertiseResponse =
-      ExpertiseResponse(message: '', data: [], success: false).obs;
+  Rx<ExpertiseResponse> expertiseResponse = ExpertiseResponse(message: '', data: [], success: false).obs;
   Rx<ErrorResponse> errorResponse = ErrorResponse().obs;
   Rx<AllServiceResponse> allServiceResponse = AllServiceResponse().obs;
   Rx<AllServiceResponse> shortServiceResponse = AllServiceResponse().obs;
   Rx<AllServiceResponse> longServiceResponse = AllServiceResponse().obs;
 
+  Rx<ErrorResponse> addServiceResponse = ErrorResponse().obs;
+  Rx<UserServiceResponse> userServiceResponse = UserServiceResponse().obs;
 
 
+  /// AddCard
+  Rx<ErrorResponse> addCardResponse = ErrorResponse().obs;
+  Rx<AddCardResponse> getAddCardResponse = AddCardResponse().obs;
+
+
+  ///Categories
+  Rx<CategoriesResponse> getCategoriesResponse = CategoriesResponse().obs;
 
 
   Future getAllLongService(String type) async {
@@ -51,7 +63,6 @@ class DataControllers extends GetxController {
     }
     isLoading(false);
   }
-
   Future getAllShortService(String type) async {
     isLoading(true);
 
@@ -64,7 +75,18 @@ class DataControllers extends GetxController {
     }
     isLoading(false);
   }
+  Future getAllCategories() async {
+    isLoading(true);
 
+    var response = await ApiService.fetchAllCategoriesResponse();
+
+    if (response != null) {
+      getCategoriesResponse.value = response;
+
+      // responseSuccess(true);
+    }
+    isLoading(false);
+  }
   Future getAllService() async {
     isLoading(true);
 
@@ -77,7 +99,6 @@ class DataControllers extends GetxController {
     }
     isLoading(false);
   }
-
   Future getExpertise() async {
     isLoading(true);
     update();
@@ -94,70 +115,189 @@ class DataControllers extends GetxController {
   }
 
 
-
-
   /**
    *    Post Request
    */
 
-  Future postRegister(String first_name, String phone_no, String password, String gender, String role, String image,) async {
+
+    Future getCard(String user_id) async {
     isLoading(true);
-    var response = await ApiService.postRegister(
-        first_name,
-        phone_no,
-        password,
-        gender,
-        role,
-        image
-    );
+    var response =
+    await ApiService.fetchCard(user_id);
 
     if (response != null) {
-       regsiter.value = response;
-      //responseSuccess(true);
+      getAddCardResponse.value = response;
+      // responseSuccess(true);
+    }
+  }
+    Future addCard(String user_id, String user_service_id, String date) async {
+      isLoading(true);
+      var response =
+      await ApiService.addCard(user_id, user_service_id, date);
+
+      if (response != null) {
+        addCardResponse.value = response;
+        // responseSuccess(true);
+      }
+
+      isLoading(false);
+
+      return addCardResponse.value;
     }
 
-    isLoading(false);
-    
-    return  regsiter.value;
-  }
-  Future postLogin(String phone_number, String pass) async {
-    isLoading(true);
-    var response = await ApiService.postLogin(phone_number, pass);
 
-    if (response != null) {
-      userLoginResponse.value = response;
-     // responseSuccess(true);
+
+    Future deleteCard(String user_id,String id) async {
+      isLoading(true);
+      var response =
+      await ApiService.deleteCard(user_id,id);
+
+      if (response != null) {
+        addCardResponse.value = response;
+        // responseSuccess(true);
+      }
+
+      isLoading(false);
+
+      return addCardResponse.value;
     }
 
-    isLoading(false);
 
-    return userLoginResponse.value;
-  }
-  Future postVerifyOTP(String phone_number, String otp) async {
-    isLoading(true);
-    var response = await ApiService.postVerifyOTP(phone_number, otp);
+    Future deleteAllCard(String user_id) async {
+      isLoading(true);
+      var response =
+      await ApiService.deleteAllCard(user_id);
 
-    if (response != null) {
-      userLoginResponse.value = response;
-     // responseSuccess(true);
+      if (response != null) {
+        addCardResponse.value = response;
+        // responseSuccess(true);
+      }
+
+      isLoading(false);
+
+      return addCardResponse.value;
+    }
+    Future addService(String user_id, String service_id) async {
+      isLoading(true);
+      var response =
+      await ApiService.addService(user_id, service_id);
+
+      if (response != null) {
+        addServiceResponse.value = response;
+        // responseSuccess(true);
+      }
+
+      isLoading(false);
+
+      return addServiceResponse.value;
     }
 
-    isLoading(false);
 
-    return userLoginResponse.value;
-  }
-  Future postResendOTP(String phone_no, ValueChanged<bool> responseSuccess) async {
-    isLoading(true);
-    var response = await ApiService.postResendOTP(phone_no);
 
-    if (response != null) {
-      resendOtpResponse.value = response;
-      responseSuccess(true);
+    Future postRegister(String first_name, String phone_no, String password, String gender, String role, String image,) async {
+      isLoading(true);
+      var response = await ApiService.postRegister(
+          first_name,
+          phone_no,
+          password,
+          gender,
+          role,
+          image
+      );
+
+      if (response != null) {
+        regsiter.value = response;
+        //responseSuccess(true);
+      }
+
+      isLoading(false);
+      return regsiter.value;
     }
-    isLoading(false);
 
-    return resendOtpResponse.value;
+
+    Future postLogin(String phone_number, String pass) async {
+      isLoading(true);
+      var response = await ApiService.postLogin(phone_number, pass);
+
+      if (response != null) {
+        userLoginResponse.value = response;
+        // responseSuccess(true);
+      }
+
+      isLoading(false);
+      return userLoginResponse.value;
+    }
+
+
+    Future postVerifyOTP(String phone_number, String otp) async {
+      isLoading(true);
+      var response = await ApiService.postVerifyOTP(phone_number, otp);
+
+      if (response != null) {
+        userLoginResponse.value = response;
+        // responseSuccess(true);
+      }
+
+      isLoading(false);
+      return userLoginResponse.value;
+    }
+
+
+
+    Future postResendOTP(String phone_no, ValueChanged<bool> responseSuccess) async {
+      isLoading(true);
+      var response = await ApiService.postResendOTP(phone_no);
+
+      if (response != null) {
+        resendOtpResponse.value = response;
+        responseSuccess(true);
+      }
+      isLoading(false);
+
+      return resendOtpResponse.value;
+    }
+
+
+    Future postUserServiceResponse(String user_id) async {
+      var response = await ApiService.postUserServiceResponse(user_id);
+
+      if (response != null) {
+        userServiceResponse.value = response;
+        update();
+      }
+      return userServiceResponse.value;
+    }
+
+
+    Future editService(String user_id, String service_id) async {
+      isLoading(true);
+      var response =
+      await ApiService.editService(user_id, service_id);
+
+      if (response != null)
+      {
+        addServiceResponse.value = response;
+        // responseSuccess(true);
+      }
+
+      isLoading(false);
+      return addServiceResponse.value;
+    }
+
+    Future deleteService(String user_id, String id) async {
+      isLoading(true);
+      var response = await ApiService.deleteService(user_id, id);
+
+      if (response != null) {
+        addServiceResponse.value = response;
+        // responseSuccess(true);
+      }
+
+      isLoading(false);
+      return addServiceResponse.value;
+    }
   }
 
 
-}
+
+

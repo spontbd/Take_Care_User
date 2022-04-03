@@ -21,8 +21,8 @@ dependencies:
   firebase_core: ^1.10.6
   toggle_switch: ^1.3.0
   dotted_border: ^2.0.0+2
-
-
+#  intl: ^0.16.1
+  intl: ^0.17.0-nullsafety.2
   cupertino_radio_choice: 1.0.0+1
   otp_text_field: ^1.1.1
   flutter_otp_text_field: ^1.0.0

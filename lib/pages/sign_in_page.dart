@@ -54,6 +54,8 @@ class _SignInPageState extends State<SignInPage>  {
   void initState() {
     sharePreferences(context);
 
+
+
     super.initState();
   }
 
@@ -681,7 +683,8 @@ class _SignInPageState extends State<SignInPage>  {
 
       /*     await DataControllers.to.fetchProfilePercentage(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
       await DataControllers.to.fetchAcademicPercentage(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());*/
-      await DataControllers.to.getAllService();
+      //await DataControllers.to.getAllService();
+      await DataControllers.to.getAllCategories();
       Common.storeSharedPreferences
           .setString('userid', _mobileNumber.value.text.toString());
       Common.storeSharedPreferences
@@ -690,6 +693,8 @@ class _SignInPageState extends State<SignInPage>  {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
     }
+
+
     Fluttertoast.showToast(
         msg: DataControllers.to.userLoginResponse.value.message ?? "",
         toastLength: Toast.LENGTH_SHORT,

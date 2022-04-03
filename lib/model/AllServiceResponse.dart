@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final allServiceResponse = allServiceResponseFromJson(jsonString);
-
 import 'dart:convert';
 
 AllServiceResponse allServiceResponseFromJson(String str) => AllServiceResponse.fromJson(json.decode(str));
