@@ -22,6 +22,7 @@ class ApiService {
   static var BaseURL = 'https://takecare.ltd/api/v1/';
 
 
+
   static Future<ExpertiseResponse?> fetchExpertiseResponse() async {
     print(bearerToken);
     var response = await client
