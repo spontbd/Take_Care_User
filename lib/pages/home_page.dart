@@ -1,7 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
+import 'package:takecare_user/pages/long_time_services/long_time_service_page.dart';
 //import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
+
+import '../controllers/DataContollers.dart';
+import '../controllers/language_controller.dart';
+import '../public_variables/all_colors.dart';
+import '../public_variables/notifications.dart';
+import '../ui/common.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
+import 'On Demand/caregiver_profile_page.dart';
+import 'loved_ones_page.dart';
+import 'order_history/order_history_page.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -9,13 +23,15 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+var loading = true;
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        key:_scaffoldKey ,
         // appBar: AppBar(title: Text('Goog Morning'),),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -33,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                             margin: EdgeInsets.only(left: 10, top: 15),
                             child: Text(
                               "Good Morning",
-                              style: TextStyle(fontSize: dynamicSize(0.02)),
+                              style: TextStyle(fontSize: dynamicSize(0.04)),
                             )),
                         Container(
                             margin:
@@ -54,7 +70,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Spacer(),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _scaffoldKey.currentState!.openEndDrawer();
+                    },
                     icon: Icon(Icons.menu),
                   )
                 ],
@@ -70,10 +88,10 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Container(
                             alignment: Alignment.centerLeft,
-                            child: const Text(
+                            child: Text(
                               "On demand",
                               style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
+                                  fontSize: dynamicSize(0.08), fontWeight: FontWeight.bold),
                             ),),
                       ),
                       Row(
@@ -83,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 ///Red Back
                                 Container(
-                                  height: dynamicSize(0.2),
+                                  height: dynamicSize(0.5),
                                   decoration: const BoxDecoration(
                                     color: Colors.red,
                                     borderRadius:
@@ -130,9 +148,14 @@ class _HomePageState extends State<HomePage> {
                                   bottom: size.width * .008,
                                   right: -size.width * .02,
                                   child: ElevatedButton(
-                                    onPressed: () {},
+
+                                    onPressed: () {
+                                      Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(builder: (_) => OnDemandPage()));
+                                    },
                                     child: Icon(Icons.chevron_right,
                                         size: size.width * .06,
+
                                         color: Colors.white),
                                     style: ElevatedButton.styleFrom(
                                       shape: const CircleBorder(),
@@ -152,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 ///Red Back
                                 Container(
-                                  height: dynamicSize(0.2),
+                                  height: dynamicSize(0.5),
                                   decoration: const BoxDecoration(
                                     color: Colors.blue,
                                     borderRadius:
@@ -216,6 +239,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
+                      SizedBox(height: dynamicSize(0.03),),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8.0, top: 20),
                         child: Container(
@@ -223,16 +247,17 @@ class _HomePageState extends State<HomePage> {
                             child: Text(
                               "Offers & News",
                               style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
+                                  fontSize: dynamicSize(0.08), fontWeight: FontWeight.bold),
                             )),
                       ),
+
                       Row(
                         children: [
                           Expanded(
                             flex: 1,
                             child: Container(
                               //color: Colors.pinkAccent,
-                              height: dynamicSize(0.2),
+                              height: dynamicSize(0.5),
                               // width: MediaQuery.of(context).size.width/2,
                               decoration: BoxDecoration(
                                 // color: Colors.pinkAccent,
@@ -254,9 +279,9 @@ class _HomePageState extends State<HomePage> {
                                       padding: const EdgeInsets.only(
                                           left: 10, bottom: 10),
                                       child: Text(
-                                        "Right Now",
+                                        "Dementia Patient",
                                         style: TextStyle(
-                                            fontSize: dynamicSize(0.027),
+                                            fontSize: dynamicSize(0.075),
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -270,7 +295,7 @@ class _HomePageState extends State<HomePage> {
                                       child: Text(
                                         "Total take care for 12 hrs.or 24 hrs. ",
                                         style: TextStyle(
-                                          fontSize: dynamicSize(0.02),
+                                          fontSize: dynamicSize(0.045),
                                           color: Colors.white,
                                         ),
                                       ),
@@ -282,6 +307,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
+                      SizedBox(height: dynamicSize(0.05),),
                       Padding(
                         padding: const EdgeInsets.only(top: 20, bottom: 8),
                         child: Container(
@@ -289,7 +315,7 @@ class _HomePageState extends State<HomePage> {
                             child: Text(
                               "Long Time Service",
                               style: TextStyle(
-                                  fontSize: dynamicSize(0.027), fontWeight: FontWeight.bold),
+                                  fontSize: dynamicSize(0.08), fontWeight: FontWeight.bold),
                             )),
                       ),
                       SingleChildScrollView(
@@ -298,12 +324,71 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Row(
                             children: [
+                              InkWell(
+                                onTap: (){
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (_) => LongTimeServicesPage()));
+                                },
+                                child: Container(
+                                  width: size.width / 2,
+                                  height: dynamicSize(0.6),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 4,
+                                        offset: Offset(4, 4), // Shadow position
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height:dynamicSize(0.4),
+                                        width: MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                          // color: Colors.pinkAccent,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(3)),
+
+                                          image: DecorationImage(
+                                            image: AssetImage(
+                                                "assets/images/pet.png"),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                          alignment: Alignment.topLeft,
+                                          margin:
+                                          EdgeInsets.only(left: 10, top: 12),
+                                          child: Text(
+                                            "Dementia Patient",
+                                            style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
+                                          )),
+                                      Container(
+                                          alignment: Alignment.topLeft,
+                                          margin: EdgeInsets.only(
+                                              left: 10, bottom: 5, top: 5),
+                                          child: Text(
+                                            "Starts from 21,000 Tk",
+                                            style: TextStyle(fontSize: dynamicSize(0.04)),
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: dynamicSize(0.04),
+                              ),
                               Container(
                                 width: size.width / 2,
-                                height: dynamicSize(0.22),
+                                height: dynamicSize(0.6),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black26,
@@ -315,12 +400,12 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height:dynamicSize(0.14),
+                                      height:dynamicSize(0.4),
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                         // color: Colors.pinkAccent,
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
+                                            Radius.circular(3)),
 
                                         image: DecorationImage(
                                           image: AssetImage(
@@ -335,7 +420,7 @@ class _HomePageState extends State<HomePage> {
                                         EdgeInsets.only(left: 10, top: 12),
                                         child: Text(
                                           "Dementia Patient",
-                                          style: TextStyle(fontSize: size.width*.04),
+                                          style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
                                         )),
                                     Container(
                                         alignment: Alignment.topLeft,
@@ -343,20 +428,21 @@ class _HomePageState extends State<HomePage> {
                                             left: 10, bottom: 5, top: 5),
                                         child: Text(
                                           "Starts from 21,000 Tk",
-                                          style: TextStyle(fontSize: dynamicSize(0.019)),
+                                          style: TextStyle(fontSize: dynamicSize(0.04)),
                                         )),
                                   ],
                                 ),
                               ),
                               SizedBox(
-                                width: dynamicSize(0.02),
+                                width: dynamicSize(0.04),
                               ),
+
                               Container(
                                 width: size.width / 2,
-                                height: dynamicSize(0.22),
+                                height: dynamicSize(0.6),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black26,
@@ -368,12 +454,12 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height:dynamicSize(0.14),
+                                      height:dynamicSize(0.4),
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                         // color: Colors.pinkAccent,
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
+                                            Radius.circular(3)),
 
                                         image: DecorationImage(
                                           image: AssetImage(
@@ -388,7 +474,7 @@ class _HomePageState extends State<HomePage> {
                                         EdgeInsets.only(left: 10, top: 12),
                                         child: Text(
                                           "Dementia Patient",
-                                          style: TextStyle(fontSize: size.width*.04),
+                                          style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
                                         )),
                                     Container(
                                         alignment: Alignment.topLeft,
@@ -396,21 +482,20 @@ class _HomePageState extends State<HomePage> {
                                             left: 10, bottom: 5, top: 5),
                                         child: Text(
                                           "Starts from 21,000 Tk",
-                                          style: TextStyle(fontSize: dynamicSize(0.019)),
+                                          style: TextStyle(fontSize: dynamicSize(0.04)),
                                         )),
                                   ],
                                 ),
                               ),
                               SizedBox(
-                                width: dynamicSize(0.02),
+                                width: dynamicSize(0.04),
                               ),
-
                               Container(
                                 width: size.width / 2,
-                                height: dynamicSize(0.22),
+                                height: dynamicSize(0.6),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black26,
@@ -422,12 +507,12 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height:dynamicSize(0.14),
+                                      height:dynamicSize(0.4),
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                         // color: Colors.pinkAccent,
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
+                                            Radius.circular(3)),
 
                                         image: DecorationImage(
                                           image: AssetImage(
@@ -442,60 +527,7 @@ class _HomePageState extends State<HomePage> {
                                         EdgeInsets.only(left: 10, top: 12),
                                         child: Text(
                                           "Dementia Patient",
-                                          style: TextStyle(fontSize: size.width*.04),
-                                        )),
-                                    Container(
-                                        alignment: Alignment.topLeft,
-                                        margin: const EdgeInsets.only(
-                                            left: 10, bottom: 5, top: 5),
-                                        child: Text(
-                                          "Starts from 21,000 Tk",
-                                          style: TextStyle(fontSize: dynamicSize(0.019)),
-                                        )),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: dynamicSize(0.02),
-                              ),
-                              Container(
-                                width: size.width / 2,
-                                height: dynamicSize(0.22),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black26,
-                                      blurRadius: 4,
-                                      offset: Offset(4, 4), // Shadow position
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height:dynamicSize(0.14),
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        // color: Colors.pinkAccent,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/pet.png"),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                        alignment: Alignment.topLeft,
-                                        margin:
-                                        EdgeInsets.only(left: 10, top: 12),
-                                        child: Text(
-                                          "Dementia Patient",
-                                          style: TextStyle(fontSize: size.width*.04),
+                                          style: TextStyle(fontSize: dynamicSize(0.06),fontWeight: FontWeight.bold),
                                         )),
                                     Container(
                                         alignment: Alignment.topLeft,
@@ -503,17 +535,17 @@ class _HomePageState extends State<HomePage> {
                                             left: 10, bottom: 5, top: 5),
                                         child: Text(
                                           "Starts from 21,000 Tk",
-                                          style: TextStyle(fontSize: dynamicSize(0.019)),
+                                          style: TextStyle(fontSize: dynamicSize(0.04)),
                                         )),
                                   ],
                                 ),
                               ),
                               SizedBox(
-                                width: dynamicSize(0.02),
+                                width: dynamicSize(0.04),
                               ),
                               Container(
                                 width: size.width / 2,
-                                height: dynamicSize(0.22),
+                                height: dynamicSize(0.6),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -528,12 +560,12 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height:dynamicSize(0.14),
+                                      height:dynamicSize(0.4),
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                         color: Colors.lightBlue,
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
+                                            Radius.circular(1)),
                                       ),
                                       child: Center(
                                         child: Container(
@@ -558,11 +590,11 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     Container(
                                         alignment: Alignment.center,
-                                        margin: EdgeInsets.only(top: 16),
+                                        margin: EdgeInsets.only(top: 18),
                                         child: Text(
                                           "See All",
                                           style: TextStyle(
-                                              fontSize: size.width*.04,
+                                              fontSize: dynamicSize(0.06),
                                               color: Colors.pinkAccent),
                                         )),
                                   ],
@@ -579,7 +611,368 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+        endDrawer:_drawer() ,
       ),
     );
   }
+  Widget _drawer() => Drawer(
+    child: SafeArea(
+      child: Scaffold(
+        backgroundColor: AllColor.themeColor,
+        appBar: AppBar(
+//leadingWidth: 0,
+            leading: Text(""),
+            backgroundColor: Colors.pinkAccent,
+            elevation: 0,
+            bottom: PreferredSize(
+              preferredSize: Size(60,60),
+              child: Container(
+                // height: dynamicSize(0.5),
+                color: Colors.pinkAccent,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: dynamicSize(0.02),
+                    ),
+                    Stack(
+                      alignment: Alignment.topCenter,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(30)),
+                              child: CachedNetworkImage(
+                                height: 55,
+                                width: 55,
+                                fit: BoxFit.cover,
+                                imageUrl:"https://www.facebook.com/photo/?fbid=3159414330969818&set=a.1460608737517061",
+                                //'${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                        'assets/images/dash_person.png'),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text("Rana Talukdar",style: TextStyle(fontWeight: FontWeight.bold,fontSize: dynamicSize(0.06),color: Colors.white),),
+                            ),
+                          ],
+                        ),
+
+                        /*   Container(
+                          margin: EdgeInsets.only(top: 5),
+                          height: dynamicSize(.15),
+                          width: dynamicSize(.15),
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: AssetImage('assets/images/baby.png'),
+                                  fit: BoxFit.cover)),
+                        ),*/
+                        Padding(
+                          padding: EdgeInsets.all(dynamicSize(.04)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              InkWell(
+                                  onTap: () => Navigator.pop(context),
+                                  child: Icon(Icons.arrow_forward,
+                                      color: Colors.white)),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    //SizedBox(height: dynamicSize(0.02),),
+                    Text(
+                      DataControllers.to.userLoginResponse.value.data !=
+                          null
+                          ? "${DataControllers.to.userLoginResponse.value.data!.user!.fullName}"
+                          : '',
+                      style: TextStyle(
+                          fontSize: dynamicSize(0.05),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: dynamicSize(0.02),
+                    ),
+
+                  ],
+                ),
+              ),
+            )),
+        bottomNavigationBar: BottomAppBar(
+          child: InkWell(
+            onTap: () {
+              logOutMethod(context);
+            },
+            child: Container(
+              color: Colors.pinkAccent,
+              height: dynamicSize(0.15),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.only(
+                        left: 38.0,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          logOutMethod(context);
+                        },
+                        child: Text(
+                          "LogOut",
+                          style: TextStyle(
+                              fontSize: dynamicSize(0.03),
+                              color: Colors.white),
+                        ),
+                      )),
+                ],
+              ),
+            ),
+          ),
+        ),
+        body: Container(
+          //color: Colors.white,
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Column(children: [
+              Wrap(
+                direction: Axis.vertical,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 30),
+                    child: Container(
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              "assets/images/service_history.png",
+                              fit: BoxFit.fill,
+                              height: 25,
+                            ),
+                            Padding(
+                                padding:
+                                const EdgeInsets.only(left: 10.0),
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                OrderHistoryPage()));
+                                  },
+                                  child: Text(
+                                    "Order History",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.035),
+                                        color: Colors.white),
+                                  ),
+                                )),
+                          ],
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 15),
+                    child: Container(
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              "assets/images/profile_setup.png",
+                              fit: BoxFit.fill,
+                              height: 30,
+                              color: Colors.black,
+                            ),
+                            Padding(
+                                padding:
+                                const EdgeInsets.only(left: 10.0),
+                                child: TextButton(
+                                  onPressed: () {
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                CaregiverProfile()));
+                                  },
+                                  child: Text(
+                                    "Profile",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.035),
+                                        color: Colors.white),
+                                  ),
+                                )),
+                          ],
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15, left: 20),
+                    child: Container(
+                      width: dynamicSize(1),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            "assets/images/earning.png",
+                            height: 25,
+                            fit: BoxFit.fill,
+                          ),
+                          Padding(
+                              padding:
+                              const EdgeInsets.only(left: 10.0),
+                              child: TextButton(
+                                onPressed: () {
+                                     Navigator.of(context)
+                                      .pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (_) =>
+                                              LovedOnesPage()));
+                                },
+                                child: Text(
+                                  "Loved One's",
+                                  style: TextStyle(
+                                      fontSize: dynamicSize(0.035),
+                                      color: Colors.white),
+                                ),
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15, left: 20),
+                    child: Container(
+                        width: dynamicSize(1),
+                        child: Row(
+                          children: [
+                            Image.asset("assets/images/payment.png",
+                                height: 30, fit: BoxFit.fill),
+                            Padding(
+                                padding:
+                                const EdgeInsets.only(left: 10.0),
+                                child: TextButton(
+                                  onPressed: () {
+                                    /*Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                PaymentSettlementPage()));*/
+                                  },
+                                  child: Text(
+                                    "Addresses",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.035),
+                                        color: Colors.white),
+                                  ),
+                                )),
+                          ],
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15, left: 20),
+                    child: Container(
+                        width: dynamicSize(1),
+                        child: Row(
+                          children: [
+                            Image.asset("assets/images/leave.png",
+                                height: 30, fit: BoxFit.fill),
+                            Padding(
+                                padding:
+                                const EdgeInsets.only(left: 10.0),
+                                child: TextButton(
+                                  onPressed: () {
+                                    /* Navigator.of(context)
+                                        .pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                LeaveRequestPage()));*/
+                                  },
+                                  child: Text(
+                                    "Coupons",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.035),
+                                        color: Colors.white),
+                                  ),
+                                )),
+                          ],
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15, left: 20),
+                    child: Container(
+                        width: dynamicSize(1),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                                "assets/images/call_service.png",
+                                height: 25,
+                                fit: BoxFit.fill),
+                            Padding(
+                                padding:
+                                const EdgeInsets.only(left: 10.0),
+                                child: TextButton(
+                                  onPressed: () {
+                                    /* Navigator.of(context)
+                                        .pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                HelpPage()));*/
+                                  },
+                                  child: Text(
+                                    "Help Center",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.035),
+                                        color: Colors.white),
+                                  ),
+                                )),
+                          ],
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 15, left: 20, bottom: 30),
+                    child: Container(
+                        width: dynamicSize(1),
+                        child: Row(
+                          children: [
+                            Image.asset("assets/images/setting.png",
+                                height: 25, fit: BoxFit.fill),
+                            Padding(
+                                padding:
+                                const EdgeInsets.only(left: 10.0),
+                                child: TextButton(
+                                  onPressed: () {
+                                    /*Navigator.of(context)
+                                        .pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                SettingsPage()));*/
+                                  },
+                                  child: Text(
+                                    "Settings",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.035),
+                                        color: Colors.white),
+                                  ),
+                                )),
+                          ],
+                        )),
+                  ),
+                ],
+              ),
+            ]),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+void logOutMethod(BuildContext context) {
+  Common.storeSharedPreferences.setString("userid", "");
+  Common.storeSharedPreferences.setString("pass", "");
+
+/*  Navigator.of(context)
+      .pushReplacement(MaterialPageRoute(builder: (_) => SignInPage()));*/
 }

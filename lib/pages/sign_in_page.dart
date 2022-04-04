@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
+import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/pages/otp_verification_page.dart';
 import 'package:takecare_user/pages/sign_up_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
@@ -135,7 +136,7 @@ class _SignInPageState extends State<SignInPage> {
                 right: 0.0,
                 child: Container(
                   width: size.width,
-                  height: dynamicSize(.7),
+                  height: dynamicSize(.8),
                   decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage('assets/images/nurs.png'),
@@ -153,8 +154,8 @@ class _SignInPageState extends State<SignInPage> {
                       child: AnimatedToggleButton(
                         values: const ['English', 'বাংলা'],
                         toggleValue: languageController.isEnglish.value,
-                        width: dynamicSize(.4),
-                        height: dynamicSize(0.07),
+                        width: dynamicSize(.45),
+                        height: dynamicSize(0.09),
                         fontSize: dynamicSize(0.035),
                         onToggleCallback: (v) async {
                           setState(() => english = !english);
@@ -167,7 +168,7 @@ class _SignInPageState extends State<SignInPage> {
 
               ///Main Content
               Positioned(
-                top: signIn ? dynamicSize(.6) : dynamicSize(.66),
+                top: signIn ? dynamicSize(.7) : dynamicSize(.75),
                 child: signIn ? _loginWidget(size) : _signUpWidget(size),
               ),
 
@@ -175,11 +176,11 @@ class _SignInPageState extends State<SignInPage> {
               GetBuilder<LanguageController>(
                   builder: (languageController) {
                     return Positioned(
-                      top: dynamicSize(.6),
+                      top: dynamicSize(.7),
                       child: AnimatedToggleButton(
                         values: [(languageController.sigIn.value), (languageController.signUp.value)],
                         toggleValue: signIn,
-                        width: dynamicSize(.85),
+                        width: dynamicSize(1),
                         height: dynamicSize(0.12),
                         fontSize: dynamicSize(0.045),
                         onToggleCallback: (v) async {
@@ -202,8 +203,8 @@ class _SignInPageState extends State<SignInPage> {
     children: [
       ///White Background
       Container(
-        width: dynamicSize(.85),
-        height: dynamicSize(0.65),
+        width: dynamicSize(1),
+        height: dynamicSize(0.8),
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -222,7 +223,7 @@ class _SignInPageState extends State<SignInPage> {
 
       ///Text Field
       SizedBox(
-          width: dynamicSize(.8),
+          width: dynamicSize(.9),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -279,9 +280,8 @@ class _SignInPageState extends State<SignInPage> {
 
             // onProgressBar(false);
 
-            /*
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => Dashboard()));*/
+                    MaterialPageRoute(builder: (_) => HomePage()));
           },
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.04),vertical:  dynamicSize(0.04)),
@@ -296,7 +296,7 @@ class _SignInPageState extends State<SignInPage> {
   );
 
   Widget _signUpWidget(Size size) => Container(
-    width: dynamicSize(.9),
+    width: dynamicSize(1),
     //height: dynamicSize(0.65),
     padding: EdgeInsets.all(dynamicSize(.04)),
     decoration: BoxDecoration(

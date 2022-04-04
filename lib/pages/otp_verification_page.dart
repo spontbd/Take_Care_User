@@ -37,7 +37,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 child: Text(
                   'Enter 5 digit code that ',
                   style: TextStyle(
-                    fontSize: dynamicSize(0.09),
+                    fontSize: dynamicSize(0.07),
                     color: Colors.black,
                   ),
                 ),
@@ -52,7 +52,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     child: Text(
                       'sent you in',
                       style: TextStyle(
-                        fontSize: dynamicSize(0.09),
+                        fontSize: dynamicSize(0.07),
                         color: Colors.black,
                       ),
                     ),
@@ -84,7 +84,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
-                          fontSize: dynamicSize(0.09)),
+                          fontSize: dynamicSize(0.07)),
                     )),
               ),
             ),
@@ -100,7 +100,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   length: 5,
                   //numberOfFields: 5,
                   width: size.width ,
-                  fieldWidth: size.width*.13,
+                  fieldWidth: size.width*.17,
                   style: TextStyle(
                       fontSize: dynamicSize(0.08)
                   ),
@@ -120,18 +120,16 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 child: Text(
                   '59 sec.',
                   style: TextStyle(
-                    fontSize: dynamicSize(0.09),
+                    fontSize: dynamicSize(0.07),
                     color: Colors.blue,
                   ),
                 ),
               ),
             ),
 
-// SizedBox(height: MediaQuery.of(context).size.height/2.8,),
-
             Spacer(),
             SizedBox(
-              height: dynamicSize(0.2),
+              height: dynamicSize(0.15),
               width: MediaQuery.of(context).size.width,
               child: Container(
                 //margin: EdgeInsets.only(bottom: 5),
@@ -143,7 +141,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   ),
                   onPressed: () async{
 
-                    if(DataControllers.to.name.value.text.isNotEmpty)
+                    /*if(DataControllers.to.name.value.text.isNotEmpty)
                     {
 
                       await DataControllers.to.postVerifyOTP(DataControllers.to.phoneNumber.value.text, DataControllers.to.name.value.text);
@@ -161,8 +159,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       {
                          Get.offAll(SignInPage());
 
-                       /* Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (_) => HomePage()));*/
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => HomePage()));
                       }
 
                     }else
@@ -176,13 +174,13 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                           textColor: Colors.white,
                           fontSize: 16.0
                       );
-                    }
+                    }*/
 
 
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>  HomePage()),
+                          builder: (context) =>  SignInPage()),
                     );
                   },
                   //padding: EdgeInsets.all(10.0),
