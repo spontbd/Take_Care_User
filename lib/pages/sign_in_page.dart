@@ -117,7 +117,7 @@ class _SignInPageState extends State<SignInPage>  {
 
 
       return  Stack(
-
+        clipBehavior: Clip.none,
           alignment: Alignment.center,
           children: [
             ///Bottom Image
@@ -190,21 +190,21 @@ class _SignInPageState extends State<SignInPage>  {
 
             ///Main Content
             Positioned(
-              top: /*signIn ?*/ dynamicSize(.7) /*: dynamicSize(.75)*/,
+              top: /*signIn ?*/ dynamicSize(.6) /*: dynamicSize(.75)*/,
               child: /*signIn ?*/ _loginWidget(size,lg) /*: _signUpWidget(size)*/,
             ),
 
             ///Signin Signup Button
             GetBuilder<LanguageController>(builder: (languageController) {
               return Positioned(
-                top: dynamicSize(.7),
+                top: dynamicSize(.6),
                 child: AnimatedToggleButton(
                   values: [
                     (languageController.sigIn.value),
                     (languageController.signUp.value)
                   ],
                   toggleValue: true,
-                  width: dynamicSize(1),
+                  width: dynamicSize(0.9),
                   height: dynamicSize(0.12),
                   fontSize: dynamicSize(0.045),
                   onToggleCallback: (v) async {
@@ -330,8 +330,12 @@ class _SignInPageState extends State<SignInPage>  {
                               color: Colors.blue),
                         ),
                       ),
-                      Text("or"),
-                      Text("Sign up with"),
+                      Text("or",  style: TextStyle(
+                          fontSize: dynamicSize(0.04),
+                          color: Colors.blue),),
+                      Text("Sign up with",  style: TextStyle(
+                          fontSize: dynamicSize(0.05),
+                          color: Colors.blue),),
                       Row(
                         children: [
                           Padding(
@@ -341,8 +345,8 @@ class _SignInPageState extends State<SignInPage>  {
                                 child: Container(
                                   child: Image.asset(
                                     "assets/images/login_message_icon.png",
-                                    height: 50,
-                                    width: 50,
+                                    height: dynamicSize(0.12),
+                                    width:dynamicSize(0.12),
 
                                     fit: BoxFit.fill,
 
@@ -360,8 +364,8 @@ class _SignInPageState extends State<SignInPage>  {
                                     fit: BoxFit.fill,
                                   ),
 
-                                  height: 50,
-                                  width: 60,
+                                  height: dynamicSize(0.12),
+                                  width:dynamicSize(0.14),
 
                                 )),
                           ),
@@ -376,8 +380,8 @@ class _SignInPageState extends State<SignInPage>  {
                                     fit: BoxFit.fill,
                                   ),
 
-                                  height: 50,
-                                  width: 50,
+                                  height: dynamicSize(0.12),
+                                  width:dynamicSize(0.12),
 
                                 )),
                           ),
@@ -399,8 +403,8 @@ class _SignInPageState extends State<SignInPage>  {
         children: [
           ///White Background
           Container(
-            width: dynamicSize(1),
-            height: dynamicSize(0.8),
+            width: dynamicSize(.9),
+            height: dynamicSize(0.7),
             decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
