@@ -3,7 +3,7 @@
 // This file is generated from template in file `flutter_tools/lib/src/flutter_plugins.dart`.
 //
 
-// @dart = 2.9
+// @dart = 2.12
 
 // When `package:takecare_user/main.dart` defines `main`, that definition is shadowed by the definition below.
 export 'package:takecare_user/main.dart';

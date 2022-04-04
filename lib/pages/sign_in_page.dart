@@ -110,14 +110,9 @@ class _SignInPageState extends State<SignInPage>  {
     });
   }
   Widget _bodyUI(Size size, DataControllers dataControllers) => SafeArea(
-
-        child:
-
-        GetBuilder<LanguageController>(builder: (lg) {
-
+    child: GetBuilder<LanguageController>(builder: (lg) {
 
       return  Stack(
-
           alignment: Alignment.center,
           children: [
             ///Bottom Image
@@ -152,7 +147,6 @@ class _SignInPageState extends State<SignInPage>  {
                   fit:BoxFit.fill
               )
             ),
-
 
 
             ///Bottom

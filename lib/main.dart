@@ -1,57 +1,27 @@
-// @dart=2.9
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
-import 'package:takecare_user/pages/On%20Demand/feedback_page.dart';
-import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
-import 'package:takecare_user/pages/home_page.dart';
-import 'package:takecare_user/pages/otp_verification_page.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
-import 'package:takecare_user/pages/sign_up_page.dart';
-import 'package:takecare_user/pages/splash_screen.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
-import 'package:takecare_user/ui/sign_in.dart';
+import 'api_service/service.dart';
 import 'controller/data_controller.dart';
 import 'controllers/DataContollers.dart';
 
-const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications',// description
-    importance: Importance.high,
-    playSound: true);
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  //await Firebase.initializeApp();
-  print('A bg message just showed up :  ${message.messageId}');
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async{
+  ///Onclick listener
+  //NotificationService.display(message);
 }
 
 void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
+  NotificationService.initialize();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   final DataController dataController = Get.put(DataController());
   final DataControllers dataControllers = Get.put(DataControllers());
   final LanguageController languageController = Get.put(LanguageController());
-
-  await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
-
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-
-
 
 
   /// Set Device orientation
@@ -60,7 +30,7 @@ void main() async{
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -70,41 +40,39 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    _fcmInit();
+  }
 
-    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage message) {
-      if (message != null) {
-        print('..............Hello Notification.............');
+  Future<void> _fcmInit()async{
+    FirebaseMessaging.instance.getInitialMessage();
+
+    ///When App Running
+    FirebaseMessaging.onMessage.listen((event) {
+      if (kDebugMode) {
+        print('!!FCM message Received!! (On Running)\n');
+        print('Event: ${event.data}\n'
+            'body: ${event.notification!.body}\n'
+            'Message ID: ${event.messageId}\n');
       }
+      NotificationService.display(event);
+
     });
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification notification = message.notification;
-      AndroidNotification android = message.notification?.android;
-      if (android != null) {
-
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                color: Colors.blue,
-                playSound: true,
-                icon: '@mipmap/ic_launcher',
-              ),
-            ));
+    ///When App Minimized
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      if (kDebugMode) {
+        print('!!FCM message Received (On Minimize)!!');
+        print('Event: ${event.data}\n'
+            'body: ${event.notification!.body}\n'
+            'Message ID: ${event.messageId}\n');
       }
+      NotificationService.display(event);
     });
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('A new onMessageOpenedApp event was published!');
-      RemoteNotification notification = message.notification;
-      AndroidNotification android = message.notification?.android;
-      if(notification != null && android != null) {
-        print('yes');
-      }
+    ///When App Destroyed
+    FirebaseMessaging.instance.getInitialMessage().then((value){
+      if (kDebugMode) {print('!!FCM message Received (On Destroy)!!');}
+      NotificationService.display(value!);
     });
   }
 
