@@ -835,15 +835,30 @@ class _OnDemandPageState extends State<OnDemandPage> {
     await DataControllers.to.getCard(
         DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
 
-    if (DataControllers.to.getAddCardResponse.value.data!.length > 0) {
+
+    if (
+        DataControllers.to.getAddCardResponse.value.data == null
+    )
+      {
+        setState(() {
+          showBottom = false;
+          addedlist = false;
+          DataControllers.to.getAddCardResponse;
+        });
+      } else if (DataControllers.to.getAddCardResponse.value.data!.length > 0) {
       setState(() {
         DataControllers.to.getAddCardResponse;
         showBottom = true;
         addedlist = true;
       });
     } else {
-      showBottom = false;
-      addedlist = false;
+
+      setState(() {
+        DataControllers.to.getAddCardResponse;
+        showBottom = false;
+        addedlist = false;
+      });
+
     }
   }
 

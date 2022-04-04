@@ -122,6 +122,7 @@ class DataControllers extends GetxController {
 
     Future getCard(String user_id) async {
     isLoading(true);
+    getAddCardResponse = AddCardResponse().obs;
     var response =
     await ApiService.fetchCard(user_id);
 

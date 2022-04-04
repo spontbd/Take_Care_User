@@ -205,7 +205,7 @@ class _HomePageState extends State<HomePage> {
                                               .getString("service");
 
                                           if (serviceValue == "short" ||
-                                              serviceValue == null) {
+                                              serviceValue == null || serviceValue.isEmpty ) {
                                             Navigator.of(context)
                                                 .pushReplacement(
                                                     MaterialPageRoute(
@@ -410,7 +410,7 @@ class _HomePageState extends State<HomePage> {
                                         .getString("service");
 
                                     if (serviceValue == "long" ||
-                                        serviceValue == null) {
+                                        serviceValue == null  || serviceValue.isEmpty) {
 
                                       Navigator.of(context).pushReplacement(
                                           MaterialPageRoute(
@@ -907,7 +907,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           InkWell(
                             onTap: () {
-
+                              Navigator.pop(context);
                               deleteAllCardData();
                             },
                             child: Container(
@@ -1016,8 +1016,8 @@ class _HomePageState extends State<HomePage> {
     onProgressBar(true);
     await DataControllers.to.deleteAllCard( DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
     onProgressBar(false);
-    showToast(DataControllers.to.errorResponse.value.message!);
-    if (DataControllers.to.errorResponse.value.success!) {
+    showToast(DataControllers.to.addCardResponse.value.message!);
+    if (DataControllers.to.addCardResponse.value.success!) {
       Common.storeSharedPreferences.setString("service", "");
       getAllService();
     }
