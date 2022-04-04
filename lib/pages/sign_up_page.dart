@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
 import 'package:takecare_user/ui/variables.dart';
-
 import '../controllers/DataContollers.dart';
 import '../public_variables/all_colors.dart';
 import '../public_variables/notifications.dart';
@@ -26,10 +24,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-
-
-
-
   Future<bool> _onWillPop() async {
     return (await showDialog(
       context: context,
@@ -54,7 +48,6 @@ class _SignUpPageState extends State<SignUpPage> {
     )) ?? false;
   }
 
-
   @override
   Widget build(BuildContext size) {
     return WillPopScope(
@@ -62,7 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
       child: SafeArea(
         child: Scaffold(
           body: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               // padding: EdgeInsets.all(dynamicSize(.04)),
              height: MediaQuery.of(context).size.height,
               child: Column(
@@ -71,7 +64,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Container(
                     height: dynamicSize(0.5),
                     width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/images/clip_path_shape.png"),
                           //fit:BoxFit.cover
@@ -110,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: TextField(
                               controller: DataControllers.to.name.value,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                   labelText: 'Name*',
                                   hintStyle:
                                   TextStyle(fontSize: dynamicSize(0.05))),
@@ -245,20 +238,22 @@ class _SignUpPageState extends State<SignUpPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const CheckBox(),
-                      RichText(
-                        text: TextSpan(
-                          text: 'By singing up I agree to the all ',
-                          style: TextStyle(fontSize: dynamicSize(0.045), color: Colors.black),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: 'Terms & Condition',
-                                recognizer: new TapGestureRecognizer()
-                                  ..onTap = () => print('Tap Here onTap'),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red,
-                                    decoration: TextDecoration.underline)),
-                          ],
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'By singing up I agree to the all ',
+                            style: TextStyle(fontSize: dynamicSize(0.045), color: Colors.black),
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Terms & Condition',
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () => print('Tap Here onTap'),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                      decoration: TextDecoration.underline)),
+                            ],
+                          ),
                         ),
                       ),
 
@@ -305,7 +300,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   );
                   if(DataControllers.to.regsiter.value.success == true)
                   {
-                    Get.to(OtpVerificationPage());
+                    Get.to(const OtpVerificationPage());
                     /*   Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -314,17 +309,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   }
 
                 }else
-                {
-                  Fluttertoast.showToast(
-                      msg: "Fil up the filed!!",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white,
-                      fontSize: 16.0
-                  );
-                }
+                {showToast("Fil up the filed!!");}
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

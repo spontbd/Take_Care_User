@@ -156,7 +156,7 @@ class _SignInPageState extends State<SignInPage>  {
               right: 0.0,
               child:
 
-              Image.asset('assets/images/image_below.png',
+              Image.asset('assets/images/image_below.jpeg',
                   fit:BoxFit.fill
               )
             ),
@@ -365,14 +365,11 @@ class _SignInPageState extends State<SignInPage>  {
                                 onTap: () {},
                                 child: Container(
                                   child: Image.asset(
-                                      "assets/images/login_google_icon.png",
-
+                                      "assets/images/google.jpeg",
                                     fit: BoxFit.fill,
                                   ),
-
                                   height: 50,
                                   width: 50,
-
                                 )),
                           ),
                         ],
@@ -449,8 +446,6 @@ class _SignInPageState extends State<SignInPage>  {
 
                 if (_mobileNumber.value.text.isNotEmpty &&
                     _signInPass.value.text.isNotEmpty) {
-
-
                   loginClass(_mobileNumber.value.text.toString(), _signInPass.value.text.toString());
 
                /*     await DataControllers.to.postLogin(_mobileNumber.value.text, _signInPass.value.text);
@@ -664,7 +659,6 @@ class _SignInPageState extends State<SignInPage>  {
 
   void loginClass(String user, String pass) async {
     onProgressBar(true);
-
     try {
       await DataControllers.to.postLogin(user, pass);
     } catch (e) {

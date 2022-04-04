@@ -8,6 +8,7 @@ import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
+import 'package:takecare_user/public_variables/notifications.dart';
 import '../controllers/DataContollers.dart';
 import '../model/AllServiceResponse.dart';
 import '../model/Erorr.dart';
@@ -19,11 +20,6 @@ import '../ui/variables.dart';
 class ApiService {
   static var client = http.Client();
   static var BaseURL = 'https://takecare.ltd/api/v1/';
-  /**
-   *    get Request
-   */
-
-
 
 
   static Future<ExpertiseResponse?> fetchExpertiseResponse() async {
@@ -211,15 +207,7 @@ class ApiService {
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
-      Fluttertoast.showToast(
-          msg:
-          "Please enter your valid user and password!!",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      showToast("Please enter your valid user and password!!");
       throw Exception('Failed to login');
     }
 
