@@ -975,9 +975,9 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
     await DataControllers.to.deleteCard(
         DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
         DataControllers.to.getAddCardResponse.value.data![index].id.toString());
-    showToast(DataControllers.to.errorResponse.value.message!);
+    showToast(DataControllers.to.addCardResponse.value.message!);
 
-    if (DataControllers.to.errorResponse.value.success!) {
+    if (DataControllers.to.addCardResponse.value.success!) {
       getAddCardData();
     }
   }
@@ -1001,7 +1001,6 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
         DataControllers
             .to.addCardResponse.value.message!,
         AllColor.blue);
-    Navigator.pop(context);
 
     if (DataControllers
         .to.addCardResponse.value.success!)

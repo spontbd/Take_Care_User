@@ -757,6 +757,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                 width: 40,
                                 child: InkWell(
                                   onTap: () {
+                                    Navigator.pop(context);
                                     deleteAddCardData(index);
                                   },
                                   child: Image.asset(
@@ -850,9 +851,9 @@ class _OnDemandPageState extends State<OnDemandPage> {
     await DataControllers.to.deleteCard(
         DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
         DataControllers.to.getAddCardResponse.value.data![index].id.toString());
-    showToast(DataControllers.to.errorResponse.value.message!);
+        showToast(DataControllers.to.addCardResponse.value.message!);
 
-    if (DataControllers.to.errorResponse.value.success!) {
+    if (DataControllers.to.addCardResponse.value.success!) {
       getAddCardData();
     }
   }
@@ -872,11 +873,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
             .toString(),
         formattedDate);
 
-    showToast(
-        DataControllers
-            .to.addCardResponse.value.message!,
-        AllColor.blue);
-    Navigator.pop(context);
+    showToast(DataControllers.to.addCardResponse.value.message!, AllColor.blue);
+
 
     if (DataControllers
         .to.addCardResponse.value.success!) {

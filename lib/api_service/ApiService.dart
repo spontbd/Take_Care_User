@@ -275,7 +275,13 @@ class ApiService {
       var jsonString = response.body;
       return addCardResponseFromJson(jsonString);
     } else {
-      return null;
+      DataControllers.to.getAddCardResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.getAddCardResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.getAddCardResponse.value;
     }
   }
 
@@ -320,7 +326,13 @@ class ApiService {
       var jsonString = response.body;
       return errorResponseFromJson(jsonString);
     } else {
-      return null;
+      DataControllers.to.addCardResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.addCardResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.addCardResponse.value;
     }
   }
 
@@ -346,7 +358,13 @@ class ApiService {
       var jsonString = response.body;
       return errorResponseFromJson(jsonString);
     } else {
-      return null;
+      DataControllers.to.addCardResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.addCardResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.addCardResponse.value;
     }
   }
 
@@ -374,7 +392,13 @@ class ApiService {
       var jsonString = response.body;
       return errorResponseFromJson(jsonString);
     } else {
-      return null;
+      DataControllers.to.addCardResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.addCardResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.addCardResponse.value;
     }
   }
 
@@ -399,7 +423,13 @@ class ApiService {
       var jsonString = response.body;
       return userServiceResponseFromJson(jsonString);
     } else {
-      return null;
+      DataControllers.to.userServiceResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.userServiceResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.userServiceResponse.value;
     }
   }
 

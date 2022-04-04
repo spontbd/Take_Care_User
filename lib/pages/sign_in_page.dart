@@ -66,7 +66,7 @@ class _SignInPageState extends State<SignInPage>  {
       return Stack(
         children: [
           Scaffold(
-
+            resizeToAvoidBottomInset: false,
             body: _bodyUI(size, dataControllers),
 
             bottomNavigationBar: Padding(
@@ -203,7 +203,7 @@ class _SignInPageState extends State<SignInPage>  {
                     (languageController.sigIn.value),
                     (languageController.signUp.value)
                   ],
-                  toggleValue: signIn,
+                  toggleValue: true,
                   width: dynamicSize(1),
                   height: dynamicSize(0.12),
                   fontSize: dynamicSize(0.045),
@@ -213,16 +213,20 @@ class _SignInPageState extends State<SignInPage>  {
 
                     if(signIn)
                       {
-                        Get.to(SignUpPage());
+
+                      /*  Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => SignUpPage()));
+                        */
+                          Get.to(SignUpPage());
                         setState(() {
-                          signIn = !signIn;
+                          signIn = true;
 
                         });
                       }
                     else
                       {
                         setState(() {
-                          signIn = !signIn;
+                          signIn = true;
 
                         });
                       }
