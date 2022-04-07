@@ -450,17 +450,37 @@ class _HomePageState extends State<HomePage> {
                                           height: dynamicSize(0.4),
                                           width:
                                               MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
+                                      /*    decoration: BoxDecoration(
                                             // color: Colors.pinkAccent,
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(3)),
 
                                             image: DecorationImage(
-                                              image: AssetImage(
+                                              image:   AssetImage(
                                                   "assets/images/pet.png"),
                                               fit: BoxFit.cover,
                                             ),
+                                          ),*/
+
+                                          child:
+
+                                          CachedNetworkImage(
+                                            width: 120,
+                                            imageUrl:
+                                            "https://takecare.ltd/${ DataControllers
+                                                .to
+                                                .getCategoriesResponse
+                                                .value
+                                                .data![index]
+                                                .serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                            progressIndicatorBuilder:
+                                                (context, url, downloadProgress) =>
+                                                CircularProgressIndicator(),
+                                            errorWidget: (context, url, error) => Image.asset(
+                                              "assets/images/pet.png",
+                                            ),
                                           ),
+
                                         ),
                                         Container(
                                             alignment: Alignment.topLeft,
@@ -924,85 +944,7 @@ class _HomePageState extends State<HomePage> {
                         height: dynamicSize(0.05),
                       ),
 
-                      /*   Row(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                        mainAxisAlignment:
-                        MainAxisAlignment
-                            .spaceBetween,
-                        children: [
-                          Container(
-                            child: Text(
-                              "Service For Whom ",
-                              style: TextStyle(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap:(){
-                              print("hdjbfdh");
-                            },
-                            child: Container(
-                                child: Text("Edit",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: dynamicSize(0.05),
-                      ),
-                      Row(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                        mainAxisAlignment:
-                        MainAxisAlignment
-                            .start,
-                        children: [
 
-                          Text(
-                            "Name ",
-                          ),
-                          SizedBox(width: dynamicSize(.3),),
-                          Text(": Rana Talukdar",style: TextStyle(fontWeight: FontWeight.bold),),
-                        ],
-                      ),
-                      SizedBox(
-                        height: dynamicSize(0.03),
-                      ),
-                      Row(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                        mainAxisAlignment:
-                        MainAxisAlignment
-                            .start,
-                        children: [
-
-                          Text(
-                            "Age ",
-                          ),
-                          SizedBox(width: dynamicSize(.335),),
-                          Text(": 87 years",style: TextStyle(fontWeight: FontWeight.bold),),
-                        ],
-                      ),
-                      SizedBox(
-                        height: dynamicSize(0.03),
-                      ),
-                      Row(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                        mainAxisAlignment:
-                        MainAxisAlignment
-                            .start,
-                        children: [
-
-                          Text(
-                            "Contact Number",
-                          ),
-                          SizedBox(width: dynamicSize(.13),),
-                          Text(": 01758351395",style: TextStyle(fontWeight: FontWeight.bold),),
-                        ],
-                      ),*/
                     ],
                   ),
                 ),

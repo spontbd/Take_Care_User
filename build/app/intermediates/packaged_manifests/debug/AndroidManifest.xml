@@ -78,6 +78,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAjik5IqO62F2tGgm-9uTnbQoKEhJjaRlA" />
 
         <service
             android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService"

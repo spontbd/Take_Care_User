@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:takecare_user/model/AddCardResponse.dart';
+import 'package:takecare_user/model/AvailableProviderResponse.dart';
 import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
@@ -404,6 +405,7 @@ class ApiService {
 
 
 
+
   /// Service
 
   static Future<UserServiceResponse?> postUserServiceResponse(String user_id) async {
@@ -539,5 +541,39 @@ class ApiService {
       throw Exception('add service');
     }
   }
+
+
+  /// Service
+
+  static Future<AvailableProviderResponse?> getAvailableProviderList(String status, String available) async {
+    var response = await client
+        .get(Uri.parse(BaseURL + 'user/providers-by-status?status=${status}&available=${available}'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    }/*,
+      body: jsonEncode(<String, String>{
+        'status': status,
+        'available': available,
+      }),*/
+
+    );
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return availableProviderResponseFromJson(jsonString);
+    } else {
+      DataControllers.to.getAvailableProviderList.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.getAvailableProviderList.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.getAvailableProviderList.value;
+    }
+  }
+
+
+
 
 }

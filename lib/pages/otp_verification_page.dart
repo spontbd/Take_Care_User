@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -17,6 +19,52 @@ class OtpVerificationPage extends StatefulWidget {
 
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
 
+
+
+  late Timer _timer;
+  int _start = 120;
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+        }
+      },
+    );
+  }
+
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    startTimer();
+    /* if(DataControllers.to.userServiceResponse.value.data!.isNotEmpty)
+      {
+        showBottom = false;
+      }*/
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -30,12 +78,13 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
+
             Padding(
               padding: const EdgeInsets.only(left: 60.0, top: 200),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Enter 5 digit code that ',
+                  'Enter 6 digit code that ',
                   style: TextStyle(
                     fontSize: dynamicSize(0.07),
                     color: Colors.black,
@@ -80,7 +129,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 child: FlatButton(
                     onPressed: () {},
                     child: Text(
-                      "(Edit)",
+                      "",
                       style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
@@ -100,7 +149,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   length: 6,
                   //numberOfFields: 5,
                   width: size.width ,
-                  fieldWidth: size.width*.17,
+                  fieldWidth: dynamicSize(.12),
                   style: TextStyle(
                       fontSize: dynamicSize(0.08)
                   ),
@@ -118,7 +167,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  '59 sec.',
+                  '${_start} sec.',
                   style: TextStyle(
                     fontSize: dynamicSize(0.07),
                     color: Colors.blue,

@@ -416,11 +416,11 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
+                   /*     Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>  MapePage()),
-                        );
+                        );*/
                       },
                       child: Container(
                         child: Row(
@@ -489,7 +489,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
         body:ListView(
           padding: const EdgeInsets.all(8),
           children: List.generate(
-            DataControllers.to.longServiceResponse.value.data!.length,
+            DataControllers.to.longServiceResponse.value.data!.data!.length,
                 (index) => Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Container(
@@ -511,7 +511,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                     CachedNetworkImage(
                       width: 120,
                       imageUrl:
-                      "${DataControllers.to.longServiceResponse.value.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                      "https://takecare.ltd/${DataControllers.to.longServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) =>
                           CircularProgressIndicator(),
@@ -526,7 +526,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0, left: 5),
                           child: Text(
-                            "${DataControllers.to.longServiceResponse.value.data![index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
+                            "${DataControllers.to.longServiceResponse.value.data!.data![index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
                             style: TextStyle(
                                 fontSize: dynamicSize(0.04),
                                 fontWeight: FontWeight.bold),
@@ -853,8 +853,16 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                           ),
                           child: Row(
                             children: [
-                              Image.asset(
-                                "assets/images/image.png",
+                              CachedNetworkImage(
+                                width: 120,
+                                imageUrl:
+                                "https://takecare.ltd/${DataControllers.to.longServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) => Image.asset(
+                                  "assets/images/image.png",
+                                ),
                               ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -864,7 +872,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                     padding: const EdgeInsets.only(
                                         top: 8.0, left: 5),
                                     child: Text(
-                                      "${DataControllers.to.getAddCardResponse.value.data![index].bookingDate == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].bookingDate}",
+                                      "${DataControllers.to.getAddCardResponse.value.data![index].serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].serviceName}",
                                       style: TextStyle(
                                           fontSize: dynamicSize(0.04),
                                           fontWeight: FontWeight.bold),
@@ -974,7 +982,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
   void deleteAddCardData(int index) async {
     await DataControllers.to.deleteCard(
         DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
-        DataControllers.to.getAddCardResponse.value.data![index].id.toString());
+        DataControllers.to.getAddCardResponse.value.data![index].userServiceId.toString());
     showToast(DataControllers.to.addCardResponse.value.message!);
 
     if (DataControllers.to.addCardResponse.value.success!) {
@@ -993,7 +1001,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
             .data!.user!.id
             .toString(),
         DataControllers.to.longServiceResponse
-            .value.data![index].id
+            .value.data!.data![index].userServiceId
             .toString(),
         formattedDate);
 

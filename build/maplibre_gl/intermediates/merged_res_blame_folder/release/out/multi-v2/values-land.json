@@ -1,0 +1,72 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\TakeCare\\user_new\\build\\maplibre_gl\\intermediates\\res\\merged\\release\\values-land\\values-land.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\zahidul_islam\\.gradle\\caches\\transforms-2\\files-2.1\\d6d21b0105c56fb550a89e69e6f2cd23\\material-1.0.0\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "10",
+                        "endOffsets": "222"
+                    },
+                    "to": {
+                        "startLines": "5",
+                        "startColumns": "4",
+                        "startOffsets": "264",
+                        "endLines": "8",
+                        "endColumns": "10",
+                        "endOffsets": "431"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\zahidul_islam\\.gradle\\caches\\transforms-2\\files-2.1\\f29b2a5a43b8b97fe82640f3dfc28340\\appcompat-1.0.0\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,125,196",
+                        "endColumns": "69,70,67",
+                        "endOffsets": "120,191,259"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "E:\\TakeCare\\user_new\\build\\maplibre_gl\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-land\\values-land.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\zahidul_islam\\.gradle\\caches\\transforms-2\\files-2.1\\d6d21b0105c56fb550a89e69e6f2cd23\\material-1.0.0\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "10",
+                        "endOffsets": "222"
+                    },
+                    "to": {
+                        "startLines": "5",
+                        "startColumns": "4",
+                        "startOffsets": "264",
+                        "endLines": "8",
+                        "endColumns": "10",
+                        "endOffsets": "431"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\zahidul_islam\\.gradle\\caches\\transforms-2\\files-2.1\\f29b2a5a43b8b97fe82640f3dfc28340\\appcompat-1.0.0\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,125,196",
+                        "endColumns": "69,70,67",
+                        "endOffsets": "120,191,259"
+                    }
+                }
+            ]
+        }
+    ]
+}

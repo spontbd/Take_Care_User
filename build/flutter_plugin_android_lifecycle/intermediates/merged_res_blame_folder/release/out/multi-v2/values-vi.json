@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\TakeCare\\user_new\\build\\flutter_plugin_android_lifecycle\\intermediates\\res\\merged\\release\\values-vi\\values-vi.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\zahidul_islam\\.gradle\\caches\\transforms-2\\files-2.1\\875654acb8fd75501dc33efa1bebb479\\core-1.6.0\\res\\values-vi\\values-vi.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "E:\\TakeCare\\user_new\\build\\flutter_plugin_android_lifecycle\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-vi\\values-vi.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\zahidul_islam\\.gradle\\caches\\transforms-2\\files-2.1\\875654acb8fd75501dc33efa1bebb479\\core-1.6.0\\res\\values-vi\\values-vi.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

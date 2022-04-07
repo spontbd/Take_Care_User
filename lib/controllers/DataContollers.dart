@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:takecare_user/api_service/ApiService.dart';
 import 'package:takecare_user/model/AddCardResponse.dart';
+import 'package:takecare_user/model/AvailableProviderResponse.dart';
 import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
@@ -50,6 +51,9 @@ class DataControllers extends GetxController {
   ///Categories
   Rx<CategoriesResponse> getCategoriesResponse = CategoriesResponse().obs;
 
+
+  ///available provider
+  Rx<AvailableProviderResponse> getAvailableProviderList = AvailableProviderResponse().obs;
 
   Future getAllLongService(String type) async {
     isLoading(true);
@@ -120,7 +124,21 @@ class DataControllers extends GetxController {
    */
 
 
-    Future getCard(String user_id) async {
+    Future getProviderList(String status,String available ) async {
+    isLoading(true);
+    getAvailableProviderList = AvailableProviderResponse().obs;
+    var response =
+    await ApiService.getAvailableProviderList(status,available);
+
+    if (response != null) {
+      getAvailableProviderList.value = response;
+      // responseSuccess(true);
+    }
+  }
+
+
+
+   Future getCard(String user_id) async {
     isLoading(true);
     getAddCardResponse = AddCardResponse().obs;
     var response =
@@ -131,6 +149,8 @@ class DataControllers extends GetxController {
       // responseSuccess(true);
     }
   }
+
+
     Future addCard(String user_id, String user_service_id, String date) async {
       isLoading(true);
       var response =

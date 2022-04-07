@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:11:4-41:19
+INJECTED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:11:4-47:19
 MERGED from [:firebase_messaging] E:\TakeCare\user_new\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-44:19
 MERGED from [:firebase_messaging] E:\TakeCare\user_new\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-44:19
 MERGED from [:firebase_core] E:\TakeCare\user_new\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
@@ -62,11 +62,11 @@ MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\zahidul_
 	android:name
 		INJECTED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml
 manifest
-ADDED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-42:12
-INJECTED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-42:12
-INJECTED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-42:12
-INJECTED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-42:12
-MERGED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-42:12
+ADDED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-48:12
+INJECTED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-48:12
+INJECTED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-48:12
+INJECTED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-48:12
+MERGED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-48:12
 MERGED from [:firebase_messaging] E:\TakeCare\user_new\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-46:12
 MERGED from [:firebase_core] E:\TakeCare\user_new\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:geolocator_android] E:\TakeCare\user_new\build\geolocator_android\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-17:12
@@ -157,14 +157,32 @@ INJECTED from E:\TakeCare\user_new\android\app\src\debug\AndroidManifest.xml:1:1
 		INJECTED from E:\TakeCare\user_new\android\app\src\debug\AndroidManifest.xml
 	android:versionName
 		INJECTED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml
-		ADDED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-42:12
+		ADDED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-48:12
 		INJECTED from E:\TakeCare\user_new\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
 		INJECTED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml
-		ADDED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-42:12
+		ADDED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:1-48:12
 		INJECTED from E:\TakeCare\user_new\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
 		ADDED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:4:5-66
+MERGED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:4:5-66
+MERGED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:4:5-66
+MERGED from [:firebase_messaging] E:\TakeCare\user_new\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-67
+MERGED from [:firebase_messaging] E:\TakeCare\user_new\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-67
+MERGED from [com.google.firebase:firebase-installations:17.0.1] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\75696b8cf80c33699685bc2305e50db4\jetified-firebase-installations-17.0.1\AndroidManifest.xml:11:5-67
+MERGED from [com.google.firebase:firebase-installations:17.0.1] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\75696b8cf80c33699685bc2305e50db4\jetified-firebase-installations-17.0.1\AndroidManifest.xml:11:5-67
+MERGED from [org.maplibre.gl:android-sdk:9.5.1] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\949ce13b5a3ddfe1bda1281f7b82acde\jetified-android-sdk-9.5.1\AndroidManifest.xml:16:5-67
+MERGED from [org.maplibre.gl:android-sdk:9.5.1] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\949ce13b5a3ddfe1bda1281f7b82acde\jetified-android-sdk-9.5.1\AndroidManifest.xml:16:5-67
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-cloud-messaging:17.0.1] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\6ad8da41e8420283f843f60020915a25\jetified-play-services-cloud-messaging-17.0.1\AndroidManifest.xml:8:5-67
+MERGED from [com.google.android.gms:play-services-cloud-messaging:17.0.1] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\6ad8da41e8420283f843f60020915a25\jetified-play-services-cloud-messaging-17.0.1\AndroidManifest.xml:8:5-67
+MERGED from [com.google.android.datatransport:transport-backend-cct:3.1.2] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\e73cf967fd64c7abbc8ee925a29db010\jetified-transport-backend-cct-3.1.2\AndroidManifest.xml:26:5-67
+MERGED from [com.google.android.datatransport:transport-backend-cct:3.1.2] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\e73cf967fd64c7abbc8ee925a29db010\jetified-transport-backend-cct-3.1.2\AndroidManifest.xml:26:5-67
+	android:name
+		ADDED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:4:22-64
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
 ADDED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml:5:5-80
 	android:name
@@ -361,22 +379,6 @@ INJECTED from E:\TakeCare\user_new\android\app\src\debug\AndroidManifest.xml
 	android:minSdkVersion
 		INJECTED from E:\TakeCare\user_new\android\app\src\main\AndroidManifest.xml
 		INJECTED from E:\TakeCare\user_new\android\app\src\debug\AndroidManifest.xml
-uses-permission#android.permission.INTERNET
-ADDED from E:\TakeCare\user_new\android\app\src\debug\AndroidManifest.xml:6:5-66
-MERGED from [:firebase_messaging] E:\TakeCare\user_new\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-67
-MERGED from [:firebase_messaging] E:\TakeCare\user_new\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-67
-MERGED from [com.google.firebase:firebase-installations:17.0.1] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\75696b8cf80c33699685bc2305e50db4\jetified-firebase-installations-17.0.1\AndroidManifest.xml:11:5-67
-MERGED from [com.google.firebase:firebase-installations:17.0.1] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\75696b8cf80c33699685bc2305e50db4\jetified-firebase-installations-17.0.1\AndroidManifest.xml:11:5-67
-MERGED from [org.maplibre.gl:android-sdk:9.5.1] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\949ce13b5a3ddfe1bda1281f7b82acde\jetified-android-sdk-9.5.1\AndroidManifest.xml:16:5-67
-MERGED from [org.maplibre.gl:android-sdk:9.5.1] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\949ce13b5a3ddfe1bda1281f7b82acde\jetified-android-sdk-9.5.1\AndroidManifest.xml:16:5-67
-MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:24:5-67
-MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\7312349d45b89be6e8bb629bb8ce91f5\jetified-play-services-maps-17.0.0\AndroidManifest.xml:24:5-67
-MERGED from [com.google.android.gms:play-services-cloud-messaging:17.0.1] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\6ad8da41e8420283f843f60020915a25\jetified-play-services-cloud-messaging-17.0.1\AndroidManifest.xml:8:5-67
-MERGED from [com.google.android.gms:play-services-cloud-messaging:17.0.1] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\6ad8da41e8420283f843f60020915a25\jetified-play-services-cloud-messaging-17.0.1\AndroidManifest.xml:8:5-67
-MERGED from [com.google.android.datatransport:transport-backend-cct:3.1.2] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\e73cf967fd64c7abbc8ee925a29db010\jetified-transport-backend-cct-3.1.2\AndroidManifest.xml:26:5-67
-MERGED from [com.google.android.datatransport:transport-backend-cct:3.1.2] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\e73cf967fd64c7abbc8ee925a29db010\jetified-transport-backend-cct-3.1.2\AndroidManifest.xml:26:5-67
-	android:name
-		ADDED from E:\TakeCare\user_new\android\app\src\debug\AndroidManifest.xml:6:22-64
 uses-permission#android.permission.WAKE_LOCK
 ADDED from [:firebase_messaging] E:\TakeCare\user_new\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-68
 MERGED from [com.google.firebase:firebase-messaging:23.0.2] C:\Users\zahidul_islam\.gradle\caches\transforms-2\files-2.1\2a4ed9f2ef45b8e5be634b9460533939\jetified-firebase-messaging-23.0.2\AndroidManifest.xml:26:5-68

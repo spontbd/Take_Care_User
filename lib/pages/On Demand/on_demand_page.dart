@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +21,7 @@ import '../../public_variables/all_colors.dart';
 import '../../public_variables/notifications.dart';
 import '../../public_variables/size_config.dart';
 import '../../ui/common.dart';
+import '../sign_in_page.dart';
 import 'feedback_page.dart';
 import 'map_page.dart';
 
@@ -48,7 +52,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                 height: dynamicSize(0.2),
                 color: AllColor.button_color,
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
@@ -56,6 +60,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       child: Container(
                         color: Colors.red,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
                               alignment: Alignment.topLeft,
@@ -141,18 +147,110 @@ class _OnDemandPageState extends State<OnDemandPage> {
                     Expanded(
                       flex: 2,
                       child: InkWell(
-                        onTap: () {
-                          showDialog(
+                        onTap: () async{
+
+
+                          await DataControllers.to.getProviderList("1", "1");
+                          late PickResult selectedPlace;
+
+
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return PlacePicker(
+                                  apiKey: "MjY5MzpHMEVBUExBNVM5",
+                                  initialPosition: SignInPage.initLatLng,
+                                  useCurrentLocation: true,
+                                  selectInitialPosition: true,
+                                  usePinPointingSearch: true,
+                                  onPlacePicked: (result) {
+                                    selectedPlace = result;
+
+
+
+                                  //  Navigator.of(context).pop();
+                                    setState(() {
+                                      selectedPlace = result;
+
+                                    });
+
+
+
+
+                                  },
+
+                                  //forceSearchOnZoomChanged: true,
+                                  automaticallyImplyAppBarLeading: false,
+                                  //autocompleteLanguage: "ko",
+                                  //region: 'au',
+                                  selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
+                                    print("state: $state, isSearchBarFocused: $isSearchBarFocused");
+                                    return isSearchBarFocused
+                                        ? Container()
+                                        : FloatingCard(
+                                      bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
+                                      leftPosition: 0.0,
+                                      rightPosition: 0.0,
+                                      width: 500,
+
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      child: state == SearchingState.Searching
+                                          ? Center(child: CircularProgressIndicator())
+                                          : RaisedButton(
+                                        child: Text("Pick Here"),
+                                        onPressed: () {
+                                          // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
+                                          //            this will override default 'Select here' Button.
+
+                                          Navigator.of(context).pop();
+                                          print("placeucode: "+selectedPlace.toString());
+                                          print("placeucode: "+selectedPlace!.latitude.toString());
+                                          print("placeucode: "+selectedPlace.longitude.toString());
+                                          print("placeucode: "+selectedPlace.area.toString());
+
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => MapePage(result: selectedPlace)),
+                                          );
+
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  // pinBuilder: (context, state) {
+                                  //   if (state == PinState.Idle) {
+                                  //     return Icon(Icons.favorite_border);
+                                  //   } else {
+                                  //     return Icon(Icons.favorite);
+                                  //   }
+                                  // },
+                                );
+                              },
+                            ),
+                          );
+
+
+
+
+
+
+
+
+
+
+      /*                    showDialog(
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  /* title: Text(
+                                  *//* title: Text(
                                     "Booking Information",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: dynamicSize(0.03),
                                         color: Colors.red),
-                                  ),*/
+                                  ),*//*
                                   actions: [
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -282,6 +380,9 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                   ],
                                 );
                               });
+
+                          */
+
                         },
                         child: Container(
                           color: AllColor.button_color,
@@ -417,10 +518,10 @@ class _OnDemandPageState extends State<OnDemandPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
+                      /*  Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => MapePage()),
-                        );
+                        );*/
                       },
                       child: Container(
                         child: Row(
@@ -487,7 +588,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
         body: ListView(
           padding: const EdgeInsets.all(8),
           children: List.generate(
-            DataControllers.to.shortServiceResponse.value.data!.length,
+            DataControllers.to.shortServiceResponse.value.data!.data!.length,
             (index) => Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Container(
@@ -509,7 +610,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                     CachedNetworkImage(
                       width: 120,
                       imageUrl:
-                          "${DataControllers.to.shortServiceResponse.value.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                          "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) =>
                               CircularProgressIndicator(),
@@ -524,7 +625,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0, left: 5),
                           child: Text(
-                            "${DataControllers.to.shortServiceResponse.value.data![index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
+                            "${DataControllers.to.shortServiceResponse.value.data!.data![index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
                             style: TextStyle(
                                 fontSize: dynamicSize(0.04),
                                 fontWeight: FontWeight.bold),
@@ -610,10 +711,16 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0, top: 5),
-                            child: Image.asset(
-                              "assets/images/image.png",
-                              height: 100,
-                              width: 100,
+                            child:  CachedNetworkImage(
+                              width: 120,
+                              imageUrl:
+                              "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => Image.asset(
+                                "assets/images/image.png",
+                              ),
                             ),
                           ),
                           Spacer(),
@@ -621,23 +728,10 @@ class _OnDemandPageState extends State<OnDemandPage> {
                             children: [
                               InkWell(
                                 onTap: () async {
+
                                   Navigator.pop(context);
-
-
                                   addCard(index);
 
-                                  /*  if(DataControllers.to.addServiceResponse.value.success!)
-                                    {
-                                      DataControllers.to.shortServiceResponse.value.data![index].status = "Done";
-                                    }*/
-
-                                  //updatedUserService();
-
-                                  /*  setState(() {
-                                    showBottom = true;
-                                 //   DataControllers.to.shortServiceResponse;
-                                    addedlist = true;
-                                  });*/
                                 },
                                 child: Image.asset(
                                   "assets/images/added_now_button.png",
@@ -650,7 +744,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0, top: 5),
                         child: Text(
-                          DataControllers.to.shortServiceResponse.value
+                          DataControllers.to.shortServiceResponse.value.data!
                               .data![index].serviceName!,
                           style: TextStyle(
                               fontSize: dynamicSize(0.05),
@@ -660,7 +754,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0, top: 5),
                         child: Text(
-                          DataControllers.to.shortServiceResponse.value
+                          DataControllers.to.shortServiceResponse.value.data!
                               .data![index].description!,
                           style: TextStyle(
                             fontSize: dynamicSize(0.03),
@@ -720,8 +814,16 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           ),
                           child: Row(
                             children: [
-                              Image.asset(
-                                "assets/images/image.png",
+                              CachedNetworkImage(
+                                width: 120,
+                                imageUrl:
+                                "https://takecare.ltd/${DataControllers.to.getAddCardResponse.value.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) => Image.asset(
+                                  "assets/images/image.png",
+                                ),
                               ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -731,7 +833,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                     padding: const EdgeInsets.only(
                                         top: 8.0, left: 5),
                                     child: Text(
-                                      "${DataControllers.to.getAddCardResponse.value.data![index].bookingDate == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].bookingDate}",
+                                      "${DataControllers.to.getAddCardResponse.value.data![index].serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].serviceName}",
                                       style: TextStyle(
                                           fontSize: dynamicSize(0.04),
                                           fontWeight: FontWeight.bold),
@@ -782,38 +884,69 @@ class _OnDemandPageState extends State<OnDemandPage> {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
-          return Container(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child:
-
-/*Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.08),fontWeight: FontWeight.bold),),
-                      Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),),
-                    ],
-                  ),*/
-
-                  ListView(
-                children: List.generate(
-                  DataControllers.to.getCategoriesResponse.value.data!.length,
-                  (index) => Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "${DataControllers.to.getCategoriesResponse.value.data![index].categoryName}",
-                        style: TextStyle(fontSize: dynamicSize(0.05)),
+          return Column(
+            children: [
+           /*   Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.08),fontWeight: FontWeight.bold),),
+                  InkWell(
+                      onTap: (){
+                        setState(() {
+                          DataControllers.to.getCategoriesResponse.value.data!.length;
+                        });
+                      }
+                      ,
+                      child: Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),)),
+                ],
+              ),*/
+              Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child:
+                      ListView(
+                    children: List.generate(
+                      DataControllers.to.getCategoriesResponse.value.data!.length,
+                      (index) => Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "${DataControllers.to.getCategoriesResponse.value.data![index].categoryName}",
+                            style: TextStyle(fontSize: dynamicSize(0.05)),
+                          ),
+                          CheckBox(),
+                        ],
                       ),
-                      CheckBox(),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
+
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
+                  child: ElevatedButton(
+                    onPressed: () async
+                    {
+                      
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text('Show Listing',
+                              style: TextStyle(fontSize: dynamicSize(0.045))),
+                        )
+                      ],
+                    ),
+                  )
+              ),
+
+
+            ],
           );
         });
   }
@@ -865,7 +998,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
   void deleteAddCardData(int index) async {
     await DataControllers.to.deleteCard(
         DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
-        DataControllers.to.getAddCardResponse.value.data![index].id.toString());
+        DataControllers.to.getAddCardResponse.value.data![index].userServiceId.toString());
         showToast(DataControllers.to.addCardResponse.value.message!);
 
     if (DataControllers.to.addCardResponse.value.success!) {
@@ -884,7 +1017,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
             .data!.user!.id
             .toString(),
         DataControllers.to.shortServiceResponse
-            .value.data![index].id
+            .value.data!.data![index].userServiceId
             .toString(),
         formattedDate);
 

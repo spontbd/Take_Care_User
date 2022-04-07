@@ -31,6 +31,9 @@ class Datum {
   Datum({
     this.id,
     this.categoryName,
+    this.serviceImage,
+    this.serviceThumbnail,
+    this.serviceType,
     this.startPrice,
     this.createdAt,
     this.updatedAt,
@@ -38,6 +41,9 @@ class Datum {
 
   int? id;
   String? categoryName;
+  String? serviceImage;
+  String? serviceThumbnail;
+  String? serviceType;
   int? startPrice;
 
   dynamic createdAt;
@@ -46,6 +52,9 @@ class Datum {
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
     categoryName: json["category_name"],
+    serviceImage: json["service_image"],
+    serviceThumbnail: json["service_thumbnail"],
+    serviceType: json["service_type"],
     startPrice: json["start_price"],
     createdAt: json["created_at"],
     updatedAt: json["updated_at"],
