@@ -7,6 +7,7 @@ class AllColor{
   static const Color blue= Color(0xff028ac9);
   static const Color black= Color(0xff000000);
   static const Color button_color= Color(0xff39bffe);
+  static const Color card_bg= Color(0x51535353);
   static const Color textFieldColor= Color(0xffEEEEF4);
   static final Color textColor= Colors.grey.shade900;
   static const Color search_field_color= Color(0xffd8d8d8);
@@ -23,7 +24,7 @@ class AllColor{
   static const Color white_yellow= Color(0xfff1f8e9);
   static const Color white_pink= Color(0xffffebee);
   static const Color pink_button= Color(0xffff0163);
-  static const Color buttomdialog= Color(0xff91515d);
+  static const Color buttomdialog= Color(0xff91515D);
   static const Color blackOrange= Color(0xffa68400);
 
   static const Map<int, Color> themeMapColor = {

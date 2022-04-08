@@ -205,20 +205,23 @@ class ApiService {
     if (response.statusCode == 200) {
       // If the server did return a 200 CREATED response,
       // then parse the JSON.
-      return userLoginResponseFromJson(response.body);
+
+
+      DataControllers.to.userLoginResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.userLoginResponse.value.message =
+      json.decode(response.body)["message"];
+
+      return DataControllers.to.userLoginResponse.value;
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
-      Fluttertoast.showToast(
-          msg:
-          "Please enter your valid user and password!!",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-      throw Exception('Failed to login');
+      DataControllers.to.userLoginResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.userLoginResponse.value.message =
+      json.decode(response.body)["message"];
+
+      return DataControllers.to.userLoginResponse.value;
     }
 
   }
@@ -235,7 +238,11 @@ class ApiService {
 
     if (response.statusCode == 200) {
       // If the server did return a 200 CREATED response,
+
       // then parse the JSON.
+
+
+
       return jsonDecode(response.body);
     } else {
       // If the server did not return a 201 CREATED response,
@@ -572,8 +579,4 @@ class ApiService {
       return DataControllers.to.getAvailableProviderList.value;
     }
   }
-
-
-
-
 }

@@ -1,6 +1,7 @@
 // ignore_for_file : prefer_collection_literals
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
+import 'package:takecare_user/public_variables/notifications.dart';
 
 import '../model/AllServiceResponse.dart';
 import '../model/Erorr.dart';
@@ -238,7 +240,19 @@ class DataControllers extends GetxController {
 
     Future postLogin(String phone_number, String pass) async {
       isLoading(true);
-      var response = await ApiService.postLogin(phone_number, pass);
+      var response ;
+      try {
+        final result = await InternetAddress.lookup('google.com');
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+//          print('connected');
+            response = await ApiService.postLogin(phone_number, pass);
+
+        }
+      } on SocketException catch (_) {
+        isLoading(false);
+        showToast("Check your internet Connection");
+//        print('not connected');
+      }
 
       if (response != null) {
         userLoginResponse.value = response;

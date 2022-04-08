@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:takecare_user/pages/Addresses.dart';
 import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
 import 'package:takecare_user/pages/long_time_services/long_time_service_page.dart';
+import 'package:takecare_user/pages/profile.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
 
 //import 'package:takecare_user/controllers/DataContollers.dart';
@@ -95,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                             Container(
                                 margin: EdgeInsets.only(left: 10, top: 15),
                                 child: Text(
-                                  "Good Morning",
+                                  messageDisplay(),
                                   style: TextStyle(fontSize: dynamicSize(0.04)),
                                 )),
                             Container(
@@ -205,7 +208,8 @@ class _HomePageState extends State<HomePage> {
                                               .getString("service");
 
                                           if (serviceValue == "short" ||
-                                              serviceValue == null || serviceValue.isEmpty ) {
+                                              serviceValue == null ||
+                                              serviceValue.isEmpty) {
                                             Navigator.of(context)
                                                 .pushReplacement(
                                                     MaterialPageRoute(
@@ -402,32 +406,22 @@ class _HomePageState extends State<HomePage> {
                                     horizontal: 10.0, vertical: 15.0),
                                 child: InkWell(
                                   onTap: () {
-
-
-
                                     var serviceValue = Common
                                         .storeSharedPreferences
                                         .getString("service");
 
                                     if (serviceValue == "long" ||
-                                        serviceValue == null  || serviceValue.isEmpty) {
-
+                                        serviceValue == null ||
+                                        serviceValue.isEmpty) {
                                       Navigator.of(context).pushReplacement(
                                           MaterialPageRoute(
                                               builder: (_) =>
                                                   LongTimeServicesPage()));
                                     } else {
                                       //  showToast("You already added the long time service");
-                                      showAlertForAddCardDeleted(
-                                          "On Demand",
+                                      showAlertForAddCardDeleted("On Demand",
                                           "You already added the on-Demand service");
                                     }
-
-
-
-
-
-
                                   },
                                   child: Container(
                                     width: size.width / 2,
@@ -450,7 +444,7 @@ class _HomePageState extends State<HomePage> {
                                           height: dynamicSize(0.4),
                                           width:
                                               MediaQuery.of(context).size.width,
-                                      /*    decoration: BoxDecoration(
+                                          /*    decoration: BoxDecoration(
                                             // color: Colors.pinkAccent,
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(3)),
@@ -462,25 +456,19 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),*/
 
-                                          child:
-
-                                          CachedNetworkImage(
+                                          child: CachedNetworkImage(
                                             width: 120,
                                             imageUrl:
-                                            "https://takecare.ltd/${ DataControllers
-                                                .to
-                                                .getCategoriesResponse
-                                                .value
-                                                .data![index]
-                                                .serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-                                            progressIndicatorBuilder:
-                                                (context, url, downloadProgress) =>
+                                                "https://takecare.ltd/${DataControllers.to.getCategoriesResponse.value.data![index].serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                            progressIndicatorBuilder: (context,
+                                                    url, downloadProgress) =>
                                                 CircularProgressIndicator(),
-                                            errorWidget: (context, url, error) => Image.asset(
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Image.asset(
                                               "assets/images/pet.png",
                                             ),
                                           ),
-
                                         ),
                                         Container(
                                             alignment: Alignment.topLeft,
@@ -709,8 +697,7 @@ class _HomePageState extends State<HomePage> {
                                   onPressed: () {
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
-                                            builder: (_) =>
-                                                CaregiverProfile()));
+                                            builder: (_) => Profile()));
                                   },
                                   child: Text(
                                     "Profile",
@@ -764,10 +751,10 @@ class _HomePageState extends State<HomePage> {
                                     padding: const EdgeInsets.only(left: 10.0),
                                     child: TextButton(
                                       onPressed: () {
-                                        /*Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                PaymentSettlementPage()));*/
+                                        Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                                builder: (_) =>
+                                                    AddressesPage()));
                                       },
                                       child: Text(
                                         "Addresses",
@@ -943,8 +930,6 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: dynamicSize(0.05),
                       ),
-
-
                     ],
                   ),
                 ),
@@ -956,13 +941,34 @@ class _HomePageState extends State<HomePage> {
 
   void deleteAllCardData() async {
     onProgressBar(true);
-    await DataControllers.to.deleteAllCard( DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
+    await DataControllers.to.deleteAllCard(
+        DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
     onProgressBar(false);
     showToast(DataControllers.to.addCardResponse.value.message!);
     if (DataControllers.to.addCardResponse.value.success!) {
       Common.storeSharedPreferences.setString("service", "");
       getAllService();
     }
+  }
+
+  late String message;
+
+  String messageDisplay()
+  {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('kk').format(now);
+
+    int check = int.parse(formattedDate);
+    if (check > 4 && check < 12) {
+      message = "Good Morning!";
+    } else if (check > 12 && check < 15) {
+      message = "Good Noon!";
+    } else if (check > 15 && check < 18) {
+      message = "Good Evening!";
+    } else if (check > 20 && check < 4) {
+      message = "Good Night!";
+    }
+    return message;
   }
 }
 

@@ -6,6 +6,7 @@ import '../public_variables/all_colors.dart';
 import '../public_variables/size_config.dart';
 import '../ui/variables.dart';
 import 'home_page.dart';
+import 'loved_ones_page.dart';
 
 class LovedFormPage extends StatefulWidget {
   const LovedFormPage({Key? key}) : super(key: key);
@@ -23,18 +24,18 @@ class _LovedFormPageState extends State<LovedFormPage> {
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
-              /*Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => CaregiverProfile()));*/
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => LovedOnesPage()));
             },
             child: Icon(
               Icons.arrow_back,
-              color: Colors.black,
+              color: Colors.pink,
             ),
           ),
           backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
-            "Services Request Form",
+            "Loved One's",
             style: TextStyle(color: Colors.black),
           ),
         ),

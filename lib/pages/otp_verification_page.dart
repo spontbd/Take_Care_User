@@ -22,7 +22,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
 
 
   late Timer _timer;
-  int _start = 120;
+  int _start = 180;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -31,7 +31,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
           (Timer timer) {
         if (_start == 0) {
           setState(() {
-            timer.cancel();
+          //  timer.cancel();
+            dispose();
           });
         } else {
           setState(() {
