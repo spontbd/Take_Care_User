@@ -1022,9 +1022,9 @@ class _HomePageState extends State<HomePage> {
     int check = int.parse(formattedDate);
     if (check > 4 && check < 12) {
       message = "Good Morning!";
-    } else if (check > 12 && check < 15) {
+    } else if (check >= 12 && check < 14) {
       message = "Good Noon!";
-    } else if (check > 15 && check < 18) {
+    } else if (check >= 14 && check <= 18) {
       message = "Good Evening!";
     } else {
       message = "Good Night!";

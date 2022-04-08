@@ -22,6 +22,7 @@ import '../../public_variables/all_colors.dart';
 import '../../public_variables/notifications.dart';
 import '../../public_variables/size_config.dart';
 import '../../ui/common.dart';
+import '../../ui/variables.dart';
 import '../sign_in_page.dart';
 import 'feedback_page.dart';
 import 'map_page.dart';
@@ -1043,6 +1044,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
+
+
           return Container(
             color: Colors.white,
             /*margin: EdgeInsets.only(left: 10,right: 10),*/
@@ -1059,7 +1062,10 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       InkWell(
                           onTap: (){
                             setState(() {
-                              DataControllers.to.getCategoriesResponse.value.data!.length;
+                            //  showToast("Check");
+                              Navigator.pop(context);
+                              showButtonListDialog(context);
+                              DataControllers.to.getCategoriesResponse.value.data!.length  =  DataControllers.to.getCategoriesResponse.value.data!.length  ;
                             });
                           }
                           ,
@@ -1091,7 +1097,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                     ),
                   ),
 
-                  Padding(
+                  Variables.categoryCheckBoxValue   ? Padding(
                       padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
                       child: ElevatedButton(
                         onPressed: () async
@@ -1109,7 +1115,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           ],
                         ),
                       )
-                  ),
+                  )  : Container(),
 
 
                 ],
