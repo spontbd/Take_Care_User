@@ -5,6 +5,7 @@ class AllColor{
 
   static const Color themeColor= Color(0xffff0054);
   static const Color blue= Color(0xff028ac9);
+  static const Color blue_light= Color(0xff39BFFE);
   static const Color black= Color(0xff000000);
   static const Color button_color= Color(0xff39bffe);
   static const Color card_bg= Color(0x51535353);

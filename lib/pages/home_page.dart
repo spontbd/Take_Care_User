@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +10,7 @@ import 'package:takecare_user/pages/sign_in_page.dart';
 
 //import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
+import 'package:takecare_user/widgets/CarouselDemo.dart';
 
 import '../controllers/DataContollers.dart';
 import '../controllers/language_controller.dart';
@@ -59,6 +61,10 @@ class _HomePageState extends State<HomePage> {
 
     //  await DataControllers.to.postUserServiceResponse(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
   }
+  CarouselController buttonCarouselController = CarouselController();
+  int _current = 0;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +76,7 @@ class _HomePageState extends State<HomePage> {
             key: _scaffoldKey,
             // appBar: AppBar(title: Text('Goog Morning'),),
             body: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 children: [
                   Row(
@@ -84,8 +90,7 @@ class _HomePageState extends State<HomePage> {
                           fit: BoxFit.cover,
                           imageUrl:
                               '${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
+
                           errorWidget: (context, url, error) =>
                               Image.asset('assets/images/baby.png'),
                         ),
@@ -132,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                       scrollDirection: Axis.vertical,
                       child: Column(
                         children: [
-                          SizedBox(height: dynamicSize(0.04)),
+                          SizedBox(height: dynamicSize(.18)),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: Container(
@@ -140,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                               child: Text(
                                 "On demand",
                                 style: TextStyle(
-                                    fontSize: dynamicSize(0.08),
+                                    fontSize: dynamicSize(0.06),
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -309,18 +314,16 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: dynamicSize(0.03),
-                          ),
+
                           Padding(
                             padding:
-                                const EdgeInsets.only(bottom: 8.0, top: 20),
+                                const EdgeInsets.only(bottom: 15.0, top: 15),
                             child: Container(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   "Offers & News",
                                   style: TextStyle(
-                                      fontSize: dynamicSize(0.08),
+                                      fontSize: dynamicSize(0.06),
                                       fontWeight: FontWeight.bold),
                                 )),
                           ),
@@ -328,82 +331,141 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Expanded(
                                 flex: 1,
-                                child: Container(
-                                  //color: Colors.pinkAccent,
-                                  height: dynamicSize(0.5),
-                                  // width: MediaQuery.of(context).size.width/2,
-                                  decoration: BoxDecoration(
-                                    // color: Colors.pinkAccent,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
+                                child:
 
-                                    image: DecorationImage(
-                                      image:
-                                          AssetImage("assets/images/doc.png"),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
+                                CarouselSlider.builder(
+                                  carouselController: buttonCarouselController,
+
+                                  itemCount: imgList.length,
+                                  itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
+
+
                                       Container(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, bottom: 10),
-                                          child: Text(
-                                            "Dementia Patient" /*DataControllers.to.getCategoriesResponse.value.data[].*/,
-                                            style: TextStyle(
-                                                fontSize: dynamicSize(0.075),
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
+                                        //color: Colors.pinkAccent,
+                                        height: dynamicSize(0.42),
+                                        // width: MediaQuery.of(context).size.width/2,
+                                        decoration: BoxDecoration(
+                                          // color: Colors.pinkAccent,
+                                          borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+
+                                          image: DecorationImage(
+                                            image:
+                                            AssetImage("assets/images/doc.png"),
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10.0, bottom: 15),
-                                          child: Text(
-                                            "Total take care for 12 hrs.or 24 hrs. ",
-                                            style: TextStyle(
-                                              fontSize: dynamicSize(0.045),
-                                              color: Colors.white,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Container(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10, bottom: 10),
+                                                child: Text(
+                                                  "Dementia Patient" /*DataControllers.to.getCategoriesResponse.value.data[].*/,
+                                                  style: TextStyle(
+                                                      fontSize: dynamicSize(0.075),
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                            Container(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10.0, bottom: 15),
+                                                child: Text(
+                                                  "Total take care for 12 hrs.or 24 hrs. ",
+                                                  style: TextStyle(
+                                                    fontSize: dynamicSize(0.045),
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ],
+
+
+                                  options: CarouselOptions(
+
+                                    autoPlay: true,
+                                    enlargeCenterPage: true,
+                                    viewportFraction: 1.0,
+                                    aspectRatio: 2.5,
+                                    initialPage: 0,
+
+
+                                      onPageChanged: (index, reason) {
+                                        setState(() {
+                                          _current = index;
+                                        });
+                                      }
+
                                   ),
-                                ),
+
+                                )
+
+
+
+
+
+
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: dynamicSize(0.05),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: imgList.asMap().entries.map((entry) {
+                              return GestureDetector(
+                                onTap: () => buttonCarouselController.animateToPage(entry.key),
+                                child: Container(
+                                  width: 10.0,
+                                  height: 10.0,
+                                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: (Theme.of(context).brightness == Brightness.dark
+                                          ? AllColor.blue_light
+                                          : AllColor.blue)
+                                          .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                                ),
+                              );
+                            }).toList(),
                           ),
+                       /*   RaisedButton(
+                            onPressed: () => buttonCarouselController.nextPage(
+                                duration: Duration(milliseconds: 300), curve: Curves.linear),
+                            child: Text('→'),
+                          ),*/
+
+
                           Padding(
-                            padding: const EdgeInsets.only(top: 20, bottom: 8),
+                            padding: const EdgeInsets.only(top: 10, bottom: 12),
                             child: Container(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   "Long Time Service",
                                   style: TextStyle(
-                                      fontSize: dynamicSize(0.08),
+                                      fontSize: dynamicSize(0.06),
                                       fontWeight: FontWeight.bold),
                                 )),
                           ),
                           Container(
-                            height: dynamicSize(.7),
+                            height: dynamicSize(.58),
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: DataControllers
                                   .to.getCategoriesResponse.value.data!.length,
                               itemBuilder: (context, index) => Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0, vertical: 15.0),
+                                    horizontal: 8.0, vertical: 10.0),
                                 child: InkWell(
                                   onTap: () {
                                     var serviceValue = Common
@@ -424,11 +486,10 @@ class _HomePageState extends State<HomePage> {
                                     }
                                   },
                                   child: Container(
-                                    width: size.width / 2,
-                                    height: dynamicSize(0.2),
+                                    width: size.width / 2.5,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
+                                      /*borderRadius: BorderRadius.circular(8),*/
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black26,
@@ -441,7 +502,7 @@ class _HomePageState extends State<HomePage> {
                                     child: Column(
                                       children: [
                                         Container(
-                                          height: dynamicSize(0.4),
+                                          height: dynamicSize(0.35),
                                           width:
                                               MediaQuery.of(context).size.width,
                                           /*    decoration: BoxDecoration(
@@ -457,12 +518,11 @@ class _HomePageState extends State<HomePage> {
                                           ),*/
 
                                           child: CachedNetworkImage(
-                                            width: 120,
+
+                                            fit: BoxFit.fill,
                                             imageUrl:
                                                 "https://takecare.ltd/${DataControllers.to.getCategoriesResponse.value.data![index].serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-                                            progressIndicatorBuilder: (context,
-                                                    url, downloadProgress) =>
-                                                CircularProgressIndicator(),
+
                                             errorWidget:
                                                 (context, url, error) =>
                                                     Image.asset(
@@ -473,7 +533,7 @@ class _HomePageState extends State<HomePage> {
                                         Container(
                                             alignment: Alignment.topLeft,
                                             margin: EdgeInsets.only(
-                                                left: 10, top: 12),
+                                                left: 4, top: 8),
                                             child: Text(
                                               DataControllers
                                                       .to
@@ -490,17 +550,17 @@ class _HomePageState extends State<HomePage> {
                                                       .categoryName!
                                                   : "",
                                               style: TextStyle(
-                                                  fontSize: dynamicSize(0.06),
+                                                  fontSize: dynamicSize(0.045),
                                                   fontWeight: FontWeight.bold),
                                             )),
                                         Container(
                                             alignment: Alignment.topLeft,
                                             margin: EdgeInsets.only(
-                                                left: 10, bottom: 5, top: 5),
+                                                left: 4, bottom: 5, top: 5),
                                             child: Text(
                                               "Starts from ${DataControllers.to.getCategoriesResponse.value.data![index].startPrice!.isNaN ? "0.00" : DataControllers.to.getCategoriesResponse.value.data![index].startPrice!} Tk",
                                               style: TextStyle(
-                                                  fontSize: dynamicSize(0.04)),
+                                                  fontSize: dynamicSize(0.038)),
                                             )),
                                       ],
                                     ),
@@ -558,8 +618,8 @@ class _HomePageState extends State<HomePage> {
                                     fit: BoxFit.cover,
                                     imageUrl:
                                         '${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
-                                    placeholder: (context, url) =>
-                                        CircularProgressIndicator(),
+                                  /*  placeholder: (context, url) =>
+                                        CircularProgressIndicator(),*/
                                     errorWidget: (context, url, error) =>
                                         Image.asset('assets/images/baby.png'),
                                   ),
@@ -951,12 +1011,13 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  late String message;
+  late String message = "";
 
   String messageDisplay()
   {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('kk').format(now);
+
 
     int check = int.parse(formattedDate);
     if (check > 4 && check < 12) {
@@ -965,7 +1026,7 @@ class _HomePageState extends State<HomePage> {
       message = "Good Noon!";
     } else if (check > 15 && check < 18) {
       message = "Good Evening!";
-    } else if (check > 20 && check < 4) {
+    } else {
       message = "Good Night!";
     }
     return message;

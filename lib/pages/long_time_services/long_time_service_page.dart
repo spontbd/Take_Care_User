@@ -512,9 +512,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                       width: 120,
                       imageUrl:
                       "https://takecare.ltd/${DataControllers.to.longServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) =>
-                          CircularProgressIndicator(),
+
                       errorWidget: (context, url, error) => Image.asset(
                         "assets/images/image.png",
                       ),
@@ -857,9 +855,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                 width: 120,
                                 imageUrl:
                                 "https://takecare.ltd/${DataControllers.to.longServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-                                progressIndicatorBuilder:
-                                    (context, url, downloadProgress) =>
-                                    CircularProgressIndicator(),
+
                                 errorWidget: (context, url, error) => Image.asset(
                                   "assets/images/image.png",
                                 ),
