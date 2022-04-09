@@ -66,7 +66,7 @@ class _SignInPageState extends State<SignInPage>  {
       return Stack(
         children: [
           Scaffold(
-            resizeToAvoidBottomInset: false,
+            /*resizeToAvoidBottomInset: false,*/
             body: _bodyUI(size, dataControllers),
 
             bottomNavigationBar: Padding(
@@ -116,282 +116,297 @@ class _SignInPageState extends State<SignInPage>  {
         GetBuilder<LanguageController>(builder: (lg) {
 
 
-      return  Stack(
-        clipBehavior: Clip.none,
-          alignment: Alignment.center,
-          children: [
-            ///Bottom Image
+      return  SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              clipBehavior: Clip.none,
+                alignment: Alignment.center,
+                children: [
+                  ///Bottom Image
 
-           /* Container(
-              color: Colors.greenAccent,
-              width: double.infinity,
-              height: double.infinity,
-            )*/
+                 /* Container(
+                    color: Colors.greenAccent,
+                    width: double.infinity,
+                    height: double.infinity,
+                  )*/
 
-            /*   Container(
-              margin: EdgeInsets.only(bottom: 0),
-              width: size.width,
-              height: size.height *2,
-              alignment: Alignment.bottomLeft,
-              child:
-              Image.asset('assets/images/image_below.png',
-                  fit:BoxFit.fill
-              )
+                  /*   Container(
+                    margin: EdgeInsets.only(bottom: 0),
+                    width: size.width,
+                    height: size.height *2,
+                    alignment: Alignment.bottomLeft,
+                    child:
+                    Image.asset('assets/images/image_below.png',
+                        fit:BoxFit.fill
+                    )
 
-              ,
-            ),
+                    ,
+                  ),
 */
-            ///Nurse Image
-            Positioned(
-              top: 0.0,
-              left: 0.0,
-              right: 0.0,
-              child:
 
-              Image.asset('assets/images/home_header.png',
-                  fit:BoxFit.fill
-              )
-            ),
+                /*  Container(
+                    width: size.width,
+                    height: size.height,
+                    alignment: Alignment.bottomLeft,
+                    child:  Container(),
+                  ),*/
+                  ///Nurse Image
+                  Positioned(
+                    top: 0.0,
+                    left: 0.0,
+                    right: 0.0,
+                    child:
 
-
-
-            ///Bottom
-            Positioned(
-              bottom: 0.0,
-              left: 0.0,
-              right: 0.0,
-              child:
-
-              Image.asset('assets/images/image_below.png',
-                  fit:BoxFit.fill
-              )
-            ),
-
-            ///English Bangla toggle button
-            language
-                ? GetBuilder<LanguageController>(
-                    builder: (languageController) {
-                    return Positioned(
-                      right: dynamicSize(0.05),
-                      top: dynamicSize(0.04),
-                      child: AnimatedToggleButton(
-                        values: const ['English', 'বাংলা'],
-                        toggleValue: languageController.isEnglish.value,
-                        width: dynamicSize(.45),
-                        height: dynamicSize(0.09),
-                        fontSize: dynamicSize(0.035),
-                        onToggleCallback: (v) async {
-                          setState(() => english = !english);
-                        },
-                      ),
-                    );
-                  })
-                : Container(),
-
-            ///Main Content
-            Positioned(
-              top: /*signIn ?*/ dynamicSize(.6) /*: dynamicSize(.75)*/,
-              child: /*signIn ?*/ _loginWidget(size,lg) /*: _signUpWidget(size)*/,
-            ),
-
-            ///Signin Signup Button
-            GetBuilder<LanguageController>(builder: (languageController) {
-              return Positioned(
-                top: dynamicSize(.6),
-                child: AnimatedToggleButton(
-                  values: [
-                    (languageController.sigIn.value),
-                    (languageController.signUp.value)
-                  ],
-                  toggleValue: true,
-                  width: dynamicSize(0.9),
-                  height: dynamicSize(0.12),
-                  fontSize: dynamicSize(0.045),
-                  onToggleCallback: (v) async {
+                    Image.asset('assets/images/home_header.png',
+                        fit:BoxFit.fill
+                    )
+                  ),
 
 
 
-                    if(signIn)
-                      {
+                  ///Bottom
+                  Positioned(
+                    bottom: 0.0,
+                    left: 0.0,
+                    right: 0.0,
+                    child:
 
-                      /*  Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (_) => SignUpPage()));
-                        */
-                          Get.to(SignUpPage());
-                        setState(() {
-                          signIn = true;
+                    Image.asset('assets/images/image_below.png',
+                        fit:BoxFit.fill
+                    )
+                  ),
 
-                        });
-                      }
-                    else
-                      {
-                        setState(() {
-                          signIn = true;
-
-                        });
-                      }
-
-
-                    /*  setState(() => );*/
-                  },
-                ),
-              );
-            }),
-
-            Positioned(
-                bottom: 0,
-                right: 0,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 16.0,bottom: 30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        onTap: (){
-                          print("Bari Koi API");
-                      /*    PlacePicker(
-                            apiKey: "MjY5MzpHMEVBUExBNVM5", //Barikoi API key
-                            initialPosition: SignInPage.initLatLng, //initial location position to start the map with
-                            useCurrentLocation: true, // option to use the current location for picking a place, true by default
-                            selectInitialPosition: true, //option to load the initial position to start the map with
-                            usePinPointingSearch: true,  //option to use reversegeo api to get place from location point, default value is true
-                            onPlacePicked: (result) {   //returns the place object selected in the place picker
-                              selectedPlace = result;
-                              print("Bari Koi selectedPlace "+selectedPlace.latitude.toString() );
-                            },
-                          );*/
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return PlacePicker(
-                                  apiKey: "MjY5MzpHMEVBUExBNVM5",
-                                  initialPosition: SignInPage.initLatLng,
-                                  useCurrentLocation: true,
-                                  selectInitialPosition: true,
-                                  usePinPointingSearch: true,
-                                  onPlacePicked: (result) {
-                                    selectedPlace = result;
-                                    log("place ucode: "+result.toString());
-
-                                    Navigator.of(context).pop();
-                                    setState(() {
-                                      selectedPlace = result;
-
-                                    });
-                                  },
-
-                                  //forceSearchOnZoomChanged: true,
-                                  automaticallyImplyAppBarLeading: false,
-                                  //autocompleteLanguage: "ko",
-                                  //region: 'au',
-                                  selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
-                                    print("state: $state, isSearchBarFocused: $isSearchBarFocused");
-                                    return isSearchBarFocused
-                                        ? Container()
-                                        : FloatingCard(
-                                      bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
-                                      leftPosition: 0.0,
-                                      rightPosition: 0.0,
-                                      width: 500,
-
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      child: state == SearchingState.Searching
-                                          ? Center(child: CircularProgressIndicator())
-                                          : RaisedButton(
-                                        child: Text("Pick Here"),
-                                        onPressed: () {
-                                          // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
-                                          //            this will override default 'Select here' Button.
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  // pinBuilder: (context, state) {
-                                  //   if (state == PinState.Idle) {
-                                  //     return Icon(Icons.favorite_border);
-                                  //   } else {
-                                  //     return Icon(Icons.favorite);
-                                  //   }
-                                  // },
-                                );
+                  ///English Bangla toggle button
+                  language
+                      ? GetBuilder<LanguageController>(
+                          builder: (languageController) {
+                          return Positioned(
+                            right: dynamicSize(0.05),
+                            top: dynamicSize(0.04),
+                            child: AnimatedToggleButton(
+                              values: const ['English', 'বাংলা'],
+                              toggleValue: languageController.isEnglish.value,
+                              width: dynamicSize(.4),
+                              height: dynamicSize(0.08),
+                              fontSize: dynamicSize(0.035),
+                              onToggleCallback: (v) async {
+                                setState(() => english = !english);
                               },
                             ),
                           );
+                        })
+                      : Container(),
 
-                        },
-                        child: Text(
-                          "Continue as  Guest",
-                          style: TextStyle(
-                              fontSize: dynamicSize(0.06),
-                              color: Colors.blue),
-                        ),
-                      ),
-                      Text("or",  style: TextStyle(
-                          fontSize: dynamicSize(0.04),
-                          color: Colors.blue),),
-                      Text("Sign up with",  style: TextStyle(
-                          fontSize: dynamicSize(0.05),
-                          color: Colors.blue),),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  child: Image.asset(
-                                    "assets/images/login_message_icon.png",
-                                    height: dynamicSize(0.12),
-                                    width:dynamicSize(0.12),
-
-                                    fit: BoxFit.fill,
-
-                                  ),
-                                )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  child: Image.asset(
-                                      "assets/images/login_facebook_icon.png",
-
-                                    fit: BoxFit.fill,
-                                  ),
-
-                                  height: dynamicSize(0.12),
-                                  width:dynamicSize(0.14),
-
-                                )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  child: Image.asset(
-                                      "assets/images/login_google_icon.png",
-
-                                    fit: BoxFit.fill,
-                                  ),
-
-                                  height: dynamicSize(0.12),
-                                  width:dynamicSize(0.12),
-
-                                )),
-                          ),
-                        ],
-                      )
-                    ],
+                  ///Main Content
+                  Positioned(
+                    top: /*signIn ?*/ dynamicSize(.6) /*: dynamicSize(.75)*/,
+                    child: /*signIn ?*/ _loginWidget(size,lg) /*: _signUpWidget(size)*/,
                   ),
-                ))
-          ],
-        );
+
+                  ///Signin Signup Button
+                  GetBuilder<LanguageController>(builder: (languageController) {
+                    return Positioned(
+                      top: dynamicSize(.6),
+                      child: AnimatedToggleButton(
+                        values: [
+                          (languageController.sigIn.value),
+                          (languageController.signUp.value)
+                        ],
+                        toggleValue: true,
+                        width: dynamicSize(0.9),
+                        height: dynamicSize(0.12),
+                        fontSize: dynamicSize(0.045),
+                        onToggleCallback: (v) async {
+
+
+
+                          if(signIn)
+                            {
+
+                            /*  Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(builder: (_) => SignUpPage()));
+                              */
+                                Get.to(SignUpPage());
+                              setState(() {
+                                signIn = true;
+
+                              });
+                            }
+                          else
+                            {
+                              setState(() {
+                                signIn = true;
+
+                              });
+                            }
+
+
+                          /*  setState(() => );*/
+                        },
+                      ),
+                    );
+                  }),
+
+                  ///Todo  : sign up
+                  /*Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 16.0,bottom: 30),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              onTap: (){
+                                print("Bari Koi API");
+                            *//*    PlacePicker(
+                                  apiKey: "MjY5MzpHMEVBUExBNVM5", //Barikoi API key
+                                  initialPosition: SignInPage.initLatLng, //initial location position to start the map with
+                                  useCurrentLocation: true, // option to use the current location for picking a place, true by default
+                                  selectInitialPosition: true, //option to load the initial position to start the map with
+                                  usePinPointingSearch: true,  //option to use reversegeo api to get place from location point, default value is true
+                                  onPlacePicked: (result) {   //returns the place object selected in the place picker
+                                    selectedPlace = result;
+                                    print("Bari Koi selectedPlace "+selectedPlace.latitude.toString() );
+                                  },
+                                );*//*
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return PlacePicker(
+                                        apiKey: "MjY5MzpHMEVBUExBNVM5",
+                                        initialPosition: SignInPage.initLatLng,
+                                        useCurrentLocation: true,
+                                        selectInitialPosition: true,
+                                        usePinPointingSearch: true,
+                                        onPlacePicked: (result) {
+                                          selectedPlace = result;
+                                          log("place ucode: "+result.toString());
+
+                                          Navigator.of(context).pop();
+                                          setState(() {
+                                            selectedPlace = result;
+
+                                          });
+                                        },
+
+                                        //forceSearchOnZoomChanged: true,
+                                        automaticallyImplyAppBarLeading: false,
+                                        //autocompleteLanguage: "ko",
+                                        //region: 'au',
+                                        selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
+                                          print("state: $state, isSearchBarFocused: $isSearchBarFocused");
+                                          return isSearchBarFocused
+                                              ? Container()
+                                              : FloatingCard(
+                                            bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
+                                            leftPosition: 0.0,
+                                            rightPosition: 0.0,
+                                            width: 500,
+
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            child: state == SearchingState.Searching
+                                                ? Center(child: CircularProgressIndicator())
+                                                : RaisedButton(
+                                              child: Text("Pick Here"),
+                                              onPressed: () {
+                                                // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
+                                                //            this will override default 'Select here' Button.
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        // pinBuilder: (context, state) {
+                                        //   if (state == PinState.Idle) {
+                                        //     return Icon(Icons.favorite_border);
+                                        //   } else {
+                                        //     return Icon(Icons.favorite);
+                                        //   }
+                                        // },
+                                      );
+                                    },
+                                  ),
+                                );
+
+                              },
+                              child: Text(
+                                "Continue as  Guest",
+                                style: TextStyle(
+                                    fontSize: dynamicSize(0.06),
+                                    color: Colors.blue),
+                              ),
+                            ),
+                            Text("or",  style: TextStyle(
+                                fontSize: dynamicSize(0.04),
+                                color: Colors.blue),),
+                            Text("Sign up with",  style: TextStyle(
+                                fontSize: dynamicSize(0.05),
+                                color: Colors.blue),),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        child: Image.asset(
+                                          "assets/images/login_message_icon.png",
+                                          height: dynamicSize(0.12),
+                                          width:dynamicSize(0.12),
+
+                                          fit: BoxFit.fill,
+
+                                        ),
+                                      )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        child: Image.asset(
+                                            "assets/images/login_facebook_icon.png",
+
+                                          fit: BoxFit.fill,
+                                        ),
+
+                                        height: dynamicSize(0.12),
+                                        width:dynamicSize(0.14),
+
+                                      )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        child: Image.asset(
+                                            "assets/images/login_google_icon.png",
+
+                                          fit: BoxFit.fill,
+                                        ),
+
+                                        height: dynamicSize(0.12),
+                                        width:dynamicSize(0.12),
+
+                                      )),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ))*/
+                ],
+              ),
+          ),
+        ),
+      );
 
         }),
 
@@ -666,7 +681,11 @@ class _SignInPageState extends State<SignInPage>  {
       userId = Common.storeSharedPreferences.getString("userid");
       pass = Common.storeSharedPreferences.getString("pass");
 
-      if (userId != "" && pass != "") {
+      print("user Id : " + userId);
+      print("Pass : " + pass);
+
+      if (userId != "" && userId != null && pass != ""  && pass != null )
+      {
         loginClass(userId, pass);
       }
     } catch (e) {}

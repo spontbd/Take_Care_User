@@ -201,7 +201,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                         child: state == SearchingState.Searching
                                             ? Center(child: CircularProgressIndicator())
                                             : RaisedButton(
-                                          child: Text("Pick Here"),
+                                          color: AllColor.pink_button,
+                                          child: Text("Search Service Provider around You"),
                                           onPressed: () {
                                             // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
                                             //            this will override default 'Select here' Button.

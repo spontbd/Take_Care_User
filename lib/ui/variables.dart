@@ -9,7 +9,7 @@ class Variables {
   static const List<String> genderList=['Male','Female','Others'];
   static const List<String> FahilyList=['Male','Female','Others'];
   static File imageFile = new File(" ");
-  static String base64Image = " ";
+  static String base64Image = "";
   static int exp = 0;
   static int spe = 0;
   static bool categoryCheckBoxValue  = false;

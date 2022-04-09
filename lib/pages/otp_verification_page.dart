@@ -139,28 +139,26 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               ),
             ),
 
-            SizedBox(
+       /*     SizedBox(
               height:dynamicSize(0.09),
-            ),
+            ),*/
             Container(
               padding: const EdgeInsets.only(left:10.0,right: 10),
               width:  MediaQuery.of(context).size.width,
-              child: Expanded(
-                child: OTPTextField(
-                  length: 6,
-                  //numberOfFields: 5,
-                  width: size.width ,
-                  fieldWidth: dynamicSize(.12),
-                  style: TextStyle(
-                      fontSize: dynamicSize(0.08)
-                  ),
-                  textFieldAlignment: MainAxisAlignment.spaceAround,
-                  fieldStyle: FieldStyle.box,
-                  onCompleted: (pin) {
-                    print("Completed: " + pin);
-                    DataControllers.to.name.value.text = pin;
-                  },
+              child: OTPTextField(
+                length: 6,
+                //numberOfFields: 5,
+                width: size.width ,
+                fieldWidth: dynamicSize(.12),
+                style: TextStyle(
+                    fontSize: dynamicSize(0.08)
                 ),
+                textFieldAlignment: MainAxisAlignment.spaceAround,
+                fieldStyle: FieldStyle.box,
+                onCompleted: (pin) {
+                  print("Completed: " + pin);
+                  DataControllers.to.name.value.text = pin;
+                },
               ),
             ),
             Padding(
@@ -209,8 +207,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       {
                          Get.offAll(SignInPage());
 
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (_) => HomePage()));
                       }
 
                     }else

@@ -29,7 +29,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
 
 
-
+  var initialProfile = true;
   Future<bool> _onWillPop() async {
     return (await showDialog(
       context: context,
@@ -54,6 +54,13 @@ class _SignUpPageState extends State<SignUpPage> {
     )) ?? false;
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Variables.categoryCheckBoxValue = false;
+    Variables.base64Image = "";
+  }
 
   @override
   Widget build(BuildContext size) {
@@ -79,7 +86,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
 
-                  SizedBox(height: dynamicSize(.1)),
+                 /* SizedBox(height: dynamicSize(.1)),*/
 
                   ///Heading
                   Padding(
@@ -87,19 +94,19 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: RichText(
                       text: TextSpan(
                         style: TextStyle(
-                            color: AllColor.textColor, fontSize: dynamicSize(.056)),
+                            color: AllColor.textColor, fontSize: dynamicSize(.05)),
                         children: <TextSpan>[
                           TextSpan(
                               text: 'Account\n',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: dynamicSize(.1))),
+                                  fontSize: dynamicSize(.09))),
                           const TextSpan(text: 'Information'),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(height: dynamicSize(.06)),
+                  SizedBox(height: dynamicSize(.03)),
 
                   ///Name and Image Field
                   Padding(
@@ -107,17 +114,20 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: Row(
                       children: [
                         Expanded(
-                            child: TextField(
-                              controller: DataControllers.to.name.value,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Name*',
-                                  hintStyle:
-                                  TextStyle(fontSize: dynamicSize(0.05))),
+                            child: Container(
+                              height: dynamicSize(0.12),
+                              child: TextField(
+                                controller: DataControllers.to.name.value,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Name*',
+                                    hintStyle:
+                                    TextStyle(fontSize: dynamicSize(0.04))),
+                              ),
                             ),
 
                         ),
-                        SizedBox(width: dynamicSize(.05)),
+                        SizedBox(width: dynamicSize(.02)),
                         InkWell(
                           onTap: () => _getImage(),
                           child: Container(
@@ -126,9 +136,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             width: dynamicSize(0.15),
                             decoration: const BoxDecoration(
                                 color: AllColor.blue, shape: BoxShape.circle),
-                            child: Variables.imageFile == null
-                                ? Icon(CupertinoIcons.person_solid,
-                                    color: Colors.white, size: dynamicSize(2))
+                            child: initialProfile
+                                ? Icon( CupertinoIcons.person_solid,
+                                    color: Colors.white, )
                                 : ClipRRect(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(dynamicSize(0.2))),
@@ -141,7 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: dynamicSize(.15)),
+                  SizedBox(height: dynamicSize(.06)),
 
                   ///Gender
                   Padding(
@@ -193,7 +203,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height: dynamicSize(0.15),
+                            height: dynamicSize(0.12),
                             child: TextField(
                               enabled: false,
                               decoration: InputDecoration(
@@ -210,14 +220,13 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height: dynamicSize(0.15),
+                            height: dynamicSize(0.12),
                             child: TextField(
                               controller:  DataControllers.to.phoneNumber.value,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   labelText: 'Enter Your Mobile Number',
-                                  hintStyle:
-                                      TextStyle(fontSize: dynamicSize(0.05))),
+                                  /*hintStyle: TextStyle(fontSize: dynamicSize(0.05) ) */),
                             ),
                           ),
                         ),
@@ -245,175 +254,99 @@ class _SignUpPageState extends State<SignUpPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const CheckBox(),
-                      RichText(
-                        text: TextSpan(
-                          text: 'By singing up I agree to the all ',
-                          style: TextStyle(fontSize: dynamicSize(0.045), color: Colors.black),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: 'Terms & Condition',
-                                recognizer: new TapGestureRecognizer()
-                                  ..onTap = () => print('Tap Here onTap'),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red,
-                                    decoration: TextDecoration.underline)),
-                          ],
+                      Expanded(
+                        child: RichText(
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                   
+                          text: TextSpan(
+
+                            text: 'By singing up I agree to the all ',
+                            style: TextStyle(fontSize: dynamicSize(0.035), color: Colors.black),
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Terms & Condition',
+                                  recognizer: new TapGestureRecognizer()
+                                    ..onTap = () => print('Tap Here onTap'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                      decoration: TextDecoration.underline)),
+                            ],
+                          ),
                         ),
                       ),
 
                     ],
                   ),
 
-                ],
-              ),
-            ),
-          ),
-          bottomNavigationBar:
 
+                  SizedBox(height: 10,),
+                  Padding(
+                      padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          if(
+                          DataControllers.to.phoneNumber.value.text.isNotEmpty  &&
+                              DataControllers.to.password.value.text.isNotEmpty &&
+                              DataControllers.to.gender.value.isNotEmpty  &&
+                              DataControllers.to.name.value.text.isNotEmpty  &&
+                              (Variables.base64Image.isNotEmpty &&  Variables.base64Image != "") &&
+                              Variables.categoryCheckBoxValue
+                          )
+                          {
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
-            child: ElevatedButton(
-              onPressed: () async {
-                if(
-                DataControllers.to.phoneNumber.value.text.isNotEmpty  &&
-                    DataControllers.to.password.value.text.isNotEmpty &&
-                    DataControllers.to.gender.value.isNotEmpty  &&
-                    DataControllers.to.name.value.text.isNotEmpty  &&
-                    Variables.base64Image.isNotEmpty
-                )
-                {
+                            await DataControllers.to.postRegister(
+                                DataControllers.to.name.value.text,
+                                DataControllers.to.phoneNumber.value.text,
+                                DataControllers.to.password.value.text,
+                                DataControllers.to.gender.value,
+                                "4",
+                                Variables.base64Image
+                            );
 
-                  await DataControllers.to.postRegister(
-                      DataControllers.to.name.value.text,
-                      DataControllers.to.phoneNumber.value.text,
-                      DataControllers.to.password.value.text,
-                      DataControllers.to.gender.value,
-                      "4",
-                      Variables.base64Image
-                  );
+                            showToast(DataControllers.to.regsiter.value.message!);
 
-                  Fluttertoast.showToast(
-                      msg: DataControllers.to.regsiter.value.message!,
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white,
-                      fontSize: 16.0
-                  );
-                  if(DataControllers.to.regsiter.value.success == true)
-                  {
-                    Get.to(OtpVerificationPage());
-                    /*   Navigator.push(
+                            if(DataControllers.to.regsiter.value.success == true)
+                            {
+                              Get.to(OtpVerificationPage());
+                              /*   Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => const OtpVerificationPage()),
                                 );*/
-                  }
+                            }
 
-                }else
-                {
-                  Fluttertoast.showToast(
-                      msg: "Fil up the filed!!",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white,
-                      fontSize: 16.0
-                  );
-                }
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text('Sign Up',
-                        style: TextStyle(fontSize: dynamicSize(0.045))),
-                  )
+                          }else
+                          {
+                            Fluttertoast.showToast(
+                                msg: "Fil up the filed!!",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0
+                            );
+                          }
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text('Sign Up',
+                                  style: TextStyle(fontSize: dynamicSize(0.045))),
+                            )
+                          ],
+                        ),
+                      )
+                  ),
+
                 ],
               ),
-            )
-          ),
-
-
-         /* SizedBox(
-            height: dynamicSize(0.18),
-            width: MediaQuery.of(context).size.width,
-            child: Container(
-              //margin: EdgeInsets.only(bottom: 5),
-              padding: const EdgeInsets.only(left: 5, right: 5, bottom: 10),
-              child: RaisedButton(
-                elevation: 9,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                onPressed: () async {
-
-                  if(
-                  DataControllers.to.phoneNumber.value.text.isNotEmpty  &&
-                      DataControllers.to.password.value.text.isNotEmpty &&
-                      DataControllers.to.gender.value.isNotEmpty  &&
-                      DataControllers.to.name.value.text.isNotEmpty  &&
-                      Variables.base64Image.isNotEmpty
-                  )
-                  {
-
-                    await DataControllers.to.postRegister(
-                        DataControllers.to.name.value.text,
-                        DataControllers.to.phoneNumber.value.text,
-                        DataControllers.to.password.value.text,
-                        DataControllers.to.gender.value,
-                        "4",
-                        Variables.base64Image
-                    );
-
-                    Fluttertoast.showToast(
-                        msg: DataControllers.to.regsiter.value.message!,
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0
-                    );
-                    if(DataControllers.to.regsiter.value.success == true)
-                    {
-                      Get.to(OtpVerificationPage());
-                      *//*   Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const OtpVerificationPage()),
-                                );*//*
-                    }
-
-                  }else
-                  {
-                    Fluttertoast.showToast(
-                        msg: "Fil up the filed!!",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0
-                    );
-                  }
-
-
-                },
-                color: Colors.redAccent,
-                textColor: Colors.white,
-                child: const Text(
-                  "Verify",
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
             ),
-          ) ,*/
+          ),
         ),
       ),
     );
@@ -432,6 +365,11 @@ class _SignUpPageState extends State<SignUpPage> {
       //Variables.base64Image = Base64Encoder().convert(Variables.imageFile.readAsBytesSync());//base64Encode(Variables.imageFile.readAsBytesSync());
       // Variables.base64Image = base64Encode(Variables.imageFile.readAsBytesSync());
       print("image : " + Variables.base64Image);
+
+      setState(() {
+        initialProfile = false;
+      });
+
       // String fileName = _image!.path.split("/").last;
       //print('Image File Name: $fileName');
       //showLoadingDialog(context);
