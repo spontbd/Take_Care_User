@@ -1044,9 +1044,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
   void showButtonListDialog(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        builder: (BuildContext bc) {
-
-
+        builder: (BuildContext bc)
+        {
           return Container(
             color: Colors.white,
             /*margin: EdgeInsets.only(left: 10,right: 10),*/

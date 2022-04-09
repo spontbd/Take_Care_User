@@ -309,7 +309,7 @@
     },
     {
       "name": "geolocator_android",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator_android-3.1.4",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator_android-3.1.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -375,7 +375,13 @@
     },
     {
       "name": "image_picker",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.4+11",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "image_picker_android",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_android-0.8.4+11",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -384,6 +390,12 @@
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_for_web-2.1.6",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "image_picker_ios",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_ios-0.8.4+11",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
     },
     {
       "name": "image_picker_platform_interface",
@@ -788,7 +800,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-04-08T19:31:33.190926Z",
+  "generated": "2022-04-09T20:57:00.886575Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }

@@ -1,10 +1,56 @@
 {
   "project_info": {
     "project_number": "227666593233",
+    "firebase_url": "https://take-care2021-default-rtdb.firebaseio.com",
     "project_id": "take-care2021",
     "storage_bucket": "take-care2021.appspot.com"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227666593233:android:d037cadc15b5549e2cccf0",
+        "android_client_info": {
+          "package_name": "com.example.new_push_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227666593233-bofam43981se18v983hiandd4m7fqt2l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.new_push_test",
+            "certificate_hash": "f7392e8bbb76af27a660752fa332be102914fda5"
+          }
+        },
+        {
+          "client_id": "227666593233-eioj5338iinboq24kf003hpallam8236.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.new_push_test",
+            "certificate_hash": "a4715d83dd945ee7192e41dbcef172d615d65273"
+          }
+        },
+        {
+          "client_id": "227666593233-dq5vt24i4ghes175ldmi1o99gduvi39f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHFtOLCNclwJeKcC_t05K1fYAjcrp_rpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227666593233-dq5vt24i4ghes175ldmi1o99gduvi39f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:227666593233:android:c90e2137bcc417982cccf0",
@@ -21,6 +67,72 @@
             "certificate_hash": "f7392e8bbb76af27a660752fa332be102914fda5"
           }
         },
+        {
+          "client_id": "227666593233-dq5vt24i4ghes175ldmi1o99gduvi39f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHFtOLCNclwJeKcC_t05K1fYAjcrp_rpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227666593233-dq5vt24i4ghes175ldmi1o99gduvi39f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227666593233:android:733a3b8813c479642cccf0",
+        "android_client_info": {
+          "package_name": "com.spontit.takecare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227666593233-22u35nipkj0uh78foip989o5scomsn4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.spontit.takecare",
+            "certificate_hash": "f7392e8bbb76af27a660752fa332be102914fda5"
+          }
+        },
+        {
+          "client_id": "227666593233-dq5vt24i4ghes175ldmi1o99gduvi39f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHFtOLCNclwJeKcC_t05K1fYAjcrp_rpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227666593233-dq5vt24i4ghes175ldmi1o99gduvi39f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227666593233:android:4d637a2dcd546ce12cccf0",
+        "android_client_info": {
+          "package_name": "com.spontit.takecareuser"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "227666593233-dq5vt24i4ghes175ldmi1o99gduvi39f.apps.googleusercontent.com",
           "client_type": 3

@@ -362,7 +362,7 @@ packages:
       name: geolocator_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.4"
+    version: "3.1.5"
   geolocator_apple:
     dependency: transitive
     description:
@@ -439,6 +439,13 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
+    version: "0.8.5"
+  image_picker_android:
+    dependency: transitive
+    description:
+      name: image_picker_android
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.8.4+11"
   image_picker_for_web:
     dependency: transitive
@@ -447,6 +454,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.6"
+  image_picker_ios:
+    dependency: transitive
+    description:
+      name: image_picker_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.4+11"
   image_picker_platform_interface:
     dependency: transitive
     description:

@@ -42,10 +42,10 @@
 @import google_maps_flutter;
 #endif
 
-#if __has_include(<image_picker/FLTImagePickerPlugin.h>)
-#import <image_picker/FLTImagePickerPlugin.h>
+#if __has_include(<image_picker_ios/FLTImagePickerPlugin.h>)
+#import <image_picker_ios/FLTImagePickerPlugin.h>
 #else
-@import image_picker;
+@import image_picker_ios;
 #endif
 
 #if __has_include(<maplibre_gl/MapboxMapsPlugin.h>)
