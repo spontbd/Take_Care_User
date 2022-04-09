@@ -150,7 +150,7 @@ class ApiService {
     return registerResponseFromJson(response.body);
 
   }
-  static Future<UserLoginResponse> postLogin(String phone_number,String pass) async {
+  static Future<UserLoginResponse> postLogin(String phoneNumber,String pass) async {
     ///Get Device token for push notification
     final FirebaseMessaging fcm = FirebaseMessaging.instance;
     final fcmToken = await fcm.getToken();
@@ -161,7 +161,7 @@ class ApiService {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        'phone': phone_number,
+        'phone': phoneNumber,
         'password': pass,
         'token': fcmToken!
       }),
