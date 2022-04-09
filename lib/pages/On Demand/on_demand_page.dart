@@ -1,3 +1,7 @@
+import 'dart:developer';
+import 'dart:ui';
+
+import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +22,8 @@ import '../../public_variables/all_colors.dart';
 import '../../public_variables/notifications.dart';
 import '../../public_variables/size_config.dart';
 import '../../ui/common.dart';
+import '../../ui/variables.dart';
+import '../sign_in_page.dart';
 import 'feedback_page.dart';
 import 'map_page.dart';
 
@@ -45,276 +51,374 @@ class _OnDemandPageState extends State<OnDemandPage> {
       return Scaffold(
         bottomNavigationBar: showBottom
             ? Container(
-                height: dynamicSize(0.2),
-                color: AllColor.button_color,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        color: Colors.red,
-                        child: Column(
-                          children: [
-                            Container(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 8.0, top: 5),
+          height: dynamicSize(0.2),
+          color: AllColor.button_color,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Container(
+                  color: Colors.red,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding:
+                          const EdgeInsets.only(left: 8.0, top: 5),
+                          child: Text(
+                            "On Demand",
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.035),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      addedlist
+                          ? Container(
+                        alignment: Alignment.topLeft,
+                        child: InkWell(
+                          onTap: () {
+                            BottomSheetAddedListDialog(context);
+                          },
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, top: 5),
                                 child: Text(
-                                  "On Demand",
+                                  DataControllers
+                                      .to
+                                      .getAddCardResponse
+                                      .value
+                                      .data!
+                                      .length
+                                      .toString(),
                                   style: TextStyle(
-                                      fontSize: dynamicSize(0.035),
+                                      fontSize: dynamicSize(0.04),
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
                               ),
-                            ),
-                            addedlist
-                                ? Container(
-                                    alignment: Alignment.topLeft,
-                                    child: InkWell(
-                                      onTap: () {
-                                        BottomSheetAddedListDialog(context);
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8.0, top: 5),
-                                            child: Text(
-                                              DataControllers
-                                                  .to
-                                                  .getAddCardResponse
-                                                  .value
-                                                  .data!
-                                                  .length
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  fontSize: dynamicSize(0.04),
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 5),
-                                            child: Text(
-                                              " Service Added",
-                                              style: TextStyle(
-                                                  fontSize: dynamicSize(0.04),
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8.0),
-                                            child: Icon(
-                                              Icons.keyboard_arrow_up,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                : Container(
-                                    alignment: Alignment.topLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, top: 5),
-                                      child: Text(
-                                        "Attendant for Hospital Visit",
-                                        style: TextStyle(
-                                            fontSize: dynamicSize(0.04),
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),
-                                      ),
-                                    ),
-                                  )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: InkWell(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  /* title: Text(
-                                    "Booking Information",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.03),
-                                        color: Colors.red),
-                                  ),*/
-                                  actions: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        width: dynamicSize(1),
-                                        alignment: Alignment.topLeft,
-                                        // height: dynamicSize(0.003),
-
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.topLeft,
-                                              child: Text(
-                                                "Booking Information",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: dynamicSize(0.08),
-                                            ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  child: Text(
-                                                    "Service For Whom ",
-                                                    style: TextStyle(
-                                                      color: Colors.red,
-                                                    ),
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () {
-                                                    print("hdjbfdh");
-                                                  },
-                                                  child: Container(
-                                                      child: Text(
-                                                    "Edit",
-                                                    style: TextStyle(
-                                                        color: Colors.red,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: dynamicSize(0.05),
-                                            ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Name ",
-                                                ),
-                                                SizedBox(
-                                                  width: dynamicSize(.3),
-                                                ),
-                                                Text(
-                                                  ": Rana Talukdar",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: dynamicSize(0.03),
-                                            ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Age ",
-                                                ),
-                                                SizedBox(
-                                                  width: dynamicSize(.335),
-                                                ),
-                                                Text(
-                                                  ": 87 years",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: dynamicSize(0.03),
-                                            ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Contact Number",
-                                                ),
-                                                SizedBox(
-                                                  width: dynamicSize(.13),
-                                                ),
-                                                Text(
-                                                  ": 01758351395",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              });
-                        },
-                        child: Container(
-                          color: AllColor.button_color,
-                          alignment: Alignment.center,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
                               Padding(
-                                padding: EdgeInsets.only(left: 8.0),
+                                padding:
+                                const EdgeInsets.only(top: 5),
                                 child: Text(
-                                  "Continue",
+                                  " Service Added",
                                   style: TextStyle(
                                       fontSize: dynamicSize(0.04),
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                 ),
                               ),
-                              SizedBox(
-                                width: dynamicSize(0.02),
-                              ),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Colors.white,
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0),
+                                child: Icon(
+                                  Icons.keyboard_arrow_up,
+                                  color: Colors.white,
+                                ),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                    ),
-                  ],
+                      )
+                          : Container(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, top: 5),
+                          child: Text(
+                            "Attendant for Hospital Visit",
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.04),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              )
+              ),
+              Expanded(
+                flex: 2,
+                child: InkWell(
+                  onTap: () async{
+
+
+                    await DataControllers.to.getProviderList("1", "1");
+                    late PickResult selectedPlace;
+
+
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return PlacePicker(
+                            apiKey: "MjY5MzpHMEVBUExBNVM5",
+                            initialPosition: SignInPage.initLatLng,
+                            useCurrentLocation: true,
+                            selectInitialPosition: true,
+                            usePinPointingSearch: true,
+                            onPlacePicked: (result) {
+                              selectedPlace = result;
+
+
+
+                              //  Navigator.of(context).pop();
+                              setState(() {
+                                selectedPlace = result;
+
+                              });
+
+
+
+
+                            },
+
+                            //forceSearchOnZoomChanged: true,
+                            automaticallyImplyAppBarLeading: false,
+                            //autocompleteLanguage: "ko",
+                            //region: 'au',
+                            selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
+                              print("state: $state, isSearchBarFocused: $isSearchBarFocused");
+                              return isSearchBarFocused
+                                  ? Container()
+                                  : FloatingCard(
+                                bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
+                                leftPosition: 0.0,
+                                rightPosition: 0.0,
+                                width: 500,
+
+                                borderRadius: BorderRadius.circular(12.0),
+                                child: state == SearchingState.Searching
+                                    ? Center(child: CircularProgressIndicator())
+                                    : RaisedButton(
+                                  color: AllColor.pink_button,
+                                  child: Text("Search Service Provider around You"),
+                                  onPressed: () {
+                                    // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
+                                    //            this will override default 'Select here' Button.
+
+                                    Navigator.of(context).pop();
+                                    print("placeucode: "+selectedPlace.toString());
+                                    print("placeucode: "+selectedPlace!.latitude.toString());
+                                    print("placeucode: "+selectedPlace.longitude.toString());
+                                    print("placeucode: "+selectedPlace.area.toString());
+
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => MapePage(result: selectedPlace)),
+                                    );
+
+                                  },
+                                ),
+                              );
+                            },
+                            // pinBuilder: (context, state) {
+                            //   if (state == PinState.Idle) {
+                            //     return Icon(Icons.favorite_border);
+                            //   } else {
+                            //     return Icon(Icons.favorite);
+                            //   }
+                            // },
+                          );
+                        },
+                      ),
+                    );
+
+
+
+
+
+
+
+
+
+
+                    /*                    showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    *//* title: Text(
+                                      "Booking Information",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.03),
+                                          color: Colors.red),
+                                    ),*//*
+                                    actions: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: dynamicSize(1),
+                                          alignment: Alignment.topLeft,
+                                          // height: dynamicSize(0.003),
+
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                alignment: Alignment.topLeft,
+                                                child: Text(
+                                                  "Booking Information",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: dynamicSize(0.08),
+                                              ),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    child: Text(
+                                                      "Service For Whom ",
+                                                      style: TextStyle(
+                                                        color: Colors.red,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      print("hdjbfdh");
+                                                    },
+                                                    child: Container(
+                                                        child: Text(
+                                                      "Edit",
+                                                      style: TextStyle(
+                                                          color: Colors.red,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: dynamicSize(0.05),
+                                              ),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Name ",
+                                                  ),
+                                                  SizedBox(
+                                                    width: dynamicSize(.3),
+                                                  ),
+                                                  Text(
+                                                    ": Rana Talukdar",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: dynamicSize(0.03),
+                                              ),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Age ",
+                                                  ),
+                                                  SizedBox(
+                                                    width: dynamicSize(.335),
+                                                  ),
+                                                  Text(
+                                                    ": 87 years",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: dynamicSize(0.03),
+                                              ),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Contact Number",
+                                                  ),
+                                                  SizedBox(
+                                                    width: dynamicSize(.13),
+                                                  ),
+                                                  Text(
+                                                    ": 01758351395",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                });
+
+                            */
+
+                  },
+                  child: Container(
+                    color: AllColor.button_color,
+                    alignment: Alignment.center,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            "Continue",
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.04),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(
+                          width: dynamicSize(0.02),
+                        ),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
             : Container(height: .01),
         appBar: AppBar(
           leading: InkWell(
@@ -347,9 +451,9 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           prefixIcon: Icon(Icons.search),
                           enabledBorder: OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(30.0)),
+                            BorderRadius.all(Radius.circular(30.0)),
                             borderSide:
-                                BorderSide(color: Colors.white, width: 2),
+                            BorderSide(color: Colors.white, width: 2),
                           ),
                         ),
                         style: TextStyle(
@@ -417,10 +521,10 @@ class _OnDemandPageState extends State<OnDemandPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MapePage()),
-                        );
+                        /*  Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MapePage()),
+                          );*/
                       },
                       child: Container(
                         child: Row(
@@ -485,14 +589,14 @@ class _OnDemandPageState extends State<OnDemandPage> {
           elevation: 0,
         ),
         body: ListView(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.only(top: 8,bottom: 8),
           children: List.generate(
-            DataControllers.to.shortServiceResponse.value.data!.length,
-            (index) => Padding(
+            DataControllers.to.shortServiceResponse.value.data!.data!.length,
+                (index) => Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
+                  /* borderRadius: BorderRadius.circular(8.0),*/
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
@@ -500,22 +604,58 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       blurRadius: 2.0,
                       spreadRadius: 0.0,
                       offset:
-                          Offset(2.0, 2.0), // shadow direction: bottom right
+                      Offset(2.0, 2.0), // shadow direction: bottom right
                     )
                   ],
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    CachedNetworkImage(
-                      width: 120,
-                      imageUrl:
-                          "${DataControllers.to.shortServiceResponse.value.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) =>
-                              CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Image.asset(
-                        "assets/images/image.png",
-                      ),
+                    Container(
+                      margin: EdgeInsets.only(left: 0, top: 10,bottom: 10),
+                      child:
+
+/*
+
+                        ClipRRect(
+                          child: ImageFiltered(
+                            imageFilter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                            child:*/
+
+                      Card(
+                        margin: EdgeInsets.only(left: 0),
+                        semanticContainer: true,
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(15),
+                              topRight: Radius.circular(15)
+                          ),
+                        ),
+                        elevation: 10,
+                        child: CachedNetworkImage(
+                          fit: BoxFit.fill,
+                          width: 120,
+                          imageUrl:
+                          "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                          /*progressIndicatorBuilder:
+                                    (context, url, downloadProgress) =>
+                                    CircularProgressIndicator(),*/
+                          errorWidget: (context, url, error) => Image.asset(
+                            "assets/images/image.png",
+                          ),
+                        ),
+                      )
+
+                      ,
+                      /*  ),
+                        ),*/
+
+
+
+
+
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -524,14 +664,14 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0, left: 5),
                           child: Text(
-                            "${DataControllers.to.shortServiceResponse.value.data![index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
+                            "${DataControllers.to.shortServiceResponse.value.data!.data![index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
                             style: TextStyle(
                                 fontSize: dynamicSize(0.04),
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
                         SizedBox(
-                          height: dynamicSize(0.02),
+                          height: dynamicSize(0.06),
                         ),
                         TextButton(
                           onPressed: () {
@@ -547,22 +687,48 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       ],
                     ),
                     Spacer(),
+                    /* SizedBox(
+                        height: dynamicSize(0.02),
+                      ),*/
                     InkWell(
-                      onTap: () {
-                        print("object");
-                        // Navigator.pop(context);
-                        addCard(index);
-                      },
-                      child:
+                        onTap: () {
+                          print("object");
+                          // Navigator.pop(context);
+                          addCard(index);
+                        },
+                        child: Container(
+                          height: dynamicSize(0.10),
+                          width: dynamicSize(0.12),
+                          margin: EdgeInsets.only(bottom: 20),
+                          child: Card(
+                            color: AllColor.pink_button,
+                            margin: EdgeInsets.only(left: 0,right: 0),
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(15),
+                                  topLeft: Radius.circular(15)
+                              ),
+                            ),
+                            elevation: 6,
+                            child: Icon(Icons.add,color: Colors.white,),
 
-                          //  DataControllers.to.shortServiceResponse.value.data![index].status == "Done" ?
+                            /*CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              width: 120,
+                              imageUrl:
+                              "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath *//* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath *//*}",
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => Image.asset(
+                                "assets/images/image.png",
+                              ),
+                            ),*/
+                          ),
+                        )
 
-                          /* Image.asset(
-                        "assets/images/done_image.png",
-                      ) :*/
-                          Image.asset(
-                        "assets/images/add.png",
-                      ),
                     ),
                   ],
                 ),
@@ -571,6 +737,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
           ),
         ),
       );
+
     });
   }
 
@@ -579,7 +746,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
         context: context,
         builder: (BuildContext bc) {
           return Container(
-            height: dynamicSize(0.84),
+            height: dynamicSize(1),
             child: Column(
               children: [
                 Align(
@@ -594,9 +761,9 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           size: 35,
                         ))),
                 Container(
-                  height: dynamicSize(0.7),
+                  height: dynamicSize(0.86),
                   decoration: BoxDecoration(
-                    color: AllColor.button_color,
+                    color: AllColor.buttomdialog,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(15.0),
                       topLeft: Radius.circular(15.0),
@@ -607,66 +774,117 @@ class _OnDemandPageState extends State<OnDemandPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+
                           Padding(
-                            padding: const EdgeInsets.only(left: 8.0, top: 5),
-                            child: Image.asset(
-                              "assets/images/image.png",
-                              height: 100,
-                              width: 100,
-                            ),
-                          ),
-                          Spacer(),
-                          Column(
-                            children: [
-                              InkWell(
-                                onTap: () async {
-                                  Navigator.pop(context);
-
-
-                                  addCard(index);
-
-                                  /*  if(DataControllers.to.addServiceResponse.value.success!)
-                                    {
-                                      DataControllers.to.shortServiceResponse.value.data![index].status = "Done";
-                                    }*/
-
-                                  //updatedUserService();
-
-                                  /*  setState(() {
-                                    showBottom = true;
-                                 //   DataControllers.to.shortServiceResponse;
-                                    addedlist = true;
-                                  });*/
-                                },
-                                child: Image.asset(
-                                  "assets/images/added_now_button.png",
+                            padding: const EdgeInsets.only(left: 10.0, top: 20),
+                            child:  Card(
+                              semanticContainer: true,
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15
                                 ),
                               ),
+                              child: CachedNetworkImage(
+                                width: 120,
+                                imageUrl:
+                                "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                errorWidget: (context, url, error) => Image.asset(
+                                  "assets/images/image.png",
+                                ),
+                              ),
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+
+
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0, top: 30),
+                                child: Text(
+                                  DataControllers.to.shortServiceResponse.value.data!
+                                      .data![index].serviceName!,
+                                  style: TextStyle(
+                                      fontSize: dynamicSize(0.05),
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white
+                                  ),
+                                ),
+                              ),
+
+
                             ],
                           ),
+                          Spacer(),
+                          InkWell(
+                            onTap: () async {
+                              Navigator.pop(context);
+                              addCard(index);
+                            },
+                            child: Container(
+                              height: dynamicSize(0.10),
+
+                              margin: EdgeInsets.only(top: 66),
+                              child: Card(
+                                color: AllColor.pink_button,
+                                margin: EdgeInsets.only(left: 0,right: 0),
+                                semanticContainer: true,
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(15),
+                                      topLeft: Radius.circular(15)
+                                  ),
+                                ),
+                                elevation: 6,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 2.0,),
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.add,color: Colors.white,),
+                                      Text("Order Now ",style: TextStyle(color: Colors.white),)
+                                    ],
+                                  ),
+                                ),
+
+                                /*CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              width: 120,
+                              imageUrl:
+                              "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath *//* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath *//*}",
+                              progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                              CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => Image.asset(
+                            "assets/images/image.png",
+                              ),
+                            ),*/
+                              ),
+                            ),
+                          ),
+
                         ],
                       ),
+
                       Padding(
-                        padding: const EdgeInsets.only(left: 8.0, top: 5),
-                        child: Text(
-                          DataControllers.to.shortServiceResponse.value
-                              .data![index].serviceName!,
-                          style: TextStyle(
-                              fontSize: dynamicSize(0.05),
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, top: 5),
-                        child: Text(
-                          DataControllers.to.shortServiceResponse.value
-                              .data![index].description!,
-                          style: TextStyle(
-                            fontSize: dynamicSize(0.03),
+                        padding: const EdgeInsets.only(left: 8.0, top: 15),
+                        child: SingleChildScrollView(
+                          child: Text(
+                            DataControllers.to.shortServiceResponse.value.data!
+                                .data![index].description!,
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.04),
+                                color: Colors.white
+                            ),
                           ),
                         ),
                       ),
+
+
                     ],
                   ),
                 ),
@@ -681,6 +899,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
         context: context,
         builder: (BuildContext bcs) {
           return Container(
+            color: Colors.transparent,
             height: dynamicSize(0.9),
             child: Column(
               children: [
@@ -696,15 +915,18 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           size: 35,
                         ))),
                 Container(
-                  color: AllColor.button_color,
+
+                  color: AllColor.card_bg,
                   height: dynamicSize(0.55),
                   child: ListView(
                     padding: const EdgeInsets.all(8),
                     children: new List.generate(
                       DataControllers.to.getAddCardResponse.value.data!.length,
-                      (index) => Padding(
+                          (index) => Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Container(
+
+
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.0),
                             color: Colors.white,
@@ -720,9 +942,50 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           ),
                           child: Row(
                             children: [
-                              Image.asset(
-                                "assets/images/image.png",
+                              Card(
+                                margin: EdgeInsets.only(left: 0,top: 10,bottom: 10),
+                                semanticContainer: true,
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(15),
+                                      topRight: Radius.circular(15)
+                                  ),
+                                ),
+                                elevation: 10,
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.fill,
+                                  width: 120,
+                                  imageUrl:
+                                  "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+
+                                  errorWidget: (context, url, error) => Image.asset(
+                                    "assets/images/image.png",
+                                  ),
+                                ),
                               ),
+
+
+                              /*
+
+                              CachedNetworkImage(
+                                width: 120,
+                                imageUrl:
+                                "https://takecare.ltd/${DataControllers.to.getAddCardResponse.value.data![index].imagePath *//* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath *//*}",
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) => Image.asset(
+                                  "assets/images/image.png",
+                                ),
+                              ),
+
+                              */
+
+
+
+
+
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -731,7 +994,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                     padding: const EdgeInsets.only(
                                         top: 8.0, left: 5),
                                     child: Text(
-                                      "${DataControllers.to.getAddCardResponse.value.data![index].bookingDate == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].bookingDate}",
+                                      "${DataControllers.to.getAddCardResponse.value.data![index].serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].serviceName}",
                                       style: TextStyle(
                                           fontSize: dynamicSize(0.04),
                                           fontWeight: FontWeight.bold),
@@ -782,36 +1045,81 @@ class _OnDemandPageState extends State<OnDemandPage> {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
+
+
           return Container(
             color: Colors.white,
+            /*margin: EdgeInsets.only(left: 10,right: 10),*/
+            height: dynamicSize(2),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child:
-
-/*Row(
+              child: Column(
+                children: [
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.08),fontWeight: FontWeight.bold),),
-                      Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),),
-                    ],
-                  ),*/
-
-                  ListView(
-                children: List.generate(
-                  DataControllers.to.getCategoriesResponse.value.data!.length,
-                  (index) => Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "${DataControllers.to.getCategoriesResponse.value.data![index].categoryName}",
-                        style: TextStyle(fontSize: dynamicSize(0.05)),
-                      ),
-                      CheckBox(),
+                      InkWell(
+                          onTap: (){
+                            setState(() {
+                              //  showToast("Check");
+                              Navigator.pop(context);
+                              showButtonListDialog(context);
+                              DataControllers.to.getCategoriesResponse.value.data!.length  =  DataControllers.to.getCategoriesResponse.value.data!.length  ;
+                            });
+                          }
+                          ,
+                          child: Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),)),
                     ],
                   ),
-                ),
+                  Container(
+                    height: dynamicSize(1.10),
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child:
+                      ListView(
+                        children: List.generate(
+                          DataControllers.to.getCategoriesResponse.value.data!.length,
+                              (index) => Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "${DataControllers.to.getCategoriesResponse.value.data![index].categoryName}",
+                                style: TextStyle(fontSize: dynamicSize(0.05)),
+                              ),
+                              CheckBox(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Variables.categoryCheckBoxValue   ? Padding(
+                      padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
+                      child: ElevatedButton(
+                        onPressed: () async
+                        {
+
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text('Show Listing',
+                                  style: TextStyle(fontSize: dynamicSize(0.045))),
+                            )
+                          ],
+                        ),
+                      )
+                  )  : Container(),
+
+
+                ],
               ),
             ),
           );
@@ -837,15 +1145,15 @@ class _OnDemandPageState extends State<OnDemandPage> {
 
 
     if (
-        DataControllers.to.getAddCardResponse.value.data == null
+    DataControllers.to.getAddCardResponse.value.data == null
     )
-      {
-        setState(() {
-          showBottom = false;
-          addedlist = false;
-          DataControllers.to.getAddCardResponse;
-        });
-      } else if (DataControllers.to.getAddCardResponse.value.data!.length > 0) {
+    {
+      setState(() {
+        showBottom = false;
+        addedlist = false;
+        DataControllers.to.getAddCardResponse;
+      });
+    } else if (DataControllers.to.getAddCardResponse.value.data!.length > 0) {
       setState(() {
         DataControllers.to.getAddCardResponse;
         showBottom = true;
@@ -865,8 +1173,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
   void deleteAddCardData(int index) async {
     await DataControllers.to.deleteCard(
         DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
-        DataControllers.to.getAddCardResponse.value.data![index].id.toString());
-        showToast(DataControllers.to.addCardResponse.value.message!);
+        DataControllers.to.getAddCardResponse.value.data![index].userServiceId.toString());
+    showToast(DataControllers.to.addCardResponse.value.message!);
 
     if (DataControllers.to.addCardResponse.value.success!) {
       getAddCardData();
@@ -884,7 +1192,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
             .data!.user!.id
             .toString(),
         DataControllers.to.shortServiceResponse
-            .value.data![index].id
+            .value.data!.data![index].userServiceId
             .toString(),
         formattedDate);
 

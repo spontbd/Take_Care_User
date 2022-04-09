@@ -644,56 +644,25 @@ class _SignInPageState extends State<SignInPage>  {
 
   void sharePreferences(BuildContext context) async {
     await Common.init();
-
     try {
-      // storeSharedPreferences = await SharedPreferences.getInstance();
-
       userId = Common.storeSharedPreferences.getString("userid");
       pass = Common.storeSharedPreferences.getString("pass");
-
       if (userId != "" && pass != "") {
-        loginClass(userId, pass);
+        await loginClass(userId, pass);
       }
     } catch (e) {}
   }
 
-  void loginClass(String user, String pass) async {
-    onProgressBar(true);
-    try {
+  Future<void> loginClass(String user, String pass) async {
       await DataControllers.to.postLogin(user, pass);
-    } catch (e) {
-      onProgressBar(false);
-      //  isLoading = false;
-    }
     if (DataControllers.to.userLoginResponse.value.success == true) {
       onProgressBar(false);
-      // isLoading = false;
-      // Get.offAll(HomePage());
-
-      bearerToken = "Bearer " +
-          DataControllers.to.userLoginResponse.value.data!.token.toString();
-
-      /*     await DataControllers.to.fetchProfilePercentage(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
-      await DataControllers.to.fetchAcademicPercentage(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());*/
-      //await DataControllers.to.getAllService();
+      bearerToken = "Bearer " + DataControllers.to.userLoginResponse.value.data!.token.toString();
       await DataControllers.to.getAllCategories();
-      Common.storeSharedPreferences
-          .setString('userid', _mobileNumber.value.text.toString());
-      Common.storeSharedPreferences
-          .setString('pass', _signInPass.value.text.toString());
-
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
+      Common.storeSharedPreferences.setString('userid', _mobileNumber.value.text.toString());
+      Common.storeSharedPreferences.setString('pass', _signInPass.value.text.toString());
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
     }
-
-
-    Fluttertoast.showToast(
-        msg: DataControllers.to.userLoginResponse.value.message ?? "",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.indigoAccent,
-        textColor: Colors.white,
-        fontSize: 16.0);
+    showToast(DataControllers.to.userLoginResponse.value.message ?? "");
   }
 }

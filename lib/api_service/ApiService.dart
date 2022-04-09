@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
@@ -154,6 +155,7 @@ class ApiService {
     ///Get Device token for push notification
     final FirebaseMessaging fcm = FirebaseMessaging.instance;
     final fcmToken = await fcm.getToken();
+    if (kDebugMode) {print(fcmToken);}
 
     final response = await http.post(
       Uri.parse(BaseURL+'login'),
@@ -169,21 +171,9 @@ class ApiService {
 
     print(response.body);
     if (response.statusCode == 200) {
-      // If the server did return a 200 CREATED response,
-      // then parse the JSON.
       return userLoginResponseFromJson(response.body);
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      Fluttertoast.showToast(
-          msg:
-          "Please enter your valid user and password!!",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      showToast("Please enter your valid user and password!!");
       throw Exception('Failed to login');
     }
 
