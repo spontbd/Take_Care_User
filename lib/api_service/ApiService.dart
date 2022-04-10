@@ -10,6 +10,7 @@ import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
 
+import '../controller/data_controller.dart';
 import '../controllers/DataContollers.dart';
 import '../model/AllServiceResponse.dart';
 import '../model/Erorr.dart';
@@ -22,6 +23,7 @@ import '../ui/variables.dart';
 class ApiService {
   static var client = http.Client();
   static var BaseURL = 'https://takecare.ltd/api/v1/';
+  static var MainURL = 'https://takecare.ltd/';
   /**
    *    get Request
    */

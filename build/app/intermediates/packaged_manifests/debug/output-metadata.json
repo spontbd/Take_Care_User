@@ -4,7 +4,7 @@
     "type": "PACKAGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "com.example.takecare_user",
+  "applicationId": "com.spontit.takecareuser",
   "variantName": "debug",
   "elements": [
     {

@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/pages/On%20Demand/request_page.dart';
 
+import '../../api_service/ApiService.dart';
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
 
@@ -38,6 +39,7 @@ class _MapePageState extends State<MapePage> {
   void initState() {
     super.initState();
 
+    selected = DataControllers.to.getAvailableProviderList.value.data!.map<bool>((v) => false).toList();
 
    // getProviderList();
 
@@ -48,6 +50,16 @@ class _MapePageState extends State<MapePage> {
     });*/
   }
   List<Marker> markers =[];
+  //var seats[];
+
+  List<bool> selected = [];
+
+
+
+  //= new boolean[10];
+  //Arrays.fill(seats, true);
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -110,7 +122,7 @@ class _MapePageState extends State<MapePage> {
                                 width: 55,
                                 fit: BoxFit.cover,
                                 imageUrl:
-                                '${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
+                                '${ ApiService.MainURL + DataControllers.to.getAvailableProviderList.value.data![index].profilePhoto.toString()}',
                                 placeholder: (context, url) =>
                                     CircularProgressIndicator(),
                                 errorWidget: (context, url, error) =>
@@ -183,6 +195,29 @@ class _MapePageState extends State<MapePage> {
                   ),
 
 
+              InkWell(
+                  onTap: (){
+                    setState(() {
+                      selected[index] = !selected[index];
+                    });
+                  },
+                  child: Container(
+                      width: 200,
+                      height: 200,
+                      decoration: ShapeDecoration(
+          color:  selected[index]  ? Colors.green : Colors.white ,
+          shape: CircleBorder (
+          side: BorderSide(
+          width: 10,
+              color: Colors.blue
+          )
+        )
+          )
+    ),
+    )
+
+
+/*
                   Radio(
                     value:  DataControllers.to.getAvailableProviderList.value.data!.length.toString(),
                     groupValue: id,
@@ -192,7 +227,7 @@ class _MapePageState extends State<MapePage> {
                         id = a.toString();
                       });
                     },
-                  ),
+                  ),*/
                 ],
               ),
             ),
@@ -256,10 +291,21 @@ class _MapePageState extends State<MapePage> {
     );
   }
 
+/*
   void showButtonListDialog(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
+          List<bool> selected = [];
+          selected = selected.map<bool>((v) => false).toList();
+
+
+          //var selected[] = new Bool false;
+       *//*  var selected =  new boolean[DataControllers.to.getAvailableProviderList.value.data!.length];
+          selected.fill(selected, Boolean.FALSE);
+
+
+         *//*
           return Container(
             color: Colors.white,
             child: Padding(
@@ -294,12 +340,12 @@ class _MapePageState extends State<MapePage> {
                                         Image.asset('assets/images/imam.png'),
                                   ),
 
-                                  /*CircleAvatar(
+                                  *//*CircleAvatar(
                                     radius: 35,
                                     child: ClipOval(
                                         child: Image.asset(
                                             "assets/images/imam.png")),
-                                  ),*/
+                                  ),*//*
                                 ),
                                 Positioned(
                                   top: dynamicSize(0.17),
@@ -346,8 +392,31 @@ class _MapePageState extends State<MapePage> {
                           ],
                         ),
 
+                        InkWell(
+                          onTap: (){
+                            setState(() {
+                              selected[index] = !selected[index];
+                            });
+                        },
+                          child: Container(
+                              width: 200,
+                              height: 200,
+                           *//*   child: Center(
+                                  child: Image.network("https://s3.o7planning.com/images/boy-128.png")
+                              ),*//*
+                              decoration: ShapeDecoration(
+                                  color:  selected[index]  ? Colors.green : Colors.white ,
+                                  shape: CircleBorder (
+                                      side: BorderSide(
+                                          width: 10,
+                                          color: Colors.blue
+                                      )
+                                  )
+                              )
+                          ),
+                        )
 
-                    /*    Radio(
+                    *//*    Radio(
                           value:  DataControllers.to.getAvailableProviderList.value.data!.length.toString(),
                           groupValue: id,
                           onChanged: (var a) {
@@ -356,7 +425,7 @@ class _MapePageState extends State<MapePage> {
                               id = a.toString();
                             });
                           },
-                        ),*/
+                        ),*//*
                       ],
                     ),
                   ),
@@ -365,7 +434,7 @@ class _MapePageState extends State<MapePage> {
             ),
           );
         });
-  }
+  }*/
 
   void getProviderList()async {
 

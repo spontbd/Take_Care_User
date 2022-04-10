@@ -202,7 +202,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                             ? Center(child: CircularProgressIndicator())
                                             : RaisedButton(
                                           color: AllColor.pink_button,
-                                          child: Text("Search Service Provider around You"),
+                                          child: Text("Search Service Provider around You",style: TextStyle(color: Colors.white),),
                                           onPressed: () {
                                             // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
                                             //            this will override default 'Select here' Button.
@@ -797,29 +797,29 @@ class _OnDemandPageState extends State<OnDemandPage> {
                               ),
                             ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
 
-
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0, top: 30),
-                                child: Text(
-                                  DataControllers.to.shortServiceResponse.value.data!
-                                      .data![index].serviceName!,
-                                  style: TextStyle(
-                                      fontSize: dynamicSize(0.05),
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0, top: 30),
+                                  child: Text(
+                                    DataControllers.to.shortServiceResponse.value.data!
+                                        .data![index].serviceName!,
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.05),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),
                                   ),
                                 ),
-                              ),
 
-
-                            ],
+                              ],
+                            ),
                           ),
-                          Spacer(),
+                       
                           InkWell(
                             onTap: () async {
                               Navigator.pop(context);
