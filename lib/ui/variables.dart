@@ -12,6 +12,8 @@ class Variables {
   static String base64Image = " ";
   static int exp = 0;
   static int spe = 0;
+  static bool categoryCheckBoxValue  = false;
+
   static late  SharedPreferences storeSharedPreferences;
 
 }

@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:takecare_user/controller/data_controller.dart';
 import 'package:takecare_user/model/AddCardResponse.dart';
 import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
@@ -12,6 +14,7 @@ import 'package:takecare_user/model/UserLoginResponse.dart';
 import 'package:takecare_user/public_variables/notifications.dart';
 import '../controllers/DataContollers.dart';
 import '../model/AllServiceResponse.dart';
+import '../model/AvailableProviderResponse.dart';
 import '../model/Erorr.dart';
 import '../model/Expertise.dart';
 import '../model/UserServiceResponse.dart';
@@ -103,13 +106,6 @@ class ApiService {
 
 
 
-
-  /**
-   *    Post Request
-   */
-
-
-
   static Future<RegisterResponse> postRegister(String first_name, String phone_no, String password, String gender, String role,String image,) async {
 
     final response = await http.post(
@@ -152,29 +148,33 @@ class ApiService {
 
   }
   static Future<UserLoginResponse> postLogin(String phoneNumber,String pass) async {
-    ///Get Device token for push notification
-    final FirebaseMessaging fcm = FirebaseMessaging.instance;
-    final fcmToken = await fcm.getToken();
-    if (kDebugMode) {print(fcmToken);}
+    try{
+      ///Get Device token for push notification
+      final String fcmToken = await DataController.dc.generateUserToken();
 
-    final response = await http.post(
-      Uri.parse(BaseURL+'login'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'phone': phoneNumber,
-        'password': pass,
-        'token': fcmToken!
-      }),
-    );
+      final response = await http.post(
+        Uri.parse(BaseURL+'login'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'phone': phoneNumber,
+          'password': pass,
+          'token': fcmToken
+        }),
+      );
 
-    print(response.body);
-    if (response.statusCode == 200) {
-      return userLoginResponseFromJson(response.body);
-    } else {
-      showToast("Please enter your valid user and password!!");
-      throw Exception('Failed to login');
+      if (kDebugMode) {print(response.body);}
+      if (response.statusCode == 200) {
+        return userLoginResponseFromJson(response.body);
+      } else {
+        showToast("Please enter your valid user and password!!");
+        throw Exception('Failed to login');
+      }
+    }on SocketException{
+      throw Exception('No Internet Connection');
+    } catch(e){
+      throw Exception(e.toString());
     }
 
   }
@@ -521,5 +521,41 @@ class ApiService {
       throw Exception('add service');
     }
   }
+
+
+
+
+  /// Service
+
+  static Future<AvailableProviderResponse?> getAvailableProviderList(String status, String available) async {
+    var response = await client
+        .get(Uri.parse(BaseURL + 'user/providers-by-status?status=${status}&available=${available}'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    }/*,
+      body: jsonEncode(<String, String>{
+        'status': status,
+        'available': available,
+      }),*/
+
+    );
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return availableProviderResponseFromJson(jsonString);
+    } else {
+      DataControllers.to.getAvailableProviderList.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.getAvailableProviderList.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.getAvailableProviderList.value;
+    }
+  }
+
+
+
 
 }

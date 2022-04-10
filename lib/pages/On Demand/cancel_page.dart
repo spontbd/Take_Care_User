@@ -51,8 +51,7 @@ class CancelPage extends StatelessWidget {
                 ),
 TextButton(onPressed: (){
 
-  Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => MapePage()));
+
 }, child:Text("Request again",style: TextStyle(fontSize: dynamicSize(0.05),color:Colors.blue),),
 )
               ],

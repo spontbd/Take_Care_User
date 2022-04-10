@@ -12,6 +12,7 @@ import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
 
 import '../model/AllServiceResponse.dart';
+import '../model/AvailableProviderResponse.dart';
 import '../model/Erorr.dart';
 import '../model/Expertise.dart';
 import '../model/ShortServiceResponse.dart';
@@ -49,6 +50,9 @@ class DataControllers extends GetxController {
 
   ///Categories
   Rx<CategoriesResponse> getCategoriesResponse = CategoriesResponse().obs;
+
+  ///available provider
+  Rx<AvailableProviderResponse> getAvailableProviderList = AvailableProviderResponse().obs;
 
 
   Future getAllLongService(String type) async {
@@ -297,7 +301,26 @@ class DataControllers extends GetxController {
       isLoading(false);
       return addServiceResponse.value;
     }
+
+
+
+
+
+  Future getProviderList(String status,String available ) async {
+    isLoading(true);
+    getAvailableProviderList = AvailableProviderResponse().obs;
+    var response =
+    await ApiService.getAvailableProviderList(status,available);
+
+    if (response != null) {
+      getAvailableProviderList.value = response;
+      // responseSuccess(true);
+    }
   }
+
+
+
+}
 
 
 

@@ -7,6 +7,7 @@ import 'package:takecare_user/pages/sign_in_page.dart';
 //import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 
+import '../controller/data_controller.dart';
 import '../controllers/DataContollers.dart';
 import '../controllers/language_controller.dart';
 import '../public_variables/all_colors.dart';
@@ -32,7 +33,6 @@ var isLoading = false;
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     getAllService();
@@ -509,8 +509,15 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             endDrawer: _drawer(),
+            floatingActionButton: FloatingActionButton(
+              onPressed: ()async{
+                String token = 'c3QklfD0SFyTh4lnBazPJL:APA91bE_pczwMa1xqNdJjqq65-1OtbNITo1akCU_i_pcyUwD8WIpUqb2oBTZpp5jVUw-wJu9wOwBXNHywV6bJdeqW5W3hER3vyyTv0-A50eRHnb2QFj8NTPVrX_ThSToQy706NEr579n';
+                await DataController.dc.sendNotification('Khair', token);
+              },
+              child: const Icon(Icons.send,color: Colors.white),
+            ),
           ),
-          isLoading ? LoadingWidget() : Container()
+          isLoading ? const LoadingWidget() : Container()
         ],
       ),
     );

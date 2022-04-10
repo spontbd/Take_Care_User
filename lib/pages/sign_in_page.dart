@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:takecare_user/controller/data_controller.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
 import 'package:takecare_user/pages/home_page.dart';
@@ -656,6 +657,7 @@ class _SignInPageState extends State<SignInPage>  {
   Future<void> loginClass(String user, String pass) async {
       await DataControllers.to.postLogin(user, pass);
     if (DataControllers.to.userLoginResponse.value.success == true) {
+
       onProgressBar(false);
       bearerToken = "Bearer " + DataControllers.to.userLoginResponse.value.data!.token.toString();
       await DataControllers.to.getAllCategories();
