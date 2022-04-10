@@ -11,11 +11,11 @@ import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
 
 import '../controller/data_controller.dart';
+import 'package:takecare_user/public_variables/notifications.dart';
 import '../controllers/DataContollers.dart';
 import '../model/AllServiceResponse.dart';
 import '../model/Erorr.dart';
 import '../model/Expertise.dart';
-import '../model/ShortServiceResponse.dart';
 import '../model/UserServiceResponse.dart';
 import '../ui/variables.dart';
 
@@ -158,15 +158,20 @@ class ApiService {
     return registerResponseFromJson(response.body);
 
   }
-  static Future<UserLoginResponse> postLogin(String phone_number,String pass) async {
+  static Future<UserLoginResponse> postLogin(String phoneNumber,String pass) async {
+    ///Get Device token for push notification
+    final FirebaseMessaging fcm = FirebaseMessaging.instance;
+    final fcmToken = await fcm.getToken();
+
     final response = await http.post(
       Uri.parse(BaseURL+'login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        'phone': phone_number,
+        'phone': phoneNumber,
         'password': pass,
+        'token': fcmToken!
       }),
     );
 
@@ -174,7 +179,6 @@ class ApiService {
     if (response.statusCode == 200) {
       // If the server did return a 200 CREATED response,
       // then parse the JSON.
-
       return userLoginResponseFromJson(response.body);
     } else {
       // If the server did not return a 201 CREATED response,
@@ -225,6 +229,8 @@ class ApiService {
       json.decode(response.body)["message"];
 
       return DataControllers.to.userLoginResponse.value;
+      showToast("Please enter your valid user and password!!");
+      throw Exception('Failed to login');
     }
 
   }
@@ -241,11 +247,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       // If the server did return a 200 CREATED response,
-
       // then parse the JSON.
-
-
-
       return jsonDecode(response.body);
     } else {
       // If the server did not return a 201 CREATED response,
@@ -412,7 +414,6 @@ class ApiService {
       return DataControllers.to.addCardResponse.value;
     }
   }
-
 
 
 

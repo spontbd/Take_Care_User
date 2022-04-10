@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<DataController>(
       builder: (dataController) {
-        dataController.getSize(context);
+        dataController.iniatializeApp(context);
         return SafeArea(
             child: Scaffold(
           body: Stack(
