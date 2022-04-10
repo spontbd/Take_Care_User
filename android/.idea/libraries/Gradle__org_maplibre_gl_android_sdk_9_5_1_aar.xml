@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="Gradle: org.maplibre.gl:android-sdk:9.5.1@aar">
+    <ANNOTATIONS>
+      <root url="jar://$PROJECT_DIR$/../../../caches/transforms-2/files-2.1/949ce13b5a3ddfe1bda1281f7b82acde/jetified-android-sdk-9.5.1/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../caches/transforms-2/files-2.1/949ce13b5a3ddfe1bda1281f7b82acde/jetified-android-sdk-9.5.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../caches/transforms-2/files-2.1/949ce13b5a3ddfe1bda1281f7b82acde/jetified-android-sdk-9.5.1/res" />
+      <root url="file://$PROJECT_DIR$/../../../caches/transforms-2/files-2.1/949ce13b5a3ddfe1bda1281f7b82acde/jetified-android-sdk-9.5.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../../caches/modules-2/files-2.1/org.maplibre.gl/android-sdk/9.5.1/ad70df17848c9a0e7194cf72750c0e32cf2085e4/android-sdk-9.5.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../caches/modules-2/files-2.1/org.maplibre.gl/android-sdk/9.5.1/d7d19e3774a0ee8b4b470bd5708d453f3bf61a82/android-sdk-9.5.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
