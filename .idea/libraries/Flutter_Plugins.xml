@@ -19,6 +19,13 @@
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_ios-2.1.0" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-2.1.0" />
       <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_local_notifications-9.4.0" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-2.6.11" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.14.0" />
+      <root url="file://C:/src/flutter/.pub-cache/git/flutter-maplibre-gl-f95dd42b9fab2dc938a259041667a19fbb2c7d78" />
+      <root url="file://C:/src/flutter/.pub-cache/git/flutter-maplibre-gl-5ede8ad75c0ab5196d86e7c1bef892811702cf0f/maplibre_gl_web" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-11.2.12" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_web-2.2.10" />
+      <root url="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-3.1.11" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
