@@ -178,7 +178,7 @@ class _MapePageState extends State<MapePage> {
                               padding: const EdgeInsets.all(3.0),
                               child: Row(children: [
                                 Text("Caregiver ."),
-                                Text(" 232 patient served"),
+                                Text(" 50 patient served"),
                               ],),
                             ),
                             Padding(
@@ -199,17 +199,19 @@ class _MapePageState extends State<MapePage> {
                   onTap: (){
                     setState(() {
                       selected[index] = !selected[index];
+                      Get.offAll(()=>const RequestPage());
                     });
                   },
                   child: Container(
-                      width: 200,
-                      height: 200,
+                    margin: EdgeInsets.only(right: 15),
+                      width: 20,
+                      height: 20,
                       decoration: ShapeDecoration(
           color:  selected[index]  ? Colors.green : Colors.white ,
           shape: CircleBorder (
           side: BorderSide(
-          width: 10,
-              color: Colors.blue
+          width: 2,
+              color: Colors.green
           )
         )
           )

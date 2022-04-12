@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
@@ -160,8 +161,11 @@ class ApiService {
   }
   static Future<UserLoginResponse> postLogin(String phoneNumber,String pass) async {
     ///Get Device token for push notification
-    final FirebaseMessaging fcm = FirebaseMessaging.instance;
-    final fcmToken = await fcm.getToken();
+/*    final FirebaseMessaging fcm = FirebaseMessaging.instance;
+    final fcmToken = await fcm.getToken();*/
+    final String fcmToken = await DataController.dc.generateUserToken();
+    print("fcmToken : "+fcmToken);
+
 
     final response = await http.post(
       Uri.parse(BaseURL+'login'),
@@ -171,7 +175,7 @@ class ApiService {
       body: jsonEncode(<String, String>{
         'phone': phoneNumber,
         'password': pass,
-        'token': fcmToken!
+        'token': fcmToken
       }),
     );
 

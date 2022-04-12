@@ -716,19 +716,19 @@ class _SignInPageState extends State<SignInPage>  {
           .setString('userid', _mobileNumber.value.text.toString());
       Common.storeSharedPreferences
           .setString('pass', _signInPass.value.text.toString());
-
+      Fluttertoast.showToast(
+          msg: DataControllers.to.userLoginResponse.value.message ?? "Login",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.indigoAccent,
+          textColor: Colors.white,
+          fontSize: 16.0);
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
     }
 
 
-    Fluttertoast.showToast(
-        msg: DataControllers.to.userLoginResponse.value.message ?? "",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.indigoAccent,
-        textColor: Colors.white,
-        fontSize: 16.0);
+
   }
 }

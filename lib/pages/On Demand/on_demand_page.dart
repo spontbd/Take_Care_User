@@ -1172,7 +1172,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
   void deleteAddCardData(int index) async {
     await DataControllers.to.deleteCard(
         DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
-        DataControllers.to.getAddCardResponse.value.data![index].userServiceId.toString());
+        DataControllers.to.getAddCardResponse.value.data![index].id.toString());
         showToast(DataControllers.to.addCardResponse.value.message!);
 
     if (DataControllers.to.addCardResponse.value.success!) {
@@ -1191,7 +1191,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
             .data!.user!.id
             .toString(),
         DataControllers.to.shortServiceResponse
-            .value.data!.data![index].userServiceId
+            .value.data!.data![index].id
             .toString(),
         formattedDate);
 
