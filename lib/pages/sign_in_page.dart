@@ -12,7 +12,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
 import 'package:takecare_user/pages/home_page.dart';
-import 'package:takecare_user/pages/otp_verification_page.dart';
 import 'package:takecare_user/pages/sign_up_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/notifications.dart';

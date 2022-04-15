@@ -1,10 +1,16 @@
 
 import 'dart:io';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+/*
+import 'package:maplibre_gl/mapbox_gl.dart';
+*/
+
 
 var signIn_or_SignUP = false;
 var progressValue = 33.0;
+
 class Variables {
   static const List<String> genderList=['Male','Female','Others'];
   static const List<String> FahilyList=['Male','Female','Others'];
@@ -14,6 +20,9 @@ class Variables {
   static int spe = 0;
   static bool categoryCheckBoxValue  = false;
   static late  SharedPreferences storeSharedPreferences;
+  static late DatabaseReference dbref  = FirebaseDatabase.instance.reference();
+
+//static final initLatLngEdit = LatLng(23.8567844, 90.213108);
 
 
 }

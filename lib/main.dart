@@ -46,6 +46,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> _fcmInit()async{
     FirebaseMessaging.instance.getInitialMessage();
 
+
     ///When App Running
     FirebaseMessaging.onMessage.listen((event) {
       if (kDebugMode) {

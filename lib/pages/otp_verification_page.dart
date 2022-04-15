@@ -138,10 +138,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     )),
               ),
             ),
-
-       /*     SizedBox(
-              height:dynamicSize(0.09),
-            ),*/
             Container(
               padding: const EdgeInsets.only(left:10.0,right: 10),
               width:  MediaQuery.of(context).size.width,
@@ -174,7 +170,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 ),
               ),
             ),
-
             Spacer(),
             SizedBox(
               height: dynamicSize(0.15),

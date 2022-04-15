@@ -399,7 +399,7 @@ class ApiService {
     },
       body: jsonEncode(<String, String>{
         'user_id': user_id,
-        'user_service_id': user_service_id,
+        'id': user_service_id,
         'booking_date': booking_date,
       }),
 
