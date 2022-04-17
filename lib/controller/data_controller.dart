@@ -35,18 +35,17 @@ class DataController extends GetxController{
   }
 
 
-  Future<void> generateUserToken()async{
+  Future<void> createUser(String phone)async{
     try{
       final FirebaseMessaging fcm = FirebaseMessaging.instance;
       final fcmToken = await fcm.getToken();
 
-      await FirebaseFirestore.instance.collection('users').doc(fcmToken).set({
+      await FirebaseFirestore.instance.collection('users').doc(phone).set({
         'token': fcmToken,
-        'name' : '',
-        'id' : '',
-        // 'createdAt': FieldValue.serverTimestamp()
+        'phone' : phone,
+        'createdAt': DateTime.now().millisecondsSinceEpoch.toString()
       },SetOptions(merge: true)).whenComplete((){
-        if (kDebugMode) {print('!!Token Created!!');}
+        if (kDebugMode) {print('!!User & Token Created!!');}
       });
     }catch(e){
       if(kDebugMode){print(e.toString());}
