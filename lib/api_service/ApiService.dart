@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -162,8 +163,6 @@ class ApiService {
   }
   static Future<UserLoginResponse> postLogin(String phoneNumber,String pass) async {
     ///Get Device token for push notification
-/*    final FirebaseMessaging fcm = FirebaseMessaging.instance;
-    final fcmToken = await fcm.getToken();*/
     final String fcmToken = await DataController.dc.generateUserToken();
     print("fcmToken : "+fcmToken);
 
@@ -185,19 +184,14 @@ class ApiService {
     if (response.statusCode == 200) {
       // If the server did return a 200 CREATED response,
       // then parse the JSON.
+      await FirebaseFirestore.instance.collection('users').doc(phoneNumber).set({
+        'phone': phoneNumber,
+        'token': fcmToken,
+        'date_time': DateTime.now().millisecondsSinceEpoch.toString()
+      },SetOptions(merge: true));
       return userLoginResponseFromJson(response.body);
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      Fluttertoast.showToast(
-          msg:
-          "Please enter your valid user and password!!",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      showToast("Please enter your valid user and password!!");
       throw Exception('Failed to login');
     }
 

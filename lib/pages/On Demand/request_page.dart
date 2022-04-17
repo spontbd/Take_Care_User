@@ -1,7 +1,5 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:takecare_user/pages/On%20Demand/accepted_page.dart';
 import 'package:takecare_user/pages/On%20Demand/cancel_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
@@ -25,8 +23,8 @@ class _RequestPageState extends State<RequestPage> {
     super.initState();
     // _navigateToNavPage();
 
-    Variables.dbref = FirebaseDatabase.instance.reference();
-    _readdb_onechild();
+    //Variables.dbref = FirebaseDatabase.instance.reference();
+    //_readdb_onechild();
   }
 
   Future<void> _navigateToNavPage() async {
@@ -34,31 +32,31 @@ class _RequestPageState extends State<RequestPage> {
         .then((value) => Get.offAll(() => const AcceptedPage()));
   }
 
-  _readdb_onechild() {
-    String databasejson = '';
-
-    Variables.dbref
-        .child("Request")
-        .child(DataControllers
-            .to.getAvailableProviderList.value.data![widget.requestIndex].phone!
-            .toString())
-        .child("request_type")
-        .once()
-        .then((DataSnapshot dataSnapshot) {
-      print(" read once - " + dataSnapshot.value.toString());
-      setState(() {
-        databasejson = dataSnapshot.value.toString();
-        if (databasejson == "cancel") {
-          requestForCancel();
-        } else if (databasejson == "done") {
-
-          Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (_) => AcceptedPage()));
-
-        }
-      });
-    });
-  }
+  // _readdb_onechild() {
+  //   String databasejson = '';
+  //
+  //   Variables.dbref
+  //       .child("Request")
+  //       .child(DataControllers
+  //           .to.getAvailableProviderList.value.data![widget.requestIndex].phone!
+  //           .toString())
+  //       .child("request_type")
+  //       .once()
+  //       .then((DataSnapshot dataSnapshot) {
+  //     print(" read once - " + dataSnapshot.value.toString());
+  //     setState(() {
+  //       databasejson = dataSnapshot.value.toString();
+  //       if (databasejson == "cancel") {
+  //         requestForCancel();
+  //       } else if (databasejson == "done") {
+  //
+  //         Navigator.of(context)
+  //             .pushReplacement(MaterialPageRoute(builder: (_) => AcceptedPage()));
+  //
+  //       }
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
