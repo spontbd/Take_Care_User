@@ -15,6 +15,7 @@ import 'package:takecare_user/model/UserLoginResponse.dart';
 import 'package:takecare_user/public_variables/notifications.dart';
 
 import '../model/AllServiceResponse.dart';
+import '../model/AvailableProviderResponse.dart';
 import '../model/Erorr.dart';
 import '../model/Expertise.dart';
 import '../model/ShortServiceResponse.dart';
