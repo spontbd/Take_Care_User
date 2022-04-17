@@ -868,7 +868,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                     padding: const EdgeInsets.only(
                                         top: 8.0, left: 5),
                                     child: Text(
-                                      "${DataControllers.to.getAddCardResponse.value.data![index].serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].serviceName}",
+                                      "${DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName}",
                                       style: TextStyle(
                                           fontSize: dynamicSize(0.04),
                                           fontWeight: FontWeight.bold),
@@ -960,8 +960,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
   }
 
   void getAddCardData() async {
-    await DataControllers.to.getCard(
-        DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
+    await DataControllers.to.getCard();
 
     if (DataControllers.to.getAddCardResponse.value.data!.length > 0) {
       setState(() {
@@ -993,11 +992,11 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
     String formattedDate = formatter.format(now);
 
     await DataControllers.to.addCard(
-        DataControllers.to.userLoginResponse.value
+   /*     DataControllers.to.userLoginResponse.value
             .data!.user!.id
-            .toString(),
+            .toString(),*/
         DataControllers.to.longServiceResponse
-            .value.data!.data![index].userServiceId
+            .value.data!.data![index].id
             .toString(),
         formattedDate);
 

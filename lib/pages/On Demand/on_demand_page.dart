@@ -989,7 +989,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                     padding: const EdgeInsets.only(
                                         top: 8.0, left: 5),
                                     child: Text(
-                                      "${DataControllers.to.getAddCardResponse.value.data![index].serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].serviceName}",
+                                      "${DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName}",
                                       style: TextStyle(
                                           fontSize: dynamicSize(0.04),
                                           fontWeight: FontWeight.bold),
@@ -1134,8 +1134,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
   }
 
   void getAddCardData() async {
-    await DataControllers.to.getCard(
-        DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
+    await DataControllers.to.getCard();
 
 
     if (
@@ -1182,9 +1181,9 @@ class _OnDemandPageState extends State<OnDemandPage> {
     String formattedDate = formatter.format(now);
 
     await DataControllers.to.addCard(
-        DataControllers.to.userLoginResponse.value
+      /*  DataControllers.to.userLoginResponse.value
             .data!.user!.id
-            .toString(),
+            .toString(),*/
         DataControllers.to.shortServiceResponse
             .value.data!.data![index].id
             .toString(),

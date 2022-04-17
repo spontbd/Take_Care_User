@@ -22,6 +22,7 @@ import '../ui/variables.dart';
 
 
 class ApiService {
+
   static var client = http.Client();
   static var BaseURL = 'https://takecare.ltd/api/v1/';
   static var MainURL = 'https://takecare.ltd/';
@@ -175,6 +176,7 @@ class ApiService {
       body: jsonEncode(<String, String>{
         'phone': phoneNumber,
         'password': pass,
+        'role_id': "4",
         'token': fcmToken
       }),
     );
@@ -274,10 +276,10 @@ class ApiService {
 
   /// Card Service
 
-  static Future<AddCardResponse?> fetchCard(String user_id
+  static Future<AddCardResponse?> fetchCard(
       ) async {
     var response = await client
-        .get(Uri.parse(BaseURL + 'user/cart/list?user_id=${user_id}'), headers: <String, String>{
+        .get(Uri.parse(BaseURL + 'user/cart/list'), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
       'Authorization': bearerToken,
@@ -388,8 +390,8 @@ class ApiService {
 
 
 
-  static Future<ErrorResponse?> addCard(String user_id ,
-      String user_service_id, String booking_date
+  static Future<ErrorResponse?> addCard(
+      String service_id, String booking_date
       ) async {
     var response = await client
         .post(Uri.parse(BaseURL + 'user/cart/add-service-to-cart'), headers: <String, String>{
@@ -398,8 +400,8 @@ class ApiService {
       'Authorization': bearerToken,
     },
       body: jsonEncode(<String, String>{
-        'user_id': user_id,
-        'id': user_service_id,
+
+        'id': service_id,
         'booking_date': booking_date,
       }),
 

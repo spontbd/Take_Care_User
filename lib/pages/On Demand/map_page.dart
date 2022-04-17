@@ -664,29 +664,49 @@ class _MapePageState extends State<MapePage> {
   var status;
 
   _createDB() {
-   // Variables.dbref.child("Request").set(" my profile");
-    Variables.dbref.child("Request").child( DataControllers.to.getAvailableProviderList.value.data![requestIndex].phone!.toString())
-        .set({'provider_token': DataControllers.to.getAvailableProviderList.value.data![requestIndex].fullName,
-      'user_id': DataControllers.to.userLoginResponse.value.data!.user!.phone,
-      'user_name': DataControllers.to.userLoginResponse.value.data!.user!.fullName
-      ,'user_token': DataControllers.to.userLoginResponse.value.data!.token
-      ,'request_type': "request",
 
+    String fileID = Variables.dbref.push().key;
+
+    // Variables.dbref.child("Request").set(" my profile");
+
+    Variables.dbref.child("Request").child( DataControllers.to.getAvailableProviderList.value.data![requestIndex].phone!.toString())
+        .child(fileID).set({
+      'provider_token': DataControllers.to.getAvailableProviderList.value.data![requestIndex].fullName,
+      'user_id': DataControllers.to.userLoginResponse.value.data!.user!.phone,
+      'user_name': DataControllers.to.userLoginResponse.value.data!.user!.fullName,
+      'user_token': DataControllers.to.userLoginResponse.value.data!.token,
+      'request_type': "request",
+      'id': fileID
+        });
+
+
+
+    Variables.dbref.child("User").child(DataControllers.to.userLoginResponse.value.data!.user!.phone.toString())
+    .child(fileID).set({
+      'provider_token': DataControllers.to.getAvailableProviderList.value.data![requestIndex].fullName,
+      'user_id': DataControllers.to.userLoginResponse.value.data!.user!.phone,
+      'user_name':  DataControllers.to.getAvailableProviderList.value.data![requestIndex].fullName!.toString(),
+      'user_token': DataControllers.to.userLoginResponse.value.data!.token,
+      'request_type': "request",
+      'id': fileID
     });
+
   }
 
   _readdb_onechild() {
     Variables.dbref
         .child("Request")
         .child(DataControllers.to.getAvailableProviderList.value.data![requestIndex].phone!.toString())
-    .child("request_type")
+        .child("request_type")
         .once()
         .then((DataSnapshot dataSnapshot) {
-      print(" read once - " + dataSnapshot.value.toString());
-      setState(() {
-        databasejson = dataSnapshot.value.toString();
+        print(" read once - " + dataSnapshot.value.toString());
+        setState(()
+        {
+          databasejson = dataSnapshot.value.toString();
+        });
+
       });
-    });
   }
 
   _realdb_once() {

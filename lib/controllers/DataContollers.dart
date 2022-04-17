@@ -140,11 +140,11 @@ class DataControllers extends GetxController {
 
 
 
-   Future getCard(String user_id) async {
+   Future getCard() async {
     isLoading(true);
     getAddCardResponse = AddCardResponse().obs;
     var response =
-    await ApiService.fetchCard(user_id);
+    await ApiService.fetchCard();
 
     if (response != null) {
       getAddCardResponse.value = response;
@@ -153,10 +153,10 @@ class DataControllers extends GetxController {
   }
 
 
-    Future addCard(String user_id, String user_service_id, String date) async {
+    Future addCard( String service_id, String date) async {
       isLoading(true);
       var response =
-      await ApiService.addCard(user_id, user_service_id, date);
+      await ApiService.addCard(service_id, date);
 
       if (response != null) {
         addCardResponse.value = response;
