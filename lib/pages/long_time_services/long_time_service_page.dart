@@ -1,10 +1,16 @@
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:intl/intl.dart';
 import 'package:takecare_user/pages/long_time_services/service_request_form_page.dart';
 
+import '../../controllers/DataContollers.dart';
 import '../../controllers/language_controller.dart';
 import '../../public_variables/all_colors.dart';
+import '../../public_variables/notifications.dart';
 import '../../public_variables/size_config.dart';
+import '../../ui/common.dart';
 import '../../widgets/check_box.dart';
 import '../On Demand/feedback_page.dart';
 import '../On Demand/map_page.dart';
@@ -12,6 +18,7 @@ import '../home_page.dart';
 
 class LongTimeServicesPage extends StatefulWidget {
   const LongTimeServicesPage({Key? key}) : super(key: key);
+
 
   @override
   _LongTimeServicesPageState createState() => _LongTimeServicesPageState();
@@ -73,7 +80,13 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                 padding: const EdgeInsets.only(
                                     left: 8.0, top: 5),
                                 child: Text(
-                                  "02",
+                                  DataControllers
+                                      .to
+                                      .getAddCardResponse
+                                      .value
+                                      .data!
+                                      .length
+                                      .toString(),
                                   style: TextStyle(
                                       fontSize: dynamicSize(0.04),
                                       fontWeight: FontWeight.bold,
@@ -403,11 +416,11 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
+                   /*     Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>  MapePage()),
-                        );
+                        );*/
                       },
                       child: Container(
                         child: Row(
@@ -473,10 +486,10 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
           backgroundColor: Colors.white,
           elevation: 0,
         ),
-        body: ListView(
+        body:ListView(
           padding: const EdgeInsets.all(8),
           children: List.generate(
-            10,
+            DataControllers.to.longServiceResponse.value.data!.data!.length,
                 (index) => Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Container(
@@ -495,8 +508,14 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                 ),
                 child: Row(
                   children: [
-                    Image.asset(
-                      "assets/images/image.png",
+                    CachedNetworkImage(
+                      width: 120,
+                      imageUrl:
+                      "https://takecare.ltd/${DataControllers.to.longServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+
+                      errorWidget: (context, url, error) => Image.asset(
+                        "assets/images/image.png",
+                      ),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -505,7 +524,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0, left: 5),
                           child: Text(
-                            "Injection Push",
+                            "${DataControllers.to.longServiceResponse.value.data!.data![index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
                             style: TextStyle(
                                 fontSize: dynamicSize(0.04),
                                 fontWeight: FontWeight.bold),
@@ -515,7 +534,9 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                           height: dynamicSize(0.02),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showButtonDialog(context, index);
+                          },
                           child: Text(
                             "Details",
                             style: TextStyle(
@@ -530,9 +551,16 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                       onTap: () {
                         print("object");
                         // Navigator.pop(context);
-                        showButtonDialog(context);
+                        addCard(index);
                       },
-                      child: Image.asset(
+                      child:
+
+                      //  DataControllers.to.shortServiceResponse.value.data![index].status == "Done" ?
+
+                      /* Image.asset(
+                        "assets/images/done_image.png",
+                      ) :*/
+                      Image.asset(
                         "assets/images/add.png",
                       ),
                     ),
@@ -546,7 +574,8 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
     });
   }
 
-  void showButtonDialog(BuildContext context) {
+  void showButtonDialog(BuildContext context, int index)
+  {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
@@ -598,10 +627,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                               InkWell(
                                 onTap: () {
                                   Navigator.pop(context);
-                                  setState(() {
-                                    showBottom = true;
-                                    addedlist = true;
-                                  });
+                                  addCard(index);
 
                                   /* Navigator.pop(context);
                                   showDialog(
@@ -780,6 +806,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
         });
   }
 
+
   void BottomSheetAddedListDialog(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -800,11 +827,12 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                           size: 35,
                         ))),
                 Container(
+                  color: AllColor.button_color,
                   height: dynamicSize(0.55),
                   child: ListView(
                     padding: const EdgeInsets.all(8),
                     children: new List.generate(
-                      8,
+                      DataControllers.to.getAddCardResponse.value.data!.length,
                           (index) => Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Container(
@@ -823,8 +851,14 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                           ),
                           child: Row(
                             children: [
-                              Image.asset(
-                                "assets/images/image.png",
+                              CachedNetworkImage(
+                                width: 120,
+                                imageUrl:
+                                "https://takecare.ltd/${DataControllers.to.longServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+
+                                errorWidget: (context, url, error) => Image.asset(
+                                  "assets/images/image.png",
+                                ),
                               ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -834,7 +868,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                     padding: const EdgeInsets.only(
                                         top: 8.0, left: 5),
                                     child: Text(
-                                      "Injection Push",
+                                      "${DataControllers.to.getAddCardResponse.value.data![index].serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].serviceName}",
                                       style: TextStyle(
                                           fontSize: dynamicSize(0.04),
                                           fontWeight: FontWeight.bold),
@@ -846,13 +880,26 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                   TextButton(
                                     onPressed: () {},
                                     child: Text(
-                                      "Details",
+                                      "",
                                       style: TextStyle(
                                           fontSize: dynamicSize(0.035),
                                           color: Colors.purple),
                                     ),
                                   ),
                                 ],
+                              ),
+                              Spacer(),
+                              Container(
+                                height: 40,
+                                width: 40,
+                                child: InkWell(
+                                  onTap: () {
+                                    deleteAddCardData(index);
+                                  },
+                                  child: Image.asset(
+                                    "assets/images/demand_service_cross_button.png",
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -877,31 +924,97 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
               padding: const EdgeInsets.all(10.0),
               child:
 
-/*Row(
+              ListView(
+                children: List.generate(
+                  DataControllers.to.getCategoriesResponse.value.data!.length,
+                      (index) => Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.08),fontWeight: FontWeight.bold),),
-                      Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),),
+                      Text(
+                        "${DataControllers.to.getCategoriesResponse.value.data![index].categoryName}",
+                        style: TextStyle(fontSize: dynamicSize(0.05)),
+                      ),
+                      CheckBox(),
                     ],
-                  ),*/
-
-
-              ListView(
-                children: List.generate(50, (index) => Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Dressing",style: TextStyle(fontSize: dynamicSize(0.05)),),
-                    CheckBox(),
-                  ],
-                ),
+                  ),
                 ),
               ),
-
             ),
           );
         });
   }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    showBottom = false;
+    getAddCardData();
+    /* if(DataControllers.to.userServiceResponse.value.data!.isNotEmpty)
+      {
+        showBottom = false;
+      }*/
+  }
+
+  void getAddCardData() async {
+    await DataControllers.to.getCard(
+        DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
+
+    if (DataControllers.to.getAddCardResponse.value.data!.length > 0) {
+      setState(() {
+        DataControllers.to.getAddCardResponse;
+        showBottom = true;
+        addedlist = true;
+      });
+    } else {
+      showBottom = false;
+      addedlist = false;
+    }
+  }
+
+  void deleteAddCardData(int index) async {
+    await DataControllers.to.deleteCard(
+        DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
+        DataControllers.to.getAddCardResponse.value.data![index].userServiceId.toString());
+    showToast(DataControllers.to.addCardResponse.value.message!);
+
+    if (DataControllers.to.addCardResponse.value.success!) {
+      getAddCardData();
+    }
+  }
+
+  void addCard(int index) async{
+
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yyyy-MM-dd');
+    String formattedDate = formatter.format(now);
+
+    await DataControllers.to.addCard(
+        DataControllers.to.userLoginResponse.value
+            .data!.user!.id
+            .toString(),
+        DataControllers.to.longServiceResponse
+            .value.data!.data![index].userServiceId
+            .toString(),
+        formattedDate);
+
+    showToast(
+        DataControllers
+            .to.addCardResponse.value.message!,
+        AllColor.blue);
+
+    if (DataControllers
+        .to.addCardResponse.value.success!)
+    {
+      Common.storeSharedPreferences.setString("service", "long");
+      getAddCardData();
+    }
+  }
+
+
+
 
 }

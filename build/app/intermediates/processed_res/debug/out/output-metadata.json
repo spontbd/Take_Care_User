@@ -4,7 +4,7 @@
     "type": "PROCESSED_RES",
     "kind": "Directory"
   },
-  "applicationId": "com.example.takecare_user",
+  "applicationId": "com.spontit.takecareuser",
   "variantName": "processDebugResources",
   "elements": [
     {

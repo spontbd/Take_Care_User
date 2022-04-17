@@ -8,7 +8,15 @@ class LanguageController extends GetxController{
 
   RxString sigIn=''.obs;
   RxString signUp=''.obs;
-
+  RxString mobileNumber=''.obs;
+  RxString password=''.obs;
+  RxString forgotPassword=''.obs;
+  RxString name=''.obs;
+  RxString male=''.obs;
+  RxString female=''.obs;
+  RxString other=''.obs;
+  RxString greatNext=''.obs;
+  RxString category=''.obs;
 
   @override
   void onInit() {
@@ -32,6 +40,17 @@ class LanguageController extends GetxController{
   void changeVariables(){
     sigIn(isEnglish.value?'Sign In': 'সাইন ইন');
     signUp(isEnglish.value?'Sign Up': 'সাইন আপ');
+
+    mobileNumber(isEnglish.value?'Mobile Number*': 'মোবাইল নম্বর*');
+    password(isEnglish.value?'password*': 'পাসওয়ার্ড*');
+    forgotPassword(isEnglish.value?'Forgot Password?': 'পাসওয়ার্ড ভুলে গেছেন?');
+    name(isEnglish.value?'Name*': 'নাম*');
+    male(isEnglish.value?'Male': 'পুরুষ');
+    female(isEnglish.value?'Female': 'মহিলা');
+    other(isEnglish.value?'Others': 'অন্যান্য');
+    greatNext(isEnglish.value?'Great! Next': 'মহান! পরবর্তী');
+    category(isEnglish.value?'Category': 'বিভাগ');
+
     print('changed');
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -35,20 +34,14 @@ class DataController extends GetxController{
   }
 
 
-  Future<void> createUser(String phone)async{
+  Future<String> generateUserToken()async{
     try{
       final FirebaseMessaging fcm = FirebaseMessaging.instance;
       final fcmToken = await fcm.getToken();
-
-      await FirebaseFirestore.instance.collection('users').doc(phone).set({
-        'token': fcmToken,
-        'phone' : phone,
-        'createdAt': DateTime.now().millisecondsSinceEpoch.toString()
-      },SetOptions(merge: true)).whenComplete((){
-        if (kDebugMode) {print('!!User & Token Created!!');}
-      });
+      return fcmToken!;
     }catch(e){
       if(kDebugMode){print(e.toString());}
+      return '';
     }
   }
 

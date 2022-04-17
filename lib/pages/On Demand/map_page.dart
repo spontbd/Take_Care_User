@@ -1,16 +1,22 @@
 import 'dart:async';
 
+import 'package:barikoi_maps_place_picker/src/models/pick_result.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/pages/On%20Demand/request_page.dart';
 
+import '../../api_service/ApiService.dart';
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
 
 class MapePage extends StatefulWidget {
-  const MapePage({Key? key}) : super(key: key);
+   MapePage( {Key? key,required this.result}) : super(key: key);
+
+   final PickResult result;
 
   @override
   _MapePageState createState() => _MapePageState();
@@ -18,7 +24,7 @@ class MapePage extends StatefulWidget {
 
 class _MapePageState extends State<MapePage> {
 
-  int id = 1;
+  var id = "1";
   Completer<GoogleMapController> _controller = Completer();
   bool _arrived = false;
   bool _startService = false;
@@ -32,18 +38,48 @@ class _MapePageState extends State<MapePage> {
 
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () {
+
+    selected = DataControllers.to.getAvailableProviderList.value.data!.map<bool>((v) => false).toList();
+
+   // getProviderList();
+
+    /*    Timer(Duration(seconds: 5), () {
       setState(() {
         _arrived = true;
       });
-    });
+    });*/
   }
+  List<Marker> markers =[];
+  //var seats[];
+
+  List<bool> selected = [];
+
+
+
+  //= new boolean[10];
+  //Arrays.fill(seats, true);
+
 
   @override
   Widget build(BuildContext context) {
+
+
+/*
+
+    markers.add(Marker(markerId: MarkerId("Marker Test"),
+      position:    LatLng(23.794862086697574, 90.41426405389653),
+      infoWindow: InfoWindow(
+        title: "Map",
+        //snippet: 'address',
+      ),
+
+    ));
+*/
+
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Map Page"),
+        title: Text("Provider List"),
       ),
       body: /*GoogleMap(
         mapType: MapType.hybrid,
@@ -55,7 +91,155 @@ class _MapePageState extends State<MapePage> {
 
           Container(
         alignment: Alignment.center,
-        child: InkWell(
+        child:
+
+
+
+
+        ListView(
+          children: List.generate(
+
+            DataControllers.to.getAvailableProviderList.value.data!.length,
+                (index) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Stack(
+                        overflow: Overflow.visible,
+                        children: [
+                          Positioned(
+                            child:
+
+
+                            ClipRRect(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(30)),
+                              child: CachedNetworkImage(
+                                height: 55,
+                                width: 55,
+                                fit: BoxFit.cover,
+                                imageUrl:
+                                '${ ApiService.MainURL + DataControllers.to.getAvailableProviderList.value.data![index].profilePhoto.toString()}',
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset('assets/images/imam.png'),
+                              ),
+                            ),
+                  /*
+                            CachedNetworkImage(
+                              height: 55,
+                              width: 55,
+                              fit: BoxFit.cover,
+                              imageUrl:
+                              '${DataControllers.to.getAvailableProviderList.value.data![index].profilePhoto}',
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Image.asset('assets/images/imam.png'),
+                            ),*/
+
+                            /*CircleAvatar(
+                                    radius: 35,
+                                    child: ClipOval(
+                                        child: Image.asset(
+                                            "assets/images/imam.png")),
+                                  ),*/
+                          ),
+                          Positioned(
+                            top: dynamicSize(0.17),
+                            left: dynamicSize(0.04),
+                            child: Container(
+                                alignment: Alignment.center,
+                                width: dynamicSize(0.12),
+                                //color: Colors.red,
+                                decoration: BoxDecoration(
+                                  color: AllColor.white_yeo,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: Text(
+                                  "${DataControllers.to.getAvailableProviderList.value.data![index].wight} ",
+                                  style: TextStyle(color: Colors.green),
+                                )),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("${DataControllers.to.getAvailableProviderList.value.data![index].fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
+
+                            Padding(
+                              padding: const EdgeInsets.all(3.0),
+                              child: Row(children: [
+                                Text("Caregiver ."),
+                                Text(" 50 patient served"),
+                              ],),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(3.0),
+                              child: Row(children: [
+                                Text("Service Cost: "),
+                                Text(" 3000/-"),
+                              ],),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+
+              InkWell(
+                  onTap: (){
+                    setState(() {
+                      selected[index] = !selected[index];
+                      Get.offAll(()=>const RequestPage());
+                    });
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(right: 15),
+                      width: 20,
+                      height: 20,
+                      decoration: ShapeDecoration(
+          color:  selected[index]  ? Colors.green : Colors.white ,
+          shape: CircleBorder (
+          side: BorderSide(
+          width: 2,
+              color: Colors.green
+          )
+        )
+          )
+    ),
+    )
+
+
+/*
+                  Radio(
+                    value:  DataControllers.to.getAvailableProviderList.value.data!.length.toString(),
+                    groupValue: id,
+                    onChanged: (var a) {
+                      setState(()
+                      {
+                        id = a.toString();
+                      });
+                    },
+                  ),*/
+                ],
+              ),
+            ),
+          ),
+        ),
+
+
+
+
+            /*InkWell(
           onTap: () {
             setState(() {
               //requestView = true;
@@ -79,9 +263,9 @@ class _MapePageState extends State<MapePage> {
               borderRadius: BorderRadius.circular(30.0),
             ),
           ),
-        ),
+        ),*/
       ),
-      bottomNavigationBar: BottomAppBar(
+    /*  bottomNavigationBar: BottomAppBar(
         elevation: 0,
         //color: AllColor.themeColor,
         child: Padding(
@@ -105,14 +289,25 @@ class _MapePageState extends State<MapePage> {
             ),
           ),
         ),
-      ),
+      ),*/
     );
   }
 
+/*
   void showButtonListDialog(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
+          List<bool> selected = [];
+          selected = selected.map<bool>((v) => false).toList();
+
+
+          //var selected[] = new Bool false;
+       *//*  var selected =  new boolean[DataControllers.to.getAvailableProviderList.value.data!.length];
+          selected.fill(selected, Boolean.FALSE);
+
+
+         *//*
           return Container(
             color: Colors.white,
             child: Padding(
@@ -120,7 +315,8 @@ class _MapePageState extends State<MapePage> {
               child:
                   ListView(
                 children: List.generate(
-                  5,
+
+                DataControllers.to.getAvailableProviderList.value.data!.length,
                   (index) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -132,12 +328,26 @@ class _MapePageState extends State<MapePage> {
                               overflow: Overflow.visible,
                               children: [
                                 Positioned(
-                                  child: CircleAvatar(
+                                  child:
+
+                                  CachedNetworkImage(
+                                    height: 55,
+                                    width: 55,
+                                    fit: BoxFit.cover,
+                                    imageUrl:
+                                    '${DataControllers.to.getAvailableProviderList.value.data![index].profilePhoto}',
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset('assets/images/imam.png'),
+                                  ),
+
+                                  *//*CircleAvatar(
                                     radius: 35,
                                     child: ClipOval(
                                         child: Image.asset(
                                             "assets/images/imam.png")),
-                                  ),
+                                  ),*//*
                                 ),
                                 Positioned(
                                   top: dynamicSize(0.17),
@@ -151,7 +361,7 @@ class _MapePageState extends State<MapePage> {
                                         borderRadius: BorderRadius.circular(30),
                                       ),
                                       child: Text(
-                                        "2 km",
+                                        "${DataControllers.to.getAvailableProviderList.value.data![index].wight} ",
                                         style: TextStyle(color: Colors.green),
                                       )),
                                 ),
@@ -162,7 +372,7 @@ class _MapePageState extends State<MapePage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Leya Ajanta Mondol",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
+                                  Text("${DataControllers.to.getAvailableProviderList.value.data![index].fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
 
                                   Padding(
                                     padding: const EdgeInsets.all(3.0),
@@ -184,15 +394,40 @@ class _MapePageState extends State<MapePage> {
                           ],
                         ),
 
-
-                        Radio(
-                          value: 1,
-                          groupValue: id,
-                          onChanged: (val) {
+                        InkWell(
+                          onTap: (){
                             setState(() {
+                              selected[index] = !selected[index];
+                            });
+                        },
+                          child: Container(
+                              width: 200,
+                              height: 200,
+                           *//*   child: Center(
+                                  child: Image.network("https://s3.o7planning.com/images/boy-128.png")
+                              ),*//*
+                              decoration: ShapeDecoration(
+                                  color:  selected[index]  ? Colors.green : Colors.white ,
+                                  shape: CircleBorder (
+                                      side: BorderSide(
+                                          width: 10,
+                                          color: Colors.blue
+                                      )
+                                  )
+                              )
+                          ),
+                        )
+
+                    *//*    Radio(
+                          value:  DataControllers.to.getAvailableProviderList.value.data!.length.toString(),
+                          groupValue: id,
+                          onChanged: (var a) {
+                            setState(()
+                            {
+                              id = a.toString();
                             });
                           },
-                        ),
+                        ),*//*
                       ],
                     ),
                   ),
@@ -201,5 +436,11 @@ class _MapePageState extends State<MapePage> {
             ),
           );
         });
+  }*/
+
+  void getProviderList()async {
+
+    await DataControllers.to.getProviderList("1", "1");
+
   }
 }

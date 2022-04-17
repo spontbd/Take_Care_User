@@ -8,7 +8,7 @@ import 'package:takecare_user/public_variables/size_config.dart';
 showToast(String mgs, [Color? color]) => Fluttertoast.showToast(
     msg: mgs,
     toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.BOTTOM,
+    gravity: ToastGravity.CENTER,
     timeInSecForIosWeb: 1,
     backgroundColor: color ?? Colors.black87,
     textColor: Colors.white,
