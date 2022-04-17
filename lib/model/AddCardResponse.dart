@@ -26,7 +26,6 @@ class AddCardResponse {
 
 }
 
-
 class Datum {
   Datum({
     this.id,
@@ -37,36 +36,18 @@ class Datum {
     this.createdAt,
     this.updatedAt,
     this.serviceId,
-    this.servicePrice,
-    this.serviceName,
-    this.serviceCategoryId,
-    this.serviceType,
-    this.price,
-    this.description,
-    this.serviceImage,
-    this.serviceImageThumbnail,
-    this.imagePath,
     this.service,
   });
 
   dynamic id;
-  int? userId;
-  int? userServiceId;
+  dynamic userId;
+  dynamic userServiceId;
   DateTime? bookingDate;
   dynamic status;
   dynamic createdAt;
   dynamic updatedAt;
-  int? serviceId;
-  int? servicePrice;
-  dynamic serviceName;
-  dynamic serviceCategoryId;
-  dynamic serviceType;
-  dynamic price;
-  dynamic description;
-  dynamic serviceImage;
-  dynamic serviceImageThumbnail;
-  dynamic imagePath;
-  List<dynamic>? service;
+  dynamic serviceId;
+  Service? service;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
@@ -77,7 +58,42 @@ class Datum {
     createdAt: json["created_at"],
     updatedAt: json["updated_at"],
     serviceId: json["service_id"],
-    servicePrice: json["service_price"],
+    service: Service.fromJson(json["service"]),
+  );
+
+}
+
+class Service {
+  Service({
+    this.id,
+    this.serviceName,
+    this.serviceCategoryId,
+    this.serviceType,
+    this.price,
+    this.description,
+    this.serviceImage,
+    this.serviceImageThumbnail,
+    this.imagePath,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  dynamic id;
+  dynamic serviceName;
+  dynamic serviceCategoryId;
+  dynamic serviceType;
+  dynamic price;
+  dynamic description;
+  dynamic serviceImage;
+  dynamic serviceImageThumbnail;
+  dynamic imagePath;
+  dynamic status;
+  dynamic createdAt;
+  dynamic updatedAt;
+
+  factory Service.fromJson(Map<String, dynamic> json) => Service(
+    id: json["id"],
     serviceName: json["service_name"],
     serviceCategoryId: json["service_category_id"],
     serviceType: json["service_type"],
@@ -86,36 +102,6 @@ class Datum {
     serviceImage: json["service_image"],
     serviceImageThumbnail: json["service_image_thumbnail"],
     imagePath: json["image_path"],
-    service: List<dynamic>.from(json["service"].map((x) => x)),
-  );
-
-}
-
-
-class UserService {
-  UserService({
-    this.id,
-    this.userId,
-    this.serviceId,
-    this.servicePrice,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  int? id;
-  int? userId;
-  int? serviceId;
-  int? servicePrice;
-  String? status;
-  String? createdAt;
-  String? updatedAt;
-
-  factory UserService.fromJson(Map<String, dynamic> json) => UserService(
-    id: json["id"],
-    userId: json["user_id"],
-    serviceId: json["service_id"],
-    servicePrice: json["service_price"],
     status: json["status"],
     createdAt: json["created_at"],
     updatedAt: json["updated_at"],

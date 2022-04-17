@@ -8,11 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
-import 'package:takecare_user/pages/On%20Demand/categories_page.dart';
-import 'package:takecare_user/pages/On%20Demand/popular_page.dart';
-import 'package:takecare_user/pages/On%20Demand/caregiver_profile_page.dart';
-import 'package:takecare_user/pages/On%20Demand/submitted_review_page.dart';
-import 'package:takecare_user/pages/On%20Demand/write_review_page.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/widgets/check_box.dart';
 import 'package:intl/intl.dart';
@@ -994,7 +989,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                     padding: const EdgeInsets.only(
                                         top: 8.0, left: 5),
                                     child: Text(
-                                      "${DataControllers.to.getAddCardResponse.value.data![index].serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].serviceName}",
+                                      "${DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName}",
                                       style: TextStyle(
                                           fontSize: dynamicSize(0.04),
                                           fontWeight: FontWeight.bold),
@@ -1139,8 +1134,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
   }
 
   void getAddCardData() async {
-    await DataControllers.to.getCard(
-        DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
+    await DataControllers.to.getCard();
 
 
     if (
@@ -1187,9 +1181,9 @@ class _OnDemandPageState extends State<OnDemandPage> {
     String formattedDate = formatter.format(now);
 
     await DataControllers.to.addCard(
-        DataControllers.to.userLoginResponse.value
+      /*  DataControllers.to.userLoginResponse.value
             .data!.user!.id
-            .toString(),
+            .toString(),*/
         DataControllers.to.shortServiceResponse
             .value.data!.data![index].id
             .toString(),

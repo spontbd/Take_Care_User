@@ -1,7 +1,11 @@
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:maplibre_gl/mapbox_gl.dart';
+
 
 class Common {
   //late SharedPreferences storeSharedPreferences;
@@ -17,6 +21,13 @@ class Common {
         textColor: Colors.white,
         fontSize: 16.0);
   }
+
+
+  static LatLngEdit(double lat,double long)
+  {
+    return LatLng(lat, long);
+  }
+
 
 
   static late final SharedPreferences storeSharedPreferences;

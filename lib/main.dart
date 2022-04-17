@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:takecare_user/public_variables/all_colors.dart';
 import 'api_service/service.dart';
 import 'controller/data_controller.dart';
 import 'controllers/DataContollers.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async{
   ///Onclick listener
@@ -17,6 +19,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async{
 void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   NotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   final DataController dataController = Get.put(DataController());
@@ -45,6 +48,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _fcmInit()async{
     FirebaseMessaging.instance.getInitialMessage();
+
 
     ///When App Running
     FirebaseMessaging.onMessage.listen((event) {

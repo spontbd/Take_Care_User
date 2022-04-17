@@ -15,6 +15,7 @@ import 'package:takecare_user/model/UserLoginResponse.dart';
 import 'package:takecare_user/public_variables/notifications.dart';
 
 import '../model/AllServiceResponse.dart';
+import '../model/AvailableProviderResponse.dart';
 import '../model/Erorr.dart';
 import '../model/Expertise.dart';
 import '../model/ShortServiceResponse.dart';
@@ -140,11 +141,11 @@ class DataControllers extends GetxController {
 
 
 
-   Future getCard(String user_id) async {
+   Future getCard() async {
     isLoading(true);
     getAddCardResponse = AddCardResponse().obs;
     var response =
-    await ApiService.fetchCard(user_id);
+    await ApiService.fetchCard();
 
     if (response != null) {
       getAddCardResponse.value = response;
@@ -153,10 +154,10 @@ class DataControllers extends GetxController {
   }
 
 
-    Future addCard(String user_id, String user_service_id, String date) async {
+    Future addCard( String service_id, String date) async {
       isLoading(true);
       var response =
-      await ApiService.addCard(user_id, user_service_id, date);
+      await ApiService.addCard(service_id, date);
 
       if (response != null) {
         addCardResponse.value = response;
