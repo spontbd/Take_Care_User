@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:takecare_user/pages/Addresses.dart';
@@ -7,21 +6,15 @@ import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
 import 'package:takecare_user/pages/long_time_services/long_time_service_page.dart';
 import 'package:takecare_user/pages/profile.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
-
-//import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 import 'package:takecare_user/widgets/CarouselDemo.dart';
-
 import '../controller/data_controller.dart';
 import '../controllers/DataContollers.dart';
-import '../controllers/language_controller.dart';
 import '../public_variables/all_colors.dart';
 import '../public_variables/notifications.dart';
 import '../ui/common.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
 import '../widgets/loading_widget.dart';
-import 'On Demand/caregiver_profile_page.dart';
 import 'loved_ones_page.dart';
 import 'order_history/order_history_page.dart';
 

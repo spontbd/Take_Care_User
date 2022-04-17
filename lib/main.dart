@@ -12,7 +12,7 @@ import 'controllers/DataContollers.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async{
-  ///Onclick listener
+  //Onclick listener
   //NotificationService.display(message);
 }
 
@@ -85,22 +85,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         title: 'Take Care',
-
-
-       /* theme:
-        ThemeData(
-            primarySwatch: Colors.pink,
-            appBarTheme: const AppBarTheme(
-                backgroundColor: Colors.deepPurple,
-                // This will be applied to the "back" icon
-                iconTheme: IconThemeData(color: Colors.red),
-                // This will be applied to the action icon buttons that locates on the right side
-                actionsIconTheme: IconThemeData(color: Colors.amber),
-                centerTitle: false,
-                elevation: 15,
-                titleTextStyle: TextStyle(color: Colors.lightBlueAccent))),
-*/
-
         theme: AllColor.theme,
         debugShowCheckedModeBanner: false,
         home: const SignInPage()
