@@ -18,7 +18,7 @@ class Variables {
   static bool categoryCheckBoxValue  = false;
   static late  SharedPreferences storeSharedPreferences;
   //static late DatabaseReference dbref  = FirebaseDatabase.instance.reference();
-  static List<String> requestStatus = ['pending', 'approved', 'decline'];
+  static List<String> requestStatus = ['pending', 'approved', 'decline', 'confirmed'];
 
 //static final initLatLngEdit = LatLng(23.8567844, 90.213108);
 

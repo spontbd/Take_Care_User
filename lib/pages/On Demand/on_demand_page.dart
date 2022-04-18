@@ -437,18 +437,11 @@ class _OnDemandPageState extends State<OnDemandPage> {
                     children: [
                       Container(
                         margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
-                        child:
-/*
-                        ClipRRect(
-                          child: ImageFiltered(
-                            imageFilter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                            child:*/
-
-                            Card(
+                        child: Card(
                               margin: const EdgeInsets.only(left: 0),
                               semanticContainer: true,
                               clipBehavior: Clip.antiAliasWithSaveLayer,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                     bottomRight: Radius.circular(15),
                                     topRight: Radius.circular(15)
@@ -467,49 +460,43 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                   "assets/images/image.png",
                                 ),
                               ),
-                            )
-
-                            ,
-                        /*  ),
-                        ),*/
+                            ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0, left: 5),
-                            child: Text(
-                              "${DataControllers.to.shortServiceResponse.value.data!.data![index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.04),
-                                  fontWeight: FontWeight.bold),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0, left: 5),
+                              child: Text(
+                                "${DataControllers.to.shortServiceResponse.value.data!.data![index].serviceName}",
+                                style: TextStyle(
+                                    fontSize: dynamicSize(0.04),
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: dynamicSize(0.06),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              showButtonDialog(context, index);
-                            },
-                            child: Text(
-                              "Details",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.035),
-                                  color: Colors.purple),
+                            SizedBox(
+                              height: dynamicSize(0.06),
                             ),
-                          ),
-                        ],
+                            TextButton(
+                              onPressed: () {
+                                showButtonDialog(context, index);
+                              },
+                              child: Text(
+                                "Details",
+                                style: TextStyle(
+                                    fontSize: dynamicSize(0.035),
+                                    color: Colors.purple),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       const Spacer(),
-                     /* SizedBox(
-                        height: dynamicSize(0.02),
-                      ),*/
                       InkWell(
                         onTap: () {
                           print("object");
-                          // Navigator.pop(context);
                           addCard(index);
                         },
                         child: Container(
@@ -529,19 +516,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                             ),
                             elevation: 6,
                             child: Icon(Icons.add,color: Colors.white,),
-
-                            /*CachedNetworkImage(
-                              fit: BoxFit.fill,
-                              width: 120,
-                              imageUrl:
-                              "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath *//* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath *//*}",
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) =>
-                                  CircularProgressIndicator(),
-                              errorWidget: (context, url, error) => Image.asset(
-                                "assets/images/image.png",
-                              ),
-                            ),*/
                           ),
                         )
 

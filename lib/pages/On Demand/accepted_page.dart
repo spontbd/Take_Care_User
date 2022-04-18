@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:takecare_user/pages/On%20Demand/order_information_page.dart';
-
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
 
 class AcceptedPage extends StatefulWidget {
-  const AcceptedPage({Key? key}) : super(key: key);
+  const AcceptedPage({Key? key, required this.reqDocId,required this.receiverId}) : super(key: key);
+  final String reqDocId;
+  final String receiverId;
 
   @override
   _AcceptedPageState createState() => _AcceptedPageState();
@@ -23,7 +23,7 @@ class _AcceptedPageState extends State<AcceptedPage> {
 
   Future<void> _navigateToNavPage() async {
     Future.delayed(const Duration(seconds: 5)).then((value) =>
-        Get.offAll(()=>const OrderInformationPage()));
+        Get.offAll(()=>OrderInformationPage(reqDocId: widget.reqDocId,receiverId: widget.receiverId)));
   }
 
 
