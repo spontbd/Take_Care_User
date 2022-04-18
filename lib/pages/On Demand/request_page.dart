@@ -27,10 +27,10 @@ class _RequestPageState extends State<RequestPage> {
     //_readdb_onechild();
   }
 
-  Future<void> _navigateToNavPage() async {
-    Future.delayed(const Duration(seconds: 5))
-        .then((value) => Get.offAll(() => const AcceptedPage()));
-  }
+  // Future<void> _navigateToNavPage() async {
+  //   Future.delayed(const Duration(seconds: 5))
+  //       .then((value) => Get.offAll(() => const AcceptedPage()));
+  // }
 
   // _readdb_onechild() {
   //   String databasejson = '';

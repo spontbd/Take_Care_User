@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 import '../controllers/DataContollers.dart';
+import '../pages/On Demand/accepted_page.dart';
+import '../pages/On Demand/confirm_order_page.dart';
 import '../public_variables/notifications.dart';
 import '../ui/variables.dart';
 
@@ -16,6 +18,8 @@ class DataController extends GetxController{
   static DataController dc =Get.find();
   SharedPreferences? preferences;
   RxDouble size = 360.0.obs;
+  RxBool loading=false.obs;
+
   var feedbackController = TextEditingController(text:'').obs;
   void updateFeedController(String val){
     feedbackController.value.text=val;
@@ -57,13 +61,13 @@ class DataController extends GetxController{
     final List<QueryDocumentSnapshot> user = snapshot.docs;
     final String token = user[0].get('token');
 
-    final data = {
+    final data = <String,dynamic>{
       'click_action': 'FLUTTER_NOTIFICATION_CLICK',
       'id':'1',
       'status': 'done',
       'message':'${DataControllers.to.userLoginResponse.value.data!.user!.fullName} sent you a request',
-      'senderId':'${DataControllers.to.userLoginResponse.value.data!.user!.phone}',
-      'receiverId': receiverId,
+      'sender':'${DataControllers.to.userLoginResponse.value.data!.user!.phone}',
+      'receiver': receiverId,
     };
 
     try{
@@ -76,13 +80,13 @@ class DataController extends GetxController{
           body: jsonEncode(<String,dynamic>{
             'notification': <String,dynamic>{
               'title': 'Notification from Takecare',
-              'body': '${DataControllers.to.userLoginResponse.value.data!.user!.fullName} sent you a request',
+              'body': '${DataControllers.to.userLoginResponse.value.data!.user!.fullName} sent you a request'},
             'priority': 'high',
             'data': data,
-            'to': token}
+            'to': token
           })
       );
-
+      print('Response body: ${response.statusCode}');
       if(response.statusCode==200){
         if(kDebugMode){print('Request sent successfully');}
       }else{
@@ -96,6 +100,7 @@ class DataController extends GetxController{
 
   Future<void> createRequest(String receiverId) async{
     try{
+      loading(true);update();
       QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
           .where('receiver_id', isEqualTo: receiverId)
           .where('status', isEqualTo: Variables.requestStatus[0]).get();
@@ -110,23 +115,90 @@ class DataController extends GetxController{
           'sender_name': DataControllers.to.userLoginResponse.value.data!.user!.fullName,
           'receiver_id': receiverId,
           'status': Variables.requestStatus[0],
-          'date_time': DateTime.now().millisecondsSinceEpoch.toString()
+          'date_time': DateTime.now().millisecondsSinceEpoch
         }).whenComplete(()async{
+          loading(false);update();
           await sendNotification(receiverId);
 
-          Future.delayed(const Duration(minutes: 1)).then((value)async{
+          Future.delayed(const Duration(minutes: 3)).then((value)async{
             QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
-                .where('id', isEqualTo: id)
-                .where('status', isEqualTo: Variables.requestStatus[0]).get();
+                .where('id', isEqualTo: id).get();
             final List<QueryDocumentSnapshot> requestList = snapshot.docs;
-            if(requestList.isNotEmpty){
+
+            if(requestList[0].get('status')==Variables.requestStatus[0]){
               await FirebaseFirestore.instance.collection('request').doc(id).update({
                 'status': Variables.requestStatus[2],
               });
+              showToast('Request not accepted');
+              Navigator.pop(Get.context!);
+            }else if(requestList[0].get('status')==Variables.requestStatus[1]){
+              showToast('Request accepted');
+              Get.to(()=>AcceptedPage(reqDocId: id,receiverId: receiverId));
+            } else if(requestList[0].get('status')==Variables.requestStatus[2]){
+              showToast('Request not declined');
+              Navigator.pop(Get.context!);
+            }else{
+              showToast('Something wrong. Try again');
+              Navigator.pop(Get.context!);
             }
           });
         });
-      }else{showToast('Provider busy! Try again');}
+      }else{
+        loading(false);update();
+        showToast('Provider busy! Try again');
+      }
+    }catch(e){
+      showToast(e.toString());
+    }
+  }
+
+  Future<void> confirmOrder(String reqDocId, String receiverId)async{
+    try{
+      loading(true);update();
+      await FirebaseFirestore.instance.collection('request').doc(reqDocId).update({
+        'status': Variables.requestStatus[3],
+      }).whenComplete(()async{
+        QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users')
+            .where('phone', isEqualTo: receiverId).get();
+        final List<QueryDocumentSnapshot> user = snapshot.docs;
+        final String token = user[0].get('token');
+
+        final data = <String,dynamic>{
+          'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+          'id':'1',
+          'status': 'done',
+          'message':'${DataControllers.to.userLoginResponse.value.data!.user!.fullName} confirmed your request',
+          'sender':'${DataControllers.to.userLoginResponse.value.data!.user!.phone}',
+          'receiver': receiverId,
+        };
+
+        http.Response response = await http.post(
+            Uri.parse('https://fcm.googleapis.com/fcm/send'),
+            headers:<String,String>{
+              'Content-Type': 'application/json',
+              'Authorization': 'key=AAAANQH8hdE:APA91bGQJCiSJClNaFXsgIGNbI3wNM8chjmPXNM5Is0hj_WHlgiyU663TvmpPP4YOwOsVnEnuinjYBY4GZdfNz5nO1w2jSAA5RlgdnkNGPJAf7ZEM_LS_u-pLe5tWntbRffqxmvcoxLB'
+            },
+            body: jsonEncode(<String,dynamic>{
+              'notification': <String,dynamic>{
+                'title': 'Notification from Takecare',
+                'body': '${DataControllers.to.userLoginResponse.value.data!.user!.fullName} confirmed your request'},
+              'priority': 'high',
+              'data': data,
+              'to': token
+            })
+        );
+       loading(false);update();
+
+        if(response.statusCode==200){
+          if(kDebugMode){print('Confirmation success');}
+          showToast('Confirmation success');
+          Navigator.of(Get.context!).pushReplacement(
+              MaterialPageRoute(builder: (_) => const ConfirmOrderPage()));
+        }else{
+          showToast('Confirmation Failed');
+          if(kDebugMode){print('Confirmation Failed!');}
+        }
+      });
     }catch(e){
       showToast(e.toString());
     }

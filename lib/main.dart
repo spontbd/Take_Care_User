@@ -75,7 +75,9 @@ class _MyAppState extends State<MyApp> {
     ///When App Destroyed
     FirebaseMessaging.instance.getInitialMessage().then((value){
       if (kDebugMode) {print('!!FCM message Received (On Destroy)!!');}
-      NotificationService.display(value!);
+      if(value!=null){
+        NotificationService.display(value);
+      }
     });
   }
 
