@@ -12,14 +12,13 @@ import 'controllers/DataContollers.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async{
-  //Onclick listener
+  ///Onclick listener
   //NotificationService.display(message);
 }
 
 void main() async{
-
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
   NotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   final DataController dataController = Get.put(DataController());

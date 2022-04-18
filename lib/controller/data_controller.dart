@@ -1,10 +1,15 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:uuid/uuid.dart';
+import '../controllers/DataContollers.dart';
+import '../public_variables/notifications.dart';
+import '../ui/variables.dart';
 
 
 class DataController extends GetxController{
@@ -45,14 +50,20 @@ class DataController extends GetxController{
     }
   }
 
-  Future<void> sendNotification(String receiver, String token)async{
+  Future<void> sendNotification(String receiverId)async{
+
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users')
+        .where('phone', isEqualTo: receiverId).get();
+    final List<QueryDocumentSnapshot> user = snapshot.docs;
+    final String token = user[0].get('token');
+
     final data = {
       'click_action': 'FLUTTER_NOTIFICATION_CLICK',
       'id':'1',
       'status': 'done',
-      'message':'$receiver you have new message',
-      'sender':'Sujit Sarkar',
-      'receiver': receiver,
+      'message':'${DataControllers.to.userLoginResponse.value.data!.user!.fullName} sent you a request',
+      'senderId':'${DataControllers.to.userLoginResponse.value.data!.user!.phone}',
+      'receiverId': receiverId,
     };
 
     try{
@@ -65,20 +76,59 @@ class DataController extends GetxController{
           body: jsonEncode(<String,dynamic>{
             'notification': <String,dynamic>{
               'title': 'Notification from Takecare',
-              'body':'$receiver you have new message'},
+              'body': '${DataControllers.to.userLoginResponse.value.data!.user!.fullName} sent you a request',
             'priority': 'high',
             'data': data,
-            'to': token
+            'to': token}
           })
       );
 
       if(response.statusCode==200){
-        if(kDebugMode){print('Notification sent success');}
+        if(kDebugMode){print('Request sent successfully');}
       }else{
-        if(kDebugMode){print('Notification sent Failed!');}
+        if(kDebugMode){print('Request Failed!');}
       }
     }catch(e){
       if(kDebugMode){print('Error>>>$e');}
+    }
+  }
+
+
+  Future<void> createRequest(String receiverId) async{
+    try{
+      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
+          .where('receiver_id', isEqualTo: receiverId)
+          .where('status', isEqualTo: Variables.requestStatus[0]).get();
+      final List<QueryDocumentSnapshot> requestList = snapshot.docs;
+
+      if(requestList.isEmpty){
+        var uuid = const Uuid();
+        final String id = uuid.v1();
+        await FirebaseFirestore.instance.collection('request').doc(id).set({
+          'id': id,
+          'sender_id': DataControllers.to.userLoginResponse.value.data!.user!.phone,
+          'sender_name': DataControllers.to.userLoginResponse.value.data!.user!.fullName,
+          'receiver_id': receiverId,
+          'status': Variables.requestStatus[0],
+          'date_time': DateTime.now().millisecondsSinceEpoch.toString()
+        }).whenComplete(()async{
+          await sendNotification(receiverId);
+
+          Future.delayed(const Duration(minutes: 1)).then((value)async{
+            QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
+                .where('id', isEqualTo: id)
+                .where('status', isEqualTo: Variables.requestStatus[0]).get();
+            final List<QueryDocumentSnapshot> requestList = snapshot.docs;
+            if(requestList.isNotEmpty){
+              await FirebaseFirestore.instance.collection('request').doc(id).update({
+                'status': Variables.requestStatus[2],
+              });
+            }
+          });
+        });
+      }else{showToast('Provider busy! Try again');}
+    }catch(e){
+      showToast(e.toString());
     }
   }
 

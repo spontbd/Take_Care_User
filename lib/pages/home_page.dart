@@ -570,13 +570,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             endDrawer: _drawer(),
-            floatingActionButton: FloatingActionButton(
-              onPressed: ()async{
-                String token = 'c3QklfD0SFyTh4lnBazPJL:APA91bE_pczwMa1xqNdJjqq65-1OtbNITo1akCU_i_pcyUwD8WIpUqb2oBTZpp5jVUw-wJu9wOwBXNHywV6bJdeqW5W3hER3vyyTv0-A50eRHnb2QFj8NTPVrX_ThSToQy706NEr579n';
-                await DataController.dc.sendNotification('Khair', token);
-              },
-              child: const Icon(Icons.send,color: Colors.white),
-            ),
           ),
           isLoading ? const LoadingWidget() : Container()
         ],

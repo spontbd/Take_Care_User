@@ -1,17 +1,12 @@
-import 'dart:developer';
-import 'dart:ui';
-
 import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
-import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/widgets/check_box.dart';
 import 'package:intl/intl.dart';
-
 import '../../controllers/language_controller.dart';
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/notifications.dart';
@@ -34,7 +29,7 @@ var showBottom = false;
 var addedlist = false;
 
 class _OnDemandPageState extends State<OnDemandPage> {
-  Icon cusIcon = Icon(Icons.search, color: Colors.black);
+  Icon cusIcon = const Icon(Icons.search, color: Colors.black);
   Widget cusSearchbar = Text(
     "On Demand",
     style: TextStyle(color: Colors.black, fontSize: dynamicSize(0.03)),
@@ -111,8 +106,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                                     color: Colors.white),
                                               ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
+                                            const Padding(
+                                              padding: EdgeInsets.only(
                                                   left: 8.0),
                                               child: Icon(
                                                 Icons.keyboard_arrow_up,
@@ -145,13 +140,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         flex: 2,
                         child: InkWell(
                           onTap: () async{
-
-
                             await DataControllers.to.getProviderList("1", "1");
                             late PickResult selectedPlace;
-
-
-
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -164,20 +154,11 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                     usePinPointingSearch: true,
                                     onPlacePicked: (result) {
                                       selectedPlace = result;
-
-
-
                                     //  Navigator.of(context).pop();
                                       setState(() {
                                         selectedPlace = result;
-
                                       });
-
-
-
-
                                     },
-
                                     //forceSearchOnZoomChanged: true,
                                     automaticallyImplyAppBarLeading: false,
                                     //autocompleteLanguage: "ko",
@@ -194,23 +175,23 @@ class _OnDemandPageState extends State<OnDemandPage> {
 
                                         borderRadius: BorderRadius.circular(12.0),
                                         child: state == SearchingState.Searching
-                                            ? Center(child: CircularProgressIndicator())
+                                            ? const Center(child: CircularProgressIndicator())
                                             : RaisedButton(
                                           color: AllColor.pink_button,
-                                          child: Text("Search Service Provider around You",style: TextStyle(color: Colors.white),),
+                                          child: Text("Search Service Provider around You",style: const TextStyle(color: Colors.white),),
                                           onPressed: () {
                                             // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
                                             //            this will override default 'Select here' Button.
-
                                             Navigator.of(context).pop();
-                                            print("placeucode: "+selectedPlace.toString());
-                                            print("placeucode: "+selectedPlace!.latitude.toString());
-                                            print("placeucode: "+selectedPlace.longitude.toString());
-                                            print("placeucode: "+selectedPlace.area.toString());
-
+                                            if (kDebugMode) {
+                                              print("placeucode: "+selectedPlace.toString());
+                                              print("placeucode: "+selectedPlace!.latitude.toString());
+                                              print("placeucode: "+selectedPlace.longitude.toString());
+                                              print("placeucode: "+selectedPlace.area.toString());
+                                            }
                                             Navigator.push(
                                               context,
-                                              MaterialPageRoute(builder: (context) => MapePage(result: selectedPlace)),
+                                              MaterialPageRoute(builder: (context) => MapePage(result: selectedPlace!)),
                                             );
 
                                           },
@@ -228,159 +209,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                 },
                               ),
                             );
-
-
-
-
-
-
-
-
-
-
-        /*                    showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    *//* title: Text(
-                                      "Booking Information",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: dynamicSize(0.03),
-                                          color: Colors.red),
-                                    ),*//*
-                                    actions: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          width: dynamicSize(1),
-                                          alignment: Alignment.topLeft,
-                                          // height: dynamicSize(0.003),
-
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                alignment: Alignment.topLeft,
-                                                child: Text(
-                                                  "Booking Information",
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: dynamicSize(0.08),
-                                              ),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text(
-                                                      "Service For Whom ",
-                                                      style: TextStyle(
-                                                        color: Colors.red,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  InkWell(
-                                                    onTap: () {
-                                                      print("hdjbfdh");
-                                                    },
-                                                    child: Container(
-                                                        child: Text(
-                                                      "Edit",
-                                                      style: TextStyle(
-                                                          color: Colors.red,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: dynamicSize(0.05),
-                                              ),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Name ",
-                                                  ),
-                                                  SizedBox(
-                                                    width: dynamicSize(.3),
-                                                  ),
-                                                  Text(
-                                                    ": Rana Talukdar",
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: dynamicSize(0.03),
-                                              ),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Age ",
-                                                  ),
-                                                  SizedBox(
-                                                    width: dynamicSize(.335),
-                                                  ),
-                                                  Text(
-                                                    ": 87 years",
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: dynamicSize(0.03),
-                                              ),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Contact Number",
-                                                  ),
-                                                  SizedBox(
-                                                    width: dynamicSize(.13),
-                                                  ),
-                                                  Text(
-                                                    ": 01758351395",
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                });
-
-                            */
-
                           },
                           child: Container(
                             color: AllColor.button_color,
@@ -390,7 +218,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: 8.0),
+                                  padding: const EdgeInsets.only(left: 8.0),
                                   child: Text(
                                     "Continue",
                                     style: TextStyle(
@@ -402,7 +230,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                 SizedBox(
                                   width: dynamicSize(0.02),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.arrow_forward,
                                   color: Colors.white,
                                 ),
@@ -417,7 +245,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
               : Container(height: .01),
           appBar: AppBar(
             leading: InkWell(
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_back,
                 color: Colors.red,
               ),
@@ -435,11 +263,11 @@ class _OnDemandPageState extends State<OnDemandPage> {
                     print("working");
                     setState(() {
                       cusIcon =
-                          Icon(Icons.cancel, color: AllColor.cancel_icon_color);
+                          const Icon(Icons.cancel, color: AllColor.cancel_icon_color);
                       cusSearchbar = SizedBox(
                         height: dynamicSize(0.09),
                         child: TextField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             filled: true,
                             fillColor: AllColor.search_field_color,
                             hintText: "Search",
@@ -459,7 +287,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                   } else {
                     print("working2");
                     setState(() {
-                      cusIcon = Icon(Icons.search, color: Colors.black);
+                      cusIcon = const Icon(Icons.search, color: Colors.black);
                       cusSearchbar = Text(
                         "On Demand",
                         style: TextStyle(
@@ -472,7 +300,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
               ),
             ],
             bottom: PreferredSize(
-              preferredSize: Size(25, 25),
+              preferredSize: const Size(25, 25),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Padding(
@@ -487,19 +315,19 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         },
                         child: Container(
                           child: Row(
-                            children: [
+                            children: const [
                               Padding(
-                                padding: const EdgeInsets.only(
+                                padding: EdgeInsets.only(
                                     left: 8.0, right: 4, top: 4, bottom: 4),
                                 child: Icon(Icons.filter_alt_outlined),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(
+                                padding: EdgeInsets.only(
                                     left: 4.0, right: 4, top: 4, bottom: 4),
                                 child: Text('Categories'),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(
+                                padding: EdgeInsets.only(
                                     left: 4.0, right: 8, top: 4, bottom: 4),
                                 child: Icon(Icons.arrow_drop_down),
                               ),
@@ -523,14 +351,14 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         },
                         child: Container(
                           child: Row(
-                            children: [
+                            children: const [
                               Padding(
-                                padding: const EdgeInsets.only(
+                                padding: EdgeInsets.only(
                                     left: 10.0, right: 4, top: 4, bottom: 4),
                                 child: Icon(Icons.verified_outlined),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(
+                                padding: EdgeInsets.only(
                                     left: 4.0, right: 10, top: 4, bottom: 4),
                                 child: Text('Popualar'),
                               ),
@@ -550,19 +378,19 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => FeedBackPage()),
+                                builder: (context) => const FeedBackPage()),
                           );
                         },
                         child: Container(
                           child: Row(
-                            children: [
+                            children: const [
                               Padding(
-                                padding: const EdgeInsets.only(
+                                padding: EdgeInsets.only(
                                     left: 10.0, right: 4, top: 4, bottom: 4),
                                 child: Icon(Icons.shopping_cart_outlined),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(
+                                padding: EdgeInsets.only(
                                     left: 4.0, right: 10, top: 4, bottom: 4),
                                 child: Text('Token Before'),
                               ),
@@ -590,7 +418,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
               (index) => Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                    /* borderRadius: BorderRadius.circular(8.0),*/
                     color: Colors.white,
                     boxShadow: [
@@ -608,18 +436,16 @@ class _OnDemandPageState extends State<OnDemandPage> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 0, top: 10,bottom: 10),
+                        margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
                         child:
-
 /*
-
                         ClipRRect(
                           child: ImageFiltered(
                             imageFilter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                             child:*/
 
                             Card(
-                              margin: EdgeInsets.only(left: 0),
+                              margin: const EdgeInsets.only(left: 0),
                               semanticContainer: true,
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               shape: RoundedRectangleBorder(
@@ -646,11 +472,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                             ,
                         /*  ),
                         ),*/
-
-
-
-
-
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -681,7 +502,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           ),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                      /* SizedBox(
                         height: dynamicSize(0.02),
                       ),*/
@@ -694,8 +515,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         child: Container(
                           height: dynamicSize(0.10),
                           width: dynamicSize(0.12),
-                          margin: EdgeInsets.only(bottom: 20),
-                          child: Card(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          child: const Card(
                             color: AllColor.pink_button,
                             margin: EdgeInsets.only(left: 0,right: 0),
                             semanticContainer: true,
@@ -750,14 +571,14 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.cancel,
                           color: Colors.white,
                           size: 35,
                         ))),
                 Container(
                   height: dynamicSize(0.86),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: AllColor.buttomdialog,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(15.0),
@@ -829,7 +650,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                 margin: EdgeInsets.only(left: 0,right: 0),
                                 semanticContainer: true,
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                                shape: RoundedRectangleBorder(
+                                shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(15),
                                       topLeft: Radius.circular(15)
