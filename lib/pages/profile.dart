@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
@@ -105,7 +106,7 @@ class _ProfileState extends State<Profile> {
                         cursorHeight: dynamicSize(0.06),
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Nazmul Hassan Sohan',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
+                            hintText: DataControllers.to.userLoginResponse.value.data!.user!.fullName,hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
 
                         ),
                       )
@@ -156,7 +157,7 @@ class _ProfileState extends State<Profile> {
                         cursorHeight: dynamicSize(0.06),
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'mnhsohan@gmail.com',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
+                            hintText: DataControllers.to.userLoginResponse.value.data!.user!.email,hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
 
                         ),
                       )
@@ -165,7 +166,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             ),
-            Padding(
+           /* Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 color: Colors.white,
@@ -216,7 +217,7 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
               ),
-            ),
+            ),*/
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -260,7 +261,7 @@ class _ProfileState extends State<Profile> {
                         cursorHeight: dynamicSize(0.06),
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: '+8801685475384',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
+                            hintText: DataControllers.to.userLoginResponse.value.data!.user!.phone,hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
 
                         ),
                       )

@@ -392,23 +392,13 @@ class _HomePageState extends State<HomePage> {
                                     viewportFraction: 1.0,
                                     aspectRatio: 2.5,
                                     initialPage: 0,
-
-
                                       onPageChanged: (index, reason) {
                                         setState(() {
                                           _current = index;
                                         });
                                       }
-
                                   ),
-
                                 )
-
-
-
-
-
-
                               ),
                             ],
                           ),
@@ -647,16 +637,6 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           height: dynamicSize(0.08),
                         ),
-                        /*     Text(
-                      DataControllers.to.userLoginResponse.value.data !=
-                          null
-                          ? "${DataControllers.to.userLoginResponse.value.data!.user!.fullName}"
-                          : '',
-                      style: TextStyle(
-                          fontSize: dynamicSize(0.05),
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),*/
                         SizedBox(
                           height: dynamicSize(0.02),
                         ),
@@ -706,9 +686,14 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 20, top: 30),
-                        child: Container(
+                        child: InkWell(
+                          onTap: (){
+                            goToOtherHistory();
+                          },
+                          child: Expanded(
+
                             child: Row(
-                          children: [
+                              children: [
                             Image.asset(
                               "assets/images/service_history.png",
                               fit: BoxFit.fill,
@@ -718,10 +703,7 @@ class _HomePageState extends State<HomePage> {
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: TextButton(
                                   onPressed: () {
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                OrderHistoryPage()));
+                                    goToOtherHistory();
                                   },
                                   child: Text(
                                     "Order History",
@@ -730,14 +712,20 @@ class _HomePageState extends State<HomePage> {
                                         color: Colors.black),
                                   ),
                                 )),
-                          ],
-                        )),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 20, top: 15),
-                        child: Container(
-                            child: Row(
-                          children: [
+                        child: InkWell(
+                          onTap: (){
+                            goToProfile();
+                          },
+                          child: Flexible(
+                            child:
+                            Row(children: [
                             Image.asset(
                               "assets/images/profile_setup.png",
                               fit: BoxFit.fill,
@@ -748,9 +736,7 @@ class _HomePageState extends State<HomePage> {
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: TextButton(
                                   onPressed: () {
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (_) => Profile()));
+                                    goToProfile();
                                   },
                                   child: Text(
                                     "Profile",
@@ -759,8 +745,10 @@ class _HomePageState extends State<HomePage> {
                                         color: Colors.black),
                                   ),
                                 )),
-                          ],
-                        )),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 15, left: 20),
@@ -1023,6 +1011,20 @@ class _HomePageState extends State<HomePage> {
       message = "Good Night!";
     }
     return message;
+  }
+
+  void goToProfile() {
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+            builder: (_) => Profile()));
+
+  }
+
+  void goToOtherHistory() {
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+            builder: (_) =>
+                OrderHistoryPage()));
   }
 }
 
