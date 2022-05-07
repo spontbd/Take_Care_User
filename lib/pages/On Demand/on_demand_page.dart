@@ -262,8 +262,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                   if (cusIcon.icon == Icons.search) {
                     print("working");
                     setState(() {
-                      cusIcon =
-                          const Icon(Icons.cancel, color: AllColor.cancel_icon_color);
+                      cusIcon = const Icon(Icons.cancel, color: AllColor.cancel_icon_color);
                       cusSearchbar = SizedBox(
                         height: dynamicSize(0.09),
                         child: TextField(
@@ -340,8 +339,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         ),
                       ),
                       SizedBox(
-                        width: dynamicSize(0.03),
-                      ),
+                        width: dynamicSize(0.03)),
                       InkWell(
                         onTap: () {
                         /*  Navigator.push(
@@ -857,30 +855,30 @@ class _OnDemandPageState extends State<OnDemandPage> {
                               showButtonListDialog(context);
                               DataControllers.to.getCategoriesResponse.value.data!.length  =  DataControllers.to.getCategoriesResponse.value.data!.length  ;
                             });
-                          }
-                          ,
+                          },
                           child: Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),)),
                     ],
                   ),
-                  Container(
-                    height: dynamicSize(1.10),
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child:
-                          ListView(
-                        children: List.generate(
-                          DataControllers.to.getCategoriesResponse.value.data!.length,
-                          (index) => Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "${DataControllers.to.getCategoriesResponse.value.data![index].categoryName}",
-                                style: TextStyle(fontSize: dynamicSize(0.05)),
-                              ),
-                              CheckBox(),
-                            ],
+                  Expanded(
+                    child: Container(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child:
+                            ListView(
+                          children: List.generate(
+                            DataControllers.to.getCategoriesResponse.value.data!.length,
+                            (index) => Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "${DataControllers.to.getCategoriesResponse.value.data![index].categoryName}",
+                                  style: TextStyle(fontSize: dynamicSize(0.05)),
+                                ),
+                                CheckBox(),
+                              ],
+                            ),
                           ),
                         ),
                       ),

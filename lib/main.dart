@@ -58,7 +58,6 @@ class _MyAppState extends State<MyApp> {
             'Message ID: ${event.messageId}\n');
       }
       NotificationService.display(event);
-
     });
 
     ///When App Minimized
