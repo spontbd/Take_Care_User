@@ -342,15 +342,10 @@ class _MapePageState extends State<MapePage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         onPressed: () async{
-                          await dc.createRequest(DataControllers.to.getAvailableProviderList.value.data![requestIndex].phone!.toString());
-                         // _readdb_onechild();
-                          //ageChange();
-                          //dataChange();
+                          await dc.createRequest(DataControllers.to.getAvailableProviderList.value.data![requestIndex],widget.result);
                           Navigator.push(context,
                             MaterialPageRoute(builder: (context) =>  RequestPage(requestIndex)),
                           );
-
-
                         },
                         //padding: EdgeInsets.all(10.0),
                         color: AllColor.pink_button,

@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../model/status_model.dart';
 /*
 import 'package:maplibre_gl/mapbox_gl.dart';
 */
@@ -18,7 +20,14 @@ class Variables {
   static bool categoryCheckBoxValue  = false;
   static late  SharedPreferences storeSharedPreferences;
   //static late DatabaseReference dbref  = FirebaseDatabase.instance.reference();
-  static List<String> requestStatus = ['pending', 'approved', 'decline', 'confirmed'];
+  static List<String> engagedStatus = ['engaged', 'not_engaged'];
+  static List<StatusModel> orderStatusData = [
+    StatusModel(statusCode: 4, statusName: 'Placed'),
+    StatusModel(statusCode: 5, statusName: 'Accepted'),
+    StatusModel(statusCode: 6, statusName: 'Denied'),
+    StatusModel(statusCode: 7, statusName: 'Completed'),
+    StatusModel(statusCode: 8, statusName: 'Waiting For Review'),
+    StatusModel(statusCode: 9, statusName: 'Fully Done')];
 
 //static final initLatLngEdit = LatLng(23.8567844, 90.213108);
 

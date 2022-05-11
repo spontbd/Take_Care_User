@@ -57,5 +57,4 @@ class Service {
     serviceId: json["service_id"],
     serviceQuantity: json["service_quantity"],
   );
-
 }

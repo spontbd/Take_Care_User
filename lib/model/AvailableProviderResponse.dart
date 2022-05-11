@@ -16,18 +16,18 @@ class AvailableProviderResponse {
 
   bool? success;
   String? message;
-  List<Datum>? data;
+  List<Providerdata>? data;
 
   factory AvailableProviderResponse.fromJson(Map<String, dynamic> json) => AvailableProviderResponse(
     success: json["success"],
     message: json["message"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<Providerdata>.from(json["data"].map((x) => Providerdata.fromJson(x))),
   );
 
 }
 
-class Datum {
-  Datum({
+class Providerdata {
+  Providerdata({
     this.id,
     this.fullName,
     this.email,
@@ -75,7 +75,7 @@ class Datum {
   String? updatedAt;
   Role? role;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Providerdata.fromJson(Map<String, dynamic> json) => Providerdata(
     id: json["id"],
     fullName: json["full_name"],
     email: json["email"],

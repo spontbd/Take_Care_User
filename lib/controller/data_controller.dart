@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 import '../controllers/DataContollers.dart';
+import '../model/AvailableProviderResponse.dart';
 import '../pages/On Demand/accepted_page.dart';
 import '../pages/On Demand/confirm_order_page.dart';
 import '../public_variables/notifications.dart';
@@ -98,51 +100,65 @@ class DataController extends GetxController{
   }
 
 
-  Future<void> createRequest(String receiverId) async{
+  Future<void> createRequest(Providerdata providerData,PickResult result) async{
     try{
       loading(true);update();
       QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
-          .where('receiver_id', isEqualTo: receiverId)
-          .where('status', isEqualTo: Variables.requestStatus[0]).get();
+          .where('receiver_id', isEqualTo: providerData.phone.toString())
+          .where('status', isEqualTo: Variables.orderStatusData[0].statusCode).get();
       final List<QueryDocumentSnapshot> requestList = snapshot.docs;
 
       if(requestList.isEmpty){
-        var uuid = const Uuid();
-        final String id = uuid.v1();
-        await FirebaseFirestore.instance.collection('request').doc(id).set({
-          'id': id,
-          'sender_id': DataControllers.to.userLoginResponse.value.data!.user!.phone,
-          'sender_name': DataControllers.to.userLoginResponse.value.data!.user!.fullName,
-          'receiver_id': receiverId,
-          'status': Variables.requestStatus[0],
-          'date_time': DateTime.now().millisecondsSinceEpoch
-        }).whenComplete(()async{
-          loading(false);update();
-          await sendNotification(receiverId);
+        var contain = requestList.where((element)=>element['engage_status']==Variables.engagedStatus[0]);
+        if(contain.isEmpty){
+          var uuid = const Uuid();
+          final String id = uuid.v1();
+          await FirebaseFirestore.instance.collection('request').doc(id).set({
+            'id': id,
+            'sender_id': DataControllers.to.userLoginResponse.value.data!.user!.phone,
+            'sender_name': DataControllers.to.userLoginResponse.value.data!.user!.fullName,
+            'receiver_id': providerData.phone.toString(),
+            'receiver_name': providerData.fullName,
+            'lat': result.latitude,
+            'lng': result.longitude,
+            'booking_address': result.formattedAddress,
+            'order_note': '',
+            'engage_status': Variables.engagedStatus[1],
+            'engage_start_time': null,
+            'engage_end_time': null,
+            'status': Variables.orderStatusData[0].statusCode,
+            'date_time': DateTime.now().millisecondsSinceEpoch
+          }).whenComplete(()async{
+            loading(false);update();
+            await sendNotification(providerData.phone.toString());
 
-          Future.delayed(const Duration(minutes: 3)).then((value)async{
-            QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
-                .where('id', isEqualTo: id).get();
-            final List<QueryDocumentSnapshot> requestList = snapshot.docs;
+            Future.delayed(const Duration(minutes: 3)).then((value)async{
+              QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
+                  .where('id', isEqualTo: id).get();
+              final List<QueryDocumentSnapshot> requestList = snapshot.docs;
 
-            if(requestList[0].get('status')==Variables.requestStatus[0]){
-              await FirebaseFirestore.instance.collection('request').doc(id).update({
-                'status': Variables.requestStatus[2],
-              });
-              showToast('Request not accepted');
-              Navigator.pop(Get.context!);
-            }else if(requestList[0].get('status')==Variables.requestStatus[1]){
-              showToast('Request accepted');
-              Get.to(()=>AcceptedPage(reqDocId: id,receiverId: receiverId));
-            } else if(requestList[0].get('status')==Variables.requestStatus[2]){
-              showToast('Request not declined');
-              Navigator.pop(Get.context!);
-            }else{
-              showToast('Something wrong. Try again');
-              Navigator.pop(Get.context!);
-            }
+              if(requestList[0].get('status')==Variables.orderStatusData[0].statusCode){
+                await FirebaseFirestore.instance.collection('request').doc(id).update({
+                  'status': Variables.orderStatusData[2].statusCode,
+                });
+                showToast('Request not accepted');
+                Navigator.pop(Get.context!);
+              }else if(requestList[0].get('status')==Variables.orderStatusData[1].statusCode){
+                showToast('Request accepted');
+                Get.to(()=>AcceptedPage(reqDocId: id,receiverId: providerData.phone.toString()));
+              } else if(requestList[0].get('status')==Variables.orderStatusData[2].statusCode){
+                showToast('Request not declined');
+                Navigator.pop(Get.context!);
+              }else{
+                showToast('Something wrong. Try again');
+                Navigator.pop(Get.context!);
+              }
+            });
           });
-        });
+        }else{
+          loading(false);update();
+          showToast('Provider engaged! Try again');
+        }
       }else{
         loading(false);update();
         showToast('Provider busy! Try again');
@@ -156,7 +172,7 @@ class DataController extends GetxController{
     try{
       loading(true);update();
       await FirebaseFirestore.instance.collection('request').doc(reqDocId).update({
-        'status': Variables.requestStatus[3],
+        'status': Variables.orderStatusData[3].statusCode,
       }).whenComplete(()async{
         QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users')
             .where('phone', isEqualTo: receiverId).get();
