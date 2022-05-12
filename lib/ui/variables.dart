@@ -20,7 +20,6 @@ class Variables {
   static bool categoryCheckBoxValue  = false;
   static late  SharedPreferences storeSharedPreferences;
   //static late DatabaseReference dbref  = FirebaseDatabase.instance.reference();
-  static List<String> engagedStatus = ['engaged', 'not_engaged'];
   static List<StatusModel> orderStatusData = [
     StatusModel(statusCode: 4, statusName: 'Placed'),
     StatusModel(statusCode: 5, statusName: 'Accepted'),

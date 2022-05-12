@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +13,7 @@ import '../controllers/DataContollers.dart';
 import '../model/AvailableProviderResponse.dart';
 import '../pages/On Demand/accepted_page.dart';
 import '../pages/On Demand/confirm_order_page.dart';
+import '../pages/On Demand/request_page.dart';
 import '../public_variables/notifications.dart';
 import '../ui/variables.dart';
 
@@ -100,7 +102,7 @@ class DataController extends GetxController{
   }
 
 
-  Future<void> createRequest(Providerdata providerData,PickResult result) async{
+  Future<void> createRequest(Providerdata providerData,PickResult result, int requestIndex) async{
     try{
       loading(true);update();
       QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
@@ -109,55 +111,19 @@ class DataController extends GetxController{
       final List<QueryDocumentSnapshot> requestList = snapshot.docs;
 
       if(requestList.isEmpty){
-        var contain = requestList.where((element)=>element['engage_status']==Variables.engagedStatus[0]);
+        var contain = requestList.where((element)=>element['status']==Variables.orderStatusData[1].statusCode);
         if(contain.isEmpty){
-          var uuid = const Uuid();
-          final String id = uuid.v1();
-          await FirebaseFirestore.instance.collection('request').doc(id).set({
-            'id': id,
-            'sender_id': DataControllers.to.userLoginResponse.value.data!.user!.phone,
-            'sender_name': DataControllers.to.userLoginResponse.value.data!.user!.fullName,
-            'receiver_id': providerData.phone.toString(),
-            'receiver_name': providerData.fullName,
-            'lat': result.latitude,
-            'lng': result.longitude,
-            'booking_address': result.formattedAddress,
-            'order_note': '',
-            'engage_status': Variables.engagedStatus[1],
-            'engage_start_time': null,
-            'engage_end_time': null,
-            'status': Variables.orderStatusData[0].statusCode,
-            'date_time': DateTime.now().millisecondsSinceEpoch
-          }).whenComplete(()async{
-            loading(false);update();
-            await sendNotification(providerData.phone.toString());
-
-            Future.delayed(const Duration(minutes: 3)).then((value)async{
-              QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
-                  .where('id', isEqualTo: id).get();
-              final List<QueryDocumentSnapshot> requestList = snapshot.docs;
-
-              if(requestList[0].get('status')==Variables.orderStatusData[0].statusCode){
-                await FirebaseFirestore.instance.collection('request').doc(id).update({
-                  'status': Variables.orderStatusData[2].statusCode,
-                });
-                showToast('Request not accepted');
-                Navigator.pop(Get.context!);
-              }else if(requestList[0].get('status')==Variables.orderStatusData[1].statusCode){
-                showToast('Request accepted');
-                Get.to(()=>AcceptedPage(reqDocId: id,receiverId: providerData.phone.toString()));
-              } else if(requestList[0].get('status')==Variables.orderStatusData[2].statusCode){
-                showToast('Request not declined');
-                Navigator.pop(Get.context!);
-              }else{
-                showToast('Something wrong. Try again');
-                Navigator.pop(Get.context!);
-              }
-            });
-          });
+          await saveData(providerData, result);
+          Get.to(()=>RequestPage(requestIndex));
         }else{
-          loading(false);update();
-          showToast('Provider engaged! Try again');
+          if(DateTime.parse(contain.first['engage_end_time'])
+              .difference(DateTime.now()).inMinutes>10){
+            await saveData(providerData, result);
+            Get.to(()=>RequestPage(requestIndex));
+          }else{
+            loading(false);update();
+            showToast('Provider engaged! Try again');
+          }
         }
       }else{
         loading(false);update();
@@ -167,6 +133,53 @@ class DataController extends GetxController{
       showToast(e.toString());
     }
   }
+
+  Future<void> saveData(Providerdata providerData,PickResult result)async{
+    var uuid = const Uuid();
+    final String id = uuid.v1();
+    await FirebaseFirestore.instance.collection('request').doc(id).set({
+      'id': id,
+      'sender_id': DataControllers.to.userLoginResponse.value.data!.user!.phone,
+      'sender_name': DataControllers.to.userLoginResponse.value.data!.user!.fullName,
+      'receiver_id': providerData.phone.toString(),
+      'receiver_name': providerData.fullName,
+      'lat': result.latitude,
+      'lng': result.longitude,
+      'booking_address': result.formattedAddress,
+      'order_note': '',
+      'engage_start_time': null,
+      'engage_end_time': null,
+      'status': Variables.orderStatusData[0].statusCode,
+      'date_time': DateTime.now().millisecondsSinceEpoch
+    }).whenComplete(()async{
+      loading(false);update();
+      await sendNotification(providerData.phone.toString());
+      Future.delayed(const Duration(minutes: 3)).then((value)async{
+        QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
+            .where('id', isEqualTo: id).get();
+        final List<QueryDocumentSnapshot> requestList = snapshot.docs;
+
+        if(requestList.first.get('status')==Variables.orderStatusData[0].statusCode){
+          await FirebaseFirestore.instance.collection('request').doc(id).update({
+            'status': Variables.orderStatusData[2].statusCode,
+          });
+          showToast('Request not accepted');
+          Navigator.pop(Get.context!);
+        }else if(requestList.first.get('status')==Variables.orderStatusData[1].statusCode){
+          showToast('Request accepted');
+          Get.to(()=>AcceptedPage(reqDocId: id,receiverId: providerData.phone.toString()));
+        }else if(requestList[0].get('status')==Variables.orderStatusData[2].statusCode){
+          showToast('Request declined');
+          Navigator.pop(Get.context!);
+        }else{
+          showToast('Something wrong. Try again');
+          Navigator.pop(Get.context!);
+        }
+      });
+    });
+  }
+
+
 
   Future<void> confirmOrder(String reqDocId, String receiverId)async{
     try{

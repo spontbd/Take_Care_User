@@ -47,7 +47,8 @@ class _MapePageState extends State<MapePage> {
 //  double get result => null;
 
   @override
-  void initState() {
+  void initState()
+  {
     super.initState();
     selected = DataControllers.to.getAvailableProviderList.value.data!.map<bool>((v) => false).toList();
   }
@@ -207,6 +208,7 @@ class _MapePageState extends State<MapePage> {
                           alignment: Alignment.center,
                           height: dynamicSize(1),
                           child: ListView(
+                            physics: NeverScrollableScrollPhysics(),
                             children: List.generate(
                               DataControllers.to.getAvailableProviderList.value.data!.length,
                                   (index) => Padding(
@@ -233,7 +235,7 @@ class _MapePageState extends State<MapePage> {
                                               Positioned(
                                                 child: ClipRRect(
                                                   borderRadius:
-                                                  BorderRadius.all(const Radius.circular(30)),
+                                                  const BorderRadius.all(Radius.circular(30)),
                                                   child: CachedNetworkImage(
                                                     height: 55,
                                                     width: 55,
@@ -342,10 +344,7 @@ class _MapePageState extends State<MapePage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         onPressed: () async{
-                          await dc.createRequest(DataControllers.to.getAvailableProviderList.value.data![requestIndex],widget.result);
-                          Navigator.push(context,
-                            MaterialPageRoute(builder: (context) =>  RequestPage(requestIndex)),
-                          );
+                          await dc.createRequest(DataControllers.to.getAvailableProviderList.value.data![requestIndex],widget.result,requestIndex);
                         },
                         //padding: EdgeInsets.all(10.0),
                         color: AllColor.pink_button,
