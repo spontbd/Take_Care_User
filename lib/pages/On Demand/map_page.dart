@@ -52,7 +52,7 @@ class _MapePageState extends State<MapePage> {
     super.initState();
     selected = DataControllers.to.getAvailableProviderList.value.data!.map<bool>((v) => false).toList();
   }
-  List<Marker> markers =[];
+  List<Marker> markers = [];
   //var seats[];
   List<bool> selected = [];
   var requestIndex;

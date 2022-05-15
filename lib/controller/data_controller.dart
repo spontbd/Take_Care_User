@@ -107,6 +107,7 @@ class DataController extends GetxController{
       loading(true);update();
       QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
           .where('receiver_id', isEqualTo: providerData.phone.toString())
+          .where('sender_id', isEqualTo: DataControllers.to.userLoginResponse.value.data!.user!.phone)
           .where('status', isEqualTo: Variables.orderStatusData[0].statusCode).get();
       final List<QueryDocumentSnapshot> requestList = snapshot.docs;
 
