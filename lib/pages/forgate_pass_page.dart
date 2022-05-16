@@ -3,7 +3,7 @@ import 'package:takecare_user/pages/recover_pass_page.dart';
 
 import '../public_variables/all_colors.dart';
 import '../public_variables/size_config.dart';
-import '../widgets/text_field_tile.dart';
+
 
 class ForgatePassPage extends StatefulWidget {
   const ForgatePassPage({Key? key}) : super(key: key);
