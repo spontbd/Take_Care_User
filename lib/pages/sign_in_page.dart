@@ -457,7 +457,9 @@ class _SignInPageState extends State<SignInPage>  {
                       hintText: lng.password.value,
                       obscure: true),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+                    },
                     child: Text(lng.forgotPassword.value,
                         style: TextStyle(
                             color: Colors.pink, fontSize: dynamicSize(0.035))),
