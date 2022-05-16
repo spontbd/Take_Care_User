@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
+import 'package:takecare_user/pages/forgate_pass_page.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/pages/sign_up_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
@@ -458,7 +459,8 @@ class _SignInPageState extends State<SignInPage>  {
                       obscure: true),
                   TextButton(
                     onPressed: () {
-
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (_) => const ForgatePassPage()));
                     },
                     child: Text(lng.forgotPassword.value,
                         style: TextStyle(
