@@ -105,37 +105,38 @@ class DataController extends GetxController{
   Future<void> createRequest(Providerdata providerData,PickResult result, int requestIndex) async{
     try{
       loading(true);update();
-      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
-          .where('receiver_id', isEqualTo: providerData.phone.toString())
-          .where('sender_id', isEqualTo: DataControllers.to.userLoginResponse.value.data!.user!.phone)
-          .where('status', isEqualTo: Variables.orderStatusData[0].statusCode).get();
-      final List<QueryDocumentSnapshot> requestList = snapshot.docs;
+      QuerySnapshot receiverShot = await FirebaseFirestore.instance.collection('request')
+          .where('receiver_id', isEqualTo: providerData.phone.toString()).get();
+      final List<QueryDocumentSnapshot>  lst1 = receiverShot.docs;
+      List<QueryDocumentSnapshot> receiverList = lst1.where((element) => element['status']==Variables.orderStatusData[0].statusCode || element['status']==Variables.orderStatusData[1].statusCode).toList();
 
-      if(requestList.isEmpty){
-        var contain = requestList.where((element)=>element['status']==Variables.orderStatusData[1].statusCode);
-        if(contain.isEmpty){
-          await saveData(providerData, result);
-          Get.to(()=>RequestPage(requestIndex));
-        }else{
-          if(DateTime.parse(contain.first['engage_end_time'])
-              .difference(DateTime.now()).inMinutes>10){
-            await saveData(providerData, result);
-            Get.to(()=>RequestPage(requestIndex));
-          }else{
-            loading(false);update();
-            showToast('Provider engaged! Try again');
-          }
-        }
+      QuerySnapshot senderShot = await FirebaseFirestore.instance.collection('request')
+          .where('sender_id', isEqualTo: providerData.phone.toString()).get();
+      final List<QueryDocumentSnapshot> lst2 = senderShot.docs;
+      List<QueryDocumentSnapshot> senderList = lst2.where((element) => element['status']==Variables.orderStatusData[0].statusCode || element['status']==Variables.orderStatusData[1].statusCode).toList();
+
+      if(senderList.isNotEmpty){
+        loading(false);update();
+        showToast('You already busy with a Provider');
+      } else if(receiverList.isNotEmpty){
+        loading(false);update();
+        showToast('Provider busy now! Try again');
+      } else if(receiverList.isEmpty && senderList.isEmpty){
+        saveData(providerData, result, requestIndex);
       }else{
         loading(false);update();
-        showToast('Provider busy! Try again');
+        showToast('Something went wrong! Try again');
       }
     }catch(e){
-      showToast(e.toString());
+      loading(false);update();
+      showToast('Something went wrong! Try again');
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 
-  Future<void> saveData(Providerdata providerData,PickResult result)async{
+  Future<void> saveData(Providerdata providerData,PickResult result, int requestIndex)async{
     var uuid = const Uuid();
     final String id = uuid.v1();
     await FirebaseFirestore.instance.collection('request').doc(id).set({
@@ -152,31 +153,36 @@ class DataController extends GetxController{
       'engage_end_time': null,
       'status': Variables.orderStatusData[0].statusCode,
       'date_time': DateTime.now().millisecondsSinceEpoch
-    }).whenComplete(()async{
-      loading(false);update();
-      await sendNotification(providerData.phone.toString());
-      Future.delayed(const Duration(minutes: 3)).then((value)async{
-        QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
-            .where('id', isEqualTo: id).get();
-        final List<QueryDocumentSnapshot> requestList = snapshot.docs;
 
-        if(requestList.first.get('status')==Variables.orderStatusData[0].statusCode){
-          await FirebaseFirestore.instance.collection('request').doc(id).update({
-            'status': Variables.orderStatusData[2].statusCode,
-          });
-          showToast('Request not accepted');
-          Navigator.pop(Get.context!);
-        }else if(requestList.first.get('status')==Variables.orderStatusData[1].statusCode){
-          showToast('Request accepted');
-          Get.to(()=>AcceptedPage(reqDocId: id,receiverId: providerData.phone.toString()));
-        }else if(requestList[0].get('status')==Variables.orderStatusData[2].statusCode){
-          showToast('Request declined');
-          Navigator.pop(Get.context!);
-        }else{
-          showToast('Something wrong. Try again');
-          Navigator.pop(Get.context!);
-        }
-      });
+    }).whenComplete(()async{
+      await sendNotification(providerData.phone.toString());
+      loading(false);update();
+      Get.to(()=>RequestPage(docId: id, requestIndex: requestIndex,receiverId: providerData.phone.toString()));
+    });
+  }
+
+  Future<void> autoCancelRequest(String docId, String receiverId)async{
+    Future.delayed(const Duration(seconds: 10)).then((value)async{
+      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
+          .where('id', isEqualTo: docId).get();
+      final List<QueryDocumentSnapshot> requestList = snapshot.docs;
+
+      if(requestList.first.get('status')==Variables.orderStatusData[0].statusCode){
+        await FirebaseFirestore.instance.collection('request').doc(docId).update({
+          'status': Variables.orderStatusData[2].statusCode,
+        });
+        showToast('Request not accepted');
+        Navigator.pop(Get.context!);
+      }else if(requestList.first.get('status')==Variables.orderStatusData[1].statusCode){
+        showToast('Request accepted');
+        Get.to(()=>AcceptedPage(reqDocId: docId,receiverId: receiverId));
+      }else if(requestList[0].get('status')==Variables.orderStatusData[2].statusCode){
+        showToast('Request declined');
+        Navigator.pop(Get.context!);
+      }else{
+        showToast('Something wrong. Try again');
+        Navigator.pop(Get.context!);
+      }
     });
   }
 
