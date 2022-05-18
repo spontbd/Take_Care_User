@@ -29,17 +29,17 @@ com/baseflow/geolocator/location/BackgroundNotification.java
  com.baseflow.geolocator.location.BackgroundNotification
 com/baseflow/geolocator/permission/PermissionUtils.java
  com.baseflow.geolocator.permission.PermissionUtils
-com/baseflow/geolocator/errors/PermissionUndefinedException.java
- com.baseflow.geolocator.errors.PermissionUndefinedException
 com/baseflow/geolocator/LocationServiceHandlerImpl.java
  com.baseflow.geolocator.LocationServiceHandlerImpl
+com/baseflow/geolocator/errors/PermissionUndefinedException.java
+ com.baseflow.geolocator.errors.PermissionUndefinedException
 com/baseflow/geolocator/location/LocationAccuracyStatus.java
  com.baseflow.geolocator.location.LocationAccuracyStatus
+com/baseflow/geolocator/utils/Utils.java
+ com.baseflow.geolocator.utils.Utils
 com/baseflow/geolocator/GeolocatorPlugin.java
  com.baseflow.geolocator.GeolocatorPlugin
  com.baseflow.geolocator.GeolocatorPlugin$1
-com/baseflow/geolocator/utils/Utils.java
- com.baseflow.geolocator.utils.Utils
 com/baseflow/geolocator/permission/PermissionResultCallback.java
  com.baseflow.geolocator.permission.PermissionResultCallback
 com/baseflow/geolocator/GeolocatorLocationService.java
@@ -63,9 +63,9 @@ com/baseflow/geolocator/location/LocationMapper.java
 com/baseflow/geolocator/location/LocationManagerClient.java
  com.baseflow.geolocator.location.LocationManagerClient
  com.baseflow.geolocator.location.LocationManagerClient$1
-com/baseflow/geolocator/location/AndroidIconResource.java
- com.baseflow.geolocator.location.AndroidIconResource
 com/baseflow/geolocator/StreamHandlerImpl.java
  com.baseflow.geolocator.StreamHandlerImpl
+com/baseflow/geolocator/location/AndroidIconResource.java
+ com.baseflow.geolocator.location.AndroidIconResource
 com/baseflow/geolocator/location/FlutterLocationServiceListener.java
  com.baseflow.geolocator.location.FlutterLocationServiceListener
