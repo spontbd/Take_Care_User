@@ -68,8 +68,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                 children: [
                   SizedBox(height: dynamicSize(0.03),),
                   Stack(
-                    overflow: Overflow.visible,
-                    children: [
+                    clipBehavior: Clip.none, children: [
                       Positioned(
                         child: ClipOval(
                             child: Image.asset(
