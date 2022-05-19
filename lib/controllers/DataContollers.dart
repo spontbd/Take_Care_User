@@ -26,6 +26,8 @@ class DataControllers extends GetxController {
   static DataControllers to = Get.find();
 
   Rx<TextEditingController> name = TextEditingController().obs;
+  Rx<TextEditingController> otp_forget = TextEditingController().obs;
+  Rx<TextEditingController> forgetPasswordMobile = TextEditingController().obs;
   Rx<TextEditingController> password = TextEditingController().obs;
   Rx<TextEditingController> phoneNumber = TextEditingController().obs;
   RxBool isLoading = false.obs;
@@ -44,6 +46,13 @@ class DataControllers extends GetxController {
 
   Rx<ErrorResponse> addServiceResponse = ErrorResponse().obs;
   Rx<UserServiceResponse> userServiceResponse = UserServiceResponse().obs;
+
+
+
+  /// Forget password
+
+  Rx<ErrorResponse> forgetPassMobileOtpResponse = ErrorResponse().obs;
+  Rx<ErrorResponse> forgetPassConfirm = ErrorResponse().obs;
 
 
   /// AddCard
@@ -152,6 +161,40 @@ class DataControllers extends GetxController {
       // responseSuccess(true);
     }
   }
+
+
+  /// Forget password
+
+  Future forgetPassMobileValidation( String number) async {
+    isLoading(true);
+    var response =
+    await ApiService.forgetPassMobileValidation(number);
+
+    if (response != null) {
+      forgetPassMobileOtpResponse.value = response;
+      // responseSuccess(true);
+    }
+
+    isLoading(false);
+
+    return forgetPassMobileOtpResponse.value;
+  }
+
+ Future forgetPassConfirmMethod(String number,String otp,String newPass) async {
+    isLoading(true);
+    var response =
+    await ApiService.forgetPassConfirm(number,otp,newPass);
+
+    if (response != null) {
+      forgetPassConfirm.value = response;
+      // responseSuccess(true);
+    }
+
+    isLoading(false);
+
+    return forgetPassConfirm.value;
+  }
+
 
 
     Future addCard( String service_id, String date) async {
