@@ -93,24 +93,23 @@ class _AddressesPageState extends State<AddressesPage> {
                      Row(
                        children: [
                          Icon(Icons.location_on_outlined,color: Colors.green,),
-
                          SizedBox(
-                           //height: dynamicSize(0.2),
-                             width: dynamicSize(1),
-                             child: TextField (
-                               // controller: et_gallery,
-                               enabled: editAddress,
-                               focusNode: address,
-                               cursorHeight: dynamicSize(0.06),
-                               decoration: InputDecoration(
-                                   border: InputBorder.none,
-                                   hintText: 'Heaven Palace, Uttara, Dhaka',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
+                           width: MediaQuery.of(context).size.width/1.4,
+                           child: TextField (
+                             // controller: et_gallery,
+                             enabled: editAddress,
+                             focusNode: address,
+                             cursorHeight: dynamicSize(0.05),
+                             decoration: InputDecoration(
+                                 border: InputBorder.none,
+                                 hintText: 'Heaven Palace, Uttara, Dhaka',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
 
-                               ),
-                             )
+                             ),
+                           ),
                          ),
                        ],
-                     )
+                     ),
+
                     ],
                   ),
                 ),

@@ -24,10 +24,10 @@ io/flutter/plugins/firebase/messaging/JobIntentService.java
  io.flutter.plugins.firebase.messaging.JobIntentService$JobServiceEngineImpl$WrapperWorkItem
  io.flutter.plugins.firebase.messaging.JobIntentService$JobWorkEnqueuer
  io.flutter.plugins.firebase.messaging.JobIntentService$WorkEnqueuer
-io/flutter/plugins/firebase/messaging/FlutterFirebaseMessagingStore.java
- io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingStore
 io/flutter/plugins/firebase/messaging/FlutterFirebaseMessagingReceiver.java
  io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingReceiver
+io/flutter/plugins/firebase/messaging/FlutterFirebaseMessagingStore.java
+ io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingStore
 io/flutter/plugins/firebase/messaging/FlutterFirebaseMessagingInitProvider.java
  io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider
 io/flutter/plugins/firebase/messaging/PluginRegistrantException.java
