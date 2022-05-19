@@ -46,11 +46,11 @@ class _CurrentPageState extends State<CurrentPage> {
                   //height: 100,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(7.0),
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(7.0),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,7 +58,7 @@ class _CurrentPageState extends State<CurrentPage> {
                               Container(
                                 color: AllColor.shado_color,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "On Demnad",
                                     style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.04)),
@@ -66,11 +66,11 @@ class _CurrentPageState extends State<CurrentPage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(7.0),
                                 child: Text(
                                   "BDT 500",
                                   style: TextStyle(
-                                      fontSize: dynamicSize(0.05),
+                                      fontSize: dynamicSize(0.045),
                                       fontWeight: FontWeight.bold,
                                       color: Colors.green),
                                 ),
@@ -89,16 +89,16 @@ class _CurrentPageState extends State<CurrentPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "Attendant for Hospital Visit",
                                     style: TextStyle(
-                                        fontSize: dynamicSize(0.06),
+                                        fontSize: dynamicSize(0.05),
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(7.0),
                                     child: Row(
                                       children: [
                                         Icon(
@@ -189,7 +189,7 @@ class _CurrentPageState extends State<CurrentPage> {
                               Container(
                                 color: AllColor.shado_color,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "On Demnad",
                                     style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.04)),
@@ -197,18 +197,18 @@ class _CurrentPageState extends State<CurrentPage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(7.0),
                                 child: Text(
                                   "07 days service",
-                                  style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold),
+                                  style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.045),fontWeight: FontWeight.bold),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(7.0),
                                 child: Text(
                                   "BDT 500",
                                   style: TextStyle(
-                                      fontSize: dynamicSize(0.05),
+                                      fontSize: dynamicSize(0.045),
                                       fontWeight: FontWeight.bold,
                                       color: Colors.green),
                                 ),
@@ -228,11 +228,11 @@ class _CurrentPageState extends State<CurrentPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "Dementia Care for Adult",
                                     style: TextStyle(
-                                        fontSize: dynamicSize(0.06),
+                                        fontSize: dynamicSize(0.05),
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -269,7 +269,7 @@ class _CurrentPageState extends State<CurrentPage> {
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(7.0),
                                     child: Text(
                                       "09 JAN, 2021",
                                       style: TextStyle(
@@ -281,7 +281,7 @@ class _CurrentPageState extends State<CurrentPage> {
                                   Visibility(
                                     visible: orderAcceped,
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(7.0),
                                       child:   Row(
                                         children: [
                                           Icon(
@@ -341,7 +341,7 @@ class _CurrentPageState extends State<CurrentPage> {
                             child: Container(
                              color: AllColor.white_orange,
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(7.0),
                                 child: Row(
                                   children: [
                                     Icon(Icons.info_outline,color: AllColor.blackOrange,),
@@ -393,11 +393,11 @@ class _CurrentPageState extends State<CurrentPage> {
                   //height: 100,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(7.0),
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(7.0),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -405,7 +405,7 @@ class _CurrentPageState extends State<CurrentPage> {
                               Container(
                                 color: AllColor.shado_color,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "On Demnad",
                                     style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.04)),
@@ -413,11 +413,11 @@ class _CurrentPageState extends State<CurrentPage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(7.0),
                                 child: Text(
                                   "BDT 500",
                                   style: TextStyle(
-                                      fontSize: dynamicSize(0.05),
+                                      fontSize: dynamicSize(0.045),
                                       fontWeight: FontWeight.bold,
                                       color: Colors.green),
                                 ),
@@ -437,7 +437,7 @@ class _CurrentPageState extends State<CurrentPage> {
                               child: Text(
                                 "Attendant for Hospital Visit",
                                 style: TextStyle(
-                                    fontSize: dynamicSize(0.06),
+                                    fontSize: dynamicSize(0.05),
                                     fontWeight: FontWeight.bold),
                               ),
                             ), //height of inner container
@@ -454,7 +454,7 @@ class _CurrentPageState extends State<CurrentPage> {
                           children: [
                             Center(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(7.0),
                                 child: Text(
                                   "09 JAN, 2021",
                                   style: TextStyle(
@@ -463,7 +463,7 @@ class _CurrentPageState extends State<CurrentPage> {
                                 ),
                               ),
                             ),
-                            TextButton(onPressed: (){}, child: Text("Submit Review",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.blue),)),
+                            TextButton(onPressed: (){}, child: Text("Submit Review",style: TextStyle(fontSize: dynamicSize(0.045),color: Colors.blue),)),
                             RaisedButton(
                                 color:AllColor.themeColor,
                                 elevation: 0,
@@ -504,11 +504,11 @@ class _CurrentPageState extends State<CurrentPage> {
                   //height: 100,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(7.0),
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(7.0),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -516,7 +516,7 @@ class _CurrentPageState extends State<CurrentPage> {
                               Container(
                                 color: AllColor.shado_color,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "On Demnad",
                                     style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.04)),
@@ -524,11 +524,11 @@ class _CurrentPageState extends State<CurrentPage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(7.0),
                                 child: Text(
                                   "BDT 500",
                                   style: TextStyle(
-                                      fontSize: dynamicSize(0.05),
+                                      fontSize: dynamicSize(0.045),
                                       fontWeight: FontWeight.bold,
                                       color: Colors.green),
                                 ),
@@ -547,16 +547,16 @@ class _CurrentPageState extends State<CurrentPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "Attendant for Hospital Visit",
                                     style: TextStyle(
-                                        fontSize: dynamicSize(0.06),
+                                        fontSize: dynamicSize(0.05),
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(7.0),
                                     child: Row(
                                       children: [
                                         Icon(
@@ -591,16 +591,16 @@ class _CurrentPageState extends State<CurrentPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "Attendant for Hospital Visit",
                                     style: TextStyle(
-                                        fontSize: dynamicSize(0.06),
+                                        fontSize: dynamicSize(0.05),
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(7.0),
                                     child: Row(
                                       children: [
                                         Icon(
@@ -635,16 +635,16 @@ class _CurrentPageState extends State<CurrentPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "Attendant for Hospital Visit",
                                     style: TextStyle(
-                                        fontSize: dynamicSize(0.06),
+                                        fontSize: dynamicSize(0.05),
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(7.0),
                                     child: Row(
                                       children: [
                                         Icon(
@@ -674,7 +674,7 @@ class _CurrentPageState extends State<CurrentPage> {
                           children: [
                             Center(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(7.0),
                                 child: Text(
                                   "09 JAN, 2021",
                                   style: TextStyle(
@@ -723,11 +723,11 @@ class _CurrentPageState extends State<CurrentPage> {
                   //height: 100,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(7.0),
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(7.0),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -735,7 +735,7 @@ class _CurrentPageState extends State<CurrentPage> {
                               Container(
                                 color: AllColor.shado_color,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "On Demnad",
                                     style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.04)),
@@ -743,26 +743,26 @@ class _CurrentPageState extends State<CurrentPage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(7.0),
                                 child: Row(
                                   children: [
                                     Text(
                                       "01/",
-                                      style: TextStyle(color: Colors.blue,fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold),
+                                      style: TextStyle(color: Colors.blue,fontSize: dynamicSize(0.045),fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       "31 days service",
-                                      style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold),
+                                      style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.045),fontWeight: FontWeight.bold),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(7.0),
                                 child: Text(
                                   "BDT 500",
                                   style: TextStyle(
-                                      fontSize: dynamicSize(0.05),
+                                      fontSize: dynamicSize(0.045),
                                       fontWeight: FontWeight.bold,
                                       color: Colors.green),
                                 ),
@@ -782,11 +782,11 @@ class _CurrentPageState extends State<CurrentPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "Dementia Care for Adult",
                                     style: TextStyle(
-                                        fontSize: dynamicSize(0.06),
+                                        fontSize: dynamicSize(0.05),
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -821,7 +821,7 @@ class _CurrentPageState extends State<CurrentPage> {
                           children: [
                             Center(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(7.0),
                                 child: Text(
                                   "09 JAN, 2021",
                                   style: TextStyle(
@@ -832,7 +832,7 @@ class _CurrentPageState extends State<CurrentPage> {
                             ),
                              SizedBox(width: dynamicSize(0.2),),
                              Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(7.0),
                                     child: Row(
                                       children: [
                                         Icon(
