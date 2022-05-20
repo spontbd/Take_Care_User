@@ -103,7 +103,6 @@ class _AddressesPageState extends State<AddressesPage> {
                              decoration: InputDecoration(
                                  border: InputBorder.none,
                                  hintText: 'Heaven Palace, Uttara, Dhaka',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
-
                              ),
                            ),
                          ),
