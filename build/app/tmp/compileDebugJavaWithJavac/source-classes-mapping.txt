@@ -1,6 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-com/spontit/takecareuser/MainActivity.java
- com.spontit.takecareuser.MainActivity
-com/spontit/takecareuser/BuildConfig.java
- com.spontit.takecareuser.BuildConfig
