@@ -32,8 +32,7 @@ class _DocumentPageState extends State<DocumentPage> {
         child: Column(
           children: [
             Stack(
-              overflow: Overflow.visible,
-              children: [
+              clipBehavior: Clip.none, children: [
                 Container(
                   height: dynamicSize(.4),
                   width: dynamicSize(1.4),

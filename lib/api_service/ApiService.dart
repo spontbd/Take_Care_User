@@ -585,4 +585,71 @@ class ApiService {
   }
 
 
+
+  ///   Forget Password
+
+  static Future<ErrorResponse?> forgetPassMobileValidation(String number
+      ) async {
+    var response = await client
+        .post(Uri.parse(BaseURL + 'forgot-password'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+    },
+      body: jsonEncode(<String, String>{
+
+        'phone': number,
+      }),
+
+    );
+
+    print("Api Response : ${response}");
+
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return errorResponseFromJson(jsonString);
+    } else {
+      DataControllers.to.forgetPassMobileOtpResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.forgetPassMobileOtpResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.forgetPassMobileOtpResponse.value;
+    }
+  }
+
+
+  static Future<ErrorResponse?> forgetPassConfirm(String number, String otp, String newPass
+      ) async {
+    var response = await client
+        .post(Uri.parse(BaseURL + 'change-password-by-otp'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+    },
+      body: jsonEncode(<String, String>{
+
+        'phone': number,
+        'otp': otp,
+        'new_password': newPass,
+      }),
+
+    );
+
+    print("Api Response : ${response}");
+
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return errorResponseFromJson(jsonString);
+    } else {
+      DataControllers.to.forgetPassConfirm.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.forgetPassConfirm.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.forgetPassConfirm.value;
+    }
+  }
 }

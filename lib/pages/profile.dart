@@ -11,7 +11,6 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
-
 class _ProfileState extends State<Profile> {
   bool name = false;
   bool email = false;
@@ -19,14 +18,11 @@ class _ProfileState extends State<Profile> {
   bool mobile_number = false;
   bool age = false;
 
-
   late FocusNode Name;
   late FocusNode Email;
   late FocusNode Password;
   late FocusNode Mobile_Number;
   late FocusNode Age;
-
-
 
   @override
   void initState() {
@@ -83,8 +79,272 @@ class _ProfileState extends State<Profile> {
                           InkWell(
                               onTap: () {
                                 setState(() {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                            " You want to edit profile ?",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: dynamicSize(0.05),
+                                                color: Colors.red),
+                                          ),
+                                          actions: [
+                                            Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: dynamicSize(0.07),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Container(
+                                                    color: Colors.white,
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Padding(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                "Name",
+                                                                style: TextStyle(fontSize: dynamicSize(0.05)),
+                                                              ),
+
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                            padding: const EdgeInsets.all(8.0),
+                                                            child: TextField(
+                                                              // controller: et_gallery,
+                                                              enabled: name,
+                                                              focusNode: Name,
+                                                              cursorHeight: dynamicSize(0.06),
+                                                              decoration: InputDecoration(
+                                                                  border: InputBorder.none,
+                                                                  hintText: DataControllers
+                                                                      .to.userLoginResponse.value.data!.user!.fullName,
+                                                                  hintStyle: TextStyle(
+                                                                      color: Colors.black,
+                                                                      fontWeight: FontWeight.bold)),
+                                                            )),
+
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Container(
+                                                    color: Colors.white,
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Padding(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                "Email",
+                                                                style: TextStyle(fontSize: dynamicSize(0.05)),
+                                                              ),
+
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                            padding: const EdgeInsets.all(8.0),
+                                                            child: TextField(
+                                                              // controller: et_gallery,
+                                                              enabled: name,
+                                                              focusNode: FocusNode(),
+                                                              cursorHeight: dynamicSize(0.06),
+                                                              decoration: InputDecoration(
+                                                                  border: InputBorder.none,
+                                                                  hintText: DataControllers
+                                                                      .to.userLoginResponse.value.data!.user!.email,
+                                                                  hintStyle: TextStyle(
+                                                                      color: Colors.black,
+                                                                      fontWeight: FontWeight.bold)),
+                                                            )),
+
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Container(
+                                                    color: Colors.white,
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Padding(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                "Mobile Number",
+                                                                style: TextStyle(fontSize: dynamicSize(0.05)),
+                                                              ),
+
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                            padding: const EdgeInsets.all(8.0),
+                                                            child: TextField(
+                                                              // controller: et_gallery,
+                                                              enabled: name,
+                                                              focusNode: FocusNode(),
+                                                              cursorHeight: dynamicSize(0.06),
+                                                              decoration: InputDecoration(
+                                                                  border: InputBorder.none,
+                                                                  hintText: DataControllers
+                                                                      .to.userLoginResponse.value.data!.user!.phone,
+                                                                  hintStyle: TextStyle(
+                                                                      color: Colors.black,
+                                                                      fontWeight: FontWeight.bold)),
+                                                            )),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(left: 8.0, bottom: 8),
+                                                          child: Container(
+                                                            width: dynamicSize(0.3),
+                                                            decoration: BoxDecoration(
+                                                              color: AllColor.shado_color,
+                                                              borderRadius: BorderRadius.all(
+                                                                Radius.circular(12.0),
+                                                              ),
+                                                            ),
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons.done,
+                                                                  color: Colors.green,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: dynamicSize(0.02),
+                                                                ),
+                                                                Text(
+                                                                  "Verified",
+                                                                  style: TextStyle(color: Colors.green),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+
+                                                Row(
+                                                  children: [
+                                                    Flexible(
+                                                      flex: 1,
+                                                      child: SizedBox(
+                                                        height:
+                                                            dynamicSize(0.10),
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        child: Container(
+                                                          child: RaisedButton(
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .only(
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                        10.0),
+                                                              ),
+                                                            ),
+                                                            onPressed:
+                                                                () async {
+                                                              Navigator.pop(
+                                                                  context);
+
+                                                              /* Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Dashboard()),
+            );*/
+                                                            },
+                                                            //color: AllColor.button_color,
+                                                            textColor:
+                                                                Colors.black,
+                                                            child: Text(
+                                                              "NO",
+                                                              style: TextStyle(
+                                                                  fontSize: 18),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      height: dynamicSize(0.1),
+                                                      width: dynamicSize(0.003),
+                                                      color: Colors.grey,
+                                                    ),
+                                                    Flexible(
+                                                      flex: 1,
+                                                      child: SizedBox(
+                                                        height:
+                                                            dynamicSize(0.10),
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        child: Container(
+                                                          child: RaisedButton(
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .only(
+                                                                bottomRight: Radius
+                                                                    .circular(
+                                                                        10.0),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {
+                                                             /* Navigator.pop(context);
+                                                              setState(() => addedservice = true);
+                                                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ServiceRequestFormPage()),
+                                                              );*/
+                                                              //showBottomSheetAddedDialog(context);
+                                                            },
+                                                            //color: AllColor.button_color,
+                                                            textColor:
+                                                                Colors.black,
+                                                            child: Text(
+                                                              "YES",
+                                                              style: TextStyle(
+                                                                  fontSize: 18,
+                                                                  color: Colors
+                                                                      .lightBlue),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      });
                                   name = true;
-                                  Name =FocusNode();
+                                  Name = FocusNode();
                                   Name.requestFocus();
                                 });
                               },
@@ -98,19 +358,19 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child:  TextField (
-                        // controller: et_gallery,
-                        enabled: name,
-                        focusNode: Name,
-                        cursorHeight: dynamicSize(0.06),
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: DataControllers.to.userLoginResponse.value.data!.user!.fullName,hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          // controller: et_gallery,
 
-                        ),
-                      )
-                    ),
+                          cursorHeight: dynamicSize(0.06),
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: DataControllers.to.userLoginResponse
+                                  .value.data!.user!.fullName,
+                              hintStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                        )),
                   ],
                 ),
               ),
@@ -124,100 +384,30 @@ class _ProfileState extends State<Profile> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Email",
-                            style: TextStyle(fontSize: dynamicSize(0.05)),
-                          ),
-                          InkWell(
-                              onTap: () {
-                                setState(() {
-                                  email =true;
-                                  Email=FocusNode();
-                                  Email.requestFocus();
-                                });
-                              },
-                              child: Text(
-                                "Edit",
-                                style: TextStyle(
-                                    fontSize: dynamicSize(0.05),
-                                    color: AllColor.themeColor),
-                              ))
-                        ],
+                      child: Text(
+                        "Email",
+                        style: TextStyle(fontSize: dynamicSize(0.05)),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child:  TextField (
-                        // controller: et_gallery,
-                        enabled: email,
-                        focusNode: Email,
-                        cursorHeight: dynamicSize(0.06),
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: DataControllers.to.userLoginResponse.value.data!.user!.email,hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          // controller: et_gallery,
 
-                        ),
-                      )
-                    ),
+                          cursorHeight: dynamicSize(0.06),
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: DataControllers
+                                  .to.userLoginResponse.value.data!.user!.email,
+                              hintStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                        )),
                   ],
                 ),
               ),
             ),
-           /* Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                color: Colors.white,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Password",
-                            style: TextStyle(fontSize: dynamicSize(0.05)),
-                          ),
-                          InkWell(
-                              onTap: () {
-                                setState(() {
-                                  password = true;
-                                  Password= FocusNode();
-                                  Password.requestFocus();
-                                });
-                              },
-                              child: Text(
-                                "Edit",
-                                style: TextStyle(
-                                    fontSize: dynamicSize(0.05),
-                                    color: AllColor.themeColor),
-                              ))
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child:  TextField (
-                        obscureText: true,
-                        // controller: et_gallery,
-                        enabled: password,
-                        focusNode: Password,
-                        cursorHeight: dynamicSize(0.06),
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: '******',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
 
-                        ),
-                      )
-                    ),
-                  ],
-                ),
-              ),
-            ),*/
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -234,40 +424,26 @@ class _ProfileState extends State<Profile> {
                             "Mobile Number",
                             style: TextStyle(fontSize: dynamicSize(0.05)),
                           ),
-                          InkWell(
-                              onTap: () {
-                                setState(() {
-                                  mobile_number = true;
-                                  Mobile_Number= FocusNode();
-                                  Mobile_Number.requestFocus();
-                                });
-                              },
-                              child: Text(
-                                "Edit",
-                                style: TextStyle(
-                                    fontSize: dynamicSize(0.05),
-                                    color: AllColor.themeColor),
-                              )),
 
                         ],
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child:  TextField (
-                        // controller: et_gallery,
-                        enabled: mobile_number,
-                        focusNode: Mobile_Number,
-                        cursorHeight: dynamicSize(0.06),
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: DataControllers.to.userLoginResponse.value.data!.user!.phone,hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          // controller: et_gallery,
 
-                        ),
-                      )
-                    ),
+                          cursorHeight: dynamicSize(0.06),
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: DataControllers
+                                  .to.userLoginResponse.value.data!.user!.phone,
+                              hintStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                        )),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0,bottom: 8),
+                      padding: const EdgeInsets.only(left: 8.0, bottom: 8),
                       child: Container(
                         width: dynamicSize(0.3),
                         decoration: BoxDecoration(
@@ -277,70 +453,28 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                         child: Row(
-mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.done,color: Colors.green,),
-                            SizedBox(width: dynamicSize(0.02),),
-                            Text("Verified",style: TextStyle(color: Colors.green),)
+                            Icon(
+                              Icons.done,
+                              color: Colors.green,
+                            ),
+                            SizedBox(
+                              width: dynamicSize(0.02),
+                            ),
+                            Text(
+                              "Verified",
+                              style: TextStyle(color: Colors.green),
+                            )
                           ],
                         ),
                       ),
                     )
-                    
                   ],
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                color: Colors.white,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Age",
-                            style: TextStyle(fontSize: dynamicSize(0.05)),
-                          ),
-                          InkWell(
-                              onTap: () {
-                                setState(() {
-                                  age = true;
-                                  Age = FocusNode();
-                                  Age.requestFocus();
-                                });
-                              },
-                              child: Text(
-                                "Add",
-                                style: TextStyle(
-                                    fontSize: dynamicSize(0.05),
-                                    color: AllColor.themeColor),
-                              ))
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child:  TextField (
-                        // controller: et_gallery,
-                        enabled: age,
-                        focusNode: Age,
-                        cursorHeight: dynamicSize(0.06),
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: '',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
-                        ),
-                      )
-                    ),
-                  ],
-                ),
-              ),
-            ),
+
           ],
         ),
       ),

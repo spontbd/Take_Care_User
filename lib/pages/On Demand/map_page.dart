@@ -1,18 +1,14 @@
 import 'dart:async';
 import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:takecare_user/controller/data_controller.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
-import 'package:takecare_user/pages/On%20Demand/request_page.dart';
 import 'package:takecare_user/public_variables/notifications.dart';
 import 'package:takecare_user/ui/common.dart';
-import 'package:takecare_user/ui/variables.dart';
-import 'package:uuid/uuid.dart';
 import '../../api_service/ApiService.dart';
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
@@ -52,7 +48,7 @@ class _MapePageState extends State<MapePage> {
     super.initState();
     selected = DataControllers.to.getAvailableProviderList.value.data!.map<bool>((v) => false).toList();
   }
-  List<Marker> markers =[];
+  List<Marker> markers = [];
   //var seats[];
   List<bool> selected = [];
   var requestIndex;
