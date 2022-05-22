@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    checkEngaged();
     getAllService();
   }
 
@@ -76,8 +77,8 @@ class _HomePageState extends State<HomePage> {
           'status': Variables.orderStatusData[2].statusCode,
         });
       }else{
+        showToast('Engaged with a provider');
         Get.to(()=>AcceptedPage(reqDocId: requests.first.get('id'),receiverId: requests.first.get('receiver_id')));
-        showToast('Engaged with a user');
       }
     }
   }
