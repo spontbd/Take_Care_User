@@ -24,9 +24,10 @@ class Variables {
     StatusModel(statusCode: 4, statusName: 'Placed'),
     StatusModel(statusCode: 5, statusName: 'Accepted'),
     StatusModel(statusCode: 6, statusName: 'Denied'),
-    StatusModel(statusCode: 7, statusName: 'Completed'),
-    StatusModel(statusCode: 8, statusName: 'Waiting For Review'),
-    StatusModel(statusCode: 9, statusName: 'Fully Done')];
+    StatusModel(statusCode: 7, statusName: 'Confirmed'),
+    StatusModel(statusCode: 8, statusName: 'Completed'),
+    StatusModel(statusCode: 9, statusName: 'Waiting For Review'),
+    StatusModel(statusCode: 10, statusName: 'Fully Done')];
 
 //static final initLatLngEdit = LatLng(23.8567844, 90.213108);
 

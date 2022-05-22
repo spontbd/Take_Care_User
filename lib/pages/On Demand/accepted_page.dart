@@ -14,7 +14,6 @@ class AcceptedPage extends StatefulWidget {
 }
 
 class _AcceptedPageState extends State<AcceptedPage> {
-
   @override
   void initState() {
     super.initState();
@@ -34,7 +33,6 @@ class _AcceptedPageState extends State<AcceptedPage> {
         backgroundColor: AllColor.themeColor,
           body: SingleChildScrollView(
             child: Column(
-
               children: [
                 SizedBox(
                   height: dynamicSize(0.6),

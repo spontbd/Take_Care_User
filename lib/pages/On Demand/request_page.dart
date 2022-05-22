@@ -27,42 +27,8 @@ class _RequestPageState extends State<RequestPage> {
   void initState() {
     super.initState();
     DataController.dc.autoCancelRequest(widget.docId, widget.receiverId);
-    // _navigateToNavPage();
-
-    //Variables.dbref = FirebaseDatabase.instance.reference();
-    //_readdb_onechild();
   }
 
-  // Future<void> _navigateToNavPage() async {
-  //   Future.delayed(const Duration(seconds: 5))
-  //       .then((value) => Get.offAll(() => const AcceptedPage()));
-  // }
-
-  // _readdb_onechild() {
-  //   String databasejson = '';
-  //
-  //   Variables.dbref
-  //       .child("Request")
-  //       .child(DataControllers
-  //           .to.getAvailableProviderList.value.data![widget.requestIndex].phone!
-  //           .toString())
-  //       .child("request_type")
-  //       .once()
-  //       .then((DataSnapshot dataSnapshot) {
-  //     print(" read once - " + dataSnapshot.value.toString());
-  //     setState(() {
-  //       databasejson = dataSnapshot.value.toString();
-  //       if (databasejson == "cancel") {
-  //         requestForCancel();
-  //       } else if (databasejson == "done") {
-  //
-  //         Navigator.of(context)
-  //             .pushReplacement(MaterialPageRoute(builder: (_) => AcceptedPage()));
-  //
-  //       }
-  //     });
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +37,17 @@ class _RequestPageState extends State<RequestPage> {
       builder: (context, snapshot) {
         if(snapshot.connectionState == ConnectionState.waiting){
           return const Center(child: CircularProgressIndicator());
-        }else if(snapshot.hasData){
+        }
+        else if(snapshot.hasData){
           if(snapshot.data!.get('status')==Variables.orderStatusData[1].statusCode){
-            SchedulerBinding.instance?.addPostFrameCallback((_) {
+            SchedulerBinding.instance!.addPostFrameCallback((_) {
               Get.to(()=>AcceptedPage(reqDocId: widget.docId,receiverId: widget.receiverId));
+            });
+          }
+          else if(snapshot.data!.get('status')==Variables.orderStatusData[2].statusCode){
+            SchedulerBinding.instance!.addPostFrameCallback((_) {
+              showToast('Request Denied');
+              Get.back();
             });
           }
           return SafeArea(

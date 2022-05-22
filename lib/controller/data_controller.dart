@@ -187,7 +187,6 @@ class DataController extends GetxController{
   }
 
 
-
   Future<void> confirmOrder(String reqDocId, String receiverId)async{
     try{
       loading(true);update();
@@ -197,7 +196,7 @@ class DataController extends GetxController{
         QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users')
             .where('phone', isEqualTo: receiverId).get();
         final List<QueryDocumentSnapshot> user = snapshot.docs;
-        final String token = user[0].get('token');
+        final String token = user.first.get('token');
 
         final data = <String,dynamic>{
           'click_action': 'FLUTTER_NOTIFICATION_CLICK',

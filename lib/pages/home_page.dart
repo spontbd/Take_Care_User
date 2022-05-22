@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:takecare_user/pages/Addresses.dart';
 import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
@@ -8,13 +10,14 @@ import 'package:takecare_user/pages/profile.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 import 'package:takecare_user/widgets/CarouselDemo.dart';
-import '../controller/data_controller.dart';
 import '../controllers/DataContollers.dart';
 import '../public_variables/all_colors.dart';
 import '../public_variables/notifications.dart';
 import '../ui/common.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../ui/variables.dart';
 import '../widgets/loading_widget.dart';
+import 'On Demand/accepted_page.dart';
 import 'loved_ones_page.dart';
 import 'order_history/order_history_page.dart';
 
@@ -32,7 +35,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
     getAllService();
   }
 
@@ -56,6 +58,29 @@ class _HomePageState extends State<HomePage> {
   }
   CarouselController buttonCarouselController = CarouselController();
   int _current = 0;
+
+
+  Future<void> checkEngaged()async{
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
+        .where('sender_id', isEqualTo: DataControllers.to.userLoginResponse.value.data!.user!.phone.toString())
+        .where('status',isEqualTo: Variables.orderStatusData[1].statusCode).get();
+    final List<QueryDocumentSnapshot> requests = snapshot.docs;
+
+    if(requests.isEmpty){
+      showToast('Able to get a request from user');
+    } else{
+      if(requests.first.get('engage_end_time')!=null &&
+          DateTime.fromMillisecondsSinceEpoch(requests.first.get('engage_end_time')).difference(DateTime.now()).inMinutes>10){
+        showToast('Able to get a request from user');
+        await FirebaseFirestore.instance.collection('request').doc(requests.first.get('id')).update({
+          'status': Variables.orderStatusData[2].statusCode,
+        });
+      }else{
+        Get.to(()=>AcceptedPage(reqDocId: requests.first.get('id'),receiverId: requests.first.get('receiver_id')));
+        showToast('Engaged with a user');
+      }
+    }
+  }
 
 
 
