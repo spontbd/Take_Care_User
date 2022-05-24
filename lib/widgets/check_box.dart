@@ -21,10 +21,10 @@ class _CheckBoxState extends State<CheckBox> {
             _value = val!;
             setState(() {
               Variables.categoryCheckBoxValue = _value;
-
             });
             print(_value);
           });
+          print('hello');
         });
   }
 }

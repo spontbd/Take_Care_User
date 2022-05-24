@@ -27,6 +27,7 @@ class OnDemandPage extends StatefulWidget {
 var addedservice = false;
 var showBottom = false;
 var addedlist = false;
+late List<bool> _isChecked;
 
 class _OnDemandPageState extends State<OnDemandPage> {
   Icon cusIcon = const Icon(Icons.search, color: Colors.black);
@@ -34,6 +35,17 @@ class _OnDemandPageState extends State<OnDemandPage> {
     "On Demand",
     style: TextStyle(color: Colors.black, fontSize: dynamicSize(0.03)),
   );
+
+
+  @override
+  void initState() {
+    super.initState();
+    setState((){
+      _isChecked = List<bool>.filled(DataControllers.to.getCategoriesResponse.value.data!.length, false);
+    });
+    showBottom = false;
+    getAddCardData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -834,97 +846,81 @@ class _OnDemandPageState extends State<OnDemandPage> {
         context: context,
         builder: (BuildContext bc)
         {
-          return Container(
-            color: Colors.white,
-            /*margin: EdgeInsets.only(left: 10,right: 10),*/
-            height: dynamicSize(2),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          return StatefulBuilder(
+            builder: (context,setSt) {
+              return Container(
+                color: Colors.white,
+                /*margin: EdgeInsets.only(left: 10,right: 10),*/
+                height: dynamicSize(2),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
                     children: [
-                      Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.08),fontWeight: FontWeight.bold),),
-                      InkWell(
-                          onTap: (){
-                            setState(() {
-                            //  showToast("Check");
-                              Navigator.pop(context);
-                              showButtonListDialog(context);
-                              DataControllers.to.getCategoriesResponse.value.data!.length  =  DataControllers.to.getCategoriesResponse.value.data!.length  ;
-                            });
-                          },
-                          child: Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),)),
-                    ],
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child:
-                            ListView(
-                          children: List.generate(
-                            DataControllers.to.getCategoriesResponse.value.data!.length,
-                            (index) => Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "${DataControllers.to.getCategoriesResponse.value.data![index].categoryName}",
-                                  style: TextStyle(fontSize: dynamicSize(0.05)),
-                                ),
-                                CheckBox(),
-                              ],
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.08),fontWeight: FontWeight.bold),),
+                          InkWell(
+                              onTap: (){
+                                  setSt((){_isChecked = List<bool>.filled(DataControllers.to.getCategoriesResponse.value.data!.length, false);});
+                                  setState((){});
+                                  //Navigator.pop(context);
+                              },
+                              child: Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),)),
+                        ],
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child:
+                                ListView(
+                              children: List.generate(
+                                DataControllers.to.getCategoriesResponse.value.data!.length,
+                                (index) => CheckboxListTile(
+                                      title: Text(DataControllers.to.getCategoriesResponse.value.data![index].categoryName!),
+                                      value: _isChecked[index],
+                                      onChanged: (val) {
+                                        setSt(() {_isChecked[index] = val!;});
+                                        setState((){});
+                                      },
+                                    )
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
+
+                      _isChecked.contains(true) ? Padding(
+                          padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
+                          child: ElevatedButton(
+                            onPressed: () async {},
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text('Show Listing',
+                                      style: TextStyle(fontSize: dynamicSize(0.045))),
+                                )
+                              ],
+                            ),
+                          )
+                      )  : Container(),
+
+
+                    ],
                   ),
-
-                  Variables.categoryCheckBoxValue   ? Padding(
-                      padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
-                      child: ElevatedButton(
-                        onPressed: () async
-                        {
-
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text('Show Listing',
-                                  style: TextStyle(fontSize: dynamicSize(0.045))),
-                            )
-                          ],
-                        ),
-                      )
-                  )  : Container(),
-
-
-                ],
-              ),
-            ),
+                ),
+              );
+            }
           );
         });
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
 
-    showBottom = false;
-    getAddCardData();
-    /* if(DataControllers.to.userServiceResponse.value.data!.isNotEmpty)
-      {
-        showBottom = false;
-      }*/
-  }
 
   void getAddCardData() async {
     await DataControllers.to.getCard();
