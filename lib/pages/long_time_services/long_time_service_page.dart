@@ -27,6 +27,7 @@ class LongTimeServicesPage extends StatefulWidget {
 var addedservice = false;
 var showBottom = false;
 var addedlist = false;
+late List<bool> _isChecked;
 
 class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
   Icon cusIcon = Icon(Icons.search, color: Colors.black);
@@ -34,6 +35,8 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
     "Long Time Services",
     style: TextStyle(color: Colors.black, fontSize: dynamicSize(0.03)),
   );
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -854,7 +857,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                               CachedNetworkImage(
                                 width: 120,
                                 imageUrl:
-                                "https://takecare.ltd/${DataControllers.to.longServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                "https://takecare.ltd/${DataControllers.to.getCategoriesResponse.value.data![index].categoryName /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
 
                                 errorWidget: (context, url, error) => Image.asset(
                                   "assets/images/image.png",
@@ -914,7 +917,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
         });
   }
 
-  void showButtonListDialog(BuildContext context) {
+ /* void showButtonListDialog(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
@@ -943,14 +946,96 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
             ),
           );
         });
-  }
+  }*/
 
+
+
+  void showButtonListDialog(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc)
+        {
+          return StatefulBuilder(
+              builder: (context,setSt) {
+                return Container(
+                  color: Colors.white,
+                  /*margin: EdgeInsets.only(left: 10,right: 10),*/
+                  height: dynamicSize(2),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.08),fontWeight: FontWeight.bold),),
+                            InkWell(
+                                onTap: (){
+                                  setSt((){_isChecked = List<bool>.filled(DataControllers.to.getCategoriesResponse.value.data!.length, false);});
+                                  setState((){});
+                                  //Navigator.pop(context);
+                                },
+                                child: Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),)),
+                          ],
+                        ),
+                        Expanded(
+                          child: Container(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child:
+                              ListView(
+                                children: List.generate(
+                                    DataControllers.to.getCategoriesResponse.value.data!.length,
+                                        (index) => CheckboxListTile(
+                                      title: Text(DataControllers.to.getCategoriesResponse.value.data![index].categoryName!),
+                                      value: _isChecked[index],
+                                      onChanged: (val) {
+                                        setSt(() {_isChecked[index] = val!;});
+                                        setState((){});
+                                      },
+                                    )
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        _isChecked.contains(true) ? Padding(
+                            padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
+                            child: ElevatedButton(
+                              onPressed: () async {},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text('Show Listing',
+                                        style: TextStyle(fontSize: dynamicSize(0.045))),
+                                  )
+                                ],
+                              ),
+                            )
+                        )  : Container(),
+
+
+                      ],
+                    ),
+                  ),
+                );
+              }
+          );
+        });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    setState((){
+      _isChecked = List<bool>.filled(DataControllers.to.getCategoriesResponse.value.data!.length, false);
+    });
     showBottom = false;
     getAddCardData();
     /* if(DataControllers.to.userServiceResponse.value.data!.isNotEmpty)
