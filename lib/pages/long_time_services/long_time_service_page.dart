@@ -11,9 +11,9 @@ import '../../public_variables/all_colors.dart';
 import '../../public_variables/notifications.dart';
 import '../../public_variables/size_config.dart';
 import '../../ui/common.dart';
-import '../../widgets/check_box.dart';
+
 import '../On Demand/feedback_page.dart';
-import '../On Demand/map_page.dart';
+
 import '../home_page.dart';
 
 class LongTimeServicesPage extends StatefulWidget {
