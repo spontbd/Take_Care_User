@@ -917,36 +917,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
         });
   }
 
- /* void showButtonListDialog(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext bc) {
-          return Container(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child:
 
-              ListView(
-                children: List.generate(
-                  DataControllers.to.getCategoriesResponse.value.data!.length,
-                      (index) => Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "${DataControllers.to.getCategoriesResponse.value.data![index].categoryName}",
-                        style: TextStyle(fontSize: dynamicSize(0.05)),
-                      ),
-                      CheckBox(),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );
-        });
-  }*/
 
 
 
