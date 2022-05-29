@@ -16,7 +16,7 @@ import '../../ui/variables.dart';
 import '../sign_in_page.dart';
 import 'feedback_page.dart';
 import 'map_page.dart';
-
+import 'package:blurrycontainer/blurrycontainer.dart';
 class OnDemandPage extends StatefulWidget {
   const OnDemandPage({Key? key}) : super(key: key);
 
@@ -52,208 +52,228 @@ class _OnDemandPageState extends State<OnDemandPage> {
     return GetBuilder<LanguageController>(builder: (lc) {
       return Scaffold(
           bottomNavigationBar: showBottom
-              ? Container(
-                  height: dynamicSize(0.2),
-                  color: AllColor.button_color,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          color: Colors.red,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                alignment: Alignment.topLeft,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 8.0, top: 5),
-                                  child: Text(
-                                    "On Demand",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.035),
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                              addedlist
-                                  ? Container(
-                                      alignment: Alignment.topLeft,
-                                      child: InkWell(
-                                        onTap: () {
-                                          BottomSheetAddedListDialog(context);
-                                        },
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 8.0, top: 5),
-                                              child: Text(
-                                                DataControllers
-                                                    .to
-                                                    .getAddCardResponse
-                                                    .value
-                                                    .data!
-                                                    .length
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    fontSize: dynamicSize(0.04),
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.only(top: 5),
-                                              child: Text(
-                                                " Service Added",
-                                                style: TextStyle(
-                                                    fontSize: dynamicSize(0.04),
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                            const Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 8.0),
-                                              child: Icon(
-                                                Icons.keyboard_arrow_up,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  : Container(
-                                      alignment: Alignment.topLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 8.0, top: 5),
-                                        child: Text(
-                                          "Attendant for Hospital Visit",
-                                          style: TextStyle(
-                                              fontSize: dynamicSize(0.04),
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                                    )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: InkWell(
-                          onTap: () async{
-                            await DataControllers.to.getProviderList("1", "1");
-                            late PickResult selectedPlace;
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return PlacePicker(
-                                    apiKey: "MjY5MzpHMEVBUExBNVM5",
-                                    initialPosition: SignInPage.initLatLng,
-                                    useCurrentLocation: true,
-                                    selectInitialPosition: true,
-                                    usePinPointingSearch: true,
-                                    onPlacePicked: (result) {
-                                      selectedPlace = result;
-                                    //  Navigator.of(context).pop();
-                                      setState(() {
-                                        selectedPlace = result;
-                                      });
-                                    },
-                                    //forceSearchOnZoomChanged: true,
-                                    automaticallyImplyAppBarLeading: false,
-                                    //autocompleteLanguage: "ko",
-                                    //region: 'au',
-                                    selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
-                                      print("state: $state, isSearchBarFocused: $isSearchBarFocused");
-                                      return isSearchBarFocused
-                                          ? Container()
-                                          : FloatingCard(
-                                        bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
-                                        leftPosition: 0.0,
-                                        rightPosition: 0.0,
-                                        width: 500,
-
-                                        borderRadius: BorderRadius.circular(12.0),
-                                        child: state == SearchingState.Searching
-                                            ? const Center(child: CircularProgressIndicator())
-                                            : RaisedButton(
-                                          color: AllColor.pink_button,
-                                          child: Text("Search Service Provider around You",style: const TextStyle(color: Colors.white),),
-                                          onPressed: () {
-                                            // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
-                                            //            this will override default 'Select here' Button.
-                                            Navigator.of(context).pop();
-                                            if (kDebugMode) {
-                                              print("placeucode: "+selectedPlace.toString());
-                                              print("placeucode: "+selectedPlace!.latitude.toString());
-                                              print("placeucode: "+selectedPlace.longitude.toString());
-                                              print("placeucode: "+selectedPlace.area.toString());
-                                            }
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(builder: (context) => MapePage(result: selectedPlace!)),
-                                            );
-
-                                          },
-                                        ),
-                                      );
-                                    },
-                                    // pinBuilder: (context, state) {
-                                    //   if (state == PinState.Idle) {
-                                    //     return Icon(Icons.favorite_border);
-                                    //   } else {
-                                    //     return Icon(Icons.favorite);
-                                    //   }
-                                    // },
-                                  );
-                                },
-                              ),
-                            );
-                          },
+              ? BlurryContainer(
+            blur: 30,
+            // color: Colors.white.withOpacity(0.15)
+            elevation: 0,
+            color: Colors.transparent.withOpacity(0.001),
+            padding: const EdgeInsets.all(12),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+                child: Container(
+                  height: dynamicSize(0.18),
+                  decoration: const BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(20)),
+                  ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          flex: 3,
                           child: Container(
-                            color: AllColor.button_color,
-                            alignment: Alignment.center,
-                            child: Row(
+                            decoration: const BoxDecoration(
+                              color: AllColor.themeColor,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5.0),bottomLeft:Radius.circular(5.0) ),
+                            ),
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Text(
-                                    "Continue",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.04),
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 8.0, top: 5),
+                                    child: Text(
+                                      "On Demand",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.035),
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
                                   ),
                                 ),
-                                SizedBox(
-                                  width: dynamicSize(0.02),
-                                ),
-                                const Icon(
-                                  Icons.arrow_forward,
-                                  color: Colors.white,
-                                ),
+                                addedlist
+                                    ? Container(
+                                        alignment: Alignment.topLeft,
+                                        child: InkWell(
+                                          onTap: () {
+                                            BottomSheetAddedListDialog(context);
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 8.0, top: 5),
+                                                child: Text(
+                                                  DataControllers
+                                                      .to
+                                                      .getAddCardResponse
+                                                      .value
+                                                      .data!
+                                                      .length
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      fontSize: dynamicSize(0.04),
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.only(top: 5),
+                                                child: Text(
+                                                  " Service Added",
+                                                  style: TextStyle(
+                                                      fontSize: dynamicSize(0.04),
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                              const Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 8.0),
+                                                child: Icon(
+                                                  Icons.keyboard_arrow_up,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    : Container(
+                                        alignment: Alignment.topLeft,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8.0, top: 5),
+                                          child: Text(
+                                            "Attendant for Hospital Visit",
+                                            style: TextStyle(
+                                                fontSize: dynamicSize(0.04),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      )
                               ],
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          flex: 2,
+                          child: InkWell(
+                            onTap: () async{
+                              await DataControllers.to.getProviderList("1", "1");
+                              late PickResult selectedPlace;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return PlacePicker(
+                                      apiKey: "MjY5MzpHMEVBUExBNVM5",
+                                      initialPosition: SignInPage.initLatLng,
+                                      useCurrentLocation: true,
+                                      selectInitialPosition: true,
+                                      usePinPointingSearch: true,
+                                      onPlacePicked: (result) {
+                                        selectedPlace = result;
+                                      //  Navigator.of(context).pop();
+                                        setState(() {
+                                          selectedPlace = result;
+                                        });
+                                      },
+                                      //forceSearchOnZoomChanged: true,
+                                      automaticallyImplyAppBarLeading: false,
+                                      //autocompleteLanguage: "ko",
+                                      //region: 'au',
+                                      selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
+                                        print("state: $state, isSearchBarFocused: $isSearchBarFocused");
+                                        return isSearchBarFocused
+                                            ? Container()
+                                            : FloatingCard(
+                                          bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
+                                          leftPosition: 0.0,
+                                          rightPosition: 0.0,
+                                          width: 500,
+
+                                          borderRadius: BorderRadius.circular(12.0),
+                                          child: state == SearchingState.Searching
+                                              ? const Center(child: CircularProgressIndicator())
+                                              : RaisedButton(
+                                            color: AllColor.pink_button,
+                                            child: Text("Search Service Provider around You",style: const TextStyle(color: Colors.white),),
+                                            onPressed: () {
+                                              // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
+                                              //            this will override default 'Select here' Button.
+                                              Navigator.of(context).pop();
+                                              if (kDebugMode) {
+                                                print("placeucode: "+selectedPlace.toString());
+                                                print("placeucode: "+selectedPlace!.latitude.toString());
+                                                print("placeucode: "+selectedPlace.longitude.toString());
+                                                print("placeucode: "+selectedPlace.area.toString());
+                                              }
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(builder: (context) => MapePage(result: selectedPlace!)),
+                                              );
+
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      // pinBuilder: (context, state) {
+                                      //   if (state == PinState.Idle) {
+                                      //     return Icon(Icons.favorite_border);
+                                      //   } else {
+                                      //     return Icon(Icons.favorite);
+                                      //   }
+                                      // },
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: AllColor.button_color,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(5.0),bottomRight:Radius.circular(5.0) ),
+                              ),
+                              alignment: Alignment.center,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      "Continue",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.04),
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: dynamicSize(0.02),
+                                  ),
+                                  const Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                )
+              )
               : Container(height: .01),
           appBar: AppBar(
             leading: InkWell(
@@ -276,7 +296,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                     setState(() {
                       cusIcon = const Icon(Icons.cancel, color: AllColor.cancel_icon_color);
                       cusSearchbar = SizedBox(
-                        height: dynamicSize(0.09),
+                        height: dynamicSize(0.1),
                         child: TextField(
                           decoration: const InputDecoration(
                             filled: true,
@@ -503,10 +523,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           ],
                         ),
                       ),
-                      const Spacer(),
                       InkWell(
                         onTap: () {
-                          print("object");
                           addCard(index);
                         },
                         child: Container(
@@ -970,22 +988,21 @@ class _OnDemandPageState extends State<OnDemandPage> {
     String formattedDate = formatter.format(now);
 
     await DataControllers.to.addCard(
-      /*  DataControllers.to.userLoginResponse.value
-            .data!.user!.id
-            .toString(),*/
         DataControllers.to.shortServiceResponse
             .value.data!.data![index].id
             .toString(),
         formattedDate);
 
-    showToast(DataControllers.to.addCardResponse.value.message!, AllColor.blue);
 
 
     if (DataControllers
         .to.addCardResponse.value.success!) {
       Common.storeSharedPreferences.setString("service", "short");
-
       getAddCardData();
     }
+    else
+      {
+        showToast(DataControllers.to.addCardResponse.value.message!, AllColor.blue);
+      }
   }
 }

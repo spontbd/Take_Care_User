@@ -285,6 +285,7 @@ class DataControllers extends GetxController {
     Future postLogin(String phone_number, String pass) async {
       isLoading(true);
       var response ;
+      userLoginResponse = UserLoginResponse().obs;
       try {
         final result = await InternetAddress.lookup('google.com');
         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {

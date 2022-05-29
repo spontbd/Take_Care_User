@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,7 +9,6 @@ import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
-
 import '../controller/data_controller.dart';
 import 'package:takecare_user/public_variables/notifications.dart';
 import '../controllers/DataContollers.dart';
@@ -636,7 +633,7 @@ class ApiService {
 
     );
 
-    print("Api Response : ${response}");
+        print("Api Response : ${response}");
 
     if (response.statusCode == 200) {
       print("Api Response : ${response.body}");

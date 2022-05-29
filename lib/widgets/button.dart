@@ -5,6 +5,7 @@ import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 
+/*
 class HomeButton extends StatelessWidget {
   const HomeButton({Key? key}) : super(key: key);
 
@@ -65,3 +66,4 @@ class HomeButton extends StatelessWidget {
     );
   }
 }
+*/

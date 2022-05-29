@@ -40,6 +40,13 @@ packages:
       url: "https://github.com/barikoi/barikoi_map_place_picker.git"
     source: git
     version: "1.0.0"
+  blurrycontainer:
+    dependency: "direct main"
+    description:
+      name: blurrycontainer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   boolean_selector:
     dependency: transitive
     description:

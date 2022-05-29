@@ -520,49 +520,44 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                         "assets/images/image.png",
                       ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, left: 5),
-                          child: Text(
-                            "${DataControllers.to.longServiceResponse.value.data!.data![index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.04),
-                                fontWeight: FontWeight.bold),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0, left: 5),
+                            child: Text(
+                              "${DataControllers.to.longServiceResponse.value.data!.data![index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
+                              style: TextStyle(
+                                  fontSize: dynamicSize(0.04),
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.02),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            showButtonDialog(context, index);
-                          },
-                          child: Text(
-                            "Details",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.035),
-                                color: Colors.purple),
+                          SizedBox(
+                            height: dynamicSize(0.02),
                           ),
-                        ),
-                      ],
+                          TextButton(
+                            onPressed: () {
+                              showButtonDialog(context, index);
+                            },
+                            child: Text(
+                              "Details",
+                              style: TextStyle(
+                                  fontSize: dynamicSize(0.035),
+                                  color: Colors.purple),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    Spacer(),
+
                     InkWell(
                       onTap: () {
                         print("object");
-                        // Navigator.pop(context);
                         addCard(index);
                       },
                       child:
-
-                      //  DataControllers.to.shortServiceResponse.value.data![index].status == "Done" ?
-
-                      /* Image.asset(
-                        "assets/images/done_image.png",
-                      ) :*/
                       Image.asset(
                         "assets/images/add.png",
                       ),
@@ -1048,25 +1043,25 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
     String formattedDate = formatter.format(now);
 
     await DataControllers.to.addCard(
-   /*     DataControllers.to.userLoginResponse.value
-            .data!.user!.id
-            .toString(),*/
         DataControllers.to.longServiceResponse
             .value.data!.data![index].id
             .toString(),
         formattedDate);
 
-    showToast(
-        DataControllers
-            .to.addCardResponse.value.message!,
-        AllColor.blue);
+
 
     if (DataControllers
         .to.addCardResponse.value.success!)
     {
       Common.storeSharedPreferences.setString("service", "long");
       getAddCardData();
-    }
+    }else
+      {
+        showToast(
+            DataControllers
+                .to.addCardResponse.value.message!,
+            AllColor.blue);
+      }
   }
 
 
