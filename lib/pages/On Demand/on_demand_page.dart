@@ -447,90 +447,100 @@ class _OnDemandPageState extends State<OnDemandPage> {
               DataControllers.to.shortServiceResponse.value.data!.data!.length,
               (index) => Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Container(
-                  decoration: const BoxDecoration(
-                   /* borderRadius: BorderRadius.circular(8.0),*/
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 2.0,
-                        spreadRadius: 0.0,
-                        offset:
-                            Offset(2.0, 2.0), // shadow direction: bottom right
-                      )
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
-                        child: Card(
-                              margin: const EdgeInsets.only(left: 0),
-                              semanticContainer: true,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(15),
-                                    topRight: Radius.circular(15)
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                       /* borderRadius: BorderRadius.circular(8.0),*/
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 2.0,
+                            spreadRadius: 0.0,
+                            offset:
+                                Offset(2.0, 2.0), // shadow direction: bottom right
+                          )
+                        ],
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
+                            child: Card(
+                                  margin: const EdgeInsets.only(left: 0),
+                                  semanticContainer: true,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(15),
+                                        topRight: Radius.circular(15)
+                                        ),
+                                  ),
+                                  elevation: 10,
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.fill,
+                                    width: 120,
+                                    imageUrl:
+                                    "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                    /*progressIndicatorBuilder:
+                                        (context, url, downloadProgress) =>
+                                        CircularProgressIndicator(),*/
+                                    errorWidget: (context, url, error) => Image.asset(
+                                      "assets/images/image.png",
                                     ),
-                              ),
-                              elevation: 10,
-                              child: CachedNetworkImage(
-                                fit: BoxFit.fill,
-                                width: 120,
-                                imageUrl:
-                                "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-                                /*progressIndicatorBuilder:
-                                    (context, url, downloadProgress) =>
-                                    CircularProgressIndicator(),*/
-                                errorWidget: (context, url, error) => Image.asset(
-                                  "assets/images/image.png",
+                                  ),
                                 ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only( left: 10),
+                                    child: Text(
+                                      "${DataControllers.to.shortServiceResponse.value.data!.data![index].serviceName}",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.04),
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: dynamicSize(0.07),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      showButtonDialog(context, index);
+                                    },
+                                    child: Text(
+                                      "Details",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.035),
+                                          color: Colors.purple),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
+                          ),
+                        ],
                       ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0, left: 5),
-                              child: Text(
-                                "${DataControllers.to.shortServiceResponse.value.data!.data![index].serviceName}",
-                                style: TextStyle(
-                                    fontSize: dynamicSize(0.04),
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            SizedBox(
-                              height: dynamicSize(0.06),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                showButtonDialog(context, index);
-                              },
-                              child: Text(
-                                "Details",
-                                style: TextStyle(
-                                    fontSize: dynamicSize(0.035),
-                                    color: Colors.purple),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      InkWell(
+                    ),
+                    Positioned(
+                      bottom: 20.0,
+                      right: 0.0,
+
+                      child: InkWell(
                         onTap: () {
                           addCard(index);
                         },
                         child: Container(
                           height: dynamicSize(0.10),
                           width: dynamicSize(0.12),
-                          margin: const EdgeInsets.only(bottom: 20),
                           child: const Card(
                             color: AllColor.pink_button,
                             margin: EdgeInsets.only(left: 0,right: 0),
@@ -547,9 +557,10 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           ),
                         )
 
-                      ),
-                    ],
-                  ),
+                    ),
+
+                    )
+                  ],
                 ),
               ),
             ),
@@ -564,7 +575,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
         context: context,
         builder: (BuildContext bc) {
           return Container(
-            height: dynamicSize(1),
             child: Column(
               children: [
                 Align(
@@ -579,7 +589,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           size: 35,
                         ))),
                 Container(
-                  height: dynamicSize(0.86),
+                  height: dynamicSize(0.7),
                   decoration: const BoxDecoration(
                     color: AllColor.buttomdialog,
                     borderRadius: BorderRadius.only(
@@ -620,7 +630,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0, top: 30),
                                   child: Text(
@@ -637,14 +646,13 @@ class _OnDemandPageState extends State<OnDemandPage> {
                               ],
                             ),
                           ),
-                       
                           InkWell(
                             onTap: () async {
                               Navigator.pop(context);
                               addCard(index);
                             },
                             child: Container(
-                              height: dynamicSize(0.10),
+                              height: dynamicSize(0.09),
 
                               margin: EdgeInsets.only(top: 66),
                               child: Card(
@@ -684,7 +692,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                               ),
                             ),
                           ),
-
                         ],
                       ),
 
@@ -701,8 +708,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           ),
                         ),
                       ),
-
-
                     ],
                   ),
                 ),
@@ -733,7 +738,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           size: 35,
                         ))),
                 Container(
-
                   color: AllColor.card_bg,
                   height: dynamicSize(0.55),
                   child: ListView(
@@ -743,8 +747,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       (index) => Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Container(
-
-
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.0),
                             color: Colors.white,
@@ -776,63 +778,28 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                   width: 120,
                                   imageUrl:
                                   "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-
                                   errorWidget: (context, url, error) => Image.asset(
                                     "assets/images/image.png",
                                   ),
                                 ),
                               ),
-
-
-                              /*
-
-                              CachedNetworkImage(
-                                width: 120,
-                                imageUrl:
-                                "https://takecare.ltd/${DataControllers.to.getAddCardResponse.value.data![index].imagePath *//* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath *//*}",
-                                progressIndicatorBuilder:
-                                    (context, url, downloadProgress) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) => Image.asset(
-                                  "assets/images/image.png",
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0, left: 5,right: 10),
+                                      child: Text(
+                                        "${DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName}",
+                                        style: TextStyle(
+                                            fontSize: dynamicSize(0.04),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-
-                              */
-
-
-
-
-
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8.0, left: 5),
-                                    child: Text(
-                                      "${DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName}",
-                                      style: TextStyle(
-                                          fontSize: dynamicSize(0.04),
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: dynamicSize(0.02),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      "",
-                                      style: TextStyle(
-                                          fontSize: dynamicSize(0.035),
-                                          color: Colors.purple),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
                               Container(
                                 height: 40,
                                 width: 40,

@@ -68,16 +68,15 @@ class _HomePageState extends State<HomePage> {
     final List<QueryDocumentSnapshot> requests = snapshot.docs;
 
     if(requests.isEmpty){
-      showToast('Able to get a request from user');
+
     } else{
       if(requests.first.get('engage_end_time')!=null &&
           DateTime.fromMillisecondsSinceEpoch(requests.first.get('engage_end_time')).difference(DateTime.now()).inMinutes>10){
-        showToast('Able to get a request from user');
+
         await FirebaseFirestore.instance.collection('request').doc(requests.first.get('id')).update({
           'status': Variables.orderStatusData[2].statusCode,
         });
       }else{
-        showToast('Engaged with a provider');
         Get.to(()=>AcceptedPage(reqDocId: requests.first.get('id'),receiverId: requests.first.get('receiver_id')));
       }
     }
@@ -136,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                                             .value.data!.user!.fullName
                                             .toString()),
                                     style: TextStyle(
-                                        fontSize: 25,
+                                        fontSize: 22,
                                         color: AllColor
                                             .colorDashboardOnDemand_blue))),
                           ],
@@ -156,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                       scrollDirection: Axis.vertical,
                       child: Column(
                         children: [
-                          SizedBox(height: dynamicSize(.18)),
+                          SizedBox(height: dynamicSize(.10)),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: Container(
@@ -467,7 +466,7 @@ class _HomePageState extends State<HomePage> {
                                 )),
                           ),
                           Container(
-                            height: dynamicSize(.58),
+                            height: dynamicSize(.55),
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: DataControllers
@@ -495,7 +494,7 @@ class _HomePageState extends State<HomePage> {
                                     }
                                   },
                                   child: Container(
-                                    width: size.width / 2.5,
+                                    width: size.width / 2.42,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       /*borderRadius: BorderRadius.circular(8),*/
@@ -511,21 +510,9 @@ class _HomePageState extends State<HomePage> {
                                     child: Column(
                                       children: [
                                         Container(
-                                          height: dynamicSize(0.35),
+                                          height: dynamicSize(0.3),
                                           width:
                                               MediaQuery.of(context).size.width,
-                                          /*    decoration: BoxDecoration(
-                                            // color: Colors.pinkAccent,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(3)),
-
-                                            image: DecorationImage(
-                                              image:   AssetImage(
-                                                  "assets/images/pet.png"),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),*/
-
                                           child: CachedNetworkImage(
 
                                             fit: BoxFit.fill,
@@ -565,11 +552,11 @@ class _HomePageState extends State<HomePage> {
                                         Container(
                                             alignment: Alignment.topLeft,
                                             margin: EdgeInsets.only(
-                                                left: 4, bottom: 5, top: 5),
+                                                left: 4, bottom: 5, top: 2),
                                             child: Text(
                                               "Starts from ${DataControllers.to.getCategoriesResponse.value.data![index].startPrice!.isNaN ? "0.00" : DataControllers.to.getCategoriesResponse.value.data![index].startPrice!} Tk",
                                               style: TextStyle(
-                                                  fontSize: dynamicSize(0.038)),
+                                                  fontSize: dynamicSize(0.035)),
                                             )),
                                       ],
                                     ),

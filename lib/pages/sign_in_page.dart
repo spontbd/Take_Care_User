@@ -429,7 +429,8 @@ class _SignInPageState extends State<SignInPage> {
       onProgressBar(false);
       //  isLoading = false;
     }
-    if (DataControllers.to.userLoginResponse.value.success == true) {
+    if (DataControllers.to.userLoginResponse.value.success == true)
+    {
       onProgressBar(false);
       // isLoading = false;
       // Get.offAll(HomePage());
@@ -438,20 +439,12 @@ class _SignInPageState extends State<SignInPage> {
           DataControllers.to.userLoginResponse.value.data!.token.toString();
 
       await DataControllers.to.getAllCategories();
-      Common.storeSharedPreferences
-          .setString('userid', user);
-      Common.storeSharedPreferences
-          .setString('pass', pass);
-      Fluttertoast.showToast(
-          msg: DataControllers.to.userLoginResponse.value.message ?? "Login",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.indigoAccent,
-          textColor: Colors.white,
-          fontSize: 16.0);
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
-    }
+      Common.storeSharedPreferences.setString('userid', user);
+      Common.storeSharedPreferences.setString('pass', pass);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
+    }else
+      {
+        showToast(DataControllers.to.userLoginResponse.value.message ?? "Login");
+      }
   }
 }
