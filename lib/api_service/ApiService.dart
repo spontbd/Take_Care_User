@@ -8,6 +8,7 @@ import 'package:takecare_user/model/AvailableProviderResponse.dart';
 import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
+import 'package:takecare_user/model/SaveAddressResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
 import '../controller/data_controller.dart';
 import 'package:takecare_user/public_variables/notifications.dart';
@@ -117,7 +118,7 @@ class ApiService {
 
 
 
-  static Future<RegisterResponse> postRegister(String first_name, String phone_no, String password, String gender, String role,String image,) async {
+  static Future<RegisterResponse> postRegister(String first_name, String phone_no, String password, String gender, String role,String image, String signature) async {
 
     final response = await http.post(
       Uri.parse(BaseURL+'register'),
@@ -130,6 +131,7 @@ class ApiService {
       'gender': gender,
       'role': role,
       'profile_photo': image,
+      'signature_otp': signature,
     }),
     );
 
@@ -585,8 +587,7 @@ class ApiService {
 
   ///   Forget Password
 
-  static Future<ErrorResponse?> forgetPassMobileValidation(String number
-      ) async {
+  static Future<ErrorResponse?> forgetPassMobileValidation(String number) async {
     var response = await client
         .post(Uri.parse(BaseURL + 'forgot-password'), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -617,8 +618,7 @@ class ApiService {
   }
 
 
-  static Future<ErrorResponse?> forgetPassConfirm(String number, String otp, String newPass
-      ) async {
+  static Future<ErrorResponse?> forgetPassConfirm(String number, String otp, String newPass) async {
     var response = await client
         .post(Uri.parse(BaseURL + 'change-password-by-otp'), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -649,4 +649,72 @@ class ApiService {
       return DataControllers.to.forgetPassConfirm.value;
     }
   }
+
+
+  static Future<ErrorResponse?> addFavAddress(String phone, String beneficiary_name, String district,
+      String city, String postcode, String lon, String lat) async {
+    var response = await client
+        .post(Uri.parse(BaseURL + 'user/saved-address/add'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+
+    },
+      body: jsonEncode(<String, String>{
+        'phone': phone,
+        'beneficiary_name': beneficiary_name,
+        'district': district,
+        'city': city,
+        'postcode': postcode,
+        'lon': lon,
+        'lat': lat,
+      }),
+    );
+
+    print("Api Response : ${response}");
+
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return errorResponseFromJson(jsonString);
+    } else {
+      DataControllers.to.forgetPassConfirm.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.forgetPassConfirm.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.forgetPassConfirm.value;
+    }
+  }
+
+  static getFavAddress() async{
+
+    var response = await client
+        .post(Uri.parse(BaseURL + 'user/saved-address/all'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+
+    });
+
+    print("Api Response : ${response}");
+
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return saveAddressResponseFromJson(jsonString);
+    } else {
+      DataControllers.to.getFavAddressResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.getFavAddressResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.getFavAddressResponse.value;
+    }
+
+  }
+
+
 }

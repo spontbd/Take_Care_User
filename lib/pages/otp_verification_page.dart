@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
@@ -19,6 +20,7 @@ class OtpVerificationPage extends StatefulWidget {
 
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
 
+  late String completedPin = '';
 
 
   late Timer _timer;
@@ -138,25 +140,55 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     )),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.only(left:10.0,right: 10),
-              width:  MediaQuery.of(context).size.width,
-              child: OTPTextField(
-                length: 6,
-                //numberOfFields: 5,
-                width: size.width ,
-                fieldWidth: dynamicSize(.12),
-                style: TextStyle(
-                    fontSize: dynamicSize(0.08)
+
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 10),
+              child: PinFieldAutoFill(
+                decoration: UnderlineDecoration(
+                  textStyle: TextStyle(fontSize: 20, color: Colors.black),
+                  colorBuilder: FixedColorBuilder(Colors.black.withOpacity(0.3)),
                 ),
-                textFieldAlignment: MainAxisAlignment.spaceAround,
-                fieldStyle: FieldStyle.box,
-                onCompleted: (pin) {
-                  print("Completed: " + pin);
-                  DataControllers.to.name.value.text = pin;
+                onCodeSubmitted: (code) {},
+                onCodeChanged: (code) {
+                  completedPin = code.toString();
                 },
               ),
+
+
+
+              /*OTPTextField(
+                      length: 6,
+                      width: MediaQuery.of(context).size.width,
+                      fieldWidth: dynamicSize(0.12),
+                      style: TextStyle(fontSize: 17),
+                      textFieldAlignment: MainAxisAlignment.spaceAround,
+                      fieldStyle: FieldStyle.box,
+                      onCompleted: (pin) {
+                        completedPin = pin;
+                        print("Completed: " + pin);
+                      },
+                    ),*/
             ),
+
+            // Container(
+            //   padding: const EdgeInsets.only(left:10.0,right: 10),
+            //   width:  MediaQuery.of(context).size.width,
+            //   child: OTPTextField(
+            //     length: 6,
+            //     //numberOfFields: 5,
+            //     width: size.width ,
+            //     fieldWidth: dynamicSize(.12),
+            //     style: TextStyle(
+            //         fontSize: dynamicSize(0.08)
+            //     ),
+            //     textFieldAlignment: MainAxisAlignment.spaceAround,
+            //     fieldStyle: FieldStyle.box,
+            //     onCompleted: (pin) {
+            //       print("Completed: " + pin);
+            //       DataControllers.to.name.value.text = pin;
+            //     },
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.only(left: 30.0, top: 20),
               child: Align(
@@ -184,10 +216,10 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   ),
                   onPressed: () async{
 
-                    if(DataControllers.to.name.value.text.isNotEmpty)
+                    if(completedPin.isNotEmpty && completedPin.length > 5)
                     {
 
-                      await DataControllers.to.postVerifyOTP(DataControllers.to.phoneNumber.value.text, DataControllers.to.name.value.text);
+                      await DataControllers.to.postVerifyOTP(DataControllers.to.phoneNumber.value.text,completedPin);
 
                       Fluttertoast.showToast(
                           msg: DataControllers.to.userLoginResponse.value.message!,

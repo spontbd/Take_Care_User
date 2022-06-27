@@ -218,7 +218,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                               }
                                               Navigator.push(
                                                 context,
-                                                MaterialPageRoute(builder: (context) => MapePage(result: selectedPlace!)),
+                                                MaterialPageRoute(builder: (context) => MapPage(result: selectedPlace!)),
                                               );
 
                                             },

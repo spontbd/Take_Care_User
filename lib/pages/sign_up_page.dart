@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
 import 'package:takecare_user/ui/variables.dart';
 
@@ -296,13 +297,17 @@ class _SignUpPageState extends State<SignUpPage> {
                           )
                           {
 
+                            final signature = await SmsAutoFill().getAppSignature;
+
+
                             await DataControllers.to.postRegister(
                                 DataControllers.to.name.value.text,
                                 DataControllers.to.phoneNumber.value.text,
                                 DataControllers.to.password.value.text,
                                 DataControllers.to.gender.value,
                                 "4",
-                                Variables.base64Image
+                                Variables.base64Image,
+                                signature
                             );
 
                             showToast(DataControllers.to.regsiter.value.message!);

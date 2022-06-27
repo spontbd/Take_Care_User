@@ -13,16 +13,16 @@ import '../../api_service/ApiService.dart';
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
 
-class MapePage extends StatefulWidget {
-   const MapePage( {Key? key,required this.result}) : super(key: key);
+class MapPage extends StatefulWidget {
+   const MapPage( {Key? key,required this.result}) : super(key: key);
 
    final PickResult result;
    // final messageDao = MessageDao();
   @override
-  _MapePageState createState() => _MapePageState();
+  _MapPageState createState() => _MapPageState();
 }
 
-class _MapePageState extends State<MapePage> {
+class _MapPageState extends State<MapPage> {
   bool rqbutton =false;
 
   var id = "1";
@@ -152,7 +152,7 @@ class _MapePageState extends State<MapePage> {
 
                                                             Navigator.push(
                                                               context,
-                                                              MaterialPageRoute(builder: (context) => MapePage(result: selectedPlace)),
+                                                              MaterialPageRoute(builder: (context) => MapPage(result: selectedPlace)),
                                                             );
 
                                                           },
@@ -273,15 +273,15 @@ class _MapePageState extends State<MapePage> {
                                                 Padding(
                                                   padding: const EdgeInsets.all(3.0),
                                                   child: Row(children: const [
-                                                    Text("Caregiver ."),
-                                                    Text(" 50 patient served"),
+                                                    Text(""),
+                                                    Text(""),
                                                   ],),
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets.all(3.0),
                                                   child: Row(children: const [
                                                     Text("Service Cost: "),
-                                                    Text(" 3000/-"),
+                                                    Text(""),
                                                   ],),
                                                 ),
                                               ],
