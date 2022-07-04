@@ -688,6 +688,45 @@ class ApiService {
     }
   }
 
+
+  static Future<ErrorResponse?> editFavAddress(String id, String phone, String beneficiary_name, String district,
+      String city, String postcode, String lon, String lat) async {
+    var response = await client
+        .post(Uri.parse(BaseURL + 'user/saved-address/edit'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+
+    },
+      body: jsonEncode(<String, String>{
+        'id': id,
+        'phone': phone,
+        'beneficiary_name': beneficiary_name,
+        'district': district,
+        'city': city,
+        'postcode': postcode,
+        'lon': lon,
+        'lat': lat,
+      }),
+    );
+
+    print("Api Response : ${response}");
+
+    if (response.statusCode == 200) {
+      print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return errorResponseFromJson(jsonString);
+    } else {
+      DataControllers.to.forgetPassConfirm.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.forgetPassConfirm.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.forgetPassConfirm.value;
+    }
+  }
+
   static getFavAddress() async{
 
     var response = await client
@@ -716,5 +755,36 @@ class ApiService {
 
   }
 
+
+  /// Delete Section
+  static Future<ErrorResponse> deleteFavAddress(String id) async {
+    final response = await http.post(
+      Uri.parse(BaseURL + 'user/saved-address/delete'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': bearerToken,
+      },
+      body: jsonEncode(<String, String>{
+        'id': id,
+      }),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200)
+    {
+      return errorResponseFromJson(response.body);
+    } else {
+      DataControllers.to.addServiceResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.addServiceResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.addServiceResponse.value;
+      throw Exception('add service');
+    }
+  }
 
 }

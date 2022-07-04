@@ -14,17 +14,16 @@ class LovedOnesPage extends StatefulWidget {
 
 class _LovedOnesPageState extends State<LovedOnesPage> {
 
-  bool editFather = false;
+  //bool editFather = false;
 
 
-  late FocusNode name;
+  //late FocusNode name;
 
 
 
 
   @override
   void initState() {
-    name = FocusNode();
 
     super.initState();
   }
@@ -51,181 +50,180 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
             style: TextStyle(color: Colors.black),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
+        body: ListView.builder(
+          itemCount: 4,
+          itemBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child:
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0,right: 8,top: 10,bottom: 20),
-                    child: Column(
+                padding: const EdgeInsets.only(left: 8.0,right: 8,top: 10,bottom: 20),
+                child:
+
+
+
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Father",
+                        Text(
+                          "Father",
+                          style: TextStyle(
+                            fontSize: dynamicSize(0.05),
+                          ),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              setState(() {
+
+                              });
+                            },
+                            child: Text(
+                              "Edit",
                               style: TextStyle(
-                                  fontSize: dynamicSize(0.05),
-                                  ),
-                            ),
-                            TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    editFather = true;
-                                    name = FocusNode();
-                                    name.requestFocus();
-                                  });
-                                },
-                                child: Text(
-                                  "Edit",
-                                  style: TextStyle(
-                                      color: AllColor.themeColor,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: dynamicSize(0.05)),
-                                ))
-                          ],
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.03),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 18.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                flex:1,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Name ",
-                                      style: TextStyle(fontSize: dynamicSize(0.05)),
-                                    ),
-                                    Text(
-                                      ": ",
-                                      style: TextStyle(fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: SizedBox(
-                                  //height: dynamicSize(0.2),
-                                    width: dynamicSize(.5),
-                                    child: TextField (
-                                      // controller: et_gallery,
-                                      enabled: editFather,
-                                      focusNode: name,
-                                      cursorHeight: dynamicSize(0.06),
-                                      decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: 'Rana Talukder',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
-
-                                      ),
-                                    )
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 18.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Age ",
-                                      style: TextStyle(fontSize: dynamicSize(0.05)),
-                                    ),
-                                    Text(
-                                      ": ",
-                                      style: TextStyle(fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              Expanded(
-                                flex: 1,
-                                child: SizedBox(
-                                  //height: dynamicSize(0.2),
-                                    width: dynamicSize(.5),
-                                    child: TextField (
-                                      // controller: et_gallery,
-                                      enabled: editFather,
-                                      cursorHeight: dynamicSize(0.06),
-                                      decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: '67',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
-
-                                      ),
-                                    )
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 18.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                flex:1,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                        "Contact Number",style: TextStyle(fontSize: dynamicSize(0.05))
-                                    ),
-                                    Text(
-                                        ": ",style: TextStyle(fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold)
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: SizedBox(
-                                  //height: dynamicSize(0.2),
-                                    width: dynamicSize(.5),
-                                    child: TextField (
-                                      //controller: et_gallery,
-                                            enabled: editFather,
-
-                                      cursorHeight: dynamicSize(0.06),
-                                      decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: '01758351395',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
-
-                                      ),
-                                    )
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                                  color: AllColor.themeColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: dynamicSize(0.05)),
+                            ))
                       ],
                     ),
-                  ),
-                  color: Colors.white,
+                    SizedBox(
+                      height: dynamicSize(0.03),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex:1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Name ",
+                                  style: TextStyle(fontSize: dynamicSize(0.04)),
+                                ),
+                                Text(
+                                  ": ",
+                                  style: TextStyle(fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: SizedBox(
+                              //height: dynamicSize(0.2),
+                                width: dynamicSize(.4),
+                                child: TextField (
+
+                                  enabled: false,
+                                  cursorHeight: dynamicSize(0.05),
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'Rana Talukder',hintStyle: TextStyle(fontSize: dynamicSize(0.04),color:Colors.black,fontWeight: FontWeight.bold)
+
+                                  ),
+                                )
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 18.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Age ",
+                                  style: TextStyle(fontSize: dynamicSize(0.04)),
+                                ),
+                                Text(
+                                  ": ",
+                                  style: TextStyle(fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Expanded(
+                            flex: 1,
+                            child: SizedBox(
+                              //height: dynamicSize(0.2),
+                                width: dynamicSize(.5),
+                                child: TextField (
+                                  // controller: et_gallery,
+                                  enabled: false,
+                                  cursorHeight: dynamicSize(0.06),
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: '67',hintStyle: TextStyle(fontSize: dynamicSize(0.04),color:Colors.black,fontWeight: FontWeight.bold)
+
+                                  ),
+                                )
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex:1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                    "Contact Number",style: TextStyle(fontSize: dynamicSize(0.04))
+                                ),
+                                Text(
+                                    ": ",style: TextStyle(fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold)
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: SizedBox(
+                              //height: dynamicSize(0.2),
+                                width: dynamicSize(.4),
+                                child: TextField (
+                                  //controller: et_gallery,
+                                  enabled: false,
+
+                                  cursorHeight: dynamicSize(0.05),
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: '01758351395',hintStyle: TextStyle(fontSize: dynamicSize(0.04),color:Colors.black,fontWeight: FontWeight.bold)
+
+                                  ),
+                                )
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
+              color: Colors.white,
+            ),
+          )),
+
         bottomNavigationBar: BottomAppBar(
           elevation: 0,
           //color: AllColor.themeColor,

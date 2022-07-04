@@ -205,8 +205,22 @@ class DataControllers extends GetxController {
     return addCardResponse.value;
   }
 
-  Future addFavAddress(String phone, String beneficiary_name, String district,
-      String city, String postcode, String lon, String lat) async {
+  Future addFavAddress(String phone, String beneficiary_name, String district, String city, String postcode, String lon, String lat) async {
+    isLoading(true);
+    var response = await ApiService.addFavAddress(
+        phone, beneficiary_name, district, city, postcode, lon, lat);
+
+    if (response != null) {
+      addFavAddressResponse.value = response;
+      // responseSuccess(true);
+    }
+
+    isLoading(false);
+
+    return addFavAddressResponse.value;
+  }
+
+  Future editFavAddress(String id, String phone, String beneficiary_name, String district, String city, String postcode, String lon, String lat) async {
     isLoading(true);
     var response = await ApiService.addFavAddress(
         phone, beneficiary_name, district, city, postcode, lon, lat);
@@ -222,8 +236,7 @@ class DataControllers extends GetxController {
   }
 
 
-  Future getFavAddress(String phone, String beneficiary_name, String district,
-      String city, String postcode, String lon, String lat) async {
+  Future getFavAddress(String phone, String beneficiary_name, String district, String city, String postcode, String lon, String lat) async {
     isLoading(true);
     var response = await ApiService.getFavAddress();
 
@@ -279,8 +292,7 @@ class DataControllers extends GetxController {
     return addServiceResponse.value;
   }
 
-  Future postRegister(String first_name, String phone_no, String password,
-      String gender, String role, String image, String signature) async {
+  Future postRegister(String first_name, String phone_no, String password, String gender, String role, String image, String signature) async {
     isLoading(true);
     var response = await ApiService.postRegister(
         first_name, phone_no, password, gender, role, image, signature);
@@ -332,8 +344,7 @@ class DataControllers extends GetxController {
     return userLoginResponse.value;
   }
 
-  Future postResendOTP(
-      String phone_no, ValueChanged<bool> responseSuccess) async {
+  Future postResendOTP(String phone_no, ValueChanged<bool> responseSuccess) async {
     isLoading(true);
     var response = await ApiService.postResendOTP(phone_no);
 

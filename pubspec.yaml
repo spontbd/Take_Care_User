@@ -42,6 +42,8 @@ dependencies:
     git:
       url: https://github.com/barikoi/barikoi_map_place_picker.git
       ref: '9128ba9dbbfe2914d30e9ffa4b9834f8c1c7f684'
+
+  sms_autofill: ^2.2.0
 #  barikoi_api:l,l
 #    git: https://github.com/barikoi/barikoi_api_dartlib.git
 #      version: 'any'
