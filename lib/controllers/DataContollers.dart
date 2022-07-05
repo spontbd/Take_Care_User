@@ -236,7 +236,7 @@ class DataControllers extends GetxController {
   }
 
 
-  Future getFavAddress(String phone, String beneficiary_name, String district, String city, String postcode, String lon, String lat) async {
+  Future getFavAddress() async {
     isLoading(true);
     var response = await ApiService.getFavAddress();
 

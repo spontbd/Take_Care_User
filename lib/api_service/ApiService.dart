@@ -737,7 +737,7 @@ class ApiService {
 
     });
 
-    print("Api Response : ${response}");
+    print("Api Response : ${response.body}");
 
     if (response.statusCode == 200) {
       print("Api Response : ${response.body}");

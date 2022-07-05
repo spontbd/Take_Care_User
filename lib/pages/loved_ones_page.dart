@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:takecare_user/controller/data_controller.dart';
+import 'package:takecare_user/controllers/DataContollers.dart';
+import 'package:takecare_user/model/SaveAddressResponse.dart';
 
 import '../public_variables/all_colors.dart';
 import '../public_variables/size_config.dart';
@@ -19,12 +22,14 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
 
   //late FocusNode name;
 
+  SaveAddressResponse addressResponse = new SaveAddressResponse();
 
+  int length = 0;
 
 
   @override
   void initState() {
-
+    getFavAddressList();
     super.initState();
   }
   @override
@@ -51,7 +56,7 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
           ),
         ),
         body: ListView.builder(
-          itemCount: 4,
+          itemCount: length,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
@@ -124,7 +129,7 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
                                   cursorHeight: dynamicSize(0.05),
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: 'Rana Talukder',hintStyle: TextStyle(fontSize: dynamicSize(0.04),color:Colors.black,fontWeight: FontWeight.bold)
+                                      hintText: '${addressResponse.data![index].beneficiaryName}',hintStyle: TextStyle(fontSize: dynamicSize(0.04),color:Colors.black,fontWeight: FontWeight.bold)
 
                                   ),
                                 )
@@ -208,7 +213,7 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
                                   cursorHeight: dynamicSize(0.05),
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: '01758351395',hintStyle: TextStyle(fontSize: dynamicSize(0.04),color:Colors.black,fontWeight: FontWeight.bold)
+                                      hintText: '${addressResponse.data![index].beneficiaryName}',hintStyle: TextStyle(fontSize: dynamicSize(0.04),color:Colors.black,fontWeight: FontWeight.bold)
 
                                   ),
                                 )
@@ -251,5 +256,21 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
         ),
       ),
     );
+  }
+
+  void getFavAddressList()async {
+
+    addressResponse = await DataControllers.to.getFavAddress();
+
+    if(addressResponse.success!)
+      {
+        setState(()  {
+          length = addressResponse.data!.length ;
+       //   addressResponse;
+
+        });
+      }
+
+
   }
 }
