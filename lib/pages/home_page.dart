@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:takecare_user/controllers/language_controller.dart';
 import 'package:takecare_user/pages/Addresses.dart';
 import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
 import 'package:takecare_user/pages/long_time_services/long_time_service_page.dart';
@@ -135,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                                             .value.data!.user!.fullName
                                             .toString()),
                                     style: TextStyle(
-                                        fontSize: 22,
+                                        fontSize: 20,
                                         color: AllColor
                                             .colorDashboardOnDemand_blue))),
                           ],
@@ -590,7 +591,7 @@ class _HomePageState extends State<HomePage> {
                 backgroundColor: Colors.pinkAccent,
                 elevation: 0,
                 bottom: PreferredSize(
-                  preferredSize: Size(60, 60),
+                  preferredSize: Size(70, 100),
                   child: Container(
                     // height: dynamicSize(0.5),
                     color: Colors.pinkAccent,
@@ -602,7 +603,7 @@ class _HomePageState extends State<HomePage> {
                         Stack(
                           alignment: Alignment.topCenter,
                           children: [
-                            Row(
+                            Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 ClipRRect(
@@ -663,6 +664,7 @@ class _HomePageState extends State<HomePage> {
                   logOutMethod(context);
                 },
                 child: Container(
+
                   color: Colors.pinkAccent,
                   height: dynamicSize(0.15),
                   child: Column(
@@ -670,20 +672,26 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                          padding: const EdgeInsets.only(
-                            left: 38.0,
-                          ),
-                          child: TextButton(
-                            onPressed: () {
-                              logOutMethod(context);
-                            },
-                            child: Text(
-                              "LogOut",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.03),
-                                  color: Colors.white),
+                        padding: const EdgeInsets.only(
+                          left: 20.0,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.logout,color: Colors.white),
+                            TextButton(
+                              onPressed: () {
+                                logOutMethod(context);
+                              },
+                              child: Text(
+                                "Logout",
+                                style: TextStyle(
+                                    fontSize: dynamicSize(0.04),
+                                    color: Colors.white),
+                              ),
                             ),
-                          )),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -703,7 +711,8 @@ class _HomePageState extends State<HomePage> {
                           onTap: (){
                             goToOtherHistory();
                           },
-                          child: Expanded(
+                          child: Container(
+                            width: dynamicSize(1),
 
                             child: Row(
                               children: [
@@ -736,13 +745,14 @@ class _HomePageState extends State<HomePage> {
                           onTap: (){
                             goToProfile();
                           },
-                          child: Flexible(
+                          child: Container(
+                            width: dynamicSize(1),
                             child:
                             Row(children: [
                             Image.asset(
                               "assets/images/profile_setup.png",
                               fit: BoxFit.fill,
-                              height: 30,
+                              height: 20,
                               color: Colors.black,
                             ),
                             Padding(
@@ -765,32 +775,105 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 15, left: 20),
-                        child: Container(
-                          width: dynamicSize(1),
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                "assets/images/earning.png",
-                                height: 25,
-                                fit: BoxFit.fill,
-                              ),
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pushReplacement(
-                                          MaterialPageRoute(
-                                              builder: (_) => LovedOnesPage()));
-                                    },
-                                    child: Text(
-                                      "Loved One's",
-                                      style: TextStyle(
-                                          fontSize: dynamicSize(0.035),
-                                          color: Colors.black),
-                                    ),
-                                  )),
-                            ],
+                        child:  InkWell(
+                          onTap: (){
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (_) => LovedOnesPage()));
+                          },
+                          child: Container(
+                            width: dynamicSize(1),
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  "assets/images/earning.png",
+                                  height: 25,
+                                  fit: BoxFit.fill,
+                                ),
+                                Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                                builder: (_) => LovedOnesPage()));
+                                      },
+                                      child: Text(
+                                        "Loved One's",
+                                        style: TextStyle(
+                                            fontSize: dynamicSize(0.035),
+                                            color: Colors.black),
+                                      ),
+                                    )),
+                              ],
+                            ),
                           ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, left: 20),
+                        child: InkWell(
+                          onTap: (){
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        AddressesPage()));
+                          },
+                          child: Container(
+                              width: dynamicSize(1),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.location_on),
+                                  Padding(
+                                      padding: const EdgeInsets.only(left: 10.0),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pushReplacement(
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      AddressesPage()));
+                                        },
+                                        child: Text(
+                                          "Addresses",
+                                          style: TextStyle(
+                                              fontSize: dynamicSize(0.035),
+                                              color: Colors.black),
+                                        ),
+                                      )),
+                                ],
+                              )),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, left: 20),
+                        child: InkWell(
+                          onTap: (){
+
+                          },
+                          child: Container(
+                              width: dynamicSize(1),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.loyalty),
+                                  Padding(
+                                      padding: const EdgeInsets.only(left: 10.0),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          /* Navigator.of(context)
+                                          .pushReplacement(
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  LeaveRequestPage()));*/
+                                        },
+                                        child: Text(
+                                          "Coupons",
+                                          style: TextStyle(
+                                              fontSize: dynamicSize(0.035),
+                                              color: Colors.black),
+                                        ),
+                                      )),
+                                ],
+                              )),
                         ),
                       ),
                       Padding(
@@ -799,63 +882,7 @@ class _HomePageState extends State<HomePage> {
                             width: dynamicSize(1),
                             child: Row(
                               children: [
-                                Image.asset("assets/images/payment.png",
-                                    height: 30, fit: BoxFit.fill),
-                                Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                                builder: (_) =>
-                                                    AddressesPage()));
-                                      },
-                                      child: Text(
-                                        "Addresses",
-                                        style: TextStyle(
-                                            fontSize: dynamicSize(0.035),
-                                            color: Colors.black),
-                                      ),
-                                    )),
-                              ],
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, left: 20),
-                        child: Container(
-                            width: dynamicSize(1),
-                            child: Row(
-                              children: [
-                                Image.asset("assets/images/leave.png",
-                                    height: 30, fit: BoxFit.fill),
-                                Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: TextButton(
-                                      onPressed: () {
-                                        /* Navigator.of(context)
-                                        .pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                LeaveRequestPage()));*/
-                                      },
-                                      child: Text(
-                                        "Coupons",
-                                        style: TextStyle(
-                                            fontSize: dynamicSize(0.035),
-                                            color: Colors.black),
-                                      ),
-                                    )),
-                              ],
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, left: 20),
-                        child: Container(
-                            width: dynamicSize(1),
-                            child: Row(
-                              children: [
-                                Image.asset("assets/images/call_service.png",
-                                    height: 25, fit: BoxFit.fill),
+                                Icon(Icons.help_outline),
                                 Padding(
                                     padding: const EdgeInsets.only(left: 10.0),
                                     child: TextButton(
@@ -883,8 +910,7 @@ class _HomePageState extends State<HomePage> {
                             width: dynamicSize(1),
                             child: Row(
                               children: [
-                                Image.asset("assets/images/setting.png",
-                                    height: 25, fit: BoxFit.fill),
+                               Icon(Icons.settings),
                                 Padding(
                                     padding: const EdgeInsets.only(left: 10.0),
                                     child: TextButton(

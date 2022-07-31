@@ -346,7 +346,7 @@ class _MapPageState extends State<MapPage> {
                         color: AllColor.pink_button,
                         textColor: Colors.white,
                         child: Text(
-                          "Request this GP Doctor",
+                          "Request ${DataControllers.to.getAvailableProviderList.value.data![requestIndex].fullName}",
                           style: TextStyle(fontSize: dynamicSize(0.05)),
                         ),
                       ),

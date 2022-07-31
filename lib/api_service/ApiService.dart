@@ -134,9 +134,8 @@ class ApiService {
       'signature_otp': signature,
     }),
     );
-
+    print(response.body);
     if (response.statusCode == 200) {
-      print(response.body);
       // If the server did return a 200 CREATED response,
       // then parse the JSON.
       return registerResponseFromJson(response.body);
@@ -188,10 +187,21 @@ class ApiService {
         'token': fcmToken,
         'date_time': DateTime.now().millisecondsSinceEpoch.toString()
       },SetOptions(merge: true));
+
+      DataControllers.to.userLoginResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.userLoginResponse.value.message =
+      json.decode(response.body)["message"];
+
       return userLoginResponseFromJson(response.body);
     } else {
-      showToast("Please enter your valid user and password!!");
-      throw Exception('Failed to login');
+     // showToast("Please enter your valid user and password!!");
+      //throw Exception('Failed to login');
+      DataControllers.to.userLoginResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.userLoginResponse.value.message =
+      json.decode(response.body)["message"];
+      return DataControllers.to.userLoginResponse.value;
     }
 
   }
@@ -587,20 +597,21 @@ class ApiService {
 
   ///   Forget Password
 
-  static Future<ErrorResponse?> forgetPassMobileValidation(String number) async {
+
+  static Future<ErrorResponse?> forgetPassMobileValidation(String number, String signature) async {
     var response = await client
         .post(Uri.parse(BaseURL + 'forgot-password'), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
     },
       body: jsonEncode(<String, String>{
-
         'phone': number,
+        'signature_otp': signature,
       }),
 
     );
 
-    print("Api Response : ${response}");
+    print("Api Response : ${response.body}");
 
     if (response.statusCode == 200) {
       print("Api Response : ${response.body}");
@@ -616,7 +627,6 @@ class ApiService {
       return DataControllers.to.forgetPassMobileOtpResponse.value;
     }
   }
-
 
   static Future<ErrorResponse?> forgetPassConfirm(String number, String otp, String newPass) async {
     var response = await client

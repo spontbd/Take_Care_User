@@ -219,7 +219,7 @@ class _SignInPageState extends State<SignInPage> {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => const ForgatePassPage()));
+                          builder: (_) => const ForgotPassPage()));
                     },
                     child: Text(lng.forgotPassword.value,
                         style: TextStyle(
@@ -444,7 +444,8 @@ class _SignInPageState extends State<SignInPage> {
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
     }else
       {
-        showToast(DataControllers.to.userLoginResponse.value.message ?? "Login");
+        onProgressBar(false);
+        showToast(DataControllers.to.userLoginResponse.value.message!);
       }
   }
 }

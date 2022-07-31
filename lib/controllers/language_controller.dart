@@ -17,6 +17,8 @@ class LanguageController extends GetxController{
   RxString other=''.obs;
   RxString greatNext=''.obs;
   RxString category=''.obs;
+  RxString logOut=''.obs;
+
 
   @override
   void onInit() {
@@ -50,6 +52,7 @@ class LanguageController extends GetxController{
     other(isEnglish.value?'Others': 'অন্যান্য');
     greatNext(isEnglish.value?'Great! Next': 'মহান! পরবর্তী');
     category(isEnglish.value?'Category': 'বিভাগ');
+    logOut(isEnglish.value?'Log Out': 'প্রস্থান');
 
     print('changed');
   }

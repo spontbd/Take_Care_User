@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
+import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 import 'home_page.dart';
 
@@ -26,24 +27,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
   late Timer _timer;
   int _start = 180;
 
-  void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
-      oneSec,
-          (Timer timer) {
-        if (_start == 0) {
-          setState(() {
-          //  timer.cancel();
-            dispose();
-          });
-        } else {
-          setState(() {
-            _start--;
-          });
-        }
-      },
-    );
-  }
 
 
   @override
@@ -52,18 +35,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
     super.dispose();
   }
 
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    startTimer();
-    /* if(DataControllers.to.userServiceResponse.value.data!.isNotEmpty)
-      {
-        showBottom = false;
-      }*/
-  }
 
 
 
@@ -140,7 +111,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     )),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 10),
               child: PinFieldAutoFill(
@@ -153,55 +123,10 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   completedPin = code.toString();
                 },
               ),
-
-
-
-              /*OTPTextField(
-                      length: 6,
-                      width: MediaQuery.of(context).size.width,
-                      fieldWidth: dynamicSize(0.12),
-                      style: TextStyle(fontSize: 17),
-                      textFieldAlignment: MainAxisAlignment.spaceAround,
-                      fieldStyle: FieldStyle.box,
-                      onCompleted: (pin) {
-                        completedPin = pin;
-                        print("Completed: " + pin);
-                      },
-                    ),*/
             ),
-
-            // Container(
-            //   padding: const EdgeInsets.only(left:10.0,right: 10),
-            //   width:  MediaQuery.of(context).size.width,
-            //   child: OTPTextField(
-            //     length: 6,
-            //     //numberOfFields: 5,
-            //     width: size.width ,
-            //     fieldWidth: dynamicSize(.12),
-            //     style: TextStyle(
-            //         fontSize: dynamicSize(0.08)
-            //     ),
-            //     textFieldAlignment: MainAxisAlignment.spaceAround,
-            //     fieldStyle: FieldStyle.box,
-            //     onCompleted: (pin) {
-            //       print("Completed: " + pin);
-            //       DataControllers.to.name.value.text = pin;
-            //     },
-            //   ),
-            // ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0, top: 20),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  '${_start} sec.',
-                  style: TextStyle(
-                    fontSize: dynamicSize(0.07),
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-            ),
+            Timers( callback: (){
+              Navigator.pop(context);
+            },),
             Spacer(),
             SizedBox(
               height: dynamicSize(0.15),
@@ -226,7 +151,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.CENTER,
                           timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.red,
+                          backgroundColor: Colors.green,
                           textColor: Colors.white,
                           fontSize: 16.0
                       );
@@ -249,12 +174,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       );
                     }
 
-/*
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>  SignInPage()),
-                    );*/
                   },
                   //padding: EdgeInsets.all(10.0),
                   color: Colors.redAccent,
@@ -271,4 +190,76 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
       ),
     );
   }
+}
+
+
+class Timers extends StatefulWidget {
+  final VoidCallback callback;
+  Timers({Key? key, required this.callback}) : super(key: key);
+
+  @override
+  State<Timers> createState() => _TimerState();
+}
+
+class _TimerState extends State<Timers> {
+
+
+  late Timer _timer;
+  int _start = 120;
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child:  Padding(
+        padding: const EdgeInsets.only(left: 30.0, top: 20),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            '${_start} sec.',
+            style: TextStyle(
+              fontSize: dynamicSize(0.06),
+              color: AllColor.button_color,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+
+  void startTimer() {
+    _timer = Timer.periodic(const Duration(milliseconds: 1000), (timer) => _update());
+  }
+
+  _update() {
+    if (_start == 0) {
+      setState(() {
+
+        _timer.cancel();
+        widget.callback();
+
+
+
+      });
+    } else {
+      setState(() {
+        _start--;
+      });
+    }
+  }
+
 }

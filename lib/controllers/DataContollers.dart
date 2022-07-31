@@ -162,7 +162,7 @@ class DataControllers extends GetxController {
 
   /// Forget password
 
-  Future forgetPassMobileValidation(String number) async {
+ /* Future forgetPassMobileValidation(String number) async {
     isLoading(true);
     var response = await ApiService.forgetPassMobileValidation(number);
 
@@ -175,6 +175,25 @@ class DataControllers extends GetxController {
 
     return forgetPassMobileOtpResponse.value;
   }
+*/
+
+
+  Future forgetPassMobileValidation( String number, String signature) async {
+    isLoading(true);
+    var response =
+    await ApiService.forgetPassMobileValidation(number,signature);
+
+    if (response != null) {
+      forgetPassMobileOtpResponse.value = response;
+      // responseSuccess(true);
+    }
+
+    isLoading(false);
+
+    return forgetPassMobileOtpResponse.value;
+  }
+
+
 
   Future forgetPassConfirmMethod(
       String number, String otp, String newPass) async {
@@ -325,10 +344,11 @@ class DataControllers extends GetxController {
     if (response != null) {
       userLoginResponse.value = response;
       // responseSuccess(true);
+      isLoading(false);
+    } else {
+      isLoading(false);
+      return userLoginResponse.value;
     }
-
-    isLoading(false);
-    return userLoginResponse.value;
   }
 
   Future postVerifyOTP(String phone_number, String otp) async {
