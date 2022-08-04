@@ -2,8 +2,11 @@ import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
+import 'package:takecare_user/model/AllServiceResponse.dart';
+import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/widgets/check_box.dart';
 import 'package:intl/intl.dart';
@@ -27,7 +30,11 @@ class OnDemandPage extends StatefulWidget {
 var addedservice = false;
 var showBottom = false;
 var addedlist = false;
+var searchValue = false;
 late List<bool> _isChecked;
+List<String> result = [];
+List<AllServiceData> searchData  = [];
+
 
 class _OnDemandPageState extends State<OnDemandPage> {
   Icon cusIcon = const Icon(Icons.search, color: Colors.black);
@@ -45,530 +52,11 @@ class _OnDemandPageState extends State<OnDemandPage> {
     });
     showBottom = false;
     getAddCardData();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<LanguageController>(builder: (lc) {
-      return Scaffold(
-          bottomNavigationBar: showBottom
-              ? BlurryContainer(
-            blur: 30,
-            // color: Colors.white.withOpacity(0.15)
-            elevation: 0,
-            color: Colors.transparent.withOpacity(0.001),
-            padding: const EdgeInsets.all(12),
-            borderRadius: const BorderRadius.all(Radius.circular(5)),
-                child: Container(
-                  height: dynamicSize(0.18),
-                  decoration: const BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(20)),
-                  ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: AllColor.themeColor,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(5.0),bottomLeft:Radius.circular(5.0) ),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 8.0, top: 5),
-                                    child: Text(
-                                      "On Demand",
-                                      style: TextStyle(
-                                          fontSize: dynamicSize(0.035),
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                                addedlist
-                                    ? Container(
-                                        alignment: Alignment.topLeft,
-                                        child: InkWell(
-                                          onTap: () {
-                                            BottomSheetAddedListDialog(context);
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0, top: 5),
-                                                child: Text(
-                                                  DataControllers
-                                                      .to
-                                                      .getAddCardResponse
-                                                      .value
-                                                      .data!
-                                                      .length
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      fontSize: dynamicSize(0.04),
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.only(top: 5),
-                                                child: Text(
-                                                  " Service Added",
-                                                  style: TextStyle(
-                                                      fontSize: dynamicSize(0.04),
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                              const Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: 8.0),
-                                                child: Icon(
-                                                  Icons.keyboard_arrow_up,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    : Container(
-                                        alignment: Alignment.topLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, top: 5),
-                                          child: Text(
-                                            "Attendant for Hospital Visit",
-                                            style: TextStyle(
-                                                fontSize: dynamicSize(0.04),
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: InkWell(
-                            onTap: () async{
-                              await DataControllers.to.getProviderList("1", "1");
-                              late PickResult selectedPlace;
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return PlacePicker(
-                                      apiKey: "MjY5MzpHMEVBUExBNVM5",
-                                      initialPosition: SignInPage.initLatLng,
-                                      useCurrentLocation: true,
-                                      selectInitialPosition: true,
-                                      usePinPointingSearch: true,
-                                      onPlacePicked: (result) {
-                                        selectedPlace = result;
-                                      //  Navigator.of(context).pop();
-                                        setState(() {
-                                          selectedPlace = result;
-                                        });
-                                      },
-                                      //forceSearchOnZoomChanged: true,
-                                      automaticallyImplyAppBarLeading: false,
-                                      //autocompleteLanguage: "ko",
-                                      //region: 'au',
-                                      selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
-                                        print("state: $state, isSearchBarFocused: $isSearchBarFocused");
-                                        return isSearchBarFocused
-                                            ? Container()
-                                            : FloatingCard(
-                                          bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
-                                          leftPosition: 0.0,
-                                          rightPosition: 0.0,
-                                          width: 500,
-
-                                          borderRadius: BorderRadius.circular(12.0),
-                                          child: state == SearchingState.Searching
-                                              ? const Center(child: CircularProgressIndicator())
-                                              : RaisedButton(
-                                            color: AllColor.pink_button,
-                                            child: Text("Search Service Provider around You",style: const TextStyle(color: Colors.white),),
-                                            onPressed: () {
-                                              // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
-                                              //            this will override default 'Select here' Button.
-                                              Navigator.of(context).pop();
-                                              if (kDebugMode) {
-                                                print("placeucode: "+selectedPlace.toString());
-                                                print("placeucode: "+selectedPlace!.latitude.toString());
-                                                print("placeucode: "+selectedPlace.longitude.toString());
-                                                print("placeucode: "+selectedPlace.area.toString());
-                                              }
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) => MapPage(result: selectedPlace!)),
-                                              );
-
-                                            },
-                                          ),
-                                        );
-                                      },
-                                      // pinBuilder: (context, state) {
-                                      //   if (state == PinState.Idle) {
-                                      //     return Icon(Icons.favorite_border);
-                                      //   } else {
-                                      //     return Icon(Icons.favorite);
-                                      //   }
-                                      // },
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: AllColor.button_color,
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(5.0),bottomRight:Radius.circular(5.0) ),
-                              ),
-                              alignment: Alignment.center,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      "Continue",
-                                      style: TextStyle(
-                                          fontSize: dynamicSize(0.04),
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: dynamicSize(0.02),
-                                  ),
-                                  const Icon(
-                                    Icons.arrow_forward,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-              )
-              : Container(height: .01),
-          appBar: AppBar(
-            leading: InkWell(
-              child: const Icon(
-                Icons.arrow_back,
-                color: Colors.red,
-              ),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
-                );
-              },
-            ),
-            actions: <Widget>[
-              IconButton(
-                onPressed: () {
-                  if (cusIcon.icon == Icons.search) {
-                    print("working");
-                    setState(() {
-                      cusIcon = const Icon(Icons.cancel, color: AllColor.cancel_icon_color);
-                      cusSearchbar = SizedBox(
-                        height: dynamicSize(0.1),
-                        child: TextField(
-                          decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: AllColor.search_field_color,
-                            hintText: "Search",
-                            prefixIcon: Icon(Icons.search),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30.0)),
-                              borderSide:
-                                  BorderSide(color: Colors.white, width: 2),
-                            ),
-                          ),
-                          style: TextStyle(
-                              color: Colors.black, fontSize: dynamicSize(0.04)),
-                        ),
-                      );
-                    });
-                  } else {
-                    print("working2");
-                    setState(() {
-                      cusIcon = const Icon(Icons.search, color: Colors.black);
-                      cusSearchbar = Text(
-                        "On Demand",
-                        style: TextStyle(
-                            color: Colors.black, fontSize: dynamicSize(0.03)),
-                      );
-                    });
-                  }
-                },
-                icon: cusIcon,
-              ),
-            ],
-            bottom: PreferredSize(
-              preferredSize: const Size(25, 25),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          showButtonListDialog(context);
-                        },
-                        child: Container(
-                          child: Row(
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 8.0, right: 4, top: 4, bottom: 4),
-                                child: Icon(Icons.filter_alt_outlined),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 4.0, right: 4, top: 4, bottom: 4),
-                                child: Text('Categories'),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 4.0, right: 8, top: 4, bottom: 4),
-                                child: Icon(Icons.arrow_drop_down),
-                              ),
-                            ],
-                          ),
-                          decoration: BoxDecoration(
-                            color: AllColor.shado_color,
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: dynamicSize(0.03)),
-                      InkWell(
-                        onTap: () {
-                        /*  Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => MapePage()),
-                          );*/
-                        },
-                        child: Container(
-                          child: Row(
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 10.0, right: 4, top: 4, bottom: 4),
-                                child: Icon(Icons.verified_outlined),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 4.0, right: 10, top: 4, bottom: 4),
-                                child: Text('Popualar'),
-                              ),
-                            ],
-                          ),
-                          decoration: BoxDecoration(
-                            color: AllColor.shado_color,
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: dynamicSize(0.03),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const FeedBackPage()),
-                          );
-                        },
-                        child: Container(
-                          child: Row(
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 10.0, right: 4, top: 4, bottom: 4),
-                                child: Icon(Icons.shopping_cart_outlined),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 4.0, right: 10, top: 4, bottom: 4),
-                                child: Text('Token Before'),
-                              ),
-                            ],
-                          ),
-                          decoration: BoxDecoration(
-                            color: AllColor.shado_color,
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            title: cusSearchbar,
-            backgroundColor: Colors.white,
-            elevation: 0,
-          ),
-          body: ListView(
-            padding: const EdgeInsets.only(top: 8,bottom: 8),
-            children: List.generate(
-              DataControllers.to.shortServiceResponse.value.data!.data!.length,
-              (index) => Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Stack(
-                  children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                       /* borderRadius: BorderRadius.circular(8.0),*/
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 2.0,
-                            spreadRadius: 0.0,
-                            offset:
-                                Offset(2.0, 2.0), // shadow direction: bottom right
-                          )
-                        ],
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
-                            child: Card(
-                                  margin: const EdgeInsets.only(left: 0),
-                                  semanticContainer: true,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.circular(15),
-                                        topRight: Radius.circular(15)
-                                        ),
-                                  ),
-                                  elevation: 10,
-                                  child: CachedNetworkImage(
-                                    fit: BoxFit.fill,
-                                    width: 120,
-                                    imageUrl:
-                                    "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-                                    /*progressIndicatorBuilder:
-                                        (context, url, downloadProgress) =>
-                                        CircularProgressIndicator(),*/
-                                    errorWidget: (context, url, error) => Image.asset(
-                                      "assets/images/image.png",
-                                    ),
-                                  ),
-                                ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only( left: 10),
-                                    child: Text(
-                                      "${DataControllers.to.shortServiceResponse.value.data!.data![index].serviceName}",
-                                      style: TextStyle(
-                                          fontSize: dynamicSize(0.04),
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: dynamicSize(0.07),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      showButtonDialog(context, index);
-                                    },
-                                    child: Text(
-                                      "Details",
-                                      style: TextStyle(
-                                          fontSize: dynamicSize(0.035),
-                                          color: Colors.purple),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 20.0,
-                      right: 0.0,
-
-                      child: InkWell(
-                        onTap: () {
-                          addCard(index);
-                        },
-                        child: Container(
-                          height: dynamicSize(0.10),
-                          width: dynamicSize(0.12),
-                          child: const Card(
-                            color: AllColor.pink_button,
-                            margin: EdgeInsets.only(left: 0,right: 0),
-                            semanticContainer: true,
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(15),
-                                  topLeft: Radius.circular(15)
-                              ),
-                            ),
-                            elevation: 6,
-                            child: Icon(Icons.add,color: Colors.white,),
-                          ),
-                        )
-
-                    ),
-
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-
+    setState((){
+      searchData;
     });
   }
+
 
   void showButtonDialog(BuildContext context, int index) {
     showModalBottomSheet(
@@ -826,11 +314,24 @@ class _OnDemandPageState extends State<OnDemandPage> {
         });
   }
 
+
   void showButtonListDialog(BuildContext context) {
+    List<CategoriesData> dataResponse = [];
+
+  // DataControllers.to.getCategoriesResponse.value.data!.forEach((element) => _setData(element)).toList();
+    DataControllers.to.getCategoriesResponse.value.data!.forEach((element) {
+      if(element.serviceType == "short"){
+        dataResponse.add(element);
+      }
+    });
+
+  // dataResponse.add( DataControllers.to.getCategoriesResponse.value.data!.map((e) => e.serviceType == "short").toList());
+
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc)
         {
+
           return StatefulBuilder(
             builder: (context,setSt) {
               return Container(
@@ -845,14 +346,21 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.08),fontWeight: FontWeight.bold),),
+                          Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.07),fontWeight: FontWeight.bold),),
                           InkWell(
                               onTap: (){
                                   setSt((){_isChecked = List<bool>.filled(DataControllers.to.getCategoriesResponse.value.data!.length, false);});
+
+                                  searchData = [];
+                                  result = [];
+                                  searchValue = false;
                                   setState((){});
                                   //Navigator.pop(context);
                               },
-                              child: Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),)),
+                              child:
+                              _isChecked.contains(true) ?
+
+                              Expanded(child: Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple))) : Container()),
                         ],
                       ),
                       Expanded(
@@ -863,13 +371,21 @@ class _OnDemandPageState extends State<OnDemandPage> {
                             child:
                                 ListView(
                               children: List.generate(
-                                DataControllers.to.getCategoriesResponse.value.data!.length,
+                                  dataResponse.length,
                                 (index) => CheckboxListTile(
-                                      title: Text(DataControllers.to.getCategoriesResponse.value.data![index].categoryName!),
+                                      title: Text(dataResponse[index].categoryName!),
                                       value: _isChecked[index],
                                       onChanged: (val) {
-                                        setSt(() {_isChecked[index] = val!;});
+                                        if(val!){
+                                          result.add(dataResponse[index].categoryName!);
+                                        }else
+                                          {
+                                            String? value =   result.firstWhereOrNull((element) => element == dataResponse[index].categoryName!);
+                                            result.remove(value);
+                                          }
+                                        setSt(() {_isChecked[index] = val;});
                                         setState((){});
+
                                       },
                                     )
                               ),
@@ -881,7 +397,10 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       _isChecked.contains(true) ? Padding(
                           padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
                           child: ElevatedButton(
-                            onPressed: () async {},
+                            onPressed: () async {
+                              Navigator.pop(context);
+                                    _filterValue();
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -894,8 +413,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                             ),
                           )
                       )  : Container(),
-
-
                     ],
                   ),
                 ),
@@ -909,8 +426,10 @@ class _OnDemandPageState extends State<OnDemandPage> {
 
   void getAddCardData() async {
     await DataControllers.to.getCard();
-
-
+    await DataControllers.to.getAllShortService("short");
+    setState((){
+      searchData;
+    });
     if (
         DataControllers.to.getAddCardResponse.value.data == null
     )
@@ -935,6 +454,10 @@ class _OnDemandPageState extends State<OnDemandPage> {
       });
 
     }
+
+    setState((){
+      searchData;
+    });
   }
 
   void deleteAddCardData(int index) async {
@@ -971,5 +494,774 @@ class _OnDemandPageState extends State<OnDemandPage> {
       {
         showToast(DataControllers.to.addCardResponse.value.message!, AllColor.blue);
       }
+  }
+
+
+  void getAllService() async {
+    //DataControllers.to.profilePercentage.value.data.percentage = 0;
+
+    //await DataControllers.to.getAllLongService("long");
+    //await DataControllers.to.getAllShortService("short");
+    // await DataControllers.to.getAllLongService("long");
+    await DataControllers.to.getAllShortService("short");
+    // onProgressBar(false);
+
+    //  await DataControllers.to.postUserServiceResponse(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
+  }
+
+  void _filterValue() {
+
+    searchData = [];
+    searchValue = false;
+    result.forEach((element) {
+      DataControllers.to.shortServiceResponse.value.data!.data!.forEach((value) {
+        if(element == value.serviceCategory!.categoryName)
+          {
+             searchData.add(value);
+             searchValue = true;
+          }
+      });
+    });
+
+    setState((){
+      searchValue;
+    });
+  }
+
+  int selectedColor=0;
+  List<AllServiceData> _searchResult = [];
+  TextEditingController searchController = TextEditingController();
+
+
+  onSearchTextChanged(String text) async {
+    _searchResult.clear();
+    if (text.isEmpty) {
+      //  _searchResult.addAll(DataControllers.to.shortServiceResponse.value.data!.data!);
+      setState(() {});
+      return;
+    }
+
+    DataControllers.to.shortServiceResponse.value.data!.data!.forEach((userDetail) {
+
+      if (userDetail.serviceName!.toLowerCase().contains(text.toLowerCase())) {
+        _searchResult.add(userDetail);
+        //print(userDetail.serviceName!);
+       // print(userDetail.added_in_my_service!);
+      }
+    });
+
+    setState(() {});
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<LanguageController>(builder: (lc) {
+      return Scaffold(
+        bottomNavigationBar: showBottom
+            ? BlurryContainer(
+          blur: 30,
+          // color: Colors.white.withOpacity(0.15)
+          elevation: 0,
+          color: Colors.transparent.withOpacity(0.001),
+          padding: const EdgeInsets.all(12),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
+          child: Container(
+            height: dynamicSize(0.18),
+            decoration: const BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.all(
+                  Radius.circular(20)),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: AllColor.themeColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5.0),bottomLeft:Radius.circular(5.0) ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding:
+                            const EdgeInsets.only(left: 8.0, top: 5),
+                            child: Text(
+                              "On Demand",
+                              style: TextStyle(
+                                  fontSize: dynamicSize(0.035),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        addedlist
+                            ? Container(
+                          alignment: Alignment.topLeft,
+                          child: InkWell(
+                            onTap: () {
+                              BottomSheetAddedListDialog(context);
+                            },
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, top: 5),
+                                  child: Text(
+                                    DataControllers
+                                        .to
+                                        .getAddCardResponse
+                                        .value
+                                        .data!
+                                        .length
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.04),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(top: 5),
+                                  child: Text(
+                                    " Service Added",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.04),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 8.0),
+                                  child: Icon(
+                                    Icons.keyboard_arrow_up,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                            : Container(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8.0, top: 5),
+                            child: Text(
+                              "Attendant for Hospital Visit",
+                              style: TextStyle(
+                                  fontSize: dynamicSize(0.04),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: InkWell(
+                    onTap: () async{
+                      await DataControllers.to.getProviderList("1", "1");
+                      late PickResult selectedPlace;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return PlacePicker(
+                              apiKey: "MjY5MzpHMEVBUExBNVM5",
+                              initialPosition: SignInPage.initLatLng,
+                              useCurrentLocation: true,
+                              selectInitialPosition: true,
+                              usePinPointingSearch: true,
+                              onPlacePicked: (result) {
+                                selectedPlace = result;
+                                //  Navigator.of(context).pop();
+                                setState(() {
+                                  selectedPlace = result;
+                                });
+                              },
+                              //forceSearchOnZoomChanged: true,
+                              automaticallyImplyAppBarLeading: false,
+                              //autocompleteLanguage: "ko",
+                              //region: 'au',
+                              selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
+                                print("state: $state, isSearchBarFocused: $isSearchBarFocused");
+                                return isSearchBarFocused
+                                    ? Container()
+                                    : FloatingCard(
+                                  bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
+                                  leftPosition: 0.0,
+                                  rightPosition: 0.0,
+                                  width: 500,
+
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  child: state == SearchingState.Searching
+                                      ? const Center(child: CircularProgressIndicator())
+                                      : RaisedButton(
+                                    color: AllColor.pink_button,
+                                    child: Text("Search Service Provider around You",style: const TextStyle(color: Colors.white),),
+                                    onPressed: () {
+                                      // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
+                                      //            this will override default 'Select here' Button.
+                                      Navigator.of(context).pop();
+                                      if (kDebugMode) {
+                                        print("placeucode: "+selectedPlace.toString());
+                                        print("placeucode: "+selectedPlace!.latitude.toString());
+                                        print("placeucode: "+selectedPlace.longitude.toString());
+                                        print("placeucode: "+selectedPlace.area.toString());
+                                      }
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => MapPage(result: selectedPlace!)),
+                                      );
+
+                                    },
+                                  ),
+                                );
+                              },
+                              // pinBuilder: (context, state) {
+                              //   if (state == PinState.Idle) {
+                              //     return Icon(Icons.favorite_border);
+                              //   } else {
+                              //     return Icon(Icons.favorite);
+                              //   }
+                              // },
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: AllColor.button_color,
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(5.0),bottomRight:Radius.circular(5.0) ),
+                      ),
+                      alignment: Alignment.center,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              "Continue",
+                              style: TextStyle(
+                                  fontSize: dynamicSize(0.04),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(
+                            width: dynamicSize(0.02),
+                          ),
+                          const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+            : Container(height: .01),
+        appBar: AppBar(
+          leading: InkWell(
+            child: const Icon(
+              Icons.arrow_back,
+              color: Colors.red,
+            ),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              );
+            },
+          ),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                /*if (cusIcon.icon == Icons.search) {
+                  // print("working");
+                  setState(() {
+                    cusIcon = const Icon(Icons.cancel, color: AllColor.cancel_icon_color);
+                    cusSearchbar = SizedBox(
+                      height: dynamicSize(0.1),
+                      child: TextField(
+                        controller: searchController,
+                        onChanged: (text) =>onSearchTextChanged(text),
+                        decoration: const InputDecoration(
+                          filled: true,
+                          fillColor: AllColor.search_field_color,
+                          hintText: "Search",
+                          prefixIcon: Icon(Icons.search),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(30.0)),
+                            borderSide:
+                            BorderSide(color: Colors.white, width: 2),
+                          ),
+                        ),
+                        style: TextStyle(
+                            color: Colors.black, fontSize: dynamicSize(0.04)),
+                      ),
+                    );
+                  });
+                } else {
+                  // print("working2");
+                  setState(() {
+                    cusIcon = const Icon(Icons.search, color: Colors.black);
+                    cusSearchbar = Text(
+                      "On Demand",
+                      style: TextStyle(
+                          color: Colors.black, fontSize: dynamicSize(0.03)),
+                    );
+                  });
+                }
+                */
+
+                if (cusIcon.icon == Icons.search) {
+                  setState(() {
+                    cusIcon =
+                        Icon(Icons.cancel, color: AllColor
+                            .cancel_icon_color);
+                    cusSearchbar = Card(
+                      color: AllColor.search_field_color,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      child: SizedBox(
+                        width: dynamicSize(20),
+                        height: dynamicSize(0.09),
+                        child: TextField(
+                          controller: searchController,
+                          onChanged: (text) =>onSearchTextChanged(text),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            fillColor: AllColor.search_field_color,
+                            hintText: lc.search.value,
+                            prefixIcon: Icon(Icons.search),
+                          ),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: dynamicSize(0.04)),
+                        ),
+                      ),
+                    );
+                  });
+                } else {
+                  setState(() {
+                    onSearchTextChanged('');
+                    searchController.text = '';
+                    cusIcon = Icon(Icons.search, color: Colors.black);
+                    cusSearchbar = Text(
+                      LanguageController.lc.onDemandServiceSetup.value,
+                      style: TextStyle(
+                          color: Colors.black, fontSize: dynamicSize(0.03)),
+                    );
+                  });
+                }
+              },
+              icon: cusIcon,
+            ),
+          ],
+          bottom: PreferredSize(
+            preferredSize: const Size(25, 25),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        setState((){
+                          selectedColor = 1;
+                        });
+                        showButtonListDialog(context);
+                      },
+                      child: Container(
+                        child: Row(
+                          children:  [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 8.0, right: 4, top: 4, bottom: 4),
+                              child: Icon(Icons.filter_alt_outlined,color: (selectedColor == 1) ?
+                              Colors.white : Colors.black),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 4.0, right: 4, top: 4, bottom: 4),
+                              child: Text('Categories', style: TextStyle( color: (selectedColor == 1) ?
+                              Colors.white : Colors.black),),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 4.0, right: 8, top: 4, bottom: 4),
+                              child: Icon(Icons.arrow_drop_down,color:  (selectedColor == 1) ?
+                              Colors.white : Colors.black,),
+                            ),
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+                          color: (selectedColor == 1) ? Colors.pinkAccent :  AllColor.shado_color ,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(
+                      width: dynamicSize(0.03),
+                    ),
+                    InkWell(
+                      onTap: () {
+
+                        setState((){
+                          selectedColor = 2;
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FeedBackPage()),
+                        );
+                      },
+                      child: Container(
+                        child: Row(
+                          children:  [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 10.0, right: 4, top: 4, bottom: 4),
+                              child: Icon(Icons.shopping_cart_outlined,
+                                  color: (selectedColor == 2) ?
+                              Colors.white : Colors.black
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 4.0, right: 10, top: 4, bottom: 4),
+                              child: Text('Taken Before',
+                                  style: TextStyle( color: (selectedColor == 2) ?
+                                  Colors.white : Colors.black)
+                              ),
+                            ),
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+
+                          color: (selectedColor == 2) ?
+                        Colors.pinkAccent : AllColor.shado_color
+
+                          ,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: dynamicSize(0.03),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FeedBackPage()),
+                        );
+                      },
+                      child: Container(
+                        child: Row(
+                          children: const [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 10.0, right: 4, top: 4, bottom: 4),
+                              child: Icon(Icons.verified_outlined),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 4.0, right: 10, top: 4, bottom: 4),
+                              child: Text('Popular Service'),
+                            ),
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+                          color: AllColor.shado_color,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          title: cusSearchbar,
+          backgroundColor: Colors.white,
+          elevation: 0,
+        ),
+        body:
+        _searchResult.length != 0 || searchController.text.isNotEmpty ?
+        ListView(
+          padding: const EdgeInsets.only(top: 8,bottom: 8),
+          children: List.generate(
+            _searchResult.length,
+                (index) => Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      /* borderRadius: BorderRadius.circular(8.0),*/
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 2.0,
+                          spreadRadius: 0.0,
+                          offset:
+                          Offset(2.0, 2.0), // shadow direction: bottom right
+                        )
+                      ],
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
+                          child: Card(
+                            margin: const EdgeInsets.only(left: 0),
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(15),
+                                  topRight: Radius.circular(15)
+                              ),
+                            ),
+                            elevation: 10,
+                            child: CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              width: 120,
+                              imageUrl:
+                              "https://takecare.ltd/${_searchResult[index].imagePath}",
+                              errorWidget: (context, url, error) => Image.asset(
+                                "assets/images/image.png",
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only( left: 10),
+                                  child: Text(
+                                    "${  _searchResult[index].serviceName}",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.04),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: dynamicSize(0.07),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    showButtonDialog(context, index);
+                                  },
+                                  child: Text(
+                                    "Details",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.035),
+                                        color: Colors.purple),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 20.0,
+                    right: 0.0,
+                    child: InkWell(
+                        onTap: () {
+                          addCard(index);
+                        },
+                        child: Container(
+                          height: dynamicSize(0.10),
+                          width: dynamicSize(0.12),
+                          child: const Card(
+                            color: AllColor.pink_button,
+                            margin: EdgeInsets.only(left: 0,right: 0),
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(15),
+                                  topLeft: Radius.circular(15)
+                              ),
+                            ),
+                            elevation: 6,
+                            child: Icon(Icons.add,color: Colors.white,),
+                          ),
+                        )
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ) :
+        ListView(
+          padding: const EdgeInsets.only(top: 8,bottom: 8),
+          children: List.generate(
+            searchValue ?
+            searchData.length :DataControllers.to.shortServiceResponse.value.data!.data!.length,
+                (index) => Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      /* borderRadius: BorderRadius.circular(8.0),*/
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 2.0,
+                          spreadRadius: 0.0,
+                          offset:
+                          Offset(2.0, 2.0), // shadow direction: bottom right
+                        )
+                      ],
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
+                          child: Card(
+                            margin: const EdgeInsets.only(left: 0),
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(15),
+                                  topRight: Radius.circular(15)
+                              ),
+                            ),
+                            elevation: 10,
+                            child: CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              width: 120,
+                              imageUrl:
+                              "https://takecare.ltd/${
+                                  (searchValue != true) ?
+                                  DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath  : searchData[index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                              errorWidget: (context, url, error) => Image.asset(
+                                "assets/images/image.png",
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only( left: 10),
+                                  child: Text(
+                                    "${  (searchValue != true) ? DataControllers.to.shortServiceResponse.value.data!.data![index].serviceName : searchData[index].serviceName}",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.04),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: dynamicSize(0.07),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    showButtonDialog(context, index);
+                                  },
+                                  child: Text(
+                                    "Details",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.035),
+                                        color: Colors.purple),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 20.0,
+                    right: 0.0,
+
+                    child: InkWell(
+                        onTap: () {
+                          addCard(index);
+                        },
+                        child: Container(
+                          height: dynamicSize(0.10),
+                          width: dynamicSize(0.12),
+                          child: const Card(
+                            color: AllColor.pink_button,
+                            margin: EdgeInsets.only(left: 0,right: 0),
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(15),
+                                  topLeft: Radius.circular(15)
+                              ),
+                            ),
+                            elevation: 6,
+                            child: Icon(Icons.add,color: Colors.white,),
+                          ),
+                        )
+
+                    ),
+
+                  )
+                ],
+              ),
+            ),
+          ),
+        ) ,
+      );
+    });
   }
 }

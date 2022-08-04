@@ -12,6 +12,7 @@ import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/SaveAddressResponse.dart';
+import 'package:takecare_user/model/SliderResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
 import 'package:takecare_user/public_variables/notifications.dart';
 
@@ -46,6 +47,10 @@ class DataControllers extends GetxController {
 
   Rx<ErrorResponse> addServiceResponse = ErrorResponse().obs;
   Rx<UserServiceResponse> userServiceResponse = UserServiceResponse().obs;
+
+  ///
+  Rx<SliderResponse> sliderResponse = SliderResponse().obs;
+
 
   /// Forget password
 
@@ -411,5 +416,21 @@ class DataControllers extends GetxController {
 
     isLoading(false);
     return addServiceResponse.value;
+  }
+
+
+  /// Slider
+
+  Future getSlider() async {
+    isLoading(true);
+
+    var response = await ApiService.fetchSliderResponse();
+
+    if (response != null) {
+      sliderResponse.value = response;
+
+      // responseSuccess(true);
+    }
+    isLoading(false);
   }
 }

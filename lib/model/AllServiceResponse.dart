@@ -45,7 +45,7 @@ class Data {
   });
 
   int? currentPage;
-  List<Datum>? data;
+  List<AllServiceData>? data;
   String? firstPageUrl;
   int? from;
   int? lastPage;
@@ -60,7 +60,7 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     currentPage: json["current_page"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<AllServiceData>.from(json["data"].map((x) => AllServiceData.fromJson(x))),
     firstPageUrl: json["first_page_url"],
     from: json["from"],
     lastPage: json["last_page"],
@@ -76,8 +76,8 @@ class Data {
 
 }
 
-class Datum {
-  Datum({
+class AllServiceData {
+  AllServiceData({
     this.id,
     this.serviceName,
     this.serviceCategoryId,
@@ -115,7 +115,7 @@ class Datum {
   dynamic bookingDate;
   ServiceCategory? serviceCategory;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory AllServiceData.fromJson(Map<String, dynamic> json) => AllServiceData(
     id: json["id"],
     serviceName: json["service_name"],
     serviceCategoryId: json["service_category_id"],

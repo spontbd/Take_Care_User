@@ -67,7 +67,7 @@ class _MapPageState extends State<MapPage> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: dynamicSize(1.5),
+                      height: dynamicSize(1),
                       child: Stack(
                         children: [
                           GoogleMap(
@@ -96,7 +96,7 @@ class _MapPageState extends State<MapPage> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("Caregiver will visit",style: TextStyle(color: Colors.black54,fontSize: dynamicSize(0.05)),),
+                                          Text("Service provider will visit",style: TextStyle(color: Colors.black54,fontSize: dynamicSize(0.05)),),
                                           TextButton(onPressed: (){
                                             late PickResult selectedPlace;
                                             //var initLatLng = LatLng(23.8567844, 90.213108);
@@ -137,7 +137,7 @@ class _MapPageState extends State<MapPage> {
                                                         borderRadius: BorderRadius.circular(12.0),
                                                         child: state == SearchingState.Searching
                                                             ? const Center(child: CircularProgressIndicator())
-                                                            : RaisedButton(
+                                                            : /*RaisedButton(
                                                           color: AllColor.pink_button,
                                                           child: const Text("Search Service Provider around You",style: TextStyle(color: Colors.white),),
                                                           onPressed: () {
@@ -148,7 +148,7 @@ class _MapPageState extends State<MapPage> {
                                                             print("placeucode: "+selectedPlace.toString());
                                                             print("placeucode: "+selectedPlace!.latitude.toString());
                                                             print("placeucode: "+selectedPlace.longitude.toString());
-                                                            print("placeucode: "+selectedPlace.area.toString());
+                                                            // print("placeucode: "+selectedPlace.area.toString());
 
                                                             Navigator.push(
                                                               context,
@@ -156,6 +156,44 @@ class _MapPageState extends State<MapPage> {
                                                             );
 
                                                           },
+                                                        ),*/
+                                                        Padding(
+                                                          padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 20),
+                                                          child: SizedBox(
+                                                            height: dynamicSize(0.15),
+                                                            width: MediaQuery.of(context).size.width/2,
+                                                            child: Container(
+                                                              //margin: EdgeInsets.only(bottom: 5),
+                                                              padding: const EdgeInsets.only(left: 5, right: 5, bottom:10),
+                                                              child: RaisedButton(
+                                                                elevation: 10,
+                                                                shape: RoundedRectangleBorder(
+                                                                  borderRadius: BorderRadius.circular(10),
+                                                                ),
+                                                                onPressed: () async{
+
+                                                                  Navigator.of(context).pop();
+                                                                  print("placeucode: "+selectedPlace.toString());
+                                                                  print("placeucode: "+selectedPlace!.latitude.toString());
+                                                                  print("placeucode: "+selectedPlace.longitude.toString());
+                                                                  // print("placeucode: "+selectedPlace.area.toString());
+
+                                                                  Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(builder: (context) => MapPage(result: selectedPlace)),
+                                                                  );
+                                                                },
+                                                                //padding: EdgeInsets.all(10.0),
+                                                                color: AllColor.pink_button,
+                                                                textColor: Colors.white,
+                                                                child: Text(
+
+                                                                "Search Service Provider around You",
+                                                                  style: TextStyle(fontSize: dynamicSize(0.05)),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
                                                       );
                                                     },
@@ -203,121 +241,122 @@ class _MapPageState extends State<MapPage> {
                         Container(
                           alignment: Alignment.center,
                           height: dynamicSize(1),
-                          child: ListView(
-                            physics: NeverScrollableScrollPhysics(),
-                            children: List.generate(
-                              DataControllers.to.getAvailableProviderList.value.data!.length,
-                                  (index) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: InkWell(
-                                  onTap: (){
-                                    rqbutton =true;
-                                    setState(() {
-                                      selected = DataControllers.to.getAvailableProviderList.value.data!.map<bool>((v) => false).toList();
-                                      selected[index] = !selected[index];
-                                      requestIndex = index;
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 18.0),
+                            child: ListView(
+                              children: List.generate(
+                                DataControllers.to.getAvailableProviderList.value.data!.length,
+                                    (index) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: (){
+                                      rqbutton =true;
+                                      setState(() {
+                                        selected = DataControllers.to.getAvailableProviderList.value.data!.map<bool>((v) => false).toList();
+                                        selected[index] = !selected[index];
+                                        requestIndex = index;
 
-                                      // Get.offAll(()=>const RequestPage());
-                                    });
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Stack(
-                                            clipBehavior: Clip.none,
-                                            children: [
-                                              Positioned(
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                  const BorderRadius.all(Radius.circular(30)),
-                                                  child: CachedNetworkImage(
-                                                    height: 55,
-                                                    width: 55,
-                                                    fit: BoxFit.cover,
-                                                    imageUrl:
-                                                    ApiService.MainURL + DataControllers.to.getAvailableProviderList.value.data![index].profilePhoto.toString(),
-                                                    placeholder: (context, url) =>
-                                                        const CircularProgressIndicator(),
-                                                    errorWidget: (context, url, error) =>
-                                                        Image.asset('assets/images/imam.png'),
+                                        // Get.offAll(()=>const RequestPage());
+                                      });
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Stack(
+                                              clipBehavior: Clip.none,
+                                              children: [
+                                                Positioned(
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                    const BorderRadius.all(Radius.circular(30)),
+                                                    child: CachedNetworkImage(
+                                                      height: 55,
+                                                      width: 55,
+                                                      fit: BoxFit.cover,
+                                                      imageUrl:
+                                                      ApiService.MainURL + DataControllers.to.getAvailableProviderList.value.data![index].profilePhoto.toString(),
+                                                      placeholder: (context, url) =>
+                                                          const CircularProgressIndicator(),
+                                                      errorWidget: (context, url, error) =>
+                                                          Image.asset('assets/images/imam.png'),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              Positioned(
-                                                top: dynamicSize(0.17),
-                                                left: dynamicSize(0.04),
-                                                child: Container(
-                                                    alignment: Alignment.center,
-                                                    width: dynamicSize(0.12),
-                                                    //color: Colors.red,
-                                                    decoration: BoxDecoration(
-                                                      color: AllColor.white_yeo,
-                                                      borderRadius: BorderRadius.circular(30),
-                                                    ),
-                                                    child: Text(
-                                                      "${DataControllers.to.getAvailableProviderList.value.data![index].wight} ",
-                                                      style: const TextStyle(color: Colors.green),
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 10.0),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text("${DataControllers.to.getAvailableProviderList.value.data![index].fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
-
-                                                Padding(
-                                                  padding: const EdgeInsets.all(3.0),
-                                                  child: Row(children: const [
-                                                    Text(""),
-                                                    Text(""),
-                                                  ],),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(3.0),
-                                                  child: Row(children: const [
-                                                    Text("Service Cost: "),
-                                                    Text(""),
-                                                  ],),
+                                                Positioned(
+                                                  top: dynamicSize(0.17),
+                                                  left: dynamicSize(0.04),
+                                                  child: Container(
+                                                      alignment: Alignment.center,
+                                                      width: dynamicSize(0.12),
+                                                      //color: Colors.red,
+                                                      decoration: BoxDecoration(
+                                                        color: AllColor.white_yeo,
+                                                        borderRadius: BorderRadius.circular(30),
+                                                      ),
+                                                      child: Text(
+                                                        "${DataControllers.to.getAvailableProviderList.value.data![index].wight} ",
+                                                        style: const TextStyle(color: Colors.green),
+                                                      )),
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 10.0),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text("${DataControllers.to.getAvailableProviderList.value.data![index].fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
 
-
-                                      InkWell(
-                                        child: Container(
-                                            margin: const EdgeInsets.only(right: 15),
-                                            width: 20,
-                                            height: 20,
-                                            decoration: ShapeDecoration(
-                                                color:  selected[index]  ? Colors.green : Colors.white ,
-                                                shape: const CircleBorder (
-                                                    side: BorderSide(
-                                                        width: 2,
-                                                        color: Colors.green
-                                                    )
-                                                )
-                                            )
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(3.0),
+                                                    child: Row(children: const [
+                                                      Text(""),
+                                                      Text(""),
+                                                    ],),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(3.0),
+                                                    child: Row(children: const [
+                                                      Text("Service Cost: "),
+                                                      Text(""),
+                                                    ],),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      )
-                                    ],
+
+
+                                        InkWell(
+                                          child: Container(
+                                              margin: const EdgeInsets.only(right: 15),
+                                              width: 20,
+                                              height: 20,
+                                              decoration: ShapeDecoration(
+                                                  color:  selected[index]  ? Colors.green : Colors.white ,
+                                                  shape: const CircleBorder (
+                                                      side: BorderSide(
+                                                          width: 2,
+                                                          color: Colors.green
+                                                      )
+                                                  )
+                                              )
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-
-
                       ],
                     ),
+
                   ],
                 ),
               ),
@@ -346,7 +385,7 @@ class _MapPageState extends State<MapPage> {
                         color: AllColor.pink_button,
                         textColor: Colors.white,
                         child: Text(
-                          "Request ${DataControllers.to.getAvailableProviderList.value.data![requestIndex].fullName}",
+                          requestIndex != null ?  "Request ${DataControllers.to.getAvailableProviderList.value.data![requestIndex].fullName}" : "",
                           style: TextStyle(fontSize: dynamicSize(0.05)),
                         ),
                       ),

@@ -9,6 +9,7 @@ import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/SaveAddressResponse.dart';
+import 'package:takecare_user/model/SliderResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
 import '../controller/data_controller.dart';
 import 'package:takecare_user/public_variables/notifications.dart';
@@ -81,7 +82,7 @@ class ApiService {
       }),
     );
     if (response.statusCode == 200) {
-      print("Api Response : ${response.body}");
+      print("Api Response  : ${response.body}");
       var jsonString = response.body;
       return allServiceResponseFromJson(jsonString);
     } else {
@@ -578,8 +579,10 @@ class ApiService {
       }),*/
 
     );
+    print("Api Response -> Available Provider List : ${response.body}");
+
+
     if (response.statusCode == 200) {
-      print("Api Response : ${response.body}");
       var jsonString = response.body;
       return availableProviderResponseFromJson(jsonString);
     } else {
@@ -796,5 +799,31 @@ class ApiService {
       throw Exception('add service');
     }
   }
+
+
+
+
+  static Future<SliderResponse?> fetchSliderResponse() async {
+    var response = await client
+        .get(Uri.parse(BaseURL + 'app-sliders'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    }
+    );
+    if (response.statusCode == 200) {
+      print("Api Response categories : ${response.body}");
+      var jsonString = response.body;
+      return sliderResponseFromJson(jsonString);
+    } else {
+      DataControllers.to.sliderResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.sliderResponse.value.message =
+      json.decode(response.body)["message"];
+
+      return null;
+    }
+  }
+
 
 }

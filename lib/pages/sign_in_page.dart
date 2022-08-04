@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
+import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/pages/forgate_pass_page.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/pages/sign_up_page.dart';
@@ -438,6 +439,8 @@ class _SignInPageState extends State<SignInPage> {
       bearerToken = "Bearer " +
           DataControllers.to.userLoginResponse.value.data!.token.toString();
 
+
+      await DataControllers.to.getSlider();
       await DataControllers.to.getAllCategories();
       Common.storeSharedPreferences.setString('userid', user);
       Common.storeSharedPreferences.setString('pass', pass);

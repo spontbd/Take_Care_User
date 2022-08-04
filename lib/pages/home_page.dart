@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:takecare_user/api_service/ApiService.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
 import 'package:takecare_user/pages/Addresses.dart';
 import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
@@ -63,6 +64,9 @@ class _HomePageState extends State<HomePage> {
 
 
   Future<void> checkEngaged()async{
+
+    await DataControllers.to.getSlider();
+
     QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
         .where('sender_id', isEqualTo: DataControllers.to.userLoginResponse.value.data!.user!.phone.toString())
         .where('status',isEqualTo: Variables.orderStatusData[1].statusCode).get();
@@ -350,15 +354,10 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Expanded(
                                 flex: 1,
-                                child:
-
-                                CarouselSlider.builder(
+                                child: CarouselSlider.builder(
                                   carouselController: buttonCarouselController,
-
-                                  itemCount: imgList.length,
+                                  itemCount: DataControllers.to.sliderResponse.value.data!.length,
                                   itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
-
-
                                       Container(
                                         //color: Colors.pinkAccent,
                                         height: dynamicSize(0.42),
@@ -369,8 +368,7 @@ class _HomePageState extends State<HomePage> {
                                           BorderRadius.all(Radius.circular(10)),
 
                                           image: DecorationImage(
-                                            image:
-                                            AssetImage("assets/images/doc.png"),
+                                            image: NetworkImage("${ApiService.MainURL+DataControllers.to.sliderResponse.value.data![itemIndex].sliderImage!}"),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -384,7 +382,7 @@ class _HomePageState extends State<HomePage> {
                                                 padding: const EdgeInsets.only(
                                                     left: 10, bottom: 10),
                                                 child: Text(
-                                                  "Dementia Patient" /*DataControllers.to.getCategoriesResponse.value.data[].*/,
+                                                  "${DataControllers.to.sliderResponse.value.data![itemIndex].sliderTitle}" /*DataControllers.to.getCategoriesResponse.value.data[].*/,
                                                   style: TextStyle(
                                                       fontSize: dynamicSize(0.075),
                                                       color: Colors.white,
@@ -398,7 +396,7 @@ class _HomePageState extends State<HomePage> {
                                                 padding: const EdgeInsets.only(
                                                     left: 10.0, bottom: 15),
                                                 child: Text(
-                                                  "Total take care for 12 hrs.or 24 hrs. ",
+                                                  "${DataControllers.to.sliderResponse.value.data![itemIndex].sliderDescription}",
                                                   style: TextStyle(
                                                     fontSize: dynamicSize(0.045),
                                                     color: Colors.white,
@@ -412,7 +410,6 @@ class _HomePageState extends State<HomePage> {
 
 
                                   options: CarouselOptions(
-
                                     autoPlay: true,
                                     enlargeCenterPage: true,
                                     viewportFraction: 1.0,
@@ -431,7 +428,7 @@ class _HomePageState extends State<HomePage> {
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: imgList.asMap().entries.map((entry) {
+                            children: DataControllers.to.sliderResponse.value.data!.asMap().entries.map((entry) {
                               return GestureDetector(
                                 onTap: () => buttonCarouselController.animateToPage(entry.key),
                                 child: Container(
@@ -448,11 +445,7 @@ class _HomePageState extends State<HomePage> {
                               );
                             }).toList(),
                           ),
-                       /*   RaisedButton(
-                            onPressed: () => buttonCarouselController.nextPage(
-                                duration: Duration(milliseconds: 300), curve: Curves.linear),
-                            child: Text('→'),
-                          ),*/
+
 
 
                           Padding(
@@ -518,7 +511,7 @@ class _HomePageState extends State<HomePage> {
 
                                             fit: BoxFit.fill,
                                             imageUrl:
-                                                "https://takecare.ltd/${DataControllers.to.getCategoriesResponse.value.data![index].serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                                "${ApiService.MainURL+DataControllers.to.getCategoriesResponse.value.data![index].serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
 
                                             errorWidget:
                                                 (context, url, error) =>
