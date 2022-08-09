@@ -16,19 +16,19 @@ class CategoriesResponse {
 
   bool? success;
   String? message;
-  List<Datum>? data;
+  List<CategoriesData>? data;
 
   factory CategoriesResponse.fromJson(Map<String, dynamic> json) => CategoriesResponse(
     success: json["success"],
     message: json["message"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<CategoriesData>.from(json["data"].map((x) => CategoriesData.fromJson(x))),
   );
 
 
 }
 
-class Datum {
-  Datum({
+class CategoriesData {
+  CategoriesData({
     this.id,
     this.categoryName,
     this.serviceImage,
@@ -49,7 +49,7 @@ class Datum {
   dynamic createdAt;
   dynamic updatedAt;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory CategoriesData.fromJson(Map<String, dynamic> json) => CategoriesData(
     id: json["id"],
     categoryName: json["category_name"],
     serviceImage: json["service_image"],

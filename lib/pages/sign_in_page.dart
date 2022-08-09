@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
+// import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
+// import 'package:maplibre_gl/mapbox_gl.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ import '../ui/common.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
-  static final initLatLng = LatLng(23.8567844, 90.213108);
+  // static final initLatLng = LatLng(23.8567844, 90.213108);
 
   @override
   _SignInPageState createState() => _SignInPageState();
@@ -37,7 +37,7 @@ bool signIn = true;
 
 class _SignInPageState extends State<SignInPage> {
   bool english = true;
-  late PickResult selectedPlace;
+  // late PickResult selectedPlace;
   bool language = true;
 
   final TextEditingController _mobileNumber = TextEditingController(text: '');

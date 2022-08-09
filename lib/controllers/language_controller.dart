@@ -18,10 +18,12 @@ class LanguageController extends GetxController{
   RxString greatNext=''.obs;
   RxString category=''.obs;
   RxString logOut=''.obs;
+  RxString profile=''.obs;
 
   RxString search=''.obs;
   RxString onDemandServiceSetup=''.obs;
   RxString longTimeServiceSetup=''.obs;
+  RxString personalDetails=''.obs;
 
   @override
   void onInit() {
@@ -57,6 +59,8 @@ class LanguageController extends GetxController{
     category(isEnglish.value?'Category': 'বিভাগ');
     logOut(isEnglish.value?'Log Out': 'প্রস্থান');
     search(isEnglish.value?'Search..': 'অনুসন্ধান করুন');
+    profile(isEnglish.value?'Profile': 'প্রোফাইল');
+    personalDetails(isEnglish.value?"Personal Details": "ব্যক্তিগত বিবরণ");
 
     onDemandServiceSetup(isEnglish.value?'On Demand Service Setup': 'চাহিদা অনুযায়ী সেবা সেটআপ');
     // longTimeService(isEnglish.value?'Long Time Service': 'দীর্ঘ সময়ের পরিষেবা');

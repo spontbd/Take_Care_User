@@ -1,4 +1,4 @@
-import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
+// import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,6 @@ import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/model/AllServiceResponse.dart';
 import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/pages/home_page.dart';
-import 'package:takecare_user/widgets/check_box.dart';
 import 'package:intl/intl.dart';
 import '../../controllers/language_controller.dart';
 import '../../public_variables/all_colors.dart';
@@ -105,6 +104,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                               ),
                               child: CachedNetworkImage(
                                 width: 120,
+                                height: 110,
                                 imageUrl:
                                 "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
                                 errorWidget: (context, url, error) => Image.asset(
@@ -231,7 +231,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                   child: ListView(
                     padding: const EdgeInsets.all(8),
                     children: new List.generate(
-                      DataControllers.to.getAddCardResponse.value.data!.length,
+                      DataControllers.to.getAddCardShortServiceResponse.value.data!.length,
                       (index) => Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Container(
@@ -264,8 +264,9 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                 child: CachedNetworkImage(
                                   fit: BoxFit.fill,
                                   width: 120,
+                                  height: 110,
                                   imageUrl:
-                                  "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                  "https://takecare.ltd/${DataControllers.to.getAddCardShortServiceResponse.value.data![index].service!.imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
                                   errorWidget: (context, url, error) => Image.asset(
                                     "assets/images/image.png",
                                   ),
@@ -279,7 +280,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 8.0, left: 5,right: 10),
                                       child: Text(
-                                        "${DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName}",
+                                        "${DataControllers.to.getAddCardShortServiceResponse.value.data![index].service!.serviceName == null ? "Service Name" : DataControllers.to.getAddCardShortServiceResponse.value.data![index].service!.serviceName}",
                                         style: TextStyle(
                                             fontSize: dynamicSize(0.04),
                                             fontWeight: FontWeight.bold),
@@ -393,7 +394,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           ),
                         ),
                       ),
-
                       _isChecked.contains(true) ? Padding(
                           padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
                           child: ElevatedButton(
@@ -425,30 +425,30 @@ class _OnDemandPageState extends State<OnDemandPage> {
 
 
   void getAddCardData() async {
-    await DataControllers.to.getCard();
+    await DataControllers.to.getCard('short');
     await DataControllers.to.getAllShortService("short");
     setState((){
       searchData;
     });
     if (
-        DataControllers.to.getAddCardResponse.value.data == null
+        DataControllers.to.getAddCardShortServiceResponse.value.data == null
     )
       {
         setState(() {
           showBottom = false;
           addedlist = false;
-          DataControllers.to.getAddCardResponse;
+          DataControllers.to.getAddCardShortServiceResponse;
         });
-      } else if (DataControllers.to.getAddCardResponse.value.data!.length > 0) {
+      } else if (DataControllers.to.getAddCardShortServiceResponse.value.data!.length > 0) {
       setState(() {
-        DataControllers.to.getAddCardResponse;
+        DataControllers.to.getAddCardShortServiceResponse;
         showBottom = true;
         addedlist = true;
       });
     } else {
 
       setState(() {
-        DataControllers.to.getAddCardResponse;
+        DataControllers.to.getAddCardShortServiceResponse;
         showBottom = false;
         addedlist = false;
       });
@@ -463,7 +463,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
   void deleteAddCardData(int index) async {
     await DataControllers.to.deleteCard(
         DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
-        DataControllers.to.getAddCardResponse.value.data![index].id.toString());
+        DataControllers.to.getAddCardShortServiceResponse.value.data![index].id.toString());
         showToast(DataControllers.to.addCardResponse.value.message!);
 
     if (DataControllers.to.addCardResponse.value.success!) {
@@ -604,8 +604,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                             ),
                           ),
                         ),
-                        addedlist
-                            ? Container(
+                        addedlist ?
+                        Container(
                           alignment: Alignment.topLeft,
                           child: InkWell(
                             onTap: () {
@@ -619,7 +619,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                   child: Text(
                                     DataControllers
                                         .to
-                                        .getAddCardResponse
+                                        .getAddCardShortServiceResponse
                                         .value
                                         .data!
                                         .length
@@ -652,8 +652,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                               ],
                             ),
                           ),
-                        )
-                            : Container(
+                        ) :
+                        Container(
                           alignment: Alignment.topLeft,
                           child: Padding(
                             padding: const EdgeInsets.only(
@@ -676,74 +676,74 @@ class _OnDemandPageState extends State<OnDemandPage> {
                   child: InkWell(
                     onTap: () async{
                       await DataControllers.to.getProviderList("1", "1");
-                      late PickResult selectedPlace;
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return PlacePicker(
-                              apiKey: "MjY5MzpHMEVBUExBNVM5",
-                              initialPosition: SignInPage.initLatLng,
-                              useCurrentLocation: true,
-                              selectInitialPosition: true,
-                              usePinPointingSearch: true,
-                              onPlacePicked: (result) {
-                                selectedPlace = result;
-                                //  Navigator.of(context).pop();
-                                setState(() {
-                                  selectedPlace = result;
-                                });
-                              },
-                              //forceSearchOnZoomChanged: true,
-                              automaticallyImplyAppBarLeading: false,
-                              //autocompleteLanguage: "ko",
-                              //region: 'au',
-                              selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
-                                print("state: $state, isSearchBarFocused: $isSearchBarFocused");
-                                return isSearchBarFocused
-                                    ? Container()
-                                    : FloatingCard(
-                                  bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
-                                  leftPosition: 0.0,
-                                  rightPosition: 0.0,
-                                  width: 500,
-
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  child: state == SearchingState.Searching
-                                      ? const Center(child: CircularProgressIndicator())
-                                      : RaisedButton(
-                                    color: AllColor.pink_button,
-                                    child: Text("Search Service Provider around You",style: const TextStyle(color: Colors.white),),
-                                    onPressed: () {
-                                      // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
-                                      //            this will override default 'Select here' Button.
-                                      Navigator.of(context).pop();
-                                      if (kDebugMode) {
-                                        print("placeucode: "+selectedPlace.toString());
-                                        print("placeucode: "+selectedPlace!.latitude.toString());
-                                        print("placeucode: "+selectedPlace.longitude.toString());
-                                        print("placeucode: "+selectedPlace.area.toString());
-                                      }
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => MapPage(result: selectedPlace!)),
-                                      );
-
-                                    },
-                                  ),
-                                );
-                              },
-                              // pinBuilder: (context, state) {
-                              //   if (state == PinState.Idle) {
-                              //     return Icon(Icons.favorite_border);
-                              //   } else {
-                              //     return Icon(Icons.favorite);
-                              //   }
-                              // },
-                            );
-                          },
-                        ),
-                      );
+                      // late PickResult selectedPlace;
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) {
+                      //       return PlacePicker(
+                      //         apiKey: "MjY5MzpHMEVBUExBNVM5",
+                      //         initialPosition: SignInPage.initLatLng,
+                      //         useCurrentLocation: true,
+                      //         selectInitialPosition: true,
+                      //         usePinPointingSearch: true,
+                      //         onPlacePicked: (result) {
+                      //           selectedPlace = result;
+                      //           //  Navigator.of(context).pop();
+                      //           setState(() {
+                      //             selectedPlace = result;
+                      //           });
+                      //         },
+                      //         //forceSearchOnZoomChanged: true,
+                      //         automaticallyImplyAppBarLeading: false,
+                      //         //autocompleteLanguage: "ko",
+                      //         //region: 'au',
+                      //         selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
+                      //           print("state: $state, isSearchBarFocused: $isSearchBarFocused");
+                      //           return isSearchBarFocused
+                      //               ? Container()
+                      //               : FloatingCard(
+                      //             bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
+                      //             leftPosition: 0.0,
+                      //             rightPosition: 0.0,
+                      //             width: 500,
+                      //
+                      //             borderRadius: BorderRadius.circular(12.0),
+                      //             child: state == SearchingState.Searching
+                      //                 ? const Center(child: CircularProgressIndicator())
+                      //                 : RaisedButton(
+                      //               color: AllColor.pink_button,
+                      //               child: Text("Search Service Provider around You",style: const TextStyle(color: Colors.white),),
+                      //               onPressed: () {
+                      //                 // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
+                      //                 //            this will override default 'Select here' Button.
+                      //                 Navigator.of(context).pop();
+                      //                 if (kDebugMode) {
+                      //                   print("placeucode: "+selectedPlace.toString());
+                      //                   print("placeucode: "+selectedPlace!.latitude.toString());
+                      //                   print("placeucode: "+selectedPlace.longitude.toString());
+                      //                   print("placeucode: "+selectedPlace.area.toString());
+                      //                 }
+                      //                 Navigator.push(
+                      //                   context,
+                      //                   MaterialPageRoute(builder: (context) => MapPage(result: selectedPlace!)),
+                      //                 );
+                      //
+                      //               },
+                      //             ),
+                      //           );
+                      //         },
+                      //         // pinBuilder: (context, state) {
+                      //         //   if (state == PinState.Idle) {
+                      //         //     return Icon(Icons.favorite_border);
+                      //         //   } else {
+                      //         //     return Icon(Icons.favorite);
+                      //         //   }
+                      //         // },
+                      //       );
+                      //     },
+                      //   ),
+                      // );
                     },
                     child: Container(
                       decoration: const BoxDecoration(
@@ -799,45 +799,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
           actions: <Widget>[
             IconButton(
               onPressed: () {
-                /*if (cusIcon.icon == Icons.search) {
-                  // print("working");
-                  setState(() {
-                    cusIcon = const Icon(Icons.cancel, color: AllColor.cancel_icon_color);
-                    cusSearchbar = SizedBox(
-                      height: dynamicSize(0.1),
-                      child: TextField(
-                        controller: searchController,
-                        onChanged: (text) =>onSearchTextChanged(text),
-                        decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: AllColor.search_field_color,
-                          hintText: "Search",
-                          prefixIcon: Icon(Icons.search),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(30.0)),
-                            borderSide:
-                            BorderSide(color: Colors.white, width: 2),
-                          ),
-                        ),
-                        style: TextStyle(
-                            color: Colors.black, fontSize: dynamicSize(0.04)),
-                      ),
-                    );
-                  });
-                } else {
-                  // print("working2");
-                  setState(() {
-                    cusIcon = const Icon(Icons.search, color: Colors.black);
-                    cusSearchbar = Text(
-                      "On Demand",
-                      style: TextStyle(
-                          color: Colors.black, fontSize: dynamicSize(0.03)),
-                    );
-                  });
-                }
-                */
-
                 if (cusIcon.icon == Icons.search) {
                   setState(() {
                     cusIcon =
@@ -1060,6 +1021,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                             child: CachedNetworkImage(
                               fit: BoxFit.fill,
                               width: 120,
+                              height: 110,
                               imageUrl:
                               "https://takecare.ltd/${_searchResult[index].imagePath}",
                               errorWidget: (context, url, error) => Image.asset(
@@ -1141,7 +1103,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
           padding: const EdgeInsets.only(top: 8,bottom: 8),
           children: List.generate(
             searchValue ?
-            searchData.length :DataControllers.to.shortServiceResponse.value.data!.data!.length,
+            searchData.length : DataControllers.to.shortServiceResponse.value.data!.data!.length,
                 (index) => Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Stack(
@@ -1179,6 +1141,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                             child: CachedNetworkImage(
                               fit: BoxFit.fill,
                               width: 120,
+                              height: 110,
                               imageUrl:
                               "https://takecare.ltd/${
                                   (searchValue != true) ?

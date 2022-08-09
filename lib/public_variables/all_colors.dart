@@ -16,8 +16,10 @@ class AllColor{
   static const Color colorDashboardProfileRed = Color(0xffF17979);
   static const Color colorDashboardOnDemand_blue = Color(0xff41C5DF);
   static const Color colorArrow = Color(0xff2D75B8);
+  static const Color colorExperience = Color(0xcaf8edc2);
 
 
+  static const Color selected_color= Color(0x65eeecec);
   static const Color shado_color= Color(0xffeeecec);
   static const Color white_blue= Color(0xffe3f2fd);
   static const Color white_orange= Color(0xffffeece);

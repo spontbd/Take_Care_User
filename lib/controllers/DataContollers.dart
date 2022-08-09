@@ -59,7 +59,9 @@ class DataControllers extends GetxController {
 
   /// AddCard
   Rx<ErrorResponse> addCardResponse = ErrorResponse().obs;
-  Rx<AddCardResponse> getAddCardResponse = AddCardResponse().obs;
+  // Rx<AddCardResponse> getAddCardResponse = AddCardResponse().obs;
+  Rx<AddCardResponse> getAddCardShortServiceResponse = AddCardResponse().obs;
+  Rx<AddCardResponse> getAddCardLongServiceResponse = AddCardResponse().obs;
 
   /// Save Address
   Rx<ErrorResponse> addFavAddressResponse = ErrorResponse().obs;
@@ -154,14 +156,35 @@ class DataControllers extends GetxController {
     }
   }
 
-  Future getCard() async {
+  Future getCard(String type) async {
     isLoading(true);
-    getAddCardResponse = AddCardResponse().obs;
-    var response = await ApiService.fetchCard();
+    var response = await ApiService.fetchCard(type);
 
-    if (response != null) {
-      getAddCardResponse.value = response;
-      // responseSuccess(true);
+    if (response != null)
+    {
+
+      getAddCardShortServiceResponse = AddCardResponse().obs;
+      getAddCardLongServiceResponse = AddCardResponse().obs;
+
+      // response.data?.forEach((element) {
+      //   if(type == 'short' && element.service!.serviceType == 'short') {
+      //     getAddCardShortServiceResponse.value.data!.add(element);
+      //   }else if(type == 'long' && element.service!.serviceType == 'long') {
+      //       getAddCardLongServiceResponse.value.data?.add(element);
+      //     }
+      // });
+
+      if(type == 'short') {
+          // getAddCardShortServiceResponse.value.message = response.message;
+          // getAddCardShortServiceResponse.value.success = response.success;
+        getAddCardShortServiceResponse.value = response;
+          return getAddCardShortServiceResponse.value;
+        }else {
+            // getAddCardLongServiceResponse.value.message = response.message;
+            // getAddCardLongServiceResponse.value.success = response.success;
+        getAddCardLongServiceResponse.value = response;
+            return getAddCardLongServiceResponse.value;
+          }
     }
   }
 

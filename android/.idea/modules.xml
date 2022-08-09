@@ -3,20 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/android.iml" filepath="$PROJECT_DIR$/.idea/modules/android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/341866667/android.firebase_core.iml" filepath="$PROJECT_DIR$/.idea/modules/341866667/android.firebase_core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2365533/android.firebase_messaging.iml" filepath="$PROJECT_DIR$/.idea/modules/2365533/android.firebase_messaging.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-109650478/android.flutter_local_notifications.iml" filepath="$PROJECT_DIR$/.idea/modules/-109650478/android.flutter_local_notifications.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-638875598/android.flutter_plugin_android_lifecycle.iml" filepath="$PROJECT_DIR$/.idea/modules/-638875598/android.flutter_plugin_android_lifecycle.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1409070710/android.fluttertoast.iml" filepath="$PROJECT_DIR$/.idea/modules/1409070710/android.fluttertoast.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-143641929/android.geolocator_android.iml" filepath="$PROJECT_DIR$/.idea/modules/-143641929/android.geolocator_android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/619941524/android.google_maps_flutter.iml" filepath="$PROJECT_DIR$/.idea/modules/619941524/android.google_maps_flutter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1863435597/android.image_picker.iml" filepath="$PROJECT_DIR$/.idea/modules/-1863435597/android.image_picker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/439189021/android.maplibre_gl.iml" filepath="$PROJECT_DIR$/.idea/modules/439189021/android.maplibre_gl.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-433528288/android.path_provider_android.iml" filepath="$PROJECT_DIR$/.idea/modules/-433528288/android.path_provider_android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1305877653/android.permission_handler_android.iml" filepath="$PROJECT_DIR$/.idea/modules/1305877653/android.permission_handler_android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1946698586/android.shared_preferences_android.iml" filepath="$PROJECT_DIR$/.idea/modules/-1946698586/android.shared_preferences_android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1784142606/android.sqflite.iml" filepath="$PROJECT_DIR$/.idea/modules/1784142606/android.sqflite.iml" />
     </modules>
   </component>
 </project>

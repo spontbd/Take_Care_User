@@ -1,32 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="modules">
-          <set>
-            <option value="C:/flutter/.pub-cache/git/flutter-maplibre-gl-f95dd42b9fab2dc938a259041667a19fbb2c7d78/android" />
-            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.14.0/android" />
-            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-11.2.12/android" />
-            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_local_notifications-9.4.0/android" />
-            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.5/android" />
-            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.9/android" />
-            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator_android-3.1.4/android" />
-            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-2.1.3/android" />
-            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.4+11/android" />
-            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.12/android" />
-            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_android-9.0.2+1/android" />
-            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_android-2.0.11/android" />
-            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.2/android" />
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-          </set>
-        </option>
-        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

@@ -33,91 +33,91 @@ class _RequestPageState extends State<RequestPage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DocumentSnapshot>(
-      stream: FirebaseFirestore.instance.collection("request").doc(widget.docId).snapshots(),
-      builder: (context, snapshot) {
-        if(snapshot.connectionState == ConnectionState.waiting){
-          return const Center(child: CircularProgressIndicator());
-        }
-        else if(snapshot.hasData){
-          if(snapshot.data!.get('status')==Variables.orderStatusData[1].statusCode){
-            SchedulerBinding.instance!.addPostFrameCallback((_) {
-              Get.to(()=>AcceptedPage(reqDocId: widget.docId,receiverId: widget.receiverId));
-            });
+        stream: FirebaseFirestore.instance.collection("request").doc(widget.docId).snapshots(),
+        builder: (context, snapshot) {
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return const Center(child: CircularProgressIndicator());
           }
-          else if(snapshot.data!.get('status')==Variables.orderStatusData[2].statusCode){
-            SchedulerBinding.instance!.addPostFrameCallback((_) {
-              showToast('Request Denied');
-              Get.back();
-            });
-          }
-          return SafeArea(
-            child: Scaffold(
-                backgroundColor: AllColor.themeColor,
-                body: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          // crossAxisAlignment:CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                requestForCancel();
-                              },
-                              child: Text(
-                                "Cancel",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: dynamicSize(0.05)),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.2),
-                        ),
-                        CircleAvatar(
-                          radius: 40,
-                          child:
-                          ClipOval(child: Image.asset("assets/images/imam.png")),
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.1),
-                        ),
-                        Text(
-                          "Leya Ajanta Mondol",
-                          style: TextStyle(
-                              fontSize: dynamicSize(0.06), color: Colors.white),
-                        ),
-                        Text(
-                          "is on the way to accept the service. ",
-                          style: TextStyle(
-                              fontSize: dynamicSize(0.05), color: Colors.white),
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.8),
-                        ),
-                        Text(
-                          "Please wait",
-                          style: TextStyle(
-                              fontSize: dynamicSize(0.05), color: Colors.white),
-                        ),
-                        Text(
-                          ". . . .",
-                          style: TextStyle(
-                              fontSize: dynamicSize(0.1), color: Colors.white),
-                        ),
-                      ],
+          else if(snapshot.hasData){
+            if(snapshot.data!.get('status')==Variables.orderStatusData[1].statusCode){
+              SchedulerBinding.instance.addPostFrameCallback((_) {
+                Get.to(()=>AcceptedPage(reqDocId: widget.docId,receiverId: widget.receiverId));
+              });
+            }
+            else if(snapshot.data!.get('status')==Variables.orderStatusData[2].statusCode){
+              SchedulerBinding.instance.addPostFrameCallback((_) {
+                showToast('Request Denied');
+                Get.back();
+              });
+            }
+            return SafeArea(
+              child: Scaffold(
+                  backgroundColor: AllColor.themeColor,
+                  body: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            // crossAxisAlignment:CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  requestForCancel();
+                                },
+                                child: Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: dynamicSize(0.05)),
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: dynamicSize(0.2),
+                          ),
+                          CircleAvatar(
+                            radius: 40,
+                            child:
+                            ClipOval(child: Image.asset("assets/images/imam.png")),
+                          ),
+                          SizedBox(
+                            height: dynamicSize(0.1),
+                          ),
+                          Text(
+                            "Leya Ajanta Mondol",
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.06), color: Colors.white),
+                          ),
+                          Text(
+                            "is on the way to accept the service. ",
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.05), color: Colors.white),
+                          ),
+                          SizedBox(
+                            height: dynamicSize(0.8),
+                          ),
+                          Text(
+                            "Please wait",
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.05), color: Colors.white),
+                          ),
+                          Text(
+                            ". . . .",
+                            style: TextStyle(
+                                fontSize: dynamicSize(0.1), color: Colors.white),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                )),
-          );
-        }else{
-          return const Center(child: Text('Error getting Data'));
+                  )),
+            );
+          }else{
+            return const Center(child: Text('Error getting Data'));
+          }
         }
-      }
     );
   }
 

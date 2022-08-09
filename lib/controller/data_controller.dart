@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
+// import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -102,67 +102,67 @@ class DataController extends GetxController{
   }
 
 
-  Future<void> createRequest(Providerdata providerData,PickResult result, int requestIndex) async{
-    try{
-      loading(true);update();
-      QuerySnapshot receiverShot = await FirebaseFirestore.instance.collection('request')
-          .where('receiver_id', isEqualTo: providerData.phone.toString()).get();
-      final List<QueryDocumentSnapshot>  lst1 = receiverShot.docs;
-      List<QueryDocumentSnapshot> receiverList = lst1.where((element) => element['status']==Variables.orderStatusData[0].statusCode || element['status']==Variables.orderStatusData[1].statusCode).toList();
+  // Future<void> createRequest(Providerdata providerData,PickResult result, int requestIndex) async{
+  //   try{
+  //     loading(true);update();
+  //     QuerySnapshot receiverShot = await FirebaseFirestore.instance.collection('request')
+  //         .where('receiver_id', isEqualTo: providerData.phone.toString()).get();
+  //     final List<QueryDocumentSnapshot>  lst1 = receiverShot.docs;
+  //     List<QueryDocumentSnapshot> receiverList = lst1.where((element) => element['status']==Variables.orderStatusData[0].statusCode || element['status']==Variables.orderStatusData[1].statusCode).toList();
+  //
+  //     QuerySnapshot senderShot = await FirebaseFirestore.instance.collection('request')
+  //         .where('sender_id', isEqualTo: providerData.phone.toString()).get();
+  //     final List<QueryDocumentSnapshot> lst2 = senderShot.docs;
+  //     List<QueryDocumentSnapshot> senderList = lst2.where((element) => element['status']==Variables.orderStatusData[0].statusCode || element['status']==Variables.orderStatusData[1].statusCode).toList();
+  //
+  //     if(senderList.isNotEmpty){
+  //       loading(false);update();
+  //       showToast('You already busy with a Provider');
+  //     } else if(receiverList.isNotEmpty){
+  //       loading(false);update();
+  //       showToast('Provider busy now! Try again');
+  //     } else if(receiverList.isEmpty && senderList.isEmpty){
+  //       saveData(providerData, result, requestIndex);
+  //     }else{
+  //       loading(false);update();
+  //       showToast('Something went wrong! Try again');
+  //     }
+  //   }catch(e){
+  //     loading(false);update();
+  //     showToast('Something went wrong! Try again');
+  //     if (kDebugMode) {
+  //       print(e.toString());
+  //     }
+  //   }
+  // }
 
-      QuerySnapshot senderShot = await FirebaseFirestore.instance.collection('request')
-          .where('sender_id', isEqualTo: providerData.phone.toString()).get();
-      final List<QueryDocumentSnapshot> lst2 = senderShot.docs;
-      List<QueryDocumentSnapshot> senderList = lst2.where((element) => element['status']==Variables.orderStatusData[0].statusCode || element['status']==Variables.orderStatusData[1].statusCode).toList();
-
-      if(senderList.isNotEmpty){
-        loading(false);update();
-        showToast('You already busy with a Provider');
-      } else if(receiverList.isNotEmpty){
-        loading(false);update();
-        showToast('Provider busy now! Try again');
-      } else if(receiverList.isEmpty && senderList.isEmpty){
-        saveData(providerData, result, requestIndex);
-      }else{
-        loading(false);update();
-        showToast('Something went wrong! Try again');
-      }
-    }catch(e){
-      loading(false);update();
-      showToast('Something went wrong! Try again');
-      if (kDebugMode) {
-        print(e.toString());
-      }
-    }
-  }
-
-  Future<void> saveData(Providerdata providerData,PickResult result, int requestIndex)async{
-    var uuid = const Uuid();
-    final String id = uuid.v1();
-    await FirebaseFirestore.instance.collection('request').doc(id).set({
-      'id': id,
-      'sender_id': DataControllers.to.userLoginResponse.value.data!.user!.phone,
-      'sender_name': DataControllers.to.userLoginResponse.value.data!.user!.fullName,
-      'receiver_id': providerData.phone.toString(),
-      'receiver_name': providerData.fullName,
-      'lat': result.latitude,
-      'lng': result.longitude,
-      'booking_address': result.formattedAddress,
-      'order_note': '',
-      'engage_start_time': null,
-      'engage_end_time': null,
-      'status': Variables.orderStatusData[0].statusCode,
-      'date_time': DateTime.now().millisecondsSinceEpoch
-
-    }).whenComplete(()async{
-      await sendNotification(providerData.phone.toString());
-      loading(false);update();
-      Get.to(()=>RequestPage(docId: id, requestIndex: requestIndex,receiverId: providerData.phone.toString()));
-    });
-  }
+  // Future<void> saveData(Providerdata providerData,PickResult result, int requestIndex)async{
+  //   var uuid = const Uuid();
+  //   final String id = uuid.v1();
+  //   await FirebaseFirestore.instance.collection('request').doc(id).set({
+  //     'id': id,
+  //     'sender_id': DataControllers.to.userLoginResponse.value.data!.user!.phone,
+  //     'sender_name': DataControllers.to.userLoginResponse.value.data!.user!.fullName,
+  //     'receiver_id': providerData.phone.toString(),
+  //     'receiver_name': providerData.fullName,
+  //     'lat': result.latitude,
+  //     'lng': result.longitude,
+  //     'booking_address': result.formattedAddress,
+  //     'order_note': '',
+  //     'engage_start_time': null,
+  //     'engage_end_time': null,
+  //     'status': Variables.orderStatusData[0].statusCode,
+  //     'date_time': DateTime.now().millisecondsSinceEpoch
+  //
+  //   }).whenComplete(()async{
+  //     await sendNotification(providerData.phone.toString());
+  //     loading(false);update();
+  //     Get.to(()=>RequestPage( docId: id, requestIndex: requestIndex,receiverId: providerData.phone.toString()));
+  //   });
+  // }
 
   Future<void> autoCancelRequest(String docId, String receiverId)async{
-    Future.delayed(const Duration(seconds: 10)).then((value)async{
+    Future.delayed(const Duration(seconds: 500)).then((value)async{
       QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
           .where('id', isEqualTo: docId).get();
       final List<QueryDocumentSnapshot> requestList = snapshot.docs;

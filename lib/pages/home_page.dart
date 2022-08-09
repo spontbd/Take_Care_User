@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:takecare_user/api_service/ApiService.dart';
-import 'package:takecare_user/controllers/language_controller.dart';
 import 'package:takecare_user/pages/Addresses.dart';
 import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
 import 'package:takecare_user/pages/long_time_services/long_time_service_page.dart';
@@ -53,8 +52,13 @@ class _HomePageState extends State<HomePage> {
     onProgressBar(true);
     //await DataControllers.to.getAllLongService("long");
     //await DataControllers.to.getAllShortService("short");
-    await DataControllers.to.getAllLongService("long");
-    await DataControllers.to.getAllShortService("short");
+    try{
+      await DataControllers.to.getAllLongService("long");
+      await DataControllers.to.getAllShortService("short");
+      await DataControllers.to.getAllCategories();
+    }catch(e) {}
+
+
     onProgressBar(false);
 
     //  await DataControllers.to.postUserServiceResponse(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
@@ -235,20 +239,20 @@ class _HomePageState extends State<HomePage> {
                                               .storeSharedPreferences
                                               .getString("service");
 
-                                          if (serviceValue == "short" ||
+                                      /*    if (serviceValue == "short" ||
                                               serviceValue == null ||
-                                              serviceValue.isEmpty) {
+                                              serviceValue.isEmpty) {*/
                                             Navigator.of(context)
                                                 .pushReplacement(
                                                     MaterialPageRoute(
                                                         builder: (_) =>
                                                             OnDemandPage()));
-                                          } else {
-                                            //  showToast("You already added the long time service");
-                                            showAlertForAddCardDeleted(
-                                                "On Demand",
-                                                "You already added the long time service");
-                                          }
+                                          // } else {
+                                          //   //  showToast("You already added the long time service");
+                                          //   showAlertForAddCardDeleted(
+                                          //       "On Demand",
+                                          //       "You already added the long time service");
+                                          // }
                                         },
                                         child: Icon(Icons.chevron_right,
                                             size: size.width * .06,
@@ -474,18 +478,26 @@ class _HomePageState extends State<HomePage> {
                                         .storeSharedPreferences
                                         .getString("service");
 
-                                    if (serviceValue == "long" ||
-                                        serviceValue == null ||
-                                        serviceValue.isEmpty) {
+                                    // if (serviceValue == "long" ||
+                                    //     serviceValue == null ||
+                                    //     serviceValue.isEmpty) {
                                       Navigator.of(context).pushReplacement(
                                           MaterialPageRoute(
                                               builder: (_) =>
-                                                  LongTimeServicesPage()));
-                                    } else {
-                                      //  showToast("You already added the long time service");
-                                      showAlertForAddCardDeleted("On Demand",
-                                          "You already added the on-Demand service");
-                                    }
+                                                  LongTimeServicesPage(
+                                                      selectedType :
+                                                      DataControllers
+                                                          .to
+                                                          .getCategoriesResponse
+                                                          .value
+                                                          .data![index]
+                                                          .categoryName!.toString()
+                                                  )));
+                                    // } else {
+                                    //   //  showToast("You already added the long time service");
+                                    //   showAlertForAddCardDeleted("On Demand",
+                                    //       "You already added the on-Demand service");
+                                    // }
                                   },
                                   child: Container(
                                     width: size.width / 2.42,

@@ -280,17 +280,17 @@ class ApiService {
 
   /// Card Service
 
-  static Future<AddCardResponse?> fetchCard(
-      ) async {
+  static Future<AddCardResponse?> fetchCard(String type) async {
     var response = await client
-        .get(Uri.parse(BaseURL + 'user/cart/list'), headers: <String, String>{
+        .get(Uri.parse(BaseURL + 'user/cart/list?type=${type}'), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
       'Authorization': bearerToken,
     },
-    /*  body: jsonEncode(<String, String>{
-        'user_id': user_id,
-      }),*/
+
+      // body: jsonEncode(<String, String>{
+      //   'user_id': user_id,
+      // }),
 
     );
     if (response.statusCode == 200) {
@@ -298,13 +298,23 @@ class ApiService {
       var jsonString = response.body;
       return addCardResponseFromJson(jsonString);
     } else {
-      DataControllers.to.getAddCardResponse.value.success =
-      json.decode(response.body)["success"];
-      DataControllers.to.getAddCardResponse.value.message =
-      json.decode(response.body)["message"];
-      //showToast("Please enter your valid user and password!!",Colors.red);
-      //  return errorResponseFromJson(response.body);
-      return DataControllers.to.getAddCardResponse.value;
+
+      if(type == 'short')
+        {
+          DataControllers.to.getAddCardShortServiceResponse.value.success =
+          json.decode(response.body)["success"];
+          DataControllers.to.getAddCardShortServiceResponse.value.message =
+          json.decode(response.body)["message"];
+          return DataControllers.to.getAddCardShortServiceResponse.value;
+        }
+      else{
+        DataControllers.to.getAddCardLongServiceResponse.value.success =
+        json.decode(response.body)["success"];
+        DataControllers.to.getAddCardLongServiceResponse.value.message =
+        json.decode(response.body)["message"];
+        return DataControllers.to.getAddCardLongServiceResponse.value;
+
+      }
     }
   }
 

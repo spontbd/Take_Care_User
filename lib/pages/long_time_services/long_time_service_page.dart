@@ -1,8 +1,11 @@
-
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:intl/intl.dart';
+import 'package:takecare_user/model/AllServiceResponse.dart';
+import 'package:takecare_user/model/CategoriesResponse.dart';
 import 'package:takecare_user/pages/long_time_services/service_request_form_page.dart';
 
 import '../../controllers/DataContollers.dart';
@@ -16,9 +19,10 @@ import '../On Demand/feedback_page.dart';
 
 import '../home_page.dart';
 
-class LongTimeServicesPage extends StatefulWidget {
-  const LongTimeServicesPage({Key? key}) : super(key: key);
-
+class LongTimeServicesPage extends StatefulWidget
+{
+   final String selectedType;
+  const LongTimeServicesPage({Key? key, required this.selectedType}) : super(key: key);
 
   @override
   _LongTimeServicesPageState createState() => _LongTimeServicesPageState();
@@ -28,6 +32,9 @@ var addedservice = false;
 var showBottom = false;
 var addedlist = false;
 late List<bool> _isChecked;
+var searchValue = false;
+List<String> result = [];
+List<AllServiceData> searchData  = [];
 
 class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
   Icon cusIcon = Icon(Icons.search, color: Colors.black);
@@ -36,288 +43,328 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
     style: TextStyle(color: Colors.black, fontSize: dynamicSize(0.03)),
   );
 
+  int selectedColor=0;
+  List<AllServiceData> _searchResult = [];
+  TextEditingController searchController = TextEditingController();
 
+
+
+
+  void _filterValue() {
+    searchData = [];
+    searchValue = false;
+    result.forEach((element) {
+      DataControllers.to.longServiceResponse.value.data!.data!.forEach((value) {
+        if(element == value.serviceCategory!.categoryName) {
+          searchData.add(value);
+          searchValue = true;
+        }
+      });
+    });
+    setState((){
+      searchValue;
+    });
+  }
+  onSearchTextChanged(String text) async {
+    _searchResult.clear();
+    if (text.isEmpty) {
+      //  _searchResult.addAll(DataControllers.to.shortServiceResponse.value.data!.data!);
+      setState(() {});
+      return;
+    }
+
+    DataControllers.to.longServiceResponse.value.data!.data!.forEach((userDetail) {
+
+      if (userDetail.serviceName!.toLowerCase().contains(text.toLowerCase())) {
+        _searchResult.add(userDetail);
+        //print(userDetail.serviceName!);
+        // print(userDetail.added_in_my_service!);
+      }
+    });
+
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<LanguageController>(builder: (lc) {
       return Scaffold(
-        bottomNavigationBar: showBottom
-            ? Container(
-          height: dynamicSize(0.2),
-          color: AllColor.button_color,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                flex: 3,
-                child: Container(
-                  color: Colors.red,
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding:
-                          const EdgeInsets.only(left: 8.0, top: 5),
-                          child: Text(
-                            "Long Time Services",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.035),
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                      addedlist
-                          ? Container(
-                        alignment: Alignment.topLeft,
-                        child: InkWell(
-                          onTap: () {
-                            BottomSheetAddedListDialog(context);
-                          },
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8.0, top: 5),
-                                child: Text(
-                                  DataControllers
-                                      .to
-                                      .getAddCardResponse
-                                      .value
-                                      .data!
-                                      .length
-                                      .toString(),
-                                  style: TextStyle(
-                                      fontSize: dynamicSize(0.04),
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                const EdgeInsets.only(top: 5),
-                                child: Text(
-                                  " Service Added",
-                                  style: TextStyle(
-                                      fontSize: dynamicSize(0.04),
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8.0),
-                                child: Icon(
-                                  Icons.keyboard_arrow_up,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                          : Container(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, top: 5),
-                          child: Text(
-                            "Attendant for Hospital Visit",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.04),
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+        bottomNavigationBar: showBottom ?
+        BlurryContainer(
+          blur: 30,
+          elevation: 0,
+          color: Colors.transparent.withOpacity(0.001),
+          padding: const EdgeInsets.all(12),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
+              child: Container(
+                height: dynamicSize(0.18),
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(20)),
                 ),
-              ),
-              Expanded(
-                flex: 2,
-                child: InkWell(
-                  onTap: () {
-                    print("Fahim");
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text(
-                              " How do you want to submit these service request?",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.05),
-                                  color: Colors.red),
-                            ),
-                            actions: [
-                              Column(
-                                children: [
-                                  SizedBox(
-                                    height: dynamicSize(0.07),
-                                  ),
-                                  Container(
-                                    height: dynamicSize(0.003),
-                                    width: dynamicSize(1.5),
-                                    color: Colors.grey,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Flexible(
-                                        flex: 1,
-                                        child: SizedBox(
-                                          height:
-                                          dynamicSize(0.10),
-                                          width: MediaQuery.of(
-                                              context)
-                                              .size
-                                              .width,
-                                          child: Container(
-
-                                            child: RaisedButton(
-                                              shape:
-                                              RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius
-                                                    .only(
-                                                  bottomLeft: Radius
-                                                      .circular(
-                                                      10.0),
-                                                ),
-                                              ),
-                                              onPressed: () async{
-
-
-                                                Navigator.pop(context);
-
-
-
-                                                /* Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const Dashboard()),
-            );*/
-                                              },
-                                              //color: AllColor.button_color,
-                                              textColor:
-                                              Colors.black,
-                                              child:  Text(
-                                                "Annonymusly",
-                                                style: TextStyle(
-                                                    fontSize: 18),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        height: dynamicSize(0.1),
-                                        width: dynamicSize(0.003),
-                                        color: Colors.grey,
-                                      ),
-                                      Flexible(
-                                        flex: 1,
-                                        child: SizedBox(
-                                          height:
-                                          dynamicSize(0.10),
-                                          width: MediaQuery.of(
-                                              context)
-                                              .size
-                                              .width,
-                                          child: Container(
-                                            /*  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        width: 1,
-                                                        color: Colors.black,
-                                                      ),
-                                                      borderRadius:
-                                                      BorderRadius.circular(5.0),
-                                                    ),*/
-                                            //margin: EdgeInsets.only(bottom: 5),
-                                            /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
-                                            child: RaisedButton(
-                                              shape:
-                                              RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius
-                                                    .only(
-                                                  bottomRight: Radius
-                                                      .circular(
-                                                      10.0),
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                Navigator.pop(
-                                                    context);
-                                                setState(()=>addedservice=true);
-                                                      Navigator
-                                                                  .pushReplacement(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-
-                                                                    const ServiceRequestFormPage()),
-                                                              );
-                                                //showBottomSheetAddedDialog(context);
-                                              },
-                                              //color: AllColor.button_color,
-                                              textColor:
-                                              Colors.black,
-                                              child:  Text(
-                                                "Login/Sign Up",
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    color: Colors
-                                                        .lightBlue),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          );
-                        });
-                  },
+          child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 3,
                   child: Container(
-                    color: AllColor.button_color,
-                    alignment: Alignment.center,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    decoration: const BoxDecoration(
+                      color: AllColor.themeColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5.0),bottomLeft:Radius.circular(5.0) ),
+                    ),
+
+                    child: Column(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 8.0),
-                          child: Text(
-                            "Continue",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.04),
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding:
+                            const EdgeInsets.only(left: 8.0, top: 5),
+                            child: Text(
+                              "Long Time Services",
+                              style: TextStyle(
+                                  fontSize: dynamicSize(0.035),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
                           ),
                         ),
-                        SizedBox(
-                          width: dynamicSize(0.02),
-                        ),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                        ),
+                        addedlist
+                            ? Container(
+                          alignment: Alignment.centerLeft,
+                          child: InkWell(
+                            onTap: () {
+                              BottomSheetAddedListDialog(context);
+                            },
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, top: 5),
+                                  child: Text(
+                                    DataControllers
+                                        .to
+                                        .getAddCardLongServiceResponse
+                                        .value
+                                        .data!
+                                        .length
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.04),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(top: 5),
+                                  child: Text(
+                                    " Service Added",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.04),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0),
+                                  child: Icon(
+                                    Icons.keyboard_arrow_up,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                            : Container(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8.0, top: 5),
+                            child: Text(
+                              "Attendant for Hospital Visit",
+                              style: TextStyle(
+                                  fontSize: dynamicSize(0.04),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        )
-            : Container(height: .01),
+                Expanded(
+                  flex: 2,
+                  child: InkWell(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {return AlertDialog(
+                              title: Text(
+                                " How do you want to submit these service request?",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: dynamicSize(0.05),
+                                    color: Colors.red),
+                              ),
+                              actions: [
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      height: dynamicSize(0.07),
+                                    ),
+                                    Container(
+                                      height: dynamicSize(0.003),
+                                      width: dynamicSize(1.5),
+                                      color: Colors.grey,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Flexible(
+                                          flex: 1,
+                                          child: SizedBox(
+                                            height:
+                                            dynamicSize(0.10),
+                                            width: MediaQuery.of(
+                                                context)
+                                                .size
+                                                .width,
+                                            child: Container(
+                                              child: RaisedButton(
+                                                shape:
+                                                RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius.only(
+                                                    bottomLeft: Radius
+                                                        .circular(
+                                                        10.0),
+                                                  ),
+                                                ),
+                                                onPressed: () async{Navigator.pop(context);},
+                                                textColor:
+                                                Colors.black,
+                                                child:  Text(
+                                                  "Annonymusly",
+                                                  style: TextStyle(
+                                                      fontSize: 18),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          height: dynamicSize(0.1),
+                                          width: dynamicSize(0.003),
+                                          color: Colors.grey,
+                                        ),
+                                        Flexible(
+                                          flex: 1,
+                                          child: SizedBox(
+                                            height:
+                                            dynamicSize(0.10),
+                                            width: MediaQuery.of(
+                                                context)
+                                                .size
+                                                .width,
+                                            child: Container(
+                                              /*  decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          width: 1,
+                                                          color: Colors.black,
+                                                        ),
+                                                        borderRadius:
+                                                        BorderRadius.circular(5.0),
+                                                      ),*/
+                                              //margin: EdgeInsets.only(bottom: 5),
+                                              /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
+                                              child: RaisedButton(
+                                                shape:
+                                                RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .only(
+                                                    bottomRight: Radius
+                                                        .circular(
+                                                        10.0),
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.pop(
+                                                      context);
+                                                  setState(()=>addedservice=true);
+                                                        Navigator
+                                                                    .pushReplacement(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+
+                                                                      const ServiceRequestFormPage()),
+                                                                );
+                                                  //showBottomSheetAddedDialog(context);
+                                                },
+                                                //color: AllColor.button_color,
+                                                textColor:
+                                                Colors.black,
+                                                child:  Text(
+                                                  "Login/Sign Up",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors
+                                                          .lightBlue),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );});},
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: AllColor.button_color,
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(5.0),bottomRight:Radius.circular(5.0) ),
+                      ),
+                      alignment: Alignment.center,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              "Continue",
+                              style: TextStyle(
+                                  fontSize: dynamicSize(0.04),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(
+                            width: dynamicSize(0.02),
+                          ),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+          ),),
+        ) : Container(height: .01),
         appBar: AppBar(
           leading: InkWell(
             child: Icon(
@@ -335,42 +382,47 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
             IconButton(
               onPressed: () {
                 if (cusIcon.icon == Icons.search) {
-                  print("working");
                   setState(() {
                     cusIcon =
-                        Icon(Icons.cancel, color: AllColor.cancel_icon_color);
-                    cusSearchbar = SizedBox(
-                      height: dynamicSize(0.09),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AllColor.search_field_color,
-                          hintText: "Search",
-                          prefixIcon: Icon(Icons.search),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(30.0)),
-                            borderSide:
-                            BorderSide(color: Colors.white, width: 2),
+                        Icon(Icons.cancel, color: AllColor
+                            .cancel_icon_color);
+                    cusSearchbar = Card(
+                      color: AllColor.search_field_color,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      child: SizedBox(
+                        width: dynamicSize(20),
+                        height: dynamicSize(0.09),
+                        child: TextField(
+                          controller: searchController,
+                          onChanged: (text) =>onSearchTextChanged(text),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            fillColor: AllColor.search_field_color,
+                            hintText: lc.search.value,
+                            prefixIcon: Icon(Icons.search),
                           ),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: dynamicSize(0.04)),
                         ),
-                        style: TextStyle(
-                            color: Colors.black, fontSize: dynamicSize(0.04)),
                       ),
                     );
                   });
                 } else {
-                  print("working2");
                   setState(() {
+                    onSearchTextChanged('');
+                    searchController.text = '';
                     cusIcon = Icon(Icons.search, color: Colors.black);
                     cusSearchbar = Text(
-                      "Long Time Services",
+                      LanguageController.lc.longTimeServiceSetup.value,
                       style: TextStyle(
                           color: Colors.black, fontSize: dynamicSize(0.03)),
                     );
                   });
                 }
-              },
+                },
               icon: cusIcon,
             ),
           ],
@@ -386,6 +438,10 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                   children: [
                     InkWell(
                       onTap: () {
+                        setState((){
+                          selectedColor = 1;
+                        });
+
                         showButtonListDialog(context);
                       },
                       child: Container(
@@ -394,22 +450,30 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: 8.0, right: 4, top: 4, bottom: 4),
-                              child: Icon(Icons.filter_alt_outlined),
+                              child: Icon(Icons.filter_alt_outlined,
+                                  color: (selectedColor == 1) ? Colors.white : Colors.black
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: 4.0, right: 4, top: 4, bottom: 4),
-                              child: Text('Categories'),
+                              child: Text('Categories',
+                                  style: TextStyle( color: (selectedColor == 1) ?
+                              Colors.white : Colors.black),
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: 4.0, right: 8, top: 4, bottom: 4),
-                              child: Icon(Icons.arrow_drop_down),
+                              child: Icon(Icons.arrow_drop_down,
+                                  color:  (selectedColor == 1) ?
+                              Colors.white : Colors.black
+                              ),
                             ),
                           ],
                         ),
                         decoration: BoxDecoration(
-                          color: AllColor.shado_color,
+                          color: (selectedColor == 1) ? Colors.pinkAccent :  AllColor.shado_color ,
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                       ),
@@ -489,10 +553,11 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
           backgroundColor: Colors.white,
           elevation: 0,
         ),
-        body:ListView(
+        body: _searchResult.length != 0 || searchController.text.isNotEmpty ?
+        ListView(
           padding: const EdgeInsets.all(8),
           children: List.generate(
-            DataControllers.to.longServiceResponse.value.data!.data!.length,
+            _searchResult.length,
                 (index) => Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Container(
@@ -511,13 +576,29 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                 ),
                 child: Row(
                   children: [
-                    CachedNetworkImage(
-                      width: 120,
-                      imageUrl:
-                      "https://takecare.ltd/${DataControllers.to.longServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-
-                      errorWidget: (context, url, error) => Image.asset(
-                        "assets/images/image.png",
+                    Container(
+                      margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
+                      child: Card(
+                        margin: const EdgeInsets.only(left: 0),
+                        semanticContainer: true,
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(15),
+                              topRight: Radius.circular(15)
+                          ),
+                        ),
+                        elevation: 10,
+                        child: CachedNetworkImage(
+                          fit: BoxFit.fill,
+                          width: 120,
+                          height: 110,
+                          imageUrl:
+                          "https://takecare.ltd/${_searchResult[index].imagePath}",
+                          errorWidget: (context, url, error) => Image.asset(
+                            "assets/images/image.png",
+                          ),
+                        ),
                       ),
                     ),
                     Expanded(
@@ -528,7 +609,106 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0, left: 5),
                             child: Text(
-                              "${DataControllers.to.longServiceResponse.value.data!.data![index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
+                              "${_searchResult[index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
+                              style: TextStyle(
+                                  fontSize: dynamicSize(0.04),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(
+                            height: dynamicSize(0.02),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              showButtonDialog(context, index);
+                            },
+                            child: Text(
+                              "Details",
+                              style: TextStyle(
+                                  fontSize: dynamicSize(0.035),
+                                  color: Colors.purple),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        addCard(index);
+                      },
+                      child:
+                      Image.asset(
+                        "assets/images/add.png",
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ) :
+        ListView(
+          padding: const EdgeInsets.all(8),
+          children: List.generate(
+
+            searchValue ?
+            searchData.length : DataControllers.to.longServiceResponse.value.data!.data!.length,
+                (index) => Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 2.0,
+                      spreadRadius: 0.0,
+                      offset:
+                      Offset(2.0, 2.0), // shadow direction: bottom right
+                    )
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
+                      child: Card(
+                        margin: const EdgeInsets.only(left: 0),
+                        semanticContainer: true,
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(15),
+                              topRight: Radius.circular(15)
+                          ),
+                        ),
+                        elevation: 10,
+                        child: CachedNetworkImage(
+                          fit: BoxFit.fill,
+                          width: 120,
+                          height: 110,
+                          imageUrl:
+                          "https://takecare.ltd/${ (searchValue != true) ?DataControllers.to.longServiceResponse.value.data!.data![index].imagePath
+                              : searchData[index].imagePath
+                          }",
+                          errorWidget: (context, url, error) => Image.asset(
+                            "assets/images/image.png",
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0, left: 5),
+                            child: Text(
+                              "${(searchValue != true) ? DataControllers.to.longServiceResponse.value.data!.data![index].serviceName
+                                  : searchData[index].serviceName
+                              /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
                               style: TextStyle(
                                   fontSize: dynamicSize(0.04),
                                   fontWeight: FontWeight.bold),
@@ -572,8 +752,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
     });
   }
 
-  void showButtonDialog(BuildContext context, int index)
-  {
+  void showButtonDialog(BuildContext context, int index) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
@@ -810,6 +989,117 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
         context: context,
         builder: (BuildContext bcs) {
           return Container(
+            color: Colors.transparent,
+            height: dynamicSize(0.9),
+            child: Column(
+              children: [
+                Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.arrow_drop_down_circle_outlined,
+                          color: Colors.white,
+                          size: 35,
+                        ))),
+                Container(
+                  color: AllColor.card_bg,
+                  height: dynamicSize(0.55),
+                  child: ListView(
+                    padding: const EdgeInsets.all(8),
+                    children: new List.generate(
+                      DataControllers.to.getAddCardLongServiceResponse.value.data!.length,
+                          (index) => Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 2.0,
+                                spreadRadius: 0.0,
+                                offset: Offset(
+                                    2.0, 2.0), // shadow direction: bottom right
+                              )
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Card(
+                                margin: EdgeInsets.only(left: 0,top: 10,bottom: 10),
+                                semanticContainer: true,
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(15),
+                                      topRight: Radius.circular(15)
+                                  ),
+                                ),
+                                elevation: 10,
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.fill,
+                                  width: 120,
+                                  height: 110,
+                                  imageUrl:
+                                  "https://takecare.ltd/${DataControllers.to.getAddCardLongServiceResponse.value.data![index].service!.imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                  errorWidget: (context, url, error) => Image.asset(
+                                    "assets/images/image.png",
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0, left: 5,right: 10),
+                                      child: Text(
+                                        "${DataControllers.to.getAddCardLongServiceResponse.value.data![index].service!.serviceName == null ? "Service Name" : DataControllers.to.getAddCardLongServiceResponse.value.data![index].service!.serviceName}",
+                                        style: TextStyle(
+                                            fontSize: dynamicSize(0.04),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 40,
+                                width: 40,
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                    deleteAddCardData(index);
+                                  },
+                                  child: Image.asset(
+                                    "assets/images/demand_service_cross_button.png",
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+
+  /* void BottomSheetAddedListDialog(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bcs) {
+          return Container(
             height: dynamicSize(0.9),
             child: Column(
               children: [
@@ -830,7 +1120,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                   child: ListView(
                     padding: const EdgeInsets.all(8),
                     children: new List.generate(
-                      DataControllers.to.getAddCardResponse.value.data!.length,
+                      DataControllers.to.getAddCardLongServiceResponse.value.data!.length,
                           (index) => Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Container(
@@ -852,7 +1142,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                               CachedNetworkImage(
                                 width: 120,
                                 imageUrl:
-                                "https://takecare.ltd/${DataControllers.to.getCategoriesResponse.value.data![index].categoryName /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                "https://takecare.ltd/${DataControllers.to.getCategoriesResponse.value.data![index].categoryName *//* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath *//*}",
 
                                 errorWidget: (context, url, error) => Image.asset(
                                   "assets/images/image.png",
@@ -866,7 +1156,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                     padding: const EdgeInsets.only(
                                         top: 8.0, left: 5),
                                     child: Text(
-                                      "${DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName == null ? "Service Name" : DataControllers.to.getAddCardResponse.value.data![index].service!.serviceName}",
+                                      "${DataControllers.to.getAddCardLongServiceResponse.value.data![index].service!.serviceName == null ? "Service Name" : DataControllers.to.getAddCardLongServiceResponse.value.data![index].service!.serviceName}",
                                       style: TextStyle(
                                           fontSize: dynamicSize(0.04),
                                           fontWeight: FontWeight.bold),
@@ -910,17 +1200,30 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
             ),
           );
         });
-  }
+  }*/
 
 
 
 
+  List<CategoriesData> dataResponse = [];
 
   void showButtonListDialog(BuildContext context) {
+
+    result = [];
+    // DataControllers.to.getCategoriesResponse.value.data!.forEach((element) => _setData(element)).toList();
+    DataControllers.to.getCategoriesResponse.value.data!.forEach((element) {
+      if(element.serviceType == "long"){
+        dataResponse.add(element);
+      }
+    });
+
+    // dataResponse.add( DataControllers.to.getCategoriesResponse.value.data!.map((e) => e.serviceType == "short").toList());
+
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc)
         {
+
           return StatefulBuilder(
               builder: (context,setSt) {
                 return Container(
@@ -935,14 +1238,21 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.08),fontWeight: FontWeight.bold),),
+                            Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.07),fontWeight: FontWeight.bold),),
                             InkWell(
                                 onTap: (){
                                   setSt((){_isChecked = List<bool>.filled(DataControllers.to.getCategoriesResponse.value.data!.length, false);});
+
+                                  searchData = [];
+                                  result = [];
+                                  searchValue = false;
                                   setState((){});
                                   //Navigator.pop(context);
                                 },
-                                child: Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple),)),
+                                child:
+                                _isChecked.contains(true) ?
+
+                                Expanded(child: Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple))) : Container()),
                           ],
                         ),
                         Expanded(
@@ -953,13 +1263,22 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                               child:
                               ListView(
                                 children: List.generate(
-                                    DataControllers.to.getCategoriesResponse.value.data!.length,
+                                    dataResponse.length,
                                         (index) => CheckboxListTile(
-                                      title: Text(DataControllers.to.getCategoriesResponse.value.data![index].categoryName!),
+                                      title: Text(dataResponse[index].categoryName!),
                                       value: _isChecked[index],
                                       onChanged: (val) {
-                                        setSt(() {_isChecked[index] = val!;});
+
+                                        if(val!){
+                                          result.add(dataResponse[index].categoryName!);
+                                        }else
+                                        {
+                                          String? value =   result.firstWhereOrNull((element) => element == dataResponse[index].categoryName!);
+                                          result.remove(value);
+                                        }
+                                        setSt(() {_isChecked[index] = val;});
                                         setState((){});
+
                                       },
                                     )
                                 ),
@@ -967,11 +1286,13 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                             ),
                           ),
                         ),
-
                         _isChecked.contains(true) ? Padding(
                             padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
                             child: ElevatedButton(
-                              onPressed: () async {},
+                              onPressed: () async {
+                                Navigator.pop(context);
+                                _filterValue();
+                              },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -984,8 +1305,6 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                               ),
                             )
                         )  : Container(),
-
-
                       ],
                     ),
                   ),
@@ -997,13 +1316,22 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState((){
       _isChecked = List<bool>.filled(DataControllers.to.getCategoriesResponse.value.data!.length, false);
     });
     showBottom = false;
+
+
+    result = [];
+    selectedColor = 1;
+    result.add(widget.selectedType);
+    _filterValue();
     getAddCardData();
+    setState(() {
+      searchValue = true;
+    });
+
     /* if(DataControllers.to.userServiceResponse.value.data!.isNotEmpty)
       {
         showBottom = false;
@@ -1011,11 +1339,11 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
   }
 
   void getAddCardData() async {
-    await DataControllers.to.getCard();
+    await DataControllers.to.getCard('long');
 
-    if (DataControllers.to.getAddCardResponse.value.data!.length > 0) {
+    if (DataControllers.to.getAddCardLongServiceResponse.value.data!.length > 0) {
       setState(() {
-        DataControllers.to.getAddCardResponse;
+        DataControllers.to.getAddCardLongServiceResponse;
         showBottom = true;
         addedlist = true;
       });
@@ -1028,7 +1356,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
   void deleteAddCardData(int index) async {
     await DataControllers.to.deleteCard(
         DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
-        DataControllers.to.getAddCardResponse.value.data![index].userServiceId.toString());
+        DataControllers.to.getAddCardLongServiceResponse.value.data![index].id.toString());
     showToast(DataControllers.to.addCardResponse.value.message!);
 
     if (DataControllers.to.addCardResponse.value.success!) {
@@ -1063,8 +1391,4 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
             AllColor.blue);
       }
   }
-
-
-
-
 }
