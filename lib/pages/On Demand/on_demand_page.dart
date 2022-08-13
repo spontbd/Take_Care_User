@@ -43,6 +43,10 @@ class _OnDemandPageState extends State<OnDemandPage> {
   );
 
 
+  int selectedColor=0;
+  List<AllServiceData> _searchResult = [];
+  TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -62,6 +66,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
         context: context,
         builder: (BuildContext bc) {
           return Container(
+            height: dynamicSize(0.84),
+
             child: Column(
               children: [
                 Align(
@@ -115,8 +121,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           ),
                           Expanded(
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0, top: 30),
@@ -204,7 +210,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
           );
         });
   }
-
   void BottomSheetAddedListDialog(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -314,8 +319,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
           );
         });
   }
-
-
   void showButtonListDialog(BuildContext context) {
     List<CategoriesData> dataResponse = [];
 
@@ -421,9 +424,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
           );
         });
   }
-
-
-
   void getAddCardData() async {
     await DataControllers.to.getCard('short');
     await DataControllers.to.getAllShortService("short");
@@ -459,7 +459,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
       searchData;
     });
   }
-
   void deleteAddCardData(int index) async {
     await DataControllers.to.deleteCard(
         DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
@@ -470,7 +469,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
       getAddCardData();
     }
   }
-
   void addCard(int index) async{
 
     var now = new DateTime.now();
@@ -495,8 +493,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
         showToast(DataControllers.to.addCardResponse.value.message!, AllColor.blue);
       }
   }
-
-
   void getAllService() async {
     //DataControllers.to.profilePercentage.value.data.percentage = 0;
 
@@ -508,7 +504,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
 
     //  await DataControllers.to.postUserServiceResponse(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
   }
-
   void _filterValue() {
 
     searchData = [];
@@ -527,12 +522,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
       searchValue;
     });
   }
-
-  int selectedColor=0;
-  List<AllServiceData> _searchResult = [];
-  TextEditingController searchController = TextEditingController();
-
-
   onSearchTextChanged(String text) async {
     _searchResult.clear();
     if (text.isEmpty) {
@@ -676,74 +665,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                   child: InkWell(
                     onTap: () async{
                       await DataControllers.to.getProviderList("1", "1");
-                      // late PickResult selectedPlace;
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) {
-                      //       return PlacePicker(
-                      //         apiKey: "MjY5MzpHMEVBUExBNVM5",
-                      //         initialPosition: SignInPage.initLatLng,
-                      //         useCurrentLocation: true,
-                      //         selectInitialPosition: true,
-                      //         usePinPointingSearch: true,
-                      //         onPlacePicked: (result) {
-                      //           selectedPlace = result;
-                      //           //  Navigator.of(context).pop();
-                      //           setState(() {
-                      //             selectedPlace = result;
-                      //           });
-                      //         },
-                      //         //forceSearchOnZoomChanged: true,
-                      //         automaticallyImplyAppBarLeading: false,
-                      //         //autocompleteLanguage: "ko",
-                      //         //region: 'au',
-                      //         selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
-                      //           print("state: $state, isSearchBarFocused: $isSearchBarFocused");
-                      //           return isSearchBarFocused
-                      //               ? Container()
-                      //               : FloatingCard(
-                      //             bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
-                      //             leftPosition: 0.0,
-                      //             rightPosition: 0.0,
-                      //             width: 500,
-                      //
-                      //             borderRadius: BorderRadius.circular(12.0),
-                      //             child: state == SearchingState.Searching
-                      //                 ? const Center(child: CircularProgressIndicator())
-                      //                 : RaisedButton(
-                      //               color: AllColor.pink_button,
-                      //               child: Text("Search Service Provider around You",style: const TextStyle(color: Colors.white),),
-                      //               onPressed: () {
-                      //                 // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
-                      //                 //            this will override default 'Select here' Button.
-                      //                 Navigator.of(context).pop();
-                      //                 if (kDebugMode) {
-                      //                   print("placeucode: "+selectedPlace.toString());
-                      //                   print("placeucode: "+selectedPlace!.latitude.toString());
-                      //                   print("placeucode: "+selectedPlace.longitude.toString());
-                      //                   print("placeucode: "+selectedPlace.area.toString());
-                      //                 }
-                      //                 Navigator.push(
-                      //                   context,
-                      //                   MaterialPageRoute(builder: (context) => MapPage(result: selectedPlace!)),
-                      //                 );
-                      //
-                      //               },
-                      //             ),
-                      //           );
-                      //         },
-                      //         // pinBuilder: (context, state) {
-                      //         //   if (state == PinState.Idle) {
-                      //         //     return Icon(Icons.favorite_border);
-                      //         //   } else {
-                      //         //     return Icon(Icons.favorite);
-                      //         //   }
-                      //         // },
-                      //       );
-                      //     },
-                      //   ),
-                      // );
                     },
                     child: Container(
                       decoration: const BoxDecoration(

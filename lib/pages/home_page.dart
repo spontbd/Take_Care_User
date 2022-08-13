@@ -239,20 +239,11 @@ class _HomePageState extends State<HomePage> {
                                               .storeSharedPreferences
                                               .getString("service");
 
-                                      /*    if (serviceValue == "short" ||
-                                              serviceValue == null ||
-                                              serviceValue.isEmpty) {*/
                                             Navigator.of(context)
                                                 .pushReplacement(
                                                     MaterialPageRoute(
                                                         builder: (_) =>
                                                             OnDemandPage()));
-                                          // } else {
-                                          //   //  showToast("You already added the long time service");
-                                          //   showAlertForAddCardDeleted(
-                                          //       "On Demand",
-                                          //       "You already added the long time service");
-                                          // }
                                         },
                                         child: Icon(Icons.chevron_right,
                                             size: size.width * .06,
@@ -450,8 +441,6 @@ class _HomePageState extends State<HomePage> {
                             }).toList(),
                           ),
 
-
-
                           Padding(
                             padding: const EdgeInsets.only(top: 10, bottom: 12),
                             child: Container(
@@ -468,7 +457,7 @@ class _HomePageState extends State<HomePage> {
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: DataControllers
-                                  .to.getCategoriesResponse.value.data!.length,
+                                  .to.getCategoriesResponse.value.data!.length +1,
                               itemBuilder: (context, index) => Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 10.0),
@@ -486,24 +475,21 @@ class _HomePageState extends State<HomePage> {
                                               builder: (_) =>
                                                   LongTimeServicesPage(
                                                       selectedType :
-                                                      DataControllers
+
+                                                      (DataControllers
+                                                          .to.getCategoriesResponse.value.data!.length > index) ?
+                                                        DataControllers
                                                           .to
                                                           .getCategoriesResponse
                                                           .value
                                                           .data![index]
-                                                          .categoryName!.toString()
+                                                          .categoryName!.toString() : ""
                                                   )));
-                                    // } else {
-                                    //   //  showToast("You already added the long time service");
-                                    //   showAlertForAddCardDeleted("On Demand",
-                                    //       "You already added the on-Demand service");
-                                    // }
                                   },
                                   child: Container(
                                     width: size.width / 2.42,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      /*borderRadius: BorderRadius.circular(8),*/
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black26,
@@ -519,24 +505,79 @@ class _HomePageState extends State<HomePage> {
                                           height: dynamicSize(0.3),
                                           width:
                                               MediaQuery.of(context).size.width,
-                                          child: CachedNetworkImage(
+                                          child:
 
+                                          (DataControllers
+                                              .to.getCategoriesResponse.value.data!.length > index)
+                                              ?
+
+                                          CachedNetworkImage(
                                             fit: BoxFit.fill,
                                             imageUrl:
                                                 "${ApiService.MainURL+DataControllers.to.getCategoriesResponse.value.data![index].serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-
                                             errorWidget:
                                                 (context, url, error) =>
                                                     Image.asset(
                                               "assets/images/pet.png",
                                             ),
+                                          ) :
+                                          Container(
+                                            height: dynamicSize(0.10),
+                                            width: dynamicSize(0.12),
+                                            child:  Card(
+                                              color: AllColor.colorDashboardOnDemand_blue,
+                                              margin: EdgeInsets.only(left: 0,right: 0),
+                                              semanticContainer: true,
+                                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                ),
+                                              ),
+                                              elevation: 6,
+                                              child: Padding(
+                                                padding:  EdgeInsets.all(30),
+                                                child: ElevatedButton(
+
+
+                                                  onPressed: (){
+                                                    Navigator.of(context).pushReplacement(
+                                                        MaterialPageRoute(
+                                                            builder: (_) =>
+                                                                LongTimeServicesPage(
+                                                                    selectedType : ""
+                                                                )));
+                                                  },
+                                                    child: Icon(Icons.arrow_forward,color: Colors.white,),
+                                                  style: ElevatedButton.styleFrom(
+                                                    shape: const CircleBorder(),
+                                                    padding:
+                                                    EdgeInsets.all(size.width * .002),
+                                                    primary: AllColor.colorDashboardProfileRed,
+                                                    onPrimary: Colors.black,
+                                                  ),
+
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                         Container(
-                                            alignment: Alignment.topLeft,
+                                            alignment:
+                                            (DataControllers
+                                                .to.getCategoriesResponse.value.data!.length > index)
+                                                ?
+                                            Alignment.topLeft : Alignment.center,
                                             margin: EdgeInsets.only(
                                                 left: 4, top: 8),
-                                            child: Text(
+                                            child:
+
+                                            (DataControllers
+                                                .to.getCategoriesResponse.value.data!.length > index)
+                                                ?
+                                            Text(
+
+
+
                                               DataControllers
                                                       .to
                                                       .getCategoriesResponse
@@ -554,16 +595,27 @@ class _HomePageState extends State<HomePage> {
                                               style: TextStyle(
                                                   fontSize: dynamicSize(0.045),
                                                   fontWeight: FontWeight.bold),
-                                            )),
+                                            )
+                                        :
+                                            Text("See All",
+                                              style: TextStyle(
+                                                  fontSize: dynamicSize(0.045),
+                                                  fontWeight: FontWeight.bold,color: AllColor.pink_button),
+                                            )
+                                        ),
                                         Container(
                                             alignment: Alignment.topLeft,
                                             margin: EdgeInsets.only(
                                                 left: 4, bottom: 5, top: 2),
-                                            child: Text(
+                                            child:
+                                            (DataControllers
+                                                .to.getCategoriesResponse.value.data!.length > index)
+                                                ?
+                                            Text(
                                               "Starts from ${DataControllers.to.getCategoriesResponse.value.data![index].startPrice!.isNaN ? "0.00" : DataControllers.to.getCategoriesResponse.value.data![index].startPrice!} Tk",
                                               style: TextStyle(
                                                   fontSize: dynamicSize(0.035)),
-                                            )),
+                                            ) : Text('')),
                                       ],
                                     ),
                                   ),

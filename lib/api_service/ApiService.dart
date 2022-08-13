@@ -164,20 +164,26 @@ class ApiService {
     ///Get Device token for push notification
     final String fcmToken = await DataController.dc.generateUserToken();
     print("fcmToken : "+fcmToken);
+    var response ;
+    try{
+   response = await http.post(
+    Uri.parse(BaseURL+'login'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'phone': phoneNumber,
+      'password': pass,
+      'role_id': "4",
+      'token': fcmToken
+    }),
+  );
+}catch(e)
 
-
-    final response = await http.post(
-      Uri.parse(BaseURL+'login'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'phone': phoneNumber,
-        'password': pass,
-        'role_id': "4",
-        'token': fcmToken
-      }),
-    );
+    {
+print('errro');
+print(e.toString());
+    }
 
     print(response.body);
     if (response.statusCode == 200) {
@@ -355,7 +361,7 @@ class ApiService {
 
     );
     if (response.statusCode == 200) {
-      print("Api Response : ${response.body}");
+      print("Api Response  delete card : ${response.body}");
       var jsonString = response.body;
       return errorResponseFromJson(jsonString);
     } else {
@@ -793,8 +799,6 @@ class ApiService {
       }),
     );
 
-    print(response.body);
-
     if (response.statusCode == 200)
     {
       return errorResponseFromJson(response.body);
@@ -831,7 +835,7 @@ class ApiService {
       DataControllers.to.sliderResponse.value.message =
       json.decode(response.body)["message"];
 
-      return null;
+      return DataControllers.to.sliderResponse.value;
     }
   }
 

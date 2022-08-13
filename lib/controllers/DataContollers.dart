@@ -158,13 +158,14 @@ class DataControllers extends GetxController {
 
   Future getCard(String type) async {
     isLoading(true);
+    getAddCardShortServiceResponse = AddCardResponse().obs;
+    getAddCardLongServiceResponse = AddCardResponse().obs;
     var response = await ApiService.fetchCard(type);
 
     if (response != null)
     {
 
-      getAddCardShortServiceResponse = AddCardResponse().obs;
-      getAddCardLongServiceResponse = AddCardResponse().obs;
+
 
       // response.data?.forEach((element) {
       //   if(type == 'short' && element.service!.serviceType == 'short') {
@@ -357,17 +358,17 @@ class DataControllers extends GetxController {
     isLoading(true);
     var response;
     userLoginResponse = UserLoginResponse().obs;
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+    // try {
+      // final result = await InternetAddress.lookup('google.com');
+      // if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
 //          print('connected');
         response = await ApiService.postLogin(phone_number, pass);
-      }
-    } on SocketException catch (_) {
-      isLoading(false);
-      showToast("Check your internet Connection");
+    //   }
+    // } on SocketException catch (_) {
+    //   isLoading(false);
+    //   showToast("Check your internet Connection");
 //        print('not connected');
-    }
+//     }
 
     if (response != null) {
       userLoginResponse.value = response;
