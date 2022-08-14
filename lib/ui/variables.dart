@@ -11,8 +11,13 @@ var signIn_or_SignUP = false;
 var progressValue = 33.0;
 
 class Variables {
+  static const List<String> hoursList = ['8 Hrs.','12 Hrs.','24 Hrs.'];
+  static const List<String> year = ['Years','Months'];
   static const List<String> genderList=['Male','Female','Others'];
   static const List<String> FahilyList=['Male','Female','Others'];
+  static const List<String> relation=['Father','Mother','Brother','Sister','Wife',
+  'Husband','Son','Daughter','Others','Grand Father','Grand Mother'
+  ];
   static File imageFile = new File(" ");
   static String base64Image = "";
   static int exp = 0;

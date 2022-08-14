@@ -7,9 +7,9 @@ import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
 
 class OrderInformationPage extends StatefulWidget {
-  const OrderInformationPage({Key? key,required this.reqDocId,required this.receiverId}) : super(key: key);
-  final String reqDocId;
-  final String receiverId;
+   OrderInformationPage({Key? key, this.reqDocId, this.receiverId}) : super(key: key);
+   String? reqDocId;
+   String? receiverId;
 
   @override
   _OrderInformationPageState createState() => _OrderInformationPageState();
@@ -501,8 +501,7 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
                               onTap: () async {
-                                await dc.confirmOrder(
-                                    widget.reqDocId, widget.receiverId);
+                                await dc.confirmOrder(widget.reqDocId!, widget.receiverId!);
                               },
                               child: Container(
                                 decoration: BoxDecoration(

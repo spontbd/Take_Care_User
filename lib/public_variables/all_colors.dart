@@ -22,6 +22,8 @@ class AllColor{
   static const Color selected_color= Color(0x65eeecec);
   static const Color shado_color= Color(0xffeeecec);
   static const Color white_blue= Color(0xffe3f2fd);
+  static const Color white_light= Color(0xfff6f5f5);
+  static const Color white= Color(0xffffffff);
   static const Color white_orange= Color(0xffffeece);
   static const Color white_yeo= Color(0xffe5f7c1);
   static const Color white_yellow= Color(0xfff1f8e9);

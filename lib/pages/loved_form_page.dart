@@ -2,6 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:takecare_user/model/LovedOnesResponse.dart';
 import 'package:takecare_user/public_variables/notifications.dart';
 import 'package:takecare_user/ui/common.dart';
 
@@ -13,21 +14,43 @@ import 'home_page.dart';
 import 'loved_ones_page.dart';
 
 class LovedFormPage extends StatefulWidget {
-  const LovedFormPage({Key? key}) : super(key: key);
+
+  bool edit;
+  LovedOnes? editValue;
+  String? activity;
+   LovedFormPage({Key? key,this.edit = false,this.editValue,this.activity}) : super(key: key);
 
   @override
   _LovedFormPageState createState() => _LovedFormPageState();
 }
 
 class _LovedFormPageState extends State<LovedFormPage> {
-  TextEditingController _nameNumberController = new TextEditingController();
+  TextEditingController _nameController = new TextEditingController();
   TextEditingController _mobileNumberController = new TextEditingController();
   TextEditingController _ageController = new TextEditingController();
-  TextEditingController _genderController = new TextEditingController();
+  TextEditingController _relationController = new TextEditingController();
 
   // late PickResult selectedPlace = new PickResult();
   String city='';
   String area='';
+
+
+  @override
+  void initState() {
+
+    if(widget.edit)
+      {
+        _nameController.text = widget.editValue!.name!;
+        _mobileNumberController.text = widget.editValue!.contactNo!;
+        _ageController.text = widget.editValue!.age!.toString();
+        _relationController.text = widget.editValue!.relationship!.toString();
+        DataControllers.to.gender.value = widget.editValue!.gender!.replaceFirst(widget.editValue!.gender![0], widget.editValue!.gender![0].toUpperCase());
+
+      }
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext size) {
     final maxLines = 5;
@@ -53,48 +76,43 @@ class _LovedFormPageState extends State<LovedFormPage> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left: 20.0, top: 10, right: 10),
+            padding: const EdgeInsets.only(left: 20.0, top: 40, right: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Provide few Information to \n connect with you.",
+                  "Provide few Information to \nconnect with you.",
                   style: TextStyle(fontSize: dynamicSize(0.06)),
                 ),
                 SizedBox(
-                  height: dynamicSize(0.07),
+                  height: dynamicSize(0.12),
+                ),
+
+                Container(
+                  height: dynamicSize(0.12),
+                  child: TextField(
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Name*',
+                        hintStyle:
+                        TextStyle(fontSize: dynamicSize(0.04))),
+                  ),
+                ),
+
+                SizedBox(
+                  height: dynamicSize(0.04),
                 ),
                 Container(
                   height: dynamicSize(0.12),
                   child: TextField(
-                    controller: _nameNumberController,
-                    decoration: new InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AllColor.button_color, width: 1.2),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AllColor.button_color, width: 1.2),
-                      ),
-                      hintText: ' Name',
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: dynamicSize(0.04),
-                ),
-                SizedBox(
-                  height: dynamicSize(0.12),
-                  child: TextField(
+                    keyboardType: TextInputType.number,
                     controller: _mobileNumberController,
-                    decoration: new InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AllColor.button_color, width: 1.2),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AllColor.button_color, width: 1.2),
-                      ),
-                      hintText: 'Mobile Number*',
-                    ),
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Mobile Number*',
+                        hintStyle:
+                        TextStyle(fontSize: dynamicSize(0.04))),
                   ),
                 ),
                 SizedBox(
@@ -104,22 +122,20 @@ class _LovedFormPageState extends State<LovedFormPage> {
                   children: [
                     Expanded(
                         flex: 2,
-                        child: Text("Patient's Age",style: TextStyle(fontSize: dynamicSize(0.04)),)),
+                        child: Text("Seeker's Age",style: TextStyle(fontSize: dynamicSize(0.04)),)),
                     Expanded(
                       flex: 4,
                       child: SizedBox(
                         height: dynamicSize(0.12),
                         child: TextField(
                           controller: _ageController,
-                          decoration: new InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: AllColor.button_color, width: 1.5),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: AllColor.button_color, width: 1.5),
-                            ),
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Age*',
+                                hintStyle:
+                                TextStyle(fontSize: dynamicSize(0.04))),
                           ),
-                        ),
                       ),
                     ),
                   ],
@@ -164,87 +180,20 @@ class _LovedFormPageState extends State<LovedFormPage> {
                       .toList(),
                 ),
 
-                Text('Address :\n City  ${city}\n Area ${area}',),
-
-              InkWell(
-              onTap: (){
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) {
-                //       return PlacePicker(
-                //         apiKey: "MjY5MzpHMEVBUExBNVM5",
-                //         initialPosition: Common.LatLngEdit(23.766333,90.422284),
-                //         useCurrentLocation: true,
-                //         selectInitialPosition: true,
-                //         usePinPointingSearch: true,
-                //         onPlacePicked: (result) {
-                //           selectedPlace = result;
-                //           //  Navigator.of(context).pop();
-                //           setState(() {
-                //             selectedPlace = result;
-                //              city = selectedPlace.city.toString();
-                //              area = selectedPlace.area.toString(  );
-                //           });
-                //         },
-                //
-                //         //forceSearchOnZoomChanged: true,
-                //         automaticallyImplyAppBarLeading: false,
-                //         //autocompleteLanguage: "ko",
-                //         //region: 'au',
-                //         selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
-                //           if (kDebugMode) {
-                //             print("state: $state, isSearchBarFocused: $isSearchBarFocused");
-                //           }
-                //           return isSearchBarFocused
-                //               ? Container()
-                //               : FloatingCard(
-                //             bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
-                //             leftPosition: 0.0,
-                //             rightPosition: 0.0,
-                //             width: dynamicSize(1),
-                //
-                //             borderRadius: BorderRadius.circular(12.0),
-                //             child: state == SearchingState.Searching
-                //                 ? const Center(child: CircularProgressIndicator())
-                //                 : RaisedButton(
-                //               color: AllColor.pink_button,
-                //               child: const Text("Location Select",style: TextStyle(color: Colors.white),),
-                //               onPressed: () {
-                //                 // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
-                //                 //            this will override default 'Select here' Button.
-                //
-                //                 Navigator.of(context).pop();
-                //                 print("placeucode: "+selectedPlace.toString());
-                //                 print("placeucode: "+selectedPlace!.latitude.toString());
-                //                 print("placeucode: "+selectedPlace.longitude.toString());
-                //                 print("placeucode: "+selectedPlace.area.toString());
-                //
-                //
-                //               },
-                //             ),
-                //           );
-                //         },
-                //       );
-                //     },
-                //   ),
-                // );
-                },
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            alignment: Alignment.center,
-            height: dynamicSize(0.1),
-            child: Text(
-              "Place Pic",
-              style: TextStyle(fontSize: dynamicSize(0.05), color: Colors.black),
-            ),
-          ),
-        ),
-
-
+                SizedBox(
+                  height: dynamicSize(0.1),
+                ),
+                Container(
+                  height: dynamicSize(0.12),
+                  child: TextField(
+                    controller: _relationController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Relation*',
+                        hintStyle:
+                        TextStyle(fontSize: dynamicSize(0.04))),
+                  ),
+                ),
               ],
             ),
 
@@ -257,17 +206,17 @@ class _LovedFormPageState extends State<LovedFormPage> {
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
               onTap: (){
-                addAddress();
+                widget.edit ? editFavAddress() : addAddress();
               },
               child: Container(
                 decoration: BoxDecoration(
                   color: AllColor.themeColor,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 alignment: Alignment.center,
                 height: dynamicSize(0.15),
                 child: Text(
-                  "Submit",
+                  widget.edit ? 'Edit': "Add",
                   style: TextStyle(fontSize: dynamicSize(0.05), color: Colors.white),
                 ),
               ),
@@ -280,12 +229,24 @@ class _LovedFormPageState extends State<LovedFormPage> {
 
   void addAddress() async{
 
-    // await DataControllers.to.addFavAddress(_mobileNumberController.text, _nameNumberController.text, selectedPlace.city.toString(), selectedPlace.area.toString(), selectedPlace.postCode.toString(), selectedPlace.longitude.toString(), selectedPlace.latitude.toString());
+     await DataControllers.to.addFavAddress(_nameController.text,_ageController.text, _mobileNumberController.text,_relationController.text, DataControllers.to.gender.value);
 
-        // showToast(DataControllers.to.addFavAddressResponse.value.message.toString());
+         showToast(DataControllers.to.addFavAddressResponse.value.message.toString());
+
+    ///Navigator.of(context).pop();
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => LovedOnesPage()));
+  }
+  editFavAddress()
+  async{
+    await DataControllers.to.editFavAddress(widget.editValue!.id!.toString(),_nameController.text,_ageController.text, _mobileNumberController.text,_relationController.text, DataControllers.to.gender.value);
+
+    showToast(DataControllers.to.addFavAddressResponse.value.message.toString());
 
     ///Navigator.of(context).pop();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => LovedOnesPage()));
   }
 }
+
+

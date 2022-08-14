@@ -28,15 +28,17 @@ class LongTimeServicesPage extends StatefulWidget
   _LongTimeServicesPageState createState() => _LongTimeServicesPageState();
 }
 
-var addedservice = false;
-var showBottom = false;
-var addedlist = false;
+bool addedservice = false;
+bool showBottom = false;
+bool addedlist = false;
+bool selectMyself = true;
 late List<bool> _isChecked;
-var searchValue = false;
+bool searchValue = false;
 List<String> result = [];
 List<AllServiceData> searchData  = [];
 
 class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
+
   Icon cusIcon = Icon(Icons.search, color: Colors.black);
   Widget cusSearchbar = Text(
     "Long Time Services",
@@ -70,12 +72,6 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
         searchValue = true;
       });
     }
-
-
-    /* if(DataControllers.to.userServiceResponse.value.data!.isNotEmpty)
-      {
-        showBottom = false;
-      }*/
   }
 
   void _filterValue() {
@@ -187,7 +183,6 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                     ),
                                   ),
                                 ),
-
                               ],
                             ),
                           ),
@@ -261,97 +256,6 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
           );
         });
   }
-
-
-  /*void showButtonDialog(BuildContext context, int index) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext bc) {
-          return Container(
-            height: dynamicSize(0.84),
-            child: Column(
-              children: [
-                Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.cancel,
-                          color: Colors.white,
-                          size: 35,
-                        ))),
-                Container(
-                  height: dynamicSize(0.7),
-                  decoration: BoxDecoration(
-                    color: AllColor.buttomdialog,
-                    border: Border.all(
-                      width: 3,
-                      color: Colors.black,
-                    ),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(15.0),
-                      topLeft: Radius.circular(15.0),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0, top: 5),
-                            child: Image.asset(
-                              "assets/images/image.png",
-                              height: 100,
-                              width: 100,
-                            ),
-                          ),
-                          Spacer(),
-                          Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  addCard(index);
-                                },
-                                child: Image.asset(
-                                  "assets/images/added_now_button.png",
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, top: 5),
-                        child: Text(
-                          "Attendant for Hospital Visit",
-                          style: TextStyle(
-                              fontSize: dynamicSize(0.05),
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, top: 5),
-                        child: Text(
-                          "Caregiver/ Nurse will go with patient when he/she needs to go hospital/Clinic for diagnosis or any major treatment like Dialysisor anything else. Caregiver/Nurse will stay with patient totaltime & get back with patient's premises.",
-                          style: TextStyle(
-                            fontSize: dynamicSize(0.03),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        });
-  }*/
-
   void BottomSheetAddedListDialog(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -462,7 +366,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
         });
   }
   void showButtonListDialog(BuildContext context) {
-
+    dataResponse = [];
     result = [];
     // DataControllers.to.getCategoriesResponse.value.data!.forEach((element) => _setData(element)).toList();
     DataControllers.to.getCategoriesResponse.value.data!.forEach((element) {
@@ -595,7 +499,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
       getAddCardData();
     }
   }
-  void addCard(int index) async{
+  void addCard(int index) async {
 
     var now = new DateTime.now();
     var formatter = new DateFormat('yyyy-MM-dd');
@@ -621,6 +525,199 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                 .to.addCardResponse.value.message!,
             AllColor.blue);
       }
+  }
+  void addressSelected(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return StatefulBuilder(
+            builder: (context,setState)
+            {
+              return Container(
+                decoration: const BoxDecoration(
+                  color: AllColor.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(15.0),
+                    topLeft: Radius.circular(15.0),
+                  ),
+                ),
+                height: dynamicSize(0.75),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.cancel,
+                              color: Colors.black38,
+                              size: 35,
+                            ))),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Service for Whome?',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+
+                            fontSize: dynamicSize(0.05),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10,right: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+
+                              Expanded(
+                                child: InkWell(
+                                  onTap: (){
+                                    setState(() {
+                                      selectMyself = true;
+                                    });
+                                  },
+                                  child: Container(
+                                    height: dynamicSize(0.35),
+                                    child: Card(
+                                      color:  selectMyself ? AllColor.blue_light : AllColor.white_light,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 15,bottom: 10,left: 10,right: 10),
+                                            child: Text('Myself',
+                                              style: TextStyle(
+                                                  fontSize: dynamicSize(0.05),
+                                                  fontWeight: FontWeight.bold,
+                                                  color: selectMyself ? AllColor.white : Colors.black
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 10,left: 10,right: 10),
+                                            child: Text('Book Service for you',
+                                              style: TextStyle(
+                                                  fontSize: dynamicSize(0.04),
+                                                  fontWeight: FontWeight.bold,
+                                                  color:  selectMyself ? AllColor.white : Colors.black38
+                                              ),
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: dynamicSize(0.35),
+                                margin: EdgeInsets.all(10),
+                                alignment: Alignment.center,
+                                child: Text('Or',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: dynamicSize(0.05),
+                                      fontWeight: FontWeight.bold,
+                                      color: AllColor.blue
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: InkWell(
+                                  onTap: (){
+                                    setState(() {
+                                      selectMyself = false;
+                                    });
+                                  },
+                                  child: Container(
+                                    height: dynamicSize(0.35),
+                                    child: Card(
+                                      color:  selectMyself ? AllColor.white_light : AllColor.blue_light,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 15,bottom: 10,left: 10,right: 10),
+                                            child: Text('Loved Ones',
+                                              style: TextStyle(
+                                                  fontSize: dynamicSize(0.05),
+                                                  fontWeight: FontWeight.bold,
+                                                  color:  selectMyself ? Colors.black  : AllColor.white
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 10,left: 10,right: 10),
+                                            child: Text('Book Service for Your loved One\'s',
+                                              style: TextStyle(
+                                                  fontSize: dynamicSize(0.04),
+                                                  fontWeight: FontWeight.bold,
+                                                  color:  selectMyself ? Colors.black38  : AllColor.white
+                                              ),
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          InkWell(
+                            onTap: (){
+
+                              if(selectMyself)
+                                {
+                                  Navigator
+                                      .push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder:
+                                            (context) =>
+                                         ServiceRequestFormPage(mySelf: 'mySelf',
+                                         )),
+                                  );
+                                }
+
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children:
+                              [
+                                Text('Continue',
+                                  style: TextStyle(
+                                      fontSize: dynamicSize(0.04),
+                                      color: AllColor.blue_light
+                                  ),
+                                ),
+                                Icon(Icons.arrow_right_alt, color: AllColor.blue_light)
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
   }
   @override
   Widget build(BuildContext context) {
@@ -741,14 +838,8 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                   child: InkWell(
                     onTap: () {
 
-                      Navigator
-                          .push(
-                        context,
-                        MaterialPageRoute(
-                            builder:
-                                (context) =>
-                            const ServiceRequestFormPage()),
-                      );
+                      //addressSelected(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ServiceRequestFormPage(mySelf: 'mySelf',)),);
 
                       },
                     child: Container(
@@ -1216,4 +1307,5 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
       );
     });
   }
+
 }

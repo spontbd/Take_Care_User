@@ -9,6 +9,7 @@ import 'package:takecare_user/api_service/ApiService.dart';
 import 'package:takecare_user/model/AddCardResponse.dart';
 import 'package:takecare_user/model/AvailableProviderResponse.dart';
 import 'package:takecare_user/model/CategoriesResponse.dart';
+import 'package:takecare_user/model/LovedOnesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/SaveAddressResponse.dart';
@@ -35,7 +36,10 @@ class DataControllers extends GetxController {
   Rx<RegisterResponse> regsiter = RegisterResponse().obs;
   Rx<UserLoginResponse> userLoginResponse = UserLoginResponse().obs;
   Rx<ResendOTPResponse> resendOtpResponse = ResendOTPResponse().obs;
+  RxString relation = ''.obs;
   RxString gender = ''.obs;
+  RxString hours = ''.obs;
+  RxString year = ''.obs;
 
   /// Service
   Rx<ExpertiseResponse> expertiseResponse =
@@ -65,7 +69,7 @@ class DataControllers extends GetxController {
 
   /// Save Address
   Rx<ErrorResponse> addFavAddressResponse = ErrorResponse().obs;
-  Rx<SaveAddressResponse> getFavAddressResponse = SaveAddressResponse().obs;
+  Rx<LovedOnesResponse> getFavAddressResponse = LovedOnesResponse().obs;
 
   ///Categories
   Rx<CategoriesResponse> getCategoriesResponse = CategoriesResponse().obs;
@@ -253,10 +257,14 @@ class DataControllers extends GetxController {
     return addCardResponse.value;
   }
 
-  Future addFavAddress(String phone, String beneficiary_name, String district, String city, String postcode, String lon, String lat) async {
+  Future addFavAddress(
+      String name, String age, String contact_no,
+      String relationship, String gender
+
+      ) async {
     isLoading(true);
     var response = await ApiService.addFavAddress(
-        phone, beneficiary_name, district, city, postcode, lon, lat);
+        name, age, contact_no, relationship, gender);
 
     if (response != null) {
       addFavAddressResponse.value = response;
@@ -268,10 +276,12 @@ class DataControllers extends GetxController {
     return addFavAddressResponse.value;
   }
 
-  Future editFavAddress(String id, String phone, String beneficiary_name, String district, String city, String postcode, String lon, String lat) async {
+  Future editFavAddress(String id, String name, String age, String contact_no,
+   String relationship,
+
+      String gender) async {
     isLoading(true);
-    var response = await ApiService.addFavAddress(
-        phone, beneficiary_name, district, city, postcode, lon, lat);
+    var response = await ApiService.editFavAddress(id, name, age, contact_no, gender, relationship);
 
     if (response != null) {
       addFavAddressResponse.value = response;

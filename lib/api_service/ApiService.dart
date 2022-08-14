@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:takecare_user/model/AddCardResponse.dart';
 import 'package:takecare_user/model/AvailableProviderResponse.dart';
 import 'package:takecare_user/model/CategoriesResponse.dart';
+import 'package:takecare_user/model/LovedOnesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/SaveAddressResponse.dart';
@@ -680,23 +681,58 @@ print(e.toString());
   }
 
 
-  static Future<ErrorResponse?> addFavAddress(String phone, String beneficiary_name, String district,
-      String city, String postcode, String lon, String lat) async {
+  static Future<ErrorResponse?> addFavAddress(String name, String age, String contact_no,
+      String relationship, String gender) async {
     var response = await client
-        .post(Uri.parse(BaseURL + 'user/saved-address/add'), headers: <String, String>{
+        .post(Uri.parse(BaseURL + 'user/loved-ones/add'), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
       'Authorization': bearerToken,
 
     },
       body: jsonEncode(<String, String>{
-        'phone': phone,
-        'beneficiary_name': beneficiary_name,
-        'district': district,
-        'city': city,
-        'postcode': postcode,
-        'lon': lon,
-        'lat': lat,
+        'name': name,
+        'age': age,
+        'contact_no': contact_no,
+        'relationship': relationship,
+        'gender': gender
+      }),
+    );
+
+    print("Api Response  data : ${response}");
+
+    if (response.statusCode == 200) {
+      print("Api Response  data : ${response.body}");
+      var jsonString = response.body;
+      return errorResponseFromJson(jsonString);
+    } else {
+      DataControllers.to.forgetPassConfirm.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.forgetPassConfirm.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.forgetPassConfirm.value;
+    }
+  }
+
+
+  static Future<ErrorResponse?> editFavAddress(String id, String name, String age, String contact_no,
+      String gender, String relationship) async {
+    var response = await client
+        .post(Uri.parse(BaseURL + 'user/loved-ones/edit'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+
+    },
+      body: jsonEncode(<String, String>{
+        'id': id,
+        'name': name,
+        'age': age,
+        'contact_no': contact_no,
+        'gender': gender,
+        'relationship': relationship,
       }),
     );
 
@@ -718,7 +754,87 @@ print(e.toString());
   }
 
 
-  static Future<ErrorResponse?> editFavAddress(String id, String phone, String beneficiary_name, String district,
+  static getFavAddress() async{
+
+    var response = await client
+        .get(Uri.parse(BaseURL + 'user/loved-ones/all'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+
+    });
+
+    print("Api Response  fav-address : ${response.body}");
+
+    if (response.statusCode == 200) {
+      // print("Api Response : ${response.body}");
+      var jsonString = response.body;
+      return lovedOnesResponseFromJson(jsonString);
+    } else {
+      DataControllers.to.getFavAddressResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.getFavAddressResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.getFavAddressResponse.value;
+    }
+
+  }
+  /// Delete Section
+  static Future<ErrorResponse> deleteFavAddress(String id) async {
+    final response = await http.post(
+      Uri.parse(BaseURL + 'user/saved-address/delete'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': bearerToken,
+      },
+      body: jsonEncode(<String, String>{
+        'id': id,
+      }),
+    );
+
+    if (response.statusCode == 200)
+    {
+      return errorResponseFromJson(response.body);
+    } else {
+      DataControllers.to.addServiceResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.addServiceResponse.value.message =
+      json.decode(response.body)["message"];
+      //showToast("Please enter your valid user and password!!",Colors.red);
+      //  return errorResponseFromJson(response.body);
+      return DataControllers.to.addServiceResponse.value;
+      throw Exception('add service');
+    }
+  }
+
+  static Future<SliderResponse?> fetchSliderResponse() async {
+    var response = await client
+        .get(Uri.parse(BaseURL + 'app-sliders'), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': bearerToken,
+    }
+    );
+    if (response.statusCode == 200) {
+      print("Api Response categories : ${response.body}");
+      var jsonString = response.body;
+      return sliderResponseFromJson(jsonString);
+    } else {
+      DataControllers.to.sliderResponse.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.sliderResponse.value.message =
+      json.decode(response.body)["message"];
+
+      return DataControllers.to.sliderResponse.value;
+    }
+  }
+
+
+
+  static Future<ErrorResponse?> editSaveAddress(String id, String phone, String beneficiary_name, String district,
       String city, String postcode, String lon, String lat) async {
     var response = await client
         .post(Uri.parse(BaseURL + 'user/saved-address/edit'), headers: <String, String>{
@@ -755,8 +871,7 @@ print(e.toString());
       return DataControllers.to.forgetPassConfirm.value;
     }
   }
-
-  static getFavAddress() async{
+  static getSaveAddress() async{
 
     var response = await client
         .post(Uri.parse(BaseURL + 'user/saved-address/all'), headers: <String, String>{
@@ -766,10 +881,10 @@ print(e.toString());
 
     });
 
-    print("Api Response : ${response.body}");
+    print("Api Response  saved-address : ${response.body}");
 
     if (response.statusCode == 200) {
-      print("Api Response : ${response.body}");
+      // print("Api Response : ${response.body}");
       var jsonString = response.body;
       return saveAddressResponseFromJson(jsonString);
     } else {
@@ -783,10 +898,8 @@ print(e.toString());
     }
 
   }
-
-
   /// Delete Section
-  static Future<ErrorResponse> deleteFavAddress(String id) async {
+  static Future<ErrorResponse> deleteSaveAddress(String id) async {
     final response = await http.post(
       Uri.parse(BaseURL + 'user/saved-address/delete'),
       headers: <String, String>{
@@ -811,31 +924,6 @@ print(e.toString());
       //  return errorResponseFromJson(response.body);
       return DataControllers.to.addServiceResponse.value;
       throw Exception('add service');
-    }
-  }
-
-
-
-
-  static Future<SliderResponse?> fetchSliderResponse() async {
-    var response = await client
-        .get(Uri.parse(BaseURL + 'app-sliders'), headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': bearerToken,
-    }
-    );
-    if (response.statusCode == 200) {
-      print("Api Response categories : ${response.body}");
-      var jsonString = response.body;
-      return sliderResponseFromJson(jsonString);
-    } else {
-      DataControllers.to.sliderResponse.value.success =
-      json.decode(response.body)["success"];
-      DataControllers.to.sliderResponse.value.message =
-      json.decode(response.body)["message"];
-
-      return DataControllers.to.sliderResponse.value;
     }
   }
 

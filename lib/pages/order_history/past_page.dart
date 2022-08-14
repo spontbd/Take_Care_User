@@ -150,7 +150,6 @@ class _PastPageState extends State<PastPage> {
                 ),
               ),
             ),
-
             SizedBox(
               height: dynamicSize(0.04),
             ),
@@ -641,9 +640,6 @@ class _PastPageState extends State<PastPage> {
             SizedBox(
               height: dynamicSize(0.04),
             ),
-
-
-
           ],
         ),
       ),
