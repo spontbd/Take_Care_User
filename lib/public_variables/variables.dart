@@ -11,7 +11,7 @@ var signIn_or_SignUP = false;
 var progressValue = 33.0;
 
 class Variables {
-  static const List<String> hoursList = ['8 Hrs.','12 Hrs.','24 Hrs.'];
+  static const List<String> hoursList = ['12 Hrs.','24 Hrs.','Others'];
   static const List<String> year = ['Years','Months'];
   static const List<String> genderList=['Male','Female','Others'];
   static const List<String> FahilyList=['Male','Female','Others'];
@@ -35,6 +35,14 @@ class Variables {
     StatusModel(statusCode: 10, statusName: 'Fully Done')];
 
 //static final initLatLngEdit = LatLng(23.8567844, 90.213108);
+
+/// Activity
+
+  static String onDemandServiceActivity = 'ondemand';
+  static String longTimeServiceActivity = 'long';
+  static String lovedOnesActivity = 'love';
+  static String homeActivity = 'home';
+  static String orderInformationActivity = 'orderInfo';
 
 
 }

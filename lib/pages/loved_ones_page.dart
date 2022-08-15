@@ -3,7 +3,9 @@ import 'package:takecare_user/controller/data_controller.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/model/LovedOnesResponse.dart';
 import 'package:takecare_user/model/SaveAddressResponse.dart';
+import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
 import 'package:takecare_user/pages/On%20Demand/order_information_page.dart';
+import 'package:takecare_user/public_variables/variables.dart';
 
 import '../public_variables/all_colors.dart';
 import '../public_variables/size_config.dart';
@@ -12,7 +14,9 @@ import 'loved_form_page.dart';
 
 class LovedOnesPage extends StatefulWidget {
   String? activity;
-  LovedOnesPage({Key? key,this.activity}) : super(key: key);
+  String? serviceTime;
+  String? serviceAddress;
+  LovedOnesPage({Key? key,this.activity,  this.serviceTime, this.serviceAddress}) : super(key: key);
 
   @override
   _LovedOnesPageState createState() => _LovedOnesPageState();
@@ -63,16 +67,18 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
               onTap: (){
-                if(widget.activity == 'long')
+                print(widget.activity);
+                if(widget.activity == Variables.onDemandServiceActivity)
                   {
                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (_) => OrderInformationPage( )));
+                        MaterialPageRoute(builder: (_) => OnDemandPage( )));
 
                   }
-                else if(widget.activity == 'ondemand')
+                else if(widget.activity == Variables.longTimeServiceActivity || widget.activity == Variables.orderInformationActivity)
                     {
                       Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (_) => OrderInformationPage( )));
+                          MaterialPageRoute(builder: (_) => OrderInformationPage( activity: Variables.lovedOnesActivity, serviceHolderInfo: addressResponse.data![index],
+                          serviceAddress: widget.serviceAddress,serviceTime: widget.serviceTime)));
 
                     }
               },
@@ -99,16 +105,16 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
                               onPressed: () {
                                 setState(() {
                                   Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(builder: (_) => LovedFormPage(edit: true,editValue: addressResponse.data![index],)));
+                                      MaterialPageRoute(builder: (_) => LovedFormPage(edit: true,editValue: addressResponse.data![index],activity: widget.activity,)));
                                 });
                               },
                               child:
-                              (widget.activity == 'long' || widget.activity == 'ondemand' ) ? Container()  : Text(
+                              (widget.activity == Variables.homeActivity ) ? Text(
                                 "Edit",
                                 style: TextStyle(
                                     color: AllColor.themeColor,
                                     fontSize: dynamicSize(0.05)),
-                              )
+                              )   : Container()
 
                           )
                         ],
@@ -182,7 +188,7 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 3.0),
                                   child: Text(
-                                    '${addressResponse.data![index].age}',
+                                    '${addressResponse.data![index].age} Year(s)',
                                     style: TextStyle(fontSize: dynamicSize(0.04),fontWeight: FontWeight.bold),
                                   ),
                                 ),

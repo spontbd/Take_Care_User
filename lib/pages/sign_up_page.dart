@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
-import 'package:takecare_user/ui/variables.dart';
+import 'package:takecare_user/public_variables/variables.dart';
 
 import '../controllers/DataContollers.dart';
 import '../public_variables/all_colors.dart';

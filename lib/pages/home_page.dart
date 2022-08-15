@@ -16,7 +16,7 @@ import '../public_variables/all_colors.dart';
 import '../public_variables/notifications.dart';
 import '../ui/common.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../ui/variables.dart';
+import '../public_variables/variables.dart';
 import '../widgets/loading_widget.dart';
 import 'On Demand/accepted_page.dart';
 import 'loved_ones_page.dart';
@@ -836,7 +836,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: (){
                             Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
-                                    builder: (_) => LovedOnesPage()));
+                                    builder: (_) => LovedOnesPage(activity: Variables.homeActivity,)));
                           },
                           child: Container(
                             width: dynamicSize(1),
@@ -853,7 +853,7 @@ class _HomePageState extends State<HomePage> {
                                       onPressed: () {
                                         Navigator.of(context).pushReplacement(
                                             MaterialPageRoute(
-                                                builder: (_) => LovedOnesPage()));
+                                                builder: (_) => LovedOnesPage(activity: Variables.homeActivity)));
                                       },
                                       child: Text(
                                         "Loved One's",

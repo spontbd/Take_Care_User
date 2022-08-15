@@ -9,7 +9,7 @@ import 'package:takecare_user/ui/common.dart';
 import '../controllers/DataContollers.dart';
 import '../public_variables/all_colors.dart';
 import '../public_variables/size_config.dart';
-import '../ui/variables.dart';
+import '../public_variables/variables.dart';
 import 'home_page.dart';
 import 'loved_ones_page.dart';
 
@@ -60,7 +60,7 @@ class _LovedFormPageState extends State<LovedFormPage> {
           leading: InkWell(
             onTap: () {
               Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => LovedOnesPage()));
+                  MaterialPageRoute(builder: (_) => LovedOnesPage(activity: widget.activity,)));
             },
             child: Icon(
               Icons.arrow_back,
@@ -235,7 +235,7 @@ class _LovedFormPageState extends State<LovedFormPage> {
 
     ///Navigator.of(context).pop();
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => LovedOnesPage()));
+        MaterialPageRoute(builder: (_) => LovedOnesPage(activity: widget.activity)));
   }
   editFavAddress()
   async{
@@ -245,7 +245,7 @@ class _LovedFormPageState extends State<LovedFormPage> {
 
     ///Navigator.of(context).pop();
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => LovedOnesPage()));
+        MaterialPageRoute(builder: (_) => LovedOnesPage(activity: widget.activity)));
   }
 }
 

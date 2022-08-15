@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../ui/variables.dart';
+import '../public_variables/variables.dart';
 
 class CheckBox extends StatefulWidget {
   const CheckBox({Key? key,}) : super(key: key);

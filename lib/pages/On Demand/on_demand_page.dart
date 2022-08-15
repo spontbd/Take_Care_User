@@ -14,7 +14,7 @@ import '../../public_variables/all_colors.dart';
 import '../../public_variables/notifications.dart';
 import '../../public_variables/size_config.dart';
 import '../../ui/common.dart';
-import '../../ui/variables.dart';
+import '../../public_variables/variables.dart';
 import '../sign_in_page.dart';
 import 'feedback_page.dart';
 import 'map_page.dart';

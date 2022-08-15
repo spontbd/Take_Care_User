@@ -9,7 +9,7 @@ import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/notifications.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 
-import '../../ui/variables.dart';
+import '../../public_variables/variables.dart';
 
 class RequestPage extends StatefulWidget {
   const RequestPage({Key? key, required this.docId, required this.requestIndex,required this.receiverId}) : super(key: key);

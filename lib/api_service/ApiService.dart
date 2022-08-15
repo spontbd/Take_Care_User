@@ -19,7 +19,7 @@ import '../model/AllServiceResponse.dart';
 import '../model/Erorr.dart';
 import '../model/Expertise.dart';
 import '../model/UserServiceResponse.dart';
-import '../ui/variables.dart';
+import '../public_variables/variables.dart';
 
 
 class ApiService {

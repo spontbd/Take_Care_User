@@ -15,7 +15,7 @@ import '../pages/On Demand/accepted_page.dart';
 import '../pages/On Demand/confirm_order_page.dart';
 import '../pages/On Demand/request_page.dart';
 import '../public_variables/notifications.dart';
-import '../ui/variables.dart';
+import '../public_variables/variables.dart';
 
 
 class DataController extends GetxController{

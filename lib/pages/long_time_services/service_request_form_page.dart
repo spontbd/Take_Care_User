@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:takecare_user/model/LovedOnesResponse.dart';
 import 'package:takecare_user/model/SaveAddressResponse.dart';
 import 'package:takecare_user/pages/On%20Demand/order_information_page.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/pages/loved_ones_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
+import 'package:takecare_user/public_variables/notifications.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 import 'package:takecare_user/widgets/text_field_tile.dart';
 
 import '../../controllers/DataContollers.dart';
-import '../../ui/variables.dart';
+import '../../public_variables/variables.dart';
 
 class ServiceRequestFormPage extends StatefulWidget {
 
   String? mySelf;
   String? activity;
-  SaveAddressResponse? otherAddress;
 
 
-   ServiceRequestFormPage({Key? key, this.mySelf = '', this.otherAddress,this.activity}) : super(key: key);
+   ServiceRequestFormPage({Key? key, this.mySelf = '',this.activity}) : super(key: key);
 
   @override
   _ServiceRequestFormPageState createState() => _ServiceRequestFormPageState();
@@ -30,7 +31,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
   TextEditingController _seekerName = new TextEditingController();
   TextEditingController _seekerAgeYear = new TextEditingController();
   TextEditingController _seekerAgeMonth = new TextEditingController();
-  TextEditingController _seekerGender = new TextEditingController();
+  // TextEditingController _seekerGender = new TextEditingController();
   TextEditingController _seekerMobileNumber = new TextEditingController();
   TextEditingController _serviceDuration = new TextEditingController();
 
@@ -60,7 +61,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
             ),
           ),
           backgroundColor: Colors.white,
-          elevation: 0,
+          elevation: 2,
           title: Text(
             "Services Request Form",
             style: TextStyle(color: Colors.black),
@@ -68,7 +69,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left: 20.0, top: 10, right: 10),
+            padding: const EdgeInsets.only(left: 20.0, top: 40, right: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -77,7 +78,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                   style: TextStyle(fontSize: dynamicSize(0.05)),
                 ),
                 SizedBox(
-                  height: dynamicSize(0.05),
+                  height: dynamicSize(0.1),
                 ),
                 Row(
                   children: [
@@ -86,6 +87,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                         height: dynamicSize(.14),
                         child: TextField(
                           controller: _seekerAddress,
+
                           decoration: new InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: AllColor.button_color, width: 1.5),
@@ -93,7 +95,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: AllColor.button_color, width: 1.5),
                             ),
-                            hintText: 'Seeker\'s Address',
+                            labelText: 'Seeker\'s Address',
                           ),),
                       ),
                     ),
@@ -112,51 +114,29 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                     )
                   ],
                 ),
-                SizedBox(
+               /* SizedBox(
                   height: dynamicSize(0.05),
                 ),
                 Text(
                   "Service Duration (Daily)",
                   style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.black),
-                ),
+                ),*/
                 SizedBox(
                   height: dynamicSize(0.05),
                 ),
-                Row(
-                  children: Variables.hoursList
-                      .map((item) => Expanded(
-                      child: InkWell(
-                        onTap: () => setState(
-                                () => DataControllers.to.hours.value = item),
-                        child: Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.only(
-                              right: item == '8 Hrs.' || item == '12 Hrs.'
-                                  ? size.width * .02
-                                  : 0.0),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: AllColor.blue),
-                              color: item == DataControllers.to.hours.value
-                                  ? AllColor.blue
-                                  : Colors.white,
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(size.width * .01))),
-                          padding: EdgeInsets.symmetric(
-                              vertical: size.width * .025,
-                              horizontal: size.width * .04),
-                          child: Text(
-                            item,
-                            maxLines: 1,
-                            style: TextStyle(
-                                fontSize: size.width * .04,
-                                color:
-                                item == DataControllers.to.hours.value
-                                    ? Colors.white
-                                    : AllColor.textColor),
-                          ),
-                        ),
-                      )))
-                      .toList(),
+                TextField(
+                  controller: _serviceDuration,
+                  keyboardType: TextInputType.number,
+                  decoration: new InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AllColor.button_color, width: 1.5),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AllColor.button_color, width: 1.5),
+                    ),
+                    labelText: 'Service Duration (Daily ex. 12hrs, 24hrs)'
+
+                  ),
                 ),
                 SizedBox(
                   height: dynamicSize(0.05),
@@ -177,7 +157,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: AllColor.button_color, width: 1.5),
                     ),
-                    hintText: 'Seeker\'s Name',
+                    labelText: 'Seeker\'s Name',
                   ),
                 ),
                 SizedBox(
@@ -195,6 +175,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                       Padding(
                         padding: const EdgeInsets.only(right: 3.0),
                         child: TextField(
+                          keyboardType: TextInputType.number,
                           controller: _seekerAgeYear,
                           decoration: new InputDecoration(
                             focusedBorder: OutlineInputBorder(
@@ -203,7 +184,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: AllColor.button_color, width: 1.5),
                             ),
-                            hintText: 'Years',
+                            labelText: 'Years',
                           ),
                         ),
                       ),
@@ -215,6 +196,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 3),
                         child: TextField(
+                          keyboardType: TextInputType.number,
                           controller: _seekerAgeMonth,
                           decoration: new InputDecoration(
                             focusedBorder: OutlineInputBorder(
@@ -223,7 +205,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: AllColor.button_color, width: 1.5),
                             ),
-                            hintText: 'Months',
+                            labelText: 'Months',
                           ),
                         ),
                       ),
@@ -281,7 +263,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: AllColor.button_color, width: 1.5),
                     ),
-                    hintText: 'Mobile Number*',
+                    labelText: 'Mobile Number*',
                   ),
                 ),
                 SizedBox(
@@ -289,8 +271,11 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                 ),
                 InkWell(
                   onTap: (){
+                    if(_serviceValidation())
                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (_) => LovedOnesPage(activity: 'long')));
+                        MaterialPageRoute(builder: (_) => LovedOnesPage(activity: Variables.longTimeServiceActivity
+                          ,  serviceAddress: _seekerAddress.text,serviceTime: _serviceDuration.text
+                        )));
                   },
                   child: RichText(
               text: TextSpan(
@@ -322,8 +307,22 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
             child: InkWell(
               onTap: (){
 
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => OrderInformationPage()));
+                if(_validation() && _serviceValidation())
+                  {
+                    LovedOnes lovedOnes =   LovedOnes();
+                     lovedOnes.age = "${_seekerAgeYear.text}.${_seekerAgeMonth.text}";
+                     lovedOnes.gender = DataControllers.to.gender.value;
+                     lovedOnes.relationship = 'Self';
+                     lovedOnes.contactNo = _seekerMobileNumber.text;
+                     lovedOnes.name = _seekerName.text;
+
+
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (_) => OrderInformationPage(activity: Variables.longTimeServiceActivity,
+                          serviceHolderInfo : lovedOnes,
+                        serviceAddress: _seekerAddress.text, serviceTime: _serviceDuration.text,
+                        )));
+                  }
 
               },
               child: Container(
@@ -349,19 +348,34 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
     if(widget.mySelf == 'mySelf')
     {
      _seekerName.text =  DataControllers.to.userLoginResponse.value.data!.user!.fullName.toString();
-     // _seekerAgeYear.text =  DataControllers.to.userLoginResponse.value.data!.user!.fullName.toString();
-     // _seekerAgeYear.text =  '0';
-     // _seekerAgeMonth.text =  '0';
-     // _seekerAgeMonth.text =  DataControllers.to.userLoginResponse.value.data!.user!.fullName.toString();
-     // _seekerGender.text =  DataControllers.to.userLoginResponse.value.data!.user!.fullName.toString();
+
      _seekerMobileNumber.text =  DataControllers.to.userLoginResponse.value.data!.user!.phone.toString();
      print(DataControllers.to.userLoginResponse.value.data!.user!.gender);
      String gender = DataControllers.to.userLoginResponse.value.data!.user!.gender.toString();
      DataControllers.to.gender.value = gender.replaceFirst(gender[0], gender[0].toUpperCase());
-     // _seekerMobileNumber.text =  DataControllers.to.userLoginResponse.value.data!.user!.fullName.toString();
 
       setState(() {
       });
     }
+  }
+
+  bool _validation() {
+    if(_seekerMobileNumber.text.isEmpty || _seekerAgeYear.text.isEmpty ||  _seekerName.text.isEmpty  || DataControllers.to.gender.value.isEmpty
+    )
+      {
+        showToast('Mandatory field are required');
+        return false;
+      }
+    return true;
+  }
+
+  bool _serviceValidation() {
+    if(_seekerAddress.text.isEmpty
+        || _serviceDuration.text.isEmpty)
+      {
+        showToast('Service Address and Duration field are required');
+        return false;
+      }
+    return true;
   }
 }

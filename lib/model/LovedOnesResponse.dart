@@ -42,7 +42,7 @@ class LovedOnes {
   int? id;
   int? userId;
   String? name;
-  int? age;
+  dynamic? age;
   String? contactNo;
   String? gender;
   String? relationship;
