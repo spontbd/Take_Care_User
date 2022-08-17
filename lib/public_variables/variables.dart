@@ -43,8 +43,7 @@ class Variables {
   static String lovedOnesActivity = 'love';
   static String homeActivity = 'home';
   static String orderInformationActivity = 'orderInfo';
-
-
+  static String serviceTime = '0';
 }
 
 

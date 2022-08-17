@@ -470,7 +470,7 @@ class _HomePageState extends State<HomePage> {
                                     // if (serviceValue == "long" ||
                                     //     serviceValue == null ||
                                     //     serviceValue.isEmpty) {
-                                      Navigator.of(context).pushReplacement(
+                                      Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (_) =>
                                                   LongTimeServicesPage(
@@ -867,7 +867,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      Padding(
+                     /* Padding(
                         padding: const EdgeInsets.only(top: 15, left: 20),
                         child: InkWell(
                           onTap: (){
@@ -900,7 +900,7 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               )),
                         ),
-                      ),
+                      ),*/
                       Padding(
                         padding: const EdgeInsets.only(top: 15, left: 20),
                         child: InkWell(

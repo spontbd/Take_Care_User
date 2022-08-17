@@ -528,7 +528,7 @@ class _PastPageState extends State<PastPage> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      "01/",
+                                      "31/",
                                       style: TextStyle(color: Colors.blue,fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold),
                                     ),
                                     Text(
@@ -551,7 +551,6 @@ class _PastPageState extends State<PastPage> {
                             ],
                           ),
                         ),
-
                         DottedBorder(
                           color: Colors.grey,
                           strokeWidth: 0.5,
@@ -598,7 +597,7 @@ class _PastPageState extends State<PastPage> {
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
-
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Center(
                               child: Padding(
@@ -611,7 +610,6 @@ class _PastPageState extends State<PastPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: dynamicSize(0.2),),
                             Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -628,6 +626,13 @@ class _PastPageState extends State<PastPage> {
                                     ),
                                   ],
                                 )),
+                            RaisedButton(
+                                color: AllColor.themeColor,
+                                elevation: 0,
+                                child: new Text('Order Again',style: TextStyle(color: Colors.white,fontSize: 18),),
+                                onPressed: (){}
+
+                            ),
                           ],
                         ),
                         SizedBox(height: dynamicSize(0.01),),

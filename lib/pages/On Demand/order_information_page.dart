@@ -78,51 +78,72 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                               Container(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 20),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment
-                                        .spaceBetween,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "Total Added Service",
-                                        style: TextStyle(
-                                            fontSize: dynamicSize(0.05)),
-                                      ),
-                                        Row(
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .spaceBetween,
                                         children: [
-
                                           Text(
-                                        (widget.activity == Variables.onDemandServiceActivity) ? "Total:" : '(${
-                                            DataControllers.to.getAddCardLongServiceResponse.value.data!.length.toString()
-                                        })'
-
-                                  ,
+                                            "Total Added Service",
                                             style: TextStyle(
                                                 fontSize: dynamicSize(0.05)),
                                           ),
-                                          if(widget.activity == Variables.onDemandServiceActivity)
+                                            Row(
+                                            children: [
 
-                                            Text(
-                                            "1300/-",
-                                            style: TextStyle(
-                                                fontSize: dynamicSize(0.05)),
-                                          ),
-                                          if(widget.activity == Variables.onDemandServiceActivity)
-                                          IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  orderList = true;
-                                                });
-                                              },
-                                              icon: orderList ? const Icon(
-                                                Icons.keyboard_arrow_up,
-                                                color: AllColor.themeColor,
-                                              ) : const Icon(
-                                                Icons.keyboard_arrow_down,
-                                                color: AllColor.themeColor,
-                                              ))
+                                              Text(
+                                            (widget.activity == Variables.onDemandServiceActivity) ? "Total:" : '(${
+                                                DataControllers.to.getAddCardLongServiceResponse.value.data!.length.toString()
+                                            })'
+
+                                      ,
+                                                style: TextStyle(
+                                                    fontSize: dynamicSize(0.05)),
+                                              ),
+                                              if(widget.activity == Variables.onDemandServiceActivity)
+
+                                                Text(
+                                                "1300/-",
+                                                style: TextStyle(
+                                                    fontSize: dynamicSize(0.05)),
+                                              ),
+                                              if(widget.activity == Variables.onDemandServiceActivity)
+                                              IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      orderList = true;
+                                                    });
+                                                  },
+                                                  icon: orderList ? const Icon(
+                                                    Icons.keyboard_arrow_up,
+                                                    color: AllColor.themeColor,
+                                                  ) : const Icon(
+                                                    Icons.keyboard_arrow_down,
+                                                    color: AllColor.themeColor,
+                                                  ))
+                                            ],
+                                          )
+
                                         ],
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(' Service Duration',
+                                              style: TextStyle(
+                                                  fontSize: dynamicSize(0.05)),
+                                            ),
+                                            Text('${Variables.serviceTime} Hrs',
+                                              style: TextStyle(
+                                                  fontSize: dynamicSize(0.05)),
+                                            ),
+                                          ],
+                                        ),
                                       )
-
                                     ],
                                   ),
                                 ),
@@ -247,7 +268,7 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                     Text(
                                       "Service For -",
                                       style: TextStyle(
-                                          fontSize: dynamicSize(0.06),
+                                          fontSize: dynamicSize(0.05),
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ],
@@ -256,7 +277,7 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                               Container(
                                 child: Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20, top: 10, bottom: 20),
+                                      left: 20.0, right: 20,  bottom: 5),
                                   child: Column(
                                     children: [
                                       Row(
@@ -275,7 +296,7 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                                 {
                                                   Navigator.of(context).pushReplacement(
                                                       MaterialPageRoute(
-                                                          builder: (_) => LovedOnesPage(activity: Variables.orderInformationActivity,serviceAddress: widget.serviceAddress,serviceTime: widget.serviceTime,)));
+                                                          builder: (_) => LovedOnesPage(activity: Variables.orderInformationActivity,serviceAddress: widget.serviceAddress,serviceTime: Variables.serviceTime,)));
                                                 });
                                               },
                                               child: Text(
@@ -511,7 +532,7 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                     Text(
                                       "Additional Note",
                                       style: TextStyle(
-                                          fontSize: dynamicSize(0.06),
+                                          fontSize: dynamicSize(0.05),
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ],

@@ -316,6 +316,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                      lovedOnes.contactNo = _seekerMobileNumber.text;
                      lovedOnes.name = _seekerName.text;
 
+                    Variables.serviceTime = _serviceDuration.text;
 
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (_) => OrderInformationPage(activity: Variables.longTimeServiceActivity,

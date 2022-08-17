@@ -1,19 +1,14 @@
 import 'dart:convert';
-// import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:uuid/uuid.dart';
 import '../controllers/DataContollers.dart';
-import '../model/AvailableProviderResponse.dart';
 import '../pages/On Demand/accepted_page.dart';
 import '../pages/On Demand/confirm_order_page.dart';
-import '../pages/On Demand/request_page.dart';
 import '../public_variables/notifications.dart';
 import '../public_variables/variables.dart';
 

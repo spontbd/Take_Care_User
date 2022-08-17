@@ -17,6 +17,9 @@ class AllColor{
   static const Color colorDashboardOnDemand_blue = Color(0xff41C5DF);
   static const Color colorArrow = Color(0xff2D75B8);
   static const Color colorExperience = Color(0xcaf8edc2);
+  static const Color colorTransBlack  = Color(0x410C0C0C);
+  static const Color colorGreen_light  = Color(0x7784C71F);
+  static const Color colorGreen  = Color(0xFC34C759);
 
 
   static const Color selected_color= Color(0x65eeecec);

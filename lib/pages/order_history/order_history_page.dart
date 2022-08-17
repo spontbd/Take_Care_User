@@ -20,7 +20,7 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "Order History",
+            "Orders",
             style: TextStyle(color: Colors.black),
           ),
           leading: IconButton(
@@ -39,11 +39,12 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
           backgroundColor: Colors.white,
           elevation: 1,
           bottom: TabBar(
+            labelPadding: EdgeInsets.zero,
             unselectedLabelColor: Colors.black,
             indicatorSize: TabBarIndicatorSize.label,
             indicator: BoxDecoration(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(5),
+                  Radius.circular(2),
                 ),
                 color: AllColor.pink_button),
             tabs: [
