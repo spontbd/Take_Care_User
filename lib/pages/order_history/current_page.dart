@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
-import 'package:takecare_user/pages/package_details/RequestAcceptDetails.dart';
+import 'package:takecare_user/pages/order_history/package_details/RequestAcceptDetails.dart';
+import 'package:takecare_user/pages/order_history/runing_details/running_package_details.dart';
 
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
@@ -62,7 +63,7 @@ class _CurrentPageState extends State<CurrentPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(7.0),
                                   child: Text(
-                                    "On Demnad",
+                                    "Package",
                                     style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.04)),
                           ),
                                 ),
@@ -77,7 +78,7 @@ class _CurrentPageState extends State<CurrentPage> {
                               Padding(
                                 padding: const EdgeInsets.all(7.0),
                                 child: Text(
-                                  "BDT 500",
+                                  "",
                                   style: TextStyle(
                                       fontSize: dynamicSize(0.045),
                                       fontWeight: FontWeight.bold,
@@ -107,22 +108,6 @@ class _CurrentPageState extends State<CurrentPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                               /* Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: Colors.orange,
-                                        ),
-                                        Text(
-                                          "3.5/5",
-                                          style: TextStyle(
-                                              fontSize: dynamicSize(0.03),
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    )),*/
                               ],
                             ), //height of inner container
                             width: double
@@ -181,23 +166,21 @@ class _CurrentPageState extends State<CurrentPage> {
                             ):
                             Row(
                               children: [
-                              RaisedButton(
+                          /*    RaisedButton(
                                 color: Colors.grey,
                                   elevation: 0,
                                   child: new Text('Reject',style: TextStyle(color: Colors.white,fontSize: 18),),
                                   onPressed: (){}
 
-                              ),
-                                SizedBox(width: dynamicSize(0.05),),
+                              ),*/
+                                // SizedBox(width: dynamicSize(0.05),),
                                 RaisedButton(
                                   color: AllColor.button_color,
                                     elevation: 0,
-                                    child: new Text('Accept',style: TextStyle(color: Colors.white,fontSize: 18),),
+                                    child: new Text('Details',style: TextStyle(color: Colors.white,fontSize: 18),),
                                     onPressed: (){
                                     setState(() async{
                                       orderAcceped = true;
-                                      await DataControllers.to.getProviderList("1", "1");
-
                                       Navigator.of(context)
                                           .push(
                                           MaterialPageRoute(
@@ -287,7 +270,7 @@ class _CurrentPageState extends State<CurrentPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(7.0),
                                   child: Text(
-                                    "On Demnad",
+                                    "Package",
                                     style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.04)),
                                   ),
                                 ),
@@ -310,7 +293,7 @@ class _CurrentPageState extends State<CurrentPage> {
                               Padding(
                                 padding: const EdgeInsets.all(7.0),
                                 child: Text(
-                                  "BDT 500",
+                                  "",
                                   style: TextStyle(
                                       fontSize: dynamicSize(0.045),
                                       fontWeight: FontWeight.bold,
@@ -340,22 +323,6 @@ class _CurrentPageState extends State<CurrentPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                /* Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: Colors.orange,
-                                        ),
-                                        Text(
-                                          "3.5/5",
-                                          style: TextStyle(
-                                              fontSize: dynamicSize(0.03),
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    )),*/
                               ],
                             ), //height of inner container
                             width: double
@@ -367,6 +334,7 @@ class _CurrentPageState extends State<CurrentPage> {
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           
                           children: [
                             Center(
@@ -380,7 +348,6 @@ class _CurrentPageState extends State<CurrentPage> {
                                 ),
                               ),
                             ),
-                             SizedBox(width: dynamicSize(0.2),),
                              Padding(
                                     padding: const EdgeInsets.all(7.0),
                                     child: Row(
@@ -397,6 +364,27 @@ class _CurrentPageState extends State<CurrentPage> {
                                         ),
                                       ],
                                     )),
+                            RaisedButton(
+                                color: AllColor.button_color,
+                                elevation: 0,
+                                child: new Text('Details',style: TextStyle(color: Colors.white,fontSize: 18),),
+                                onPressed: (){
+                                  setState(() async{
+                                    orderAcceped = true;
+                                    await DataControllers.to.getProviderList("1", "1");
+
+                                    Navigator.of(context)
+                                        .push(
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                RunningPackageDetailsScreen()));
+
+
+                                  });
+                                }
+
+                            ),
+
                           ],
                         ),
                         SizedBox(height: dynamicSize(0.01),),

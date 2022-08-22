@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:takecare_user/pages/home_page.dart';
 
 import '../../public_variables/size_config.dart';
 
@@ -43,8 +44,10 @@ class _SuccessPaymentPageState extends State<SuccessPaymentPage> {
               ),
               TextButton(onPressed: (){
 
-                /* Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => MapePage()));*/
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
               }, child:Text("Go to Home",style: TextStyle(fontSize: dynamicSize(0.05),color:Colors.green),),
               ),
               SizedBox(

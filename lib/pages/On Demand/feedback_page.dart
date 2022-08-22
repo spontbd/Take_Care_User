@@ -24,6 +24,12 @@ class _FeedBackPageState extends State<FeedBackPage> {
       _chk4 = false,
       _chk5 = false;
 
+  var _myColorOne = AllColor.shado_color;
+  var _myColorTwo = AllColor.shado_color;
+  var _myColorThree = AllColor.shado_color;
+  var _myColorFour = AllColor.shado_color;
+  var _myColorFive = AllColor.shado_color;
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DataController>(builder: (dataController) {
@@ -64,31 +70,45 @@ class _FeedBackPageState extends State<FeedBackPage> {
                       //crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.orange,
-                          size: dynamicSize(0.1),
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.orange,
-                          size: dynamicSize(0.1),
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.orange,
-                          size: dynamicSize(0.1),
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.orange,
-                          size: dynamicSize(0.1),
-                        ),
-                        Icon(
-                          Icons.star_border,
-                          color: AllColor.shado_color,
-                          size: dynamicSize(0.1),
-                        ),
+                        IconButton(icon: new Icon(Icons.star, size: dynamicSize(0.1),),
+
+      onPressed: ()=>setState((){
+  _myColorOne=Colors.orange;
+  _myColorTwo=AllColor.shado_color;
+  _myColorThree=AllColor.shado_color;
+  _myColorFour=AllColor.shado_color;
+  _myColorFive=AllColor.shado_color;
+  }),color: _myColorOne,),
+   IconButton(icon: new Icon(Icons.star, size: dynamicSize(0.1),),
+  onPressed: ()=>setState((){
+  _myColorOne=Colors.orange;
+  _myColorTwo=Colors.orange;
+  _myColorThree=AllColor.shado_color;
+  _myColorFour=AllColor.shado_color;
+  _myColorFive=AllColor.shado_color;
+  }),color: _myColorTwo,),
+   IconButton(icon: new Icon(Icons.star, size: dynamicSize(0.1),), onPressed: ()=>setState((){
+  _myColorOne=Colors.orange;
+  _myColorTwo=Colors.orange;
+  _myColorThree=Colors.orange;
+  _myColorFour=AllColor.shado_color;
+  _myColorFive=AllColor.shado_color;
+  }),color: _myColorThree,),
+   IconButton(icon: new Icon(Icons.star, size: dynamicSize(0.1),
+  ), onPressed: ()=>setState((){
+  _myColorOne=Colors.orange;
+  _myColorTwo=Colors.orange;
+  _myColorThree=Colors.orange;
+  _myColorFour=Colors.orange;
+  _myColorFive=AllColor.shado_color;
+  }),color: _myColorFour,),
+  new IconButton(icon: new Icon(Icons.star, size: dynamicSize(0.1),), onPressed: ()=>setState((){
+  _myColorOne=Colors.orange;
+  _myColorTwo=Colors.orange;
+  _myColorThree=Colors.orange;
+  _myColorFour=Colors.orange;
+  _myColorFive=Colors.orange;
+  }),color: _myColorFive,),
                       ],
                     ),
                   ),

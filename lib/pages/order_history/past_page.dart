@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:takecare_user/pages/order_history/past_order_details.dart';
 
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
@@ -12,6 +13,8 @@ class PastPage extends StatefulWidget {
 }
 
 class _PastPageState extends State<PastPage> {
+
+  bool unpaid = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,12 +29,8 @@ class _PastPageState extends State<PastPage> {
               padding: const EdgeInsets.only(left: 10.0, right: 10),
               child: InkWell(
                 onTap: (){
-                  /* Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                      const ServiceDetailsPage()),
-                );*/
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => PastOrderDetailsScreen()));
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -137,7 +136,7 @@ class _PastPageState extends State<PastPage> {
                             RaisedButton(
                                 color: AllColor.themeColor,
                                 elevation: 0,
-                                child: new Text('Order Again',style: TextStyle(color: Colors.white,fontSize: 18),),
+                                child: new Text('Unpaid',style: TextStyle(color: Colors.white,fontSize: 18),),
                                 onPressed: (){}
 
                             ),
@@ -245,10 +244,12 @@ class _PastPageState extends State<PastPage> {
                               ),
                             ),
                             TextButton(onPressed: (){}, child: Text("Submit Review",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.blue),)),
+
+                            if(unpaid)
                             RaisedButton(
                                 color:AllColor.themeColor,
                                 elevation: 0,
-                                child: new Text('Order Again',style: TextStyle(color: Colors.white,fontSize: 18),),
+                                child: new Text('Unpaid',style: TextStyle(color: Colors.white,fontSize: 18),),
                                 onPressed: (){}
 
                             ),
@@ -336,22 +337,6 @@ class _PastPageState extends State<PastPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: Colors.orange,
-                                        ),
-                                        Text(
-                                          "3.5/5",
-                                          style: TextStyle(
-                                              fontSize: dynamicSize(0.03),
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    )),
                               ],
                             ), //height of inner container
                             width: double
@@ -380,22 +365,6 @@ class _PastPageState extends State<PastPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: Colors.orange,
-                                        ),
-                                        Text(
-                                          "3.5/5",
-                                          style: TextStyle(
-                                              fontSize: dynamicSize(0.03),
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    )),
                               ],
                             ), //height of inner container
                             width: double
@@ -424,22 +393,6 @@ class _PastPageState extends State<PastPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: Colors.orange,
-                                        ),
-                                        Text(
-                                          "3.5/5",
-                                          style: TextStyle(
-                                              fontSize: dynamicSize(0.03),
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    )),
                               ],
                             ), //height of inner container
                             width: double
@@ -464,13 +417,30 @@ class _PastPageState extends State<PastPage> {
                                 ),
                               ),
                             ),
-                            RaisedButton(
-                                color: AllColor.themeColor,
-                                elevation: 0,
-                                child: new Text('Order Again',style: TextStyle(color: Colors.white,fontSize: 18),),
-                                onPressed: (){}
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.orange,
+                                    ),
+                                    Text(
+                                      "3.5/5",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.03),
+                                          color: Colors.black),
+                                    ),
+                                  ],
+                                )),
+                            if(unpaid)
+                              RaisedButton(
+                                  color: AllColor.themeColor,
+                                  elevation: 0,
+                                  child: new Text('Unpaid',style: TextStyle(color: Colors.white,fontSize: 18),),
+                                  onPressed: (){}
 
-                            ),
+                              ),
                           ],
                         ),
                         SizedBox(height: dynamicSize(0.01),),
@@ -518,7 +488,7 @@ class _PastPageState extends State<PastPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    "On Demnad",
+                                    "Package",
                                     style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.04)),
                                   ),
                                 ),
@@ -570,22 +540,7 @@ class _PastPageState extends State<PastPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                /* Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: Colors.orange,
-                                        ),
-                                        Text(
-                                          "3.5/5",
-                                          style: TextStyle(
-                                              fontSize: dynamicSize(0.03),
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    )),*/
+
                               ],
                             ), //height of inner container
                             width: double
@@ -626,10 +581,11 @@ class _PastPageState extends State<PastPage> {
                                     ),
                                   ],
                                 )),
-                            RaisedButton(
+                            if(unpaid)
+                              RaisedButton(
                                 color: AllColor.themeColor,
                                 elevation: 0,
-                                child: new Text('Order Again',style: TextStyle(color: Colors.white,fontSize: 18),),
+                                child: new Text('Unpaid',style: TextStyle(color: Colors.white,fontSize: 18),),
                                 onPressed: (){}
 
                             ),

@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:takecare_user/api_service/ApiService.dart';
 import 'package:takecare_user/pages/Addresses.dart';
 import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
+import 'package:takecare_user/pages/coupons/coupons_home_page.dart';
 import 'package:takecare_user/pages/long_time_services/long_time_service_page.dart';
 import 'package:takecare_user/pages/profile.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
@@ -38,6 +39,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     checkEngaged();
     getAllService();
+
   }
 
   onProgressBar(bool progress) {
@@ -57,6 +59,14 @@ class _HomePageState extends State<HomePage> {
       await DataControllers.to.getAllShortService("short");
       await DataControllers.to.getAllCategories();
     }catch(e) {}
+
+    try
+    {
+      await DataControllers.to.getProviderList("1", "1");
+
+    }catch(e){
+
+    }
 
 
     onProgressBar(false);
@@ -353,7 +363,7 @@ class _HomePageState extends State<HomePage> {
                                   carouselController: buttonCarouselController,
                                   itemCount: DataControllers.to.sliderResponse.value.data!.length,
                                   itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
-                                      Container(
+                                  Container(
                                         //color: Colors.pinkAccent,
                                         height: dynamicSize(0.42),
                                         // width: MediaQuery.of(context).size.width/2,
@@ -402,8 +412,6 @@ class _HomePageState extends State<HomePage> {
                                           ],
                                         ),
                                       ),
-
-
                                   options: CarouselOptions(
                                     autoPlay: true,
                                     enlargeCenterPage: true,
@@ -456,8 +464,7 @@ class _HomePageState extends State<HomePage> {
                             height: dynamicSize(.55),
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: DataControllers
-                                  .to.getCategoriesResponse.value.data!.length +1,
+                              itemCount: DataControllers.to.getCategoriesResponse.value.data!.length +1,
                               itemBuilder: (context, index) => Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 10.0),
@@ -466,10 +473,6 @@ class _HomePageState extends State<HomePage> {
                                     var serviceValue = Common
                                         .storeSharedPreferences
                                         .getString("service");
-
-                                    // if (serviceValue == "long" ||
-                                    //     serviceValue == null ||
-                                    //     serviceValue.isEmpty) {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (_) =>
@@ -489,6 +492,8 @@ class _HomePageState extends State<HomePage> {
                                   child: Container(
                                     width: size.width / 2.42,
                                     decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      
                                       color: Colors.white,
                                       boxShadow: [
                                         BoxShadow(
@@ -502,6 +507,14 @@ class _HomePageState extends State<HomePage> {
                                     child: Column(
                                       children: [
                                         Container(
+
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(5),
+
+                                            color: Colors.white,
+
+                                          ),
+
                                           height: dynamicSize(0.3),
                                           width:
                                               MediaQuery.of(context).size.width,
@@ -511,14 +524,18 @@ class _HomePageState extends State<HomePage> {
                                               .to.getCategoriesResponse.value.data!.length > index)
                                               ?
 
-                                          CachedNetworkImage(
-                                            fit: BoxFit.fill,
-                                            imageUrl:
-                                                "${ApiService.MainURL+DataControllers.to.getCategoriesResponse.value.data![index].serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    Image.asset(
-                                              "assets/images/pet.png",
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(5),
+
+                                            child: CachedNetworkImage(
+                                              fit: BoxFit.fill,
+                                              imageUrl:
+                                                  "${ApiService.MainURL+DataControllers.to.getCategoriesResponse.value.data![index].serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Image.asset(
+                                                "assets/images/pet.png",
+                                              ),
                                             ),
                                           ) :
                                           Container(
@@ -905,7 +922,11 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.only(top: 15, left: 20),
                         child: InkWell(
                           onTap: (){
-
+                            Navigator.of(context)
+                                .push(
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        CouponsHomePage()));
                           },
                           child: Container(
                               width: dynamicSize(1),
@@ -916,11 +937,11 @@ class _HomePageState extends State<HomePage> {
                                       padding: const EdgeInsets.only(left: 10.0),
                                       child: TextButton(
                                         onPressed: () {
-                                          /* Navigator.of(context)
-                                          .pushReplacement(
+                                           Navigator.of(context)
+                                          .push(
                                           MaterialPageRoute(
                                               builder: (_) =>
-                                                  LeaveRequestPage()));*/
+                                                  CouponsHomePage()));
                                         },
                                         child: Text(
                                           "Coupons",
@@ -1110,14 +1131,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void goToProfile() {
-    Navigator.of(context).pushReplacement(
+    Navigator.of(context).push(
         MaterialPageRoute(
             builder: (_) => Profile()));
 
   }
 
   void goToOtherHistory() {
-    Navigator.of(context).pushReplacement(
+    Navigator.of(context).push(
         MaterialPageRoute(
             builder: (_) =>
                 OrderHistoryPage()));
