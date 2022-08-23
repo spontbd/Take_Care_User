@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:takecare_user/api_service/ApiService.dart';
+import 'package:takecare_user/controllers/language_controller.dart';
 import 'package:takecare_user/pages/Addresses.dart';
 import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
 import 'package:takecare_user/pages/coupons/coupons_home_page.dart';
 import 'package:takecare_user/pages/long_time_services/long_time_service_page.dart';
+import 'package:takecare_user/pages/menu/setting/setting.dart';
 import 'package:takecare_user/pages/profile.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
-import 'package:takecare_user/widgets/CarouselDemo.dart';
 import '../controllers/DataContollers.dart';
 import '../public_variables/all_colors.dart';
 import '../public_variables/notifications.dart';
@@ -49,11 +50,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void getAllService() async {
-    //DataControllers.to.profilePercentage.value.data.percentage = 0;
-
     onProgressBar(true);
-    //await DataControllers.to.getAllLongService("long");
-    //await DataControllers.to.getAllShortService("short");
     try{
       await DataControllers.to.getAllLongService("long");
       await DataControllers.to.getAllShortService("short");
@@ -61,14 +58,7 @@ class _HomePageState extends State<HomePage> {
     }catch(e) {}
 
     try
-    {
-      await DataControllers.to.getProviderList("1", "1");
-
-    }catch(e){
-
-    }
-
-
+    {await DataControllers.to.getProviderList("1", "1");}catch(e){}
     onProgressBar(false);
 
     //  await DataControllers.to.postUserServiceResponse(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
@@ -107,913 +97,922 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return SafeArea(
-      child: Stack(
-        children: [
-          Scaffold(
-            key: _scaffoldKey,
-            // appBar: AppBar(title: Text('Goog Morning'),),
-            body: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                children: [
-                  Row(
+      child:  GetBuilder<LanguageController>(builder: (lc)  {
+          return Stack(
+            children: [
+              Scaffold(
+                key: _scaffoldKey,
+                // appBar: AppBar(title: Text('Goog Morning'),),
+                body: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
                     children: [
-                      // Image.asset("assets/images/baby.png"),
-                      ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        child: CachedNetworkImage(
-                          height: 55,
-                          width: 55,
-                          fit: BoxFit.cover,
-                          imageUrl:
-                              '${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
-
-                          errorWidget: (context, url, error) =>
-                              Image.asset('assets/images/baby.png'),
-                        ),
-                      ),
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                                margin: EdgeInsets.only(left: 10, top: 15),
-                                child: Text(
-                                  messageDisplay(),
-                                  style: TextStyle(fontSize: dynamicSize(0.04)),
-                                )),
-                            Container(
-                                margin: EdgeInsets.only(
-                                    left: 10, bottom: 10, top: 5),
-                                child: Text(
-                                    (DataControllers.to.userLoginResponse.value
-                                            .data!.user!.fullName!.isEmpty
-                                        ? " "
-                                        : DataControllers.to.userLoginResponse
-                                            .value.data!.user!.fullName
-                                            .toString()),
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: AllColor
-                                            .colorDashboardOnDemand_blue))),
-                          ],
-                        ),
-                      ),
-                      Spacer(),
-                      IconButton(
-                        onPressed: () {
-                          _scaffoldKey.currentState!.openEndDrawer();
-                        },
-                        icon: Icon(Icons.menu),
-                      )
-                    ],
-                  ), //appbar design
-                  Flexible(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
+                      Row(
                         children: [
-                          SizedBox(height: dynamicSize(.10)),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "On demand",
-                                style: TextStyle(
-                                    fontSize: dynamicSize(0.06),
-                                    fontWeight: FontWeight.bold),
-                              ),
+                          // Image.asset("assets/images/baby.png"),
+                          ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            child: CachedNetworkImage(
+                              height: 55,
+                              width: 55,
+                              fit: BoxFit.cover,
+                              imageUrl:
+                                  '${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
+
+                              errorWidget: (context, url, error) =>
+                                  Image.asset('assets/images/baby.png'),
                             ),
                           ),
-                          Row(
+                          Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(left: 10, top: 15),
+                                    child: Text(
+                                      messageDisplay(lc),
+                                      style: TextStyle(fontSize: dynamicSize(0.04)),
+                                    )),
+                                Container(
+                                    margin: EdgeInsets.only(
+                                        left: 10, bottom: 10, top: 5),
+                                    child: Text(
+                                        (DataControllers.to.userLoginResponse.value
+                                                .data!.user!.fullName!.isEmpty
+                                            ? " "
+                                            : DataControllers.to.userLoginResponse
+                                                .value.data!.user!.fullName
+                                                .toString()),
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: AllColor
+                                                .colorDashboardOnDemand_blue))),
+                              ],
+                            ),
+                          ),
+                          Spacer(),
+                          IconButton(
+                            onPressed: () {
+                              _scaffoldKey.currentState!.openEndDrawer();
+                            },
+                            icon: Icon(Icons.menu),
+                          )
+                        ],
+                      ), //appbar design
+                      Flexible(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Column(
                             children: [
-                              Expanded(
-                                child: Stack(
-                                  children: [
-                                    ///Red Back
-                                    Container(
-                                      height: dynamicSize(0.5),
-                                      decoration: const BoxDecoration(
-                                        color:
-                                            AllColor.colorDashboardProfileRed,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                      ),
-                                    ),
-
-                                    ///Top Image
-                                    Positioned(
-                                      right: -size.width * .015,
-                                      top: -size.width * .06,
-                                      child: Image.asset(
-                                        'assets/images/inject_1.png',
-                                        height: size.width * .3,
-                                        width: size.width * .3,
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: -size.width * .01,
-                                      top: size.width * .12,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            left: size.width * .04),
-                                        child: Text(
-                                          "Right Now",
-                                          style: TextStyle(
-                                              fontSize: size.width * .05,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-
-                                    Positioned(
-                                      bottom: size.width * .04,
-                                      left: size.width * .03,
-                                      right: -5.0,
-                                      child: Text('Book Service for\nRight now',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: size.width * .038,
-                                              fontWeight: FontWeight.bold)),
-                                    ),
-                                    Positioned(
-                                      bottom: size.width * .008,
-                                      right: -size.width * .02,
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          //    Common.storeSharedPreferences.setString('userid', _mobileNumber.value.text.toString());
-                                          var serviceValue = Common
-                                              .storeSharedPreferences
-                                              .getString("service");
-
-                                            Navigator.of(context)
-                                                .pushReplacement(
-                                                    MaterialPageRoute(
-                                                        builder: (_) =>
-                                                            OnDemandPage()));
-                                        },
-                                        child: Icon(Icons.chevron_right,
-                                            size: size.width * .06,
-                                            color: Colors.white),
-                                        style: ElevatedButton.styleFrom(
-                                          shape: const CircleBorder(),
-                                          padding:
-                                              EdgeInsets.all(size.width * .005),
-                                          primary: AllColor.colorArrow,
-                                          onPrimary: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                              SizedBox(height: dynamicSize(.10)),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                   lc.onDemandService.value ,
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.06),
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ),
-                              SizedBox(width: dynamicSize(0.01)),
-                              Expanded(
-                                child: Stack(
-                                  children: [
-                                    ///Red Back
-                                    Container(
-                                      height: dynamicSize(0.5),
-                                      decoration: const BoxDecoration(
-                                        color: AllColor
-                                            .colorDashboardOnDemand_blue,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                      ),
-                                    ),
-
-                                    ///Top Image
-                                    Positioned(
-                                      right: -size.width * .015,
-                                      top: -size.width * .06,
-                                      child: Image.asset(
-                                        'assets/images/inject_1.png',
-                                        height: size.width * .3,
-                                        width: size.width * .3,
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: -size.width * .01,
-                                      top: size.width * .12,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            left: size.width * .04),
-                                        child: Text(
-                                          "Schedule",
-                                          style: TextStyle(
-                                              fontSize: size.width * .05,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      bottom: size.width * .04,
-                                      left: size.width * .03,
-                                      right: -5.0,
-                                      child: Text('Book Service for\nLater',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: size.width * .038,
-                                              fontWeight: FontWeight.bold)),
-                                    ),
-                                    Positioned(
-                                      bottom: size.width * .008,
-                                      right: -size.width * .02,
-                                      child: ElevatedButton(
-                                        onPressed: () {},
-                                        child: Icon(Icons.chevron_right,
-                                            size: size.width * .06,
-                                            color: Colors.white),
-                                        style: ElevatedButton.styleFrom(
-                                          shape: const CircleBorder(),
-                                          padding:
-                                              EdgeInsets.all(size.width * .005),
-                                          primary: AllColor.colorArrow,
-                                          onPrimary: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 15.0, top: 15),
-                            child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Offers & News",
-                                  style: TextStyle(
-                                      fontSize: dynamicSize(0.06),
-                                      fontWeight: FontWeight.bold),
-                                )),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: CarouselSlider.builder(
-                                  carouselController: buttonCarouselController,
-                                  itemCount: DataControllers.to.sliderResponse.value.data!.length,
-                                  itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
-                                  Container(
-                                        //color: Colors.pinkAccent,
-                                        height: dynamicSize(0.42),
-                                        // width: MediaQuery.of(context).size.width/2,
-                                        decoration: BoxDecoration(
-                                          // color: Colors.pinkAccent,
-                                          borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-
-                                          image: DecorationImage(
-                                            image: NetworkImage("${ApiService.MainURL+DataControllers.to.sliderResponse.value.data![itemIndex].sliderImage!}"),
-                                            fit: BoxFit.cover,
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Stack(
+                                      children: [
+                                        ///Red Back
+                                        Container(
+                                          height: dynamicSize(0.5),
+                                          decoration: const BoxDecoration(
+                                            color:
+                                                AllColor.colorDashboardProfileRed,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
                                           ),
                                         ),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 10, bottom: 10),
-                                                child: Text(
-                                                  "${DataControllers.to.sliderResponse.value.data![itemIndex].sliderTitle}" /*DataControllers.to.getCategoriesResponse.value.data[].*/,
-                                                  style: TextStyle(
-                                                      fontSize: dynamicSize(0.075),
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold),
-                                                ),
+
+                                        ///Top Image
+                                        Positioned(
+                                          right: -size.width * .015,
+                                          top: -size.width * .06,
+                                          child: Image.asset(
+                                            'assets/images/inject_1.png',
+                                            height: size.width * .3,
+                                            width: size.width * .3,
+                                          ),
+                                        ),
+                                        Positioned(
+                                          left: -size.width * .01,
+                                          top: size.width * .12,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: size.width * .04),
+                                            child: Text(
+                                              "Right Now",
+                                              style: TextStyle(
+                                                  fontSize: size.width * .05,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+
+                                        Positioned(
+                                          bottom: size.width * .04,
+                                          left: size.width * .03,
+                                          right: -5.0,
+                                          child: Text('Book Service for\nRight now',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: size.width * .038,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
+                                        Positioned(
+                                          bottom: size.width * .008,
+                                          right: -size.width * .02,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+
+
+                                                Navigator.of(context)
+                                                    .pushReplacement(
+                                                        MaterialPageRoute(
+                                                            builder: (_) =>
+                                                                OnDemandPage()));
+                                            },
+                                            child: Icon(Icons.chevron_right,
+                                                size: size.width * .06,
+                                                color: Colors.white),
+                                            style: ElevatedButton.styleFrom(
+                                              shape: const CircleBorder(),
+                                              padding:
+                                                  EdgeInsets.all(size.width * .005),
+                                              primary: AllColor.colorArrow,
+                                              onPrimary: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(width: dynamicSize(0.01)),
+                                  Expanded(
+                                    child: Stack(
+                                      children: [
+                                        ///Red Back
+                                        Container(
+                                          height: dynamicSize(0.5),
+                                          decoration: const BoxDecoration(
+                                            color: AllColor
+                                                .colorDashboardOnDemand_blue,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                          ),
+                                        ),
+
+                                        ///Top Image
+                                        Positioned(
+                                          right: -size.width * .015,
+                                          top: -size.width * .06,
+                                          child: Image.asset(
+                                            'assets/images/inject_1.png',
+                                            height: size.width * .3,
+                                            width: size.width * .3,
+                                          ),
+                                        ),
+                                        Positioned(
+                                          left: -size.width * .01,
+                                          top: size.width * .12,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: size.width * .04),
+                                            child: Text(
+                                              "Schedule",
+                                              style: TextStyle(
+                                                  fontSize: size.width * .05,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: size.width * .04,
+                                          left: size.width * .03,
+                                          right: -5.0,
+                                          child: Text('Book Service for\nLater',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: size.width * .038,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
+                                        Positioned(
+                                          bottom: size.width * .008,
+                                          right: -size.width * .02,
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            child: Icon(Icons.chevron_right,
+                                                size: size.width * .06,
+                                                color: Colors.white),
+                                            style: ElevatedButton.styleFrom(
+                                              shape: const CircleBorder(),
+                                              padding:
+                                                  EdgeInsets.all(size.width * .005),
+                                              primary: AllColor.colorArrow,
+                                              onPrimary: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(bottom: 15.0, top: 15),
+                                child: Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      lc.offerNews.value,
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.06),
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: CarouselSlider.builder(
+                                      carouselController: buttonCarouselController,
+                                      itemCount: DataControllers.to.sliderResponse.value.data!.length,
+                                      itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
+                                      Container(
+                                            //color: Colors.pinkAccent,
+                                            height: dynamicSize(0.42),
+                                            // width: MediaQuery.of(context).size.width/2,
+                                            decoration: BoxDecoration(
+                                              // color: Colors.pinkAccent,
+                                              borderRadius:
+                                              BorderRadius.all(Radius.circular(10)),
+
+                                              image: DecorationImage(
+                                                image: NetworkImage("${ApiService.MainURL+DataControllers.to.sliderResponse.value.data![itemIndex].sliderImage!}"),
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.bottomLeft,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 10, bottom: 10),
+                                                    child: Text(
+                                                      "${DataControllers.to.sliderResponse.value.data![itemIndex].sliderTitle}" /*DataControllers.to.getCategoriesResponse.value.data[].*/,
+                                                      style: TextStyle(
+                                                          fontSize: dynamicSize(0.075),
+                                                          color: Colors.white,
+                                                          fontWeight: FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  alignment: Alignment.bottomLeft,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 10.0, bottom: 15),
+                                                    child: Text(
+                                                      "${DataControllers.to.sliderResponse.value.data![itemIndex].sliderDescription}",
+                                                      style: TextStyle(
+                                                        fontSize: dynamicSize(0.045),
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                      options: CarouselOptions(
+                                        autoPlay: true,
+                                        enlargeCenterPage: true,
+                                        viewportFraction: 1.0,
+                                        aspectRatio: 2.5,
+                                        initialPage: 0,
+                                          onPageChanged: (index, reason) {
+                                            setState(() {
+                                              _current = index;
+                                            });
+                                          }
+                                      ),
+                                    )
+                                  ),
+                                ],
+                              ),
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: DataControllers.to.sliderResponse.value.data!.asMap().entries.map((entry) {
+                                  return GestureDetector(
+                                    onTap: () => buttonCarouselController.animateToPage(entry.key),
+                                    child: Container(
+                                      width: 10.0,
+                                      height: 10.0,
+                                      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: (Theme.of(context).brightness == Brightness.dark
+                                              ? AllColor.blue_light
+                                              : AllColor.blue)
+                                              .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10, bottom: 12),
+                                child: Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      lc.longTimeService.value,
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.06),
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              ),
+                              Container(
+                                height: dynamicSize(.55),
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: DataControllers.to.getCategoriesResponse.value.data!.length +1,
+                                  itemBuilder: (context, index) => Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8.0, vertical: 10.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      LongTimeServicesPage(
+                                                          selectedType :
+
+                                                          (DataControllers
+                                                              .to.getCategoriesResponse.value.data!.length > index) ?
+                                                            DataControllers
+                                                              .to
+                                                              .getCategoriesResponse
+                                                              .value
+                                                              .data![index]
+                                                              .categoryName!.toString() : ""
+                                                      )));
+                                      },
+                                      child: Container(
+                                        width: size.width / 2.42,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5),
+
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black26,
+                                              blurRadius: 4,
+                                              offset:
+                                                  Offset(4, 4), // Shadow position
+                                            ),
+                                          ],
+                                        ),
+                                        child: Column(
+                                          children: [
                                             Container(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 10.0, bottom: 15),
-                                                child: Text(
-                                                  "${DataControllers.to.sliderResponse.value.data![itemIndex].sliderDescription}",
-                                                  style: TextStyle(
-                                                    fontSize: dynamicSize(0.045),
-                                                    color: Colors.white,
+
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(5),
+
+                                                color: Colors.white,
+
+                                              ),
+
+                                              height: dynamicSize(0.3),
+                                              width:
+                                                  MediaQuery.of(context).size.width,
+                                              child:
+
+                                              (DataControllers
+                                                  .to.getCategoriesResponse.value.data!.length > index)
+                                                  ?
+
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(5),
+
+                                                child: CachedNetworkImage(
+                                                  fit: BoxFit.fill,
+                                                  imageUrl:
+                                                      "${ApiService.MainURL+DataControllers.to.getCategoriesResponse.value.data![index].serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Image.asset(
+                                                    "assets/images/pet.png",
+                                                  ),
+                                                ),
+                                              ) :
+                                              Container(
+                                                height: dynamicSize(0.10),
+                                                width: dynamicSize(0.12),
+                                                child:  Card(
+                                                  color: AllColor.colorDashboardOnDemand_blue,
+                                                  margin: EdgeInsets.only(left: 0,right: 0),
+                                                  semanticContainer: true,
+                                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.only(
+                                                    ),
+                                                  ),
+                                                  elevation: 6,
+                                                  child: Padding(
+                                                    padding:  EdgeInsets.all(30),
+                                                    child: ElevatedButton(
+                                                      onPressed: (){
+                                                        Navigator.of(context).pushReplacement(
+                                                            MaterialPageRoute(
+                                                                builder: (_) =>
+                                                                    LongTimeServicesPage(
+                                                                        selectedType : ""
+                                                                    )));
+                                                      },
+                                                        child: Icon(Icons.arrow_forward,color: Colors.white,),
+                                                      style: ElevatedButton.styleFrom(
+                                                        shape: const CircleBorder(),
+                                                        padding:
+                                                        EdgeInsets.all(size.width * .002),
+                                                        primary: AllColor.colorDashboardProfileRed,
+                                                        onPrimary: Colors.black,
+                                                      ),
+
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                  options: CarouselOptions(
-                                    autoPlay: true,
-                                    enlargeCenterPage: true,
-                                    viewportFraction: 1.0,
-                                    aspectRatio: 2.5,
-                                    initialPage: 0,
-                                      onPageChanged: (index, reason) {
-                                        setState(() {
-                                          _current = index;
-                                        });
-                                      }
-                                  ),
-                                )
-                              ),
-                            ],
-                          ),
+                                            Container(
+                                                alignment:
+                                                (DataControllers
+                                                    .to.getCategoriesResponse.value.data!.length > index)
+                                                    ?
+                                                Alignment.topLeft : Alignment.center,
+                                                margin: EdgeInsets.only(
+                                                    left: 4, top: 8),
+                                                child:
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: DataControllers.to.sliderResponse.value.data!.asMap().entries.map((entry) {
-                              return GestureDetector(
-                                onTap: () => buttonCarouselController.animateToPage(entry.key),
-                                child: Container(
-                                  width: 10.0,
-                                  height: 10.0,
-                                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: (Theme.of(context).brightness == Brightness.dark
-                                          ? AllColor.blue_light
-                                          : AllColor.blue)
-                                          .withOpacity(_current == entry.key ? 0.9 : 0.4)),
-                                ),
-                              );
-                            }).toList(),
-                          ),
+                                                (DataControllers
+                                                    .to.getCategoriesResponse.value.data!.length > index)
+                                                    ?
+                                                Text(
 
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, bottom: 12),
-                            child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Long Time Service",
-                                  style: TextStyle(
-                                      fontSize: dynamicSize(0.06),
-                                      fontWeight: FontWeight.bold),
-                                )),
-                          ),
-                          Container(
-                            height: dynamicSize(.55),
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: DataControllers.to.getCategoriesResponse.value.data!.length +1,
-                              itemBuilder: (context, index) => Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 10.0),
-                                child: InkWell(
-                                  onTap: () {
-                                    var serviceValue = Common
-                                        .storeSharedPreferences
-                                        .getString("service");
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (_) =>
-                                                  LongTimeServicesPage(
-                                                      selectedType :
 
-                                                      (DataControllers
-                                                          .to.getCategoriesResponse.value.data!.length > index) ?
-                                                        DataControllers
+
+                                                  DataControllers
                                                           .to
                                                           .getCategoriesResponse
                                                           .value
                                                           .data![index]
-                                                          .categoryName!.toString() : ""
-                                                  )));
-                                  },
-                                  child: Container(
-                                    width: size.width / 2.42,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black26,
-                                          blurRadius: 4,
-                                          offset:
-                                              Offset(4, 4), // Shadow position
-                                        ),
-                                      ],
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Container(
-
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(5),
-
-                                            color: Colors.white,
-
-                                          ),
-
-                                          height: dynamicSize(0.3),
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child:
-
-                                          (DataControllers
-                                              .to.getCategoriesResponse.value.data!.length > index)
-                                              ?
-
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.circular(5),
-
-                                            child: CachedNetworkImage(
-                                              fit: BoxFit.fill,
-                                              imageUrl:
-                                                  "${ApiService.MainURL+DataControllers.to.getCategoriesResponse.value.data![index].serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Image.asset(
-                                                "assets/images/pet.png",
-                                              ),
+                                                          .categoryName!
+                                                          .isNotEmpty
+                                                      ? DataControllers
+                                                          .to
+                                                          .getCategoriesResponse
+                                                          .value
+                                                          .data![index]
+                                                          .categoryName!
+                                                      : "",
+                                                  style: TextStyle(
+                                                      fontSize: dynamicSize(0.045),
+                                                      fontWeight: FontWeight.bold),
+                                                )
+                                            :
+                                                Text( lc.seeAll.value,
+                                                  style: TextStyle(
+                                                      fontSize: dynamicSize(0.045),
+                                                      fontWeight: FontWeight.bold,color: AllColor.pink_button),
+                                                )
                                             ),
-                                          ) :
-                                          Container(
-                                            height: dynamicSize(0.10),
-                                            width: dynamicSize(0.12),
-                                            child:  Card(
-                                              color: AllColor.colorDashboardOnDemand_blue,
-                                              margin: EdgeInsets.only(left: 0,right: 0),
-                                              semanticContainer: true,
-                                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.only(
-                                                ),
-                                              ),
-                                              elevation: 6,
-                                              child: Padding(
-                                                padding:  EdgeInsets.all(30),
-                                                child: ElevatedButton(
-
-
-                                                  onPressed: (){
-                                                    Navigator.of(context).pushReplacement(
-                                                        MaterialPageRoute(
-                                                            builder: (_) =>
-                                                                LongTimeServicesPage(
-                                                                    selectedType : ""
-                                                                )));
-                                                  },
-                                                    child: Icon(Icons.arrow_forward,color: Colors.white,),
-                                                  style: ElevatedButton.styleFrom(
-                                                    shape: const CircleBorder(),
-                                                    padding:
-                                                    EdgeInsets.all(size.width * .002),
-                                                    primary: AllColor.colorDashboardProfileRed,
-                                                    onPrimary: Colors.black,
-                                                  ),
-
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+                                            Container(
+                                                alignment: Alignment.topLeft,
+                                                margin: EdgeInsets.only(
+                                                    left: 4, bottom: 5, top: 2),
+                                                child:
+                                                (DataControllers
+                                                    .to.getCategoriesResponse.value.data!.length > index)
+                                                    ?
+                                                Text(
+                                                  "Starts from ${DataControllers.to.getCategoriesResponse.value.data![index].startPrice!.isNaN ? "0.00" : DataControllers.to.getCategoriesResponse.value.data![index].startPrice!} Tk",
+                                                  style: TextStyle(
+                                                      fontSize: dynamicSize(0.035)),
+                                                ) : Text('')),
+                                          ],
                                         ),
-                                        Container(
-                                            alignment:
-                                            (DataControllers
-                                                .to.getCategoriesResponse.value.data!.length > index)
-                                                ?
-                                            Alignment.topLeft : Alignment.center,
-                                            margin: EdgeInsets.only(
-                                                left: 4, top: 8),
-                                            child:
-
-                                            (DataControllers
-                                                .to.getCategoriesResponse.value.data!.length > index)
-                                                ?
-                                            Text(
-
-
-
-                                              DataControllers
-                                                      .to
-                                                      .getCategoriesResponse
-                                                      .value
-                                                      .data![index]
-                                                      .categoryName!
-                                                      .isNotEmpty
-                                                  ? DataControllers
-                                                      .to
-                                                      .getCategoriesResponse
-                                                      .value
-                                                      .data![index]
-                                                      .categoryName!
-                                                  : "",
-                                              style: TextStyle(
-                                                  fontSize: dynamicSize(0.045),
-                                                  fontWeight: FontWeight.bold),
-                                            )
-                                        :
-                                            Text("See All",
-                                              style: TextStyle(
-                                                  fontSize: dynamicSize(0.045),
-                                                  fontWeight: FontWeight.bold,color: AllColor.pink_button),
-                                            )
-                                        ),
-                                        Container(
-                                            alignment: Alignment.topLeft,
-                                            margin: EdgeInsets.only(
-                                                left: 4, bottom: 5, top: 2),
-                                            child:
-                                            (DataControllers
-                                                .to.getCategoriesResponse.value.data!.length > index)
-                                                ?
-                                            Text(
-                                              "Starts from ${DataControllers.to.getCategoriesResponse.value.data![index].startPrice!.isNaN ? "0.00" : DataControllers.to.getCategoriesResponse.value.data![index].startPrice!} Tk",
-                                              style: TextStyle(
-                                                  fontSize: dynamicSize(0.035)),
-                                            ) : Text('')),
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
+                endDrawer: _drawer(),
               ),
-            ),
-            endDrawer: _drawer(),
-          ),
-          isLoading ? const LoadingWidget() : Container()
-        ],
+              isLoading ? const LoadingWidget() : Container()
+            ],
+          );
+        }
       ),
     );
   }
 
   Widget _drawer() => Drawer(
         child: SafeArea(
-          child: Scaffold(
-            backgroundColor: AllColor.themeColor,
-            appBar: AppBar(
+          child: GetBuilder<LanguageController>(builder: (lc)  {
+              return Scaffold(
+                backgroundColor: AllColor.themeColor,
+                appBar: AppBar(
 //leadingWidth: 0,
-                leading: Text(""),
-                backgroundColor: Colors.pinkAccent,
-                elevation: 0,
-                bottom: PreferredSize(
-                  preferredSize: Size(70, 100),
-                  child: Container(
-                    // height: dynamicSize(0.5),
-                    color: Colors.pinkAccent,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: dynamicSize(0.02),
-                        ),
-                        Stack(
-                          alignment: Alignment.topCenter,
+                    leading: Text(""),
+                    backgroundColor: Colors.pinkAccent,
+                    elevation: 0,
+                    bottom: PreferredSize(
+                      preferredSize: Size(70, 100),
+                      child: Container(
+                        // height: dynamicSize(0.5),
+                        color: Colors.pinkAccent,
+                        child: Column(
                           children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            SizedBox(
+                              height: dynamicSize(0.02),
+                            ),
+                            Stack(
+                              alignment: Alignment.topCenter,
                               children: [
-                                ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(30)),
-                                  child: CachedNetworkImage(
-                                    height: 55,
-                                    width: 55,
-                                    fit: BoxFit.cover,
-                                    imageUrl:
-                                        '${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
-                                  /*  placeholder: (context, url) =>
-                                        CircularProgressIndicator(),*/
-                                    errorWidget: (context, url, error) =>
-                                        Image.asset('assets/images/baby.png'),
-                                  ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(30)),
+                                      child: CachedNetworkImage(
+                                        height: 55,
+                                        width: 55,
+                                        fit: BoxFit.cover,
+                                        imageUrl:
+                                            '${DataControllers.to.userLoginResponse.value.data!.user!.profilePhoto}',
+                                      /*  placeholder: (context, url) =>
+                                            CircularProgressIndicator(),*/
+                                        errorWidget: (context, url, error) =>
+                                            Image.asset('assets/images/baby.png'),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Text(
+                                        '${DataControllers.to.userLoginResponse.value.data!.user!.fullName}',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: dynamicSize(0.06),
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
+                                  padding: EdgeInsets.all(dynamicSize(.04)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      InkWell(
+                                          onTap: () => Navigator.pop(context),
+                                          child: Icon(Icons.arrow_forward,
+                                              color: Colors.white)),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: dynamicSize(0.08),
+                            ),
+                            SizedBox(
+                              height: dynamicSize(0.02),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
+                bottomNavigationBar: BottomAppBar(
+                  child: InkWell(
+                    onTap: () {
+                      logOutMethod(context);
+                    },
+                    child: Container(
+
+                      color: Colors.pinkAccent,
+                      height: dynamicSize(0.15),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 20.0,
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(Icons.logout,color: Colors.white),
+                                TextButton(
+                                  onPressed: () {
+                                    logOutMethod(context);
+                                  },
                                   child: Text(
-                                    '${DataControllers.to.userLoginResponse.value.data!.user!.fullName}',
+                                    lc.logOut.value,
                                     style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: dynamicSize(0.06),
+                                        fontSize: dynamicSize(0.04),
                                         color: Colors.white),
                                   ),
                                 ),
                               ],
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(dynamicSize(.04)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  InkWell(
-                                      onTap: () => Navigator.pop(context),
-                                      child: Icon(Icons.arrow_forward,
-                                          color: Colors.white)),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.08),
-                        ),
-                        SizedBox(
-                          height: dynamicSize(0.02),
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                )),
-            bottomNavigationBar: BottomAppBar(
-              child: InkWell(
-                onTap: () {
-                  logOutMethod(context);
-                },
-                child: Container(
-
-                  color: Colors.pinkAccent,
-                  height: dynamicSize(0.15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20.0,
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(Icons.logout,color: Colors.white),
-                            TextButton(
-                              onPressed: () {
-                                logOutMethod(context);
-                              },
-                              child: Text(
-                                "Logout",
-                                style: TextStyle(
-                                    fontSize: dynamicSize(0.04),
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
-              ),
-            ),
-            body: Container(
-              color: Colors.white,
-              height: MediaQuery.of(context).size.height,
-              child: SingleChildScrollView(
-                child: Column(children: [
-                  Wrap(
-                    direction: Axis.vertical,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 30),
-                        child: InkWell(
-                          onTap: (){
-                            goToOtherHistory();
-                          },
-                          child: Container(
-                            width: dynamicSize(1),
+                body: Container(
+                  color: Colors.white,
+                  height: MediaQuery.of(context).size.height,
+                  child: SingleChildScrollView(
+                    child: Column(children: [
+                      Wrap(
+                        direction: Axis.vertical,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, top: 30),
+                            child: InkWell(
+                              onTap: (){
+                                goToOtherHistory();
+                              },
+                              child: Container(
+                                width: dynamicSize(1),
 
-                            child: Row(
-                              children: [
-                            Image.asset(
-                              "assets/images/service_history.png",
-                              fit: BoxFit.fill,
-                              height: 25,
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: TextButton(
-                                  onPressed: () {
-                                    goToOtherHistory();
-                                  },
-                                  child: Text(
-                                    "Order History",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.035),
-                                        color: Colors.black),
-                                  ),
-                                )),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 15),
-                        child: InkWell(
-                          onTap: (){
-                            goToProfile();
-                          },
-                          child: Container(
-                            width: dynamicSize(1),
-                            child:
-                            Row(children: [
-                            Image.asset(
-                              "assets/images/profile_setup.png",
-                              fit: BoxFit.fill,
-                              height: 20,
-                              color: Colors.black,
-                            ),
-                            Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: TextButton(
-                                  onPressed: () {
-                                    goToProfile();
-                                  },
-                                  child: Text(
-                                    "Profile",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.035),
-                                        color: Colors.black),
-                                  ),
-                                )),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, left: 20),
-                        child:  InkWell(
-                          onTap: (){
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (_) => LovedOnesPage(activity: Variables.homeActivity,)));
-                          },
-                          child: Container(
-                            width: dynamicSize(1),
-                            child: Row(
-                              children: [
+                                child: Row(
+                                  children: [
                                 Image.asset(
-                                  "assets/images/earning.png",
-                                  height: 25,
+                                  "assets/images/service_history.png",
                                   fit: BoxFit.fill,
+                                  height: 25,
                                 ),
                                 Padding(
                                     padding: const EdgeInsets.only(left: 10.0),
                                     child: TextButton(
                                       onPressed: () {
-                                        Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                                builder: (_) => LovedOnesPage(activity: Variables.homeActivity)));
+                                        goToOtherHistory();
                                       },
                                       child: Text(
-                                        "Loved One's",
+                                        lc.orderHistory.value,
                                         style: TextStyle(
                                             fontSize: dynamicSize(0.035),
                                             color: Colors.black),
                                       ),
                                     )),
-                              ],
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                     /* Padding(
-                        padding: const EdgeInsets.only(top: 15, left: 20),
-                        child: InkWell(
-                          onTap: (){
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        AddressesPage()));
-                          },
-                          child: Container(
-                              width: dynamicSize(1),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.location_on),
-                                  Padding(
-                                      padding: const EdgeInsets.only(left: 10.0),
-                                      child: TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pushReplacement(
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, top: 15),
+                            child: InkWell(
+                              onTap: (){
+                                goToProfile();
+                              },
+                              child: Container(
+                                width: dynamicSize(1),
+                                child:
+                                Row(children: [
+                                Image.asset(
+                                  "assets/images/profile_setup.png",
+                                  fit: BoxFit.fill,
+                                  height: 20,
+                                  color: Colors.black,
+                                ),
+                                Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        goToProfile();
+                                      },
+                                      child: Text(
+                                        lc.profile.value,
+                                        style: TextStyle(
+                                            fontSize: dynamicSize(0.035),
+                                            color: Colors.black),
+                                      ),
+                                    )),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15, left: 20),
+                            child:  InkWell(
+                              onTap: (){
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (_) => LovedOnesPage(activity: Variables.homeActivity,)));
+                              },
+                              child: Container(
+                                width: dynamicSize(1),
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/earning.png",
+                                      height: 25,
+                                      fit: BoxFit.fill,
+                                    ),
+                                    Padding(
+                                        padding: const EdgeInsets.only(left: 10.0),
+                                        child: TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pushReplacement(
+                                                MaterialPageRoute(
+                                                    builder: (_) => LovedOnesPage(activity: Variables.homeActivity)));
+                                          },
+                                          child: Text(
+                                            lc.lovedOnes.value ,
+                                            style: TextStyle(
+                                                fontSize: dynamicSize(0.035),
+                                                color: Colors.black),
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                         /* Padding(
+                            padding: const EdgeInsets.only(top: 15, left: 20),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (_) =>
+                                            AddressesPage()));
+                              },
+                              child: Container(
+                                  width: dynamicSize(1),
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.location_on),
+                                      Padding(
+                                          padding: const EdgeInsets.only(left: 10.0),
+                                          child: TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pushReplacement(
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          AddressesPage()));
+                                            },
+                                            child: Text(
+                                              "Addresses",
+                                              style: TextStyle(
+                                                  fontSize: dynamicSize(0.035),
+                                                  color: Colors.black),
+                                            ),
+                                          )),
+                                    ],
+                                  )),
+                            ),
+                          ),*/
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15, left: 20),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.of(context)
+                                    .push(
+                                    MaterialPageRoute(
+                                        builder: (_) =>
+                                            CouponsHomePage()));
+                              },
+                              child: Container(
+                                  width: dynamicSize(1),
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.loyalty),
+                                      Padding(
+                                          padding: const EdgeInsets.only(left: 10.0),
+                                          child: TextButton(
+                                            onPressed: () {
+                                               Navigator.of(context)
+                                              .push(
                                               MaterialPageRoute(
                                                   builder: (_) =>
-                                                      AddressesPage()));
-                                        },
-                                        child: Text(
-                                          "Addresses",
-                                          style: TextStyle(
-                                              fontSize: dynamicSize(0.035),
-                                              color: Colors.black),
-                                        ),
-                                      )),
-                                ],
-                              )),
-                        ),
-                      ),*/
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, left: 20),
-                        child: InkWell(
-                          onTap: (){
-                            Navigator.of(context)
-                                .push(
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        CouponsHomePage()));
-                          },
-                          child: Container(
-                              width: dynamicSize(1),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.loyalty),
-                                  Padding(
-                                      padding: const EdgeInsets.only(left: 10.0),
-                                      child: TextButton(
-                                        onPressed: () {
-                                           Navigator.of(context)
-                                          .push(
-                                          MaterialPageRoute(
-                                              builder: (_) =>
-                                                  CouponsHomePage()));
-                                        },
-                                        child: Text(
-                                          "Coupons",
-                                          style: TextStyle(
-                                              fontSize: dynamicSize(0.035),
-                                              color: Colors.black),
-                                        ),
-                                      )),
-                                ],
-                              )),
-                        ),
+                                                      CouponsHomePage()));
+                                            },
+                                            child: Text(
+                                               lc.coupons.value,
+                                              style: TextStyle(
+                                                  fontSize: dynamicSize(0.035),
+                                                  color: Colors.black),
+                                            ),
+                                          )),
+                                    ],
+                                  )),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15, left: 20),
+                            child: Container(
+                                width: dynamicSize(1),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.help_outline),
+                                    Padding(
+                                        padding: const EdgeInsets.only(left: 10.0),
+                                        child: TextButton(
+                                          onPressed: () {
+                                            /* Navigator.of(context)
+                                            .pushReplacement(
+                                            MaterialPageRoute(
+                                                builder: (_) =>
+                                                    HelpPage()));*/
+                                          },
+                                          child: Text(
+                                           lc.helpCenter.value ,
+                                            style: TextStyle(
+                                                fontSize: dynamicSize(0.035),
+                                                color: Colors.black),
+                                          ),
+                                        )),
+                                  ],
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 15, left: 20, bottom: 30),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.of(context)
+                                    .push(
+                                    MaterialPageRoute(
+                                        builder: (_) =>
+                                            SettingsPage()));
+
+                              },
+                              child: Container(
+                                  width: dynamicSize(1),
+                                  child: Row(
+                                    children: [
+                                     Icon(Icons.settings),
+                                      Padding(
+                                          padding: const EdgeInsets.only(left: 10.0),
+                                          child: TextButton(
+                                            onPressed: () {
+
+                                              Navigator.of(context)
+                                              .push(
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      SettingsPage()));
+                                            },
+                                            child: Text(
+                                              lc.setting.value,
+                                              style: TextStyle(
+                                                  fontSize: dynamicSize(0.035),
+                                                  color: Colors.black),
+                                            ),
+                                          )),
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, left: 20),
-                        child: Container(
-                            width: dynamicSize(1),
-                            child: Row(
-                              children: [
-                                Icon(Icons.help_outline),
-                                Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: TextButton(
-                                      onPressed: () {
-                                        /* Navigator.of(context)
-                                        .pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                HelpPage()));*/
-                                      },
-                                      child: Text(
-                                        "Help Center",
-                                        style: TextStyle(
-                                            fontSize: dynamicSize(0.035),
-                                            color: Colors.black),
-                                      ),
-                                    )),
-                              ],
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, left: 20, bottom: 30),
-                        child: Container(
-                            width: dynamicSize(1),
-                            child: Row(
-                              children: [
-                               Icon(Icons.settings),
-                                Padding(
-                                    padding: const EdgeInsets.only(left: 10.0),
-                                    child: TextButton(
-                                      onPressed: () {
-                                        /*Navigator.of(context)
-                                        .pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                SettingsPage()));*/
-                                      },
-                                      child: Text(
-                                        "Settings",
-                                        style: TextStyle(
-                                            fontSize: dynamicSize(0.035),
-                                            color: Colors.black),
-                                      ),
-                                    )),
-                              ],
-                            )),
-                      ),
-                    ],
+                    ]),
                   ),
-                ]),
-              ),
-            ),
+                ),
+              );
+            }
           ),
         ),
       );
@@ -1111,7 +1110,7 @@ class _HomePageState extends State<HomePage> {
 
   late String message = "";
 
-  String messageDisplay()
+  String messageDisplay(LanguageController lc)
   {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('kk').format(now);
@@ -1119,13 +1118,13 @@ class _HomePageState extends State<HomePage> {
 
     int check = int.parse(formattedDate);
     if (check > 4 && check < 12) {
-      message = "Good Morning!";
+      message = lc.goodMorning.value;
     } else if (check >= 12 && check < 14) {
-      message = "Good Noon!";
+      message = lc.goodNoon.value;
     } else if (check >= 14 && check <= 18) {
-      message = "Good Evening!";
+      message = lc.goodEv.value;
     } else {
-      message = "Good Night!";
+      message = lc.goodNight.value;
     }
     return message;
   }
