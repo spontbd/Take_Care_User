@@ -82,12 +82,28 @@ class ApiService {
         'service_type': type,
       }),
     );
+    print("Api Response  : ${response.body}");
+
     if (response.statusCode == 200) {
-      print("Api Response  : ${response.body}");
       var jsonString = response.body;
       return allServiceResponseFromJson(jsonString);
     } else {
-      return null;
+      if(type == 'long')
+        {
+          DataControllers.to.longServiceResponse.value.success =
+          json.decode(response.body)["success"];
+          DataControllers.to.longServiceResponse.value.message =
+          json.decode(response.body)["message"];
+          return allServiceResponseFromJson(response.body);
+        }else
+          {
+            DataControllers.to.shortServiceResponse.value.success =
+            json.decode(response.body)["success"];
+            DataControllers.to.shortServiceResponse.value.message =
+            json.decode(response.body)["message"];
+            return allServiceResponseFromJson(response.body);
+          }
+
     }
   }
 

@@ -238,7 +238,7 @@ class _HomePageState extends State<HomePage> {
 
 
                                                 Navigator.of(context)
-                                                    .pushReplacement(
+                                                    .push(
                                                         MaterialPageRoute(
                                                             builder: (_) =>
                                                                 OnDemandPage()));
@@ -375,7 +375,7 @@ class _HomePageState extends State<HomePage> {
                                                     padding: const EdgeInsets.only(
                                                         left: 10, bottom: 10),
                                                     child: Text(
-                                                      "${DataControllers.to.sliderResponse.value.data![itemIndex].sliderTitle}" /*DataControllers.to.getCategoriesResponse.value.data[].*/,
+                                                      "${(DataControllers.to.sliderResponse.value.data![itemIndex].sliderTitle == null) ?"":DataControllers.to.sliderResponse.value.data![itemIndex].sliderTitle }" /*DataControllers.to.getCategoriesResponse.value.data[].*/,
                                                       style: TextStyle(
                                                           fontSize: dynamicSize(0.075),
                                                           color: Colors.white,
@@ -389,7 +389,7 @@ class _HomePageState extends State<HomePage> {
                                                     padding: const EdgeInsets.only(
                                                         left: 10.0, bottom: 15),
                                                     child: Text(
-                                                      "${DataControllers.to.sliderResponse.value.data![itemIndex].sliderDescription}",
+                                                      "${(DataControllers.to.sliderResponse.value.data![itemIndex].sliderDescription == null) ? '':DataControllers.to.sliderResponse.value.data![itemIndex].sliderDescription}",
                                                       style: TextStyle(
                                                         fontSize: dynamicSize(0.045),
                                                         color: Colors.white,
@@ -603,19 +603,21 @@ class _HomePageState extends State<HomePage> {
                                                       fontWeight: FontWeight.bold,color: AllColor.pink_button),
                                                 )
                                             ),
-                                            Container(
-                                                alignment: Alignment.topLeft,
-                                                margin: EdgeInsets.only(
-                                                    left: 4, bottom: 5, top: 2),
-                                                child:
-                                                (DataControllers
-                                                    .to.getCategoriesResponse.value.data!.length > index)
-                                                    ?
-                                                Text(
-                                                  "Starts from ${DataControllers.to.getCategoriesResponse.value.data![index].startPrice!.isNaN ? "0.00" : DataControllers.to.getCategoriesResponse.value.data![index].startPrice!} Tk",
-                                                  style: TextStyle(
-                                                      fontSize: dynamicSize(0.035)),
-                                                ) : Text('')),
+                                            Expanded(
+                                              child: Container(
+                                                  alignment: Alignment.topLeft,
+                                                  margin: EdgeInsets.only(
+                                                      left: 4, bottom: 5, top: 2),
+                                                  child:
+                                                  (DataControllers
+                                                      .to.getCategoriesResponse.value.data!.length > index)
+                                                      ?
+                                                  Text(
+                                                    "Starts from ${DataControllers.to.getCategoriesResponse.value.data![index].startPrice!.isNaN ? "0.00" : DataControllers.to.getCategoriesResponse.value.data![index].startPrice!} Tk",
+                                                    style: TextStyle(
+                                                        fontSize: dynamicSize(0.035)),
+                                                  ) : Text('')),
+                                            ),
                                           ],
                                         ),
                                       ),

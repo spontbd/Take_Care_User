@@ -3,12 +3,14 @@ import 'dart:developer';
 import 'dart:io';
 // import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
 // import 'package:maplibre_gl/mapbox_gl.dart';
-
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:map_location_picker/map_location_picker.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
@@ -147,11 +149,15 @@ class _SignInPageState extends State<SignInPage> {
                           height: dynamicSize(0.12),
                           fontSize: dynamicSize(0.045),
                           onToggleCallback: (v) async {
-                            if (signIn) {
+
+
+                            if
+                            (signIn) {
                               Get.to(SignUpPage());
                               setState(() {
                                 signIn = true;
                               });
+
                             } else {
                               setState(() {
                                 signIn = true;

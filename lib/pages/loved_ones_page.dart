@@ -70,7 +70,7 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
                 print(widget.activity);
                 if(widget.activity == Variables.onDemandServiceActivity)
                   {
-                    Navigator.of(context).pushReplacement(
+                    Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => OnDemandPage( )));
 
                   }

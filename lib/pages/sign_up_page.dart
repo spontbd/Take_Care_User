@@ -72,7 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
           body: SingleChildScrollView(
             child: Container(
               // padding: EdgeInsets.all(dynamicSize(.04)),
-             height: MediaQuery.of(context).size.height,
+             height: MediaQuery.of(context).size.height * 1.3,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -86,12 +86,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           alignment: Alignment.topRight),
                     ),
                   ),
-
-                 /* SizedBox(height: dynamicSize(.1)),*/
-
                   ///Heading
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: RichText(
                       text: TextSpan(
                         style: TextStyle(
@@ -108,7 +105,40 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   SizedBox(height: dynamicSize(.03)),
-
+                  Center(
+                    child: InkWell(
+                      onTap: () => _getImage(),
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: dynamicSize(0.22),
+                        width: dynamicSize(0.22),
+                        decoration: const BoxDecoration(
+                            color: AllColor.blue, shape: BoxShape.circle),
+                        child: initialProfile
+                            ? Stack(
+                          children: [
+                            Icon( Icons.account_circle,
+                              color: Colors.white, size: dynamicSize(0.2), ),
+                            Positioned(
+                              bottom: 0.0,
+                              right: 0.0,
+                              child:
+                              Icon( Icons.camera_alt_outlined,
+                                color: Colors.black,),
+                            ),
+                          ],
+                        )
+                            : ClipRRect(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(dynamicSize(0.2))),
+                            child: Image.file(Variables.imageFile,
+                                height: dynamicSize(0.2),
+                                width: dynamicSize(0.2),
+                                fit: BoxFit.cover)),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: dynamicSize(.03)),
                   ///Name and Image Field
                   Padding(
                     padding: const EdgeInsets.only(left: 8, right: 8),
@@ -128,7 +158,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
 
                         ),
-                        SizedBox(width: dynamicSize(.02)),
+                        /*SizedBox(width: dynamicSize(.02)),
                         InkWell(
                           onTap: () => _getImage(),
                           child: Container(
@@ -148,7 +178,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         width: dynamicSize(0.2),
                                         fit: BoxFit.cover)),
                           ),
-                        ),
+                        ),*/
                       ],
                     ),
                   ),
@@ -223,6 +253,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Container(
                             height: dynamicSize(0.12),
                             child: TextField(
+                              keyboardType: TextInputType.phone,
                               controller:  DataControllers.to.phoneNumber.value,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),

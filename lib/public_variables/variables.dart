@@ -1,6 +1,7 @@
 import 'dart:io';
+import 'package:map_location_picker/map_location_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../model/status_model.dart';
 /*
 import 'package:maplibre_gl/mapbox_gl.dart';
@@ -44,6 +45,9 @@ class Variables {
   static String homeActivity = 'home';
   static String orderInformationActivity = 'orderInfo';
   static String serviceTime = '0';
+
+  static LatLng currentPostion = new LatLng(23.8252365, 90.3686425);
+
 }
 
 

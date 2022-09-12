@@ -48,13 +48,14 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
     return Scaffold(
       body: Center(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
+            Icon(Icons.devices_other,color: Colors.black38,size: dynamicSize(0.25),),
 
             Padding(
-              padding: const EdgeInsets.only(left: 60.0, top: 200),
+              padding: const EdgeInsets.only(left: 60.0, top: 20),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
@@ -114,20 +115,44 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 10),
               child: PinFieldAutoFill(
+
                 decoration: UnderlineDecoration(
+
+                  lineHeight: 0,
+                  bgColorBuilder: FixedColorBuilder(Colors.green.withOpacity(0.3)) ,
                   textStyle: TextStyle(fontSize: 20, color: Colors.black),
-                  colorBuilder: FixedColorBuilder(Colors.black.withOpacity(0.3)),
+                  colorBuilder: FixedColorBuilder(Colors.green.withOpacity(0.3)),
                 ),
                 onCodeSubmitted: (code) {},
-                onCodeChanged: (code) {
+                onCodeChanged: (code) async{
                   completedPin = code.toString();
+                  if(completedPin.length == 6)
+                    {
+                      await DataControllers.to.postVerifyOTP(DataControllers.to.phoneNumber.value.text,completedPin);
+
+                      Fluttertoast.showToast(
+                          msg: DataControllers.to.userLoginResponse.value.message!,
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.green,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                      );
+                      if(DataControllers.to.userLoginResponse.value.success == true)
+                      {
+                        Get.offAll(SignInPage());
+
+                      }
+
+                    }
                 },
               ),
             ),
             Timers( callback: (){
-              Navigator.pop(context);
+              //Navigator.pop(context);
             },),
-            Spacer(),
+         /*   Spacer(),
             SizedBox(
               height: dynamicSize(0.15),
               width: MediaQuery.of(context).size.width,
@@ -184,7 +209,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   ),
                 ),
               ),
-            ),
+            ),*/
           ],
         ),
       ),

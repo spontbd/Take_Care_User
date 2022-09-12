@@ -40,6 +40,23 @@ dependencies:
   blurrycontainer: 1.0.2
   carousel_slider: ^4.0.0
   sms_autofill: ^2.2.0
+  map_location_picker: ^1.0.1
+  geolocator: ^9.0.1
+
+
+
+  # google_maps_flutter_platform_interface: ^2.2.1
+ # google_maps_flutter_android: ^2.1.10
+
+ # google_map_location_picker: ^4.1.7
+ # flutter_localizations:
+  #  sdk: flutter
+ # google_maps_place_picker: ^2.0.0
+#
+#  barikoi_maps_place_picker:
+#    git:
+#      url: https://github.com/barikoi/barikoi_map_place_picker.git
+#      ref: '57c8aba69ac7690646fe460139740c072e198e63'
 #  barikoi_maps_place_picker:
 #    git:
 #      url: https://github.com/barikoi/barikoi_map_place_picker.git

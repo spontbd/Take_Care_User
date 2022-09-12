@@ -59,7 +59,11 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
     result = [];
     result.add(widget.selectedType);
     getAddCardData();
-    _filterValue();
+    try
+    {
+      _filterValue();
+
+    }catch(e){}
 
     if(widget.selectedType.isEmpty)
     {
@@ -73,16 +77,35 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
       });
     }
   }
-
   void _filterValue() {
     searchData = [];
     searchValue = false;
-    result.forEach((element) {
+
+    result.forEach((element)
+    {
       DataControllers.to.longServiceResponse.value.data!.data!.forEach((value) {
-        if(element == value.serviceCategory!.categoryName) {
-          searchData.add(value);
-          searchValue = true;
-        }
+
+        value.serviceCats!.forEach((categories) {
+          bool _search = false;
+          if(element == categories.serviceCategory!.categoryName) {
+
+            searchData.forEach((searchingValue) {
+              if(categories.serviceCategory!.categoryName == searchingValue)
+              {
+                _search = true;
+
+              }
+            });
+
+            if(!_search)
+              {
+                searchData.add(value);
+                searchValue = true;
+              }
+
+          }
+        });
+
       });
     });
     setState((){
@@ -108,7 +131,6 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
 
     setState(() {});
   }
-
   void showButtonDialog(BuildContext context, int index) {
     showModalBottomSheet(
         context: context,
@@ -211,8 +233,8 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                   padding: const EdgeInsets.only(left: 2.0,),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.add,color: Colors.white,),
-                                      Text("Order Now ",style: TextStyle(color: Colors.white),)
+                                      Icon( (searchData[index].addedInMyCart == null) ?  Icons.add : Icons.done,color: Colors.white,),
+                                      Text((searchData[index].addedInMyCart == null) ? "Order Now " : " added ",style: TextStyle(color: Colors.white),)
                                     ],
                                   ),
                                 ),
@@ -401,10 +423,14 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                 onTap: (){
                                   setSt((){_isChecked = List<bool>.filled(DataControllers.to.getCategoriesResponse.value.data!.length, false);});
 
-                                  searchData = [];
-                                  result = [];
-                                  searchValue = false;
-                                  setState((){});
+
+
+                                  setState((){
+                                    searchData = [];
+                                    result = [];
+                                    _searchResult=[];
+                                    searchValue = false;
+                                  });
                                   //Navigator.pop(context);
                                 },
                                 child:
@@ -473,12 +499,16 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
   }
   void getAddCardData() async {
     await DataControllers.to.getCard('long');
+    await DataControllers.to.getAllLongService("long");
 
     if (DataControllers.to.getAddCardLongServiceResponse.value.success!) {
       setState(() {
+        DataControllers.to.longServiceResponse;
         DataControllers.to.getAddCardLongServiceResponse;
+        _filterValue();
         showBottom = true;
         addedlist = true;
+
       });
     } else {
 
@@ -518,6 +548,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
     {
       Common.storeSharedPreferences.setString("service", "long");
       getAddCardData();
+
     }else
       {
         showToast(
@@ -1013,7 +1044,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: 4.0, right: 10, top: 4, bottom: 4),
-                              child: Text('Popualar'),
+                              child: Text('Popular'),
                             ),
                           ],
                         ),
@@ -1028,11 +1059,11 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
+                   /*     Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>FeedBackPage()),
-                        );
+                        );*/
 
 
                       },
@@ -1073,116 +1104,111 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
             _searchResult.length,
                 (index) => Padding(
               padding: const EdgeInsets.only(top: 8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 2.0,
-                      spreadRadius: 0.0,
-                      offset:
-                      Offset(2.0, 2.0), // shadow direction: bottom right
-                    )
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
-                      child: Card(
-                        margin: const EdgeInsets.only(left: 0),
-                        semanticContainer: true,
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(15),
-                              topRight: Radius.circular(15)
-                          ),
-                        ),
-                        elevation: 10,
-                        child: CachedNetworkImage(
-                          fit: BoxFit.fill,
-                          width: 120,
-                          height: 110,
-                          imageUrl:
-                          "https://takecare.ltd/${_searchResult[index].imagePath}",
-                          errorWidget: (context, url, error) => Image.asset(
-                            "assets/images/image.png",
-                          ),
-                        ),
-                      ),
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 2.0,
+                          spreadRadius: 0.0,
+                          offset:
+                          Offset(2.0, 2.0), // shadow direction: bottom right
+                        )
+                      ],
                     ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0, left: 5),
-                            child: Text(
-                              "${_searchResult[index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.04),
-                                  fontWeight: FontWeight.bold),
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
+                          child: Card(
+                            margin: const EdgeInsets.only(left: 0),
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(15),
+                                  topRight: Radius.circular(15)
+                              ),
+                            ),
+                            elevation: 10,
+                            child: CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              width: 120,
+                              height: 110,
+                              imageUrl:
+                              "https://takecare.ltd/${_searchResult[index].imagePath}",
+                              errorWidget: (context, url, error) => Image.asset(
+                                "assets/images/image.png",
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            height: dynamicSize(0.02),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              showButtonDialog(context, index);
-                            },
-                            child: Text(
-                              "Details",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.035),
-                                  color: Colors.purple),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 20.0,
-                      right: 0.0,
-                      child: InkWell(
-                          onTap: () {
-                            addCard(index);
-                          },
-                          child: Container(
-                            height: dynamicSize(0.10),
-                            width: dynamicSize(0.12),
-                            child: const Card(
-                              color: AllColor.pink_button,
-                              margin: EdgeInsets.only(left: 0,right: 0),
-                              semanticContainer: true,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(15),
-                                    topLeft: Radius.circular(15)
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0, left: 10),
+                                child: Text(
+                                  "${_searchResult[index].serviceName /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
+                                  style: TextStyle(
+                                      fontSize: dynamicSize(0.04),
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              elevation: 6,
-                              child: Icon(Icons.add,color: Colors.white,),
+                              SizedBox(
+                                height: dynamicSize(0.07),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  showButtonDialog(context, index);
+                                },
+                                child: Text(
+                                  "Details",
+                                  style: TextStyle(
+                                      fontSize: dynamicSize(0.035),
+                                      color: Colors.purple),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 25.0,
+                    right: 0.0,
+                    child: InkWell(
+                        onTap: () {
+                          addCard(index);
+                        },
+                        child: Container(
+                          height: dynamicSize(0.10),
+                          width: dynamicSize(0.12),
+                          child:  Card(
+                            color: AllColor.pink_button,
+                            margin: EdgeInsets.only(left: 0,right: 0),
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(15),
+                                  topLeft: Radius.circular(15)
+                              ),
                             ),
-                          )
-                      ),
-                    )
-                    // InkWell(
-                    //   onTap: () {
-                    //     addCard(index);
-                    //   },
-                    //   child:
-                    //   Image.asset(
-                    //     "assets/images/add.png",
-                    //   ),
-                    // ),
-                  ],
-                ),
+                            elevation: 6,
+                            child: Icon( (searchData[index].addedInMyCart == null) ? Icons.add : Icons.done , color: Colors.white,),
+                          ),
+                        )
+                    ),
+                  )
+                ],
               ),
             ),
           ),
@@ -1195,111 +1221,116 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
             searchData.length : DataControllers.to.longServiceResponse.value.data!.data!.length,
                 (index) => Padding(
               padding: const EdgeInsets.only(top: 8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 2.0,
-                      spreadRadius: 0.0,
-                      offset:
-                      Offset(2.0, 2.0), // shadow direction: bottom right
-                    )
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
-                      child: Card(
-                        margin: const EdgeInsets.only(left: 0),
-                        semanticContainer: true,
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(15),
-                              topRight: Radius.circular(15)
-                          ),
-                        ),
-                        elevation: 10,
-                        child: CachedNetworkImage(
-                          fit: BoxFit.fill,
-                          width: 120,
-                          height: 110,
-                          imageUrl:
-                          "https://takecare.ltd/${ (searchValue != true) ?DataControllers.to.longServiceResponse.value.data!.data![index].imagePath
-                              : searchData[index].imagePath
-                          }",
-                          errorWidget: (context, url, error) => Image.asset(
-                            "assets/images/image.png",
-                          ),
-                        ),
-                      ),
+              child: Stack(
+                children: [
+
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 2.0,
+                          spreadRadius: 0.0,
+                          offset:
+                          Offset(2.0, 2.0), // shadow direction: bottom right
+                        )
+                      ],
                     ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0, left: 5),
-                            child: Text(
-                              "${(searchValue != true) ? DataControllers.to.longServiceResponse.value.data!.data![index].serviceName
-                                  : searchData[index].serviceName
-                              /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.04),
-                                  fontWeight: FontWeight.bold),
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
+                          child: Card(
+                            margin: const EdgeInsets.only(left: 0),
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(15),
+                                  topRight: Radius.circular(15)
+                              ),
+                            ),
+                            elevation: 10,
+                            child: CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              width: 120,
+                              height: 110,
+                              imageUrl:
+                              "https://takecare.ltd/${ (searchValue != true) ?DataControllers.to.longServiceResponse.value.data!.data![index].imagePath
+                                  : searchData[index].imagePath
+                              }",
+                              errorWidget: (context, url, error) => Image.asset(
+                                "assets/images/image.png",
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            height: dynamicSize(0.02),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              showButtonDialog(context, index);
-                            },
-                            child: Text(
-                              "Details",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.035),
-                                  color: Colors.purple),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 20.0,
-                      right: 0.0,
-                      child: InkWell(
-                          onTap: () {
-                            addCard(index);
-                          },
-                          child: Container(
-                            height: dynamicSize(0.10),
-                            width: dynamicSize(0.12),
-                            child: const Card(
-                              color: AllColor.pink_button,
-                              margin: EdgeInsets.only(left: 0,right: 0),
-                              semanticContainer: true,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(15),
-                                    topLeft: Radius.circular(15)
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0, left: 10),
+                                child: Text(
+                                  "${(searchValue != true) ? DataControllers.to.longServiceResponse.value.data!.data![index].serviceName
+                                      : searchData[index].serviceName
+                                  /*! == null  ? "Guest" : DataControllers.to.shortServiceResponse.value.data![index]!.serviceName*/}",
+                                  style: TextStyle(
+                                      fontSize: dynamicSize(0.04),
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              elevation: 6,
-                              child: Icon(Icons.add,color: Colors.white,),
+                              SizedBox(
+                                height: dynamicSize(0.07),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  showButtonDialog(context, index);
+                                },
+                                child: Text(
+                                  "Details",
+                                  style: TextStyle(
+                                      fontSize: dynamicSize(0.035),
+                                      color: Colors.purple),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 25.0,
+                    right: 0.0,
+                    child: InkWell(
+                        onTap: () {
+                          addCard(index);
+                        },
+                        child: Container(
+                          height: dynamicSize(0.10),
+                          width: dynamicSize(0.12),
+                          child:  Card(
+                            color: AllColor.pink_button,
+                            margin: EdgeInsets.only(left: 0,right: 0),
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(15),
+                                  topLeft: Radius.circular(15)
+                              ),
                             ),
-                          )
-                      ),
-                    )
-                  ],
-                ),
+                            elevation: 6,
+                            child: Icon( ( searchValue ? (searchData[index].addedInMyCart  == null) : (DataControllers.to.longServiceResponse.value.data!.data![index].addedInMyCart == null)) ? Icons.add : Icons.done,color: Colors.white,),
+                          ),
+                        )
+                    ),
+                  )
+                ],
               ),
             ),
           ),

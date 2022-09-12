@@ -1,21 +1,24 @@
-// import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:map_location_picker/map_location_picker.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/model/AllServiceResponse.dart';
 import 'package:takecare_user/model/CategoriesResponse.dart';
+import 'package:takecare_user/pages/On%20Demand/PlaceMarkerPage.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:intl/intl.dart';
+import 'package:takecare_user/public_variables/variables.dart';
 import '../../controllers/language_controller.dart';
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/notifications.dart';
 import '../../public_variables/size_config.dart';
 import '../../ui/common.dart';
-import '../../public_variables/variables.dart';
-import '../sign_in_page.dart';
 import 'feedback_page.dart';
 import 'map_page.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
@@ -47,6 +50,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
   List<AllServiceData> _searchResult = [];
   TextEditingController searchController = TextEditingController();
 
+  late GeocodingResult resultGeo;
+
   @override
   void initState() {
     super.initState();
@@ -58,8 +63,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
     setState((){
       searchData;
     });
+    _getUserLocation();
   }
-
 
   void showButtonDialog(BuildContext context, int index) {
     showModalBottomSheet(
@@ -165,8 +170,10 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                   padding: const EdgeInsets.only(left: 2.0,),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.add,color: Colors.white,),
-                                      Text("Order Now ",style: TextStyle(color: Colors.white),)
+                                      Icon( (DataControllers.to.shortServiceResponse.value.data!
+                                          .data![index].addedInMyCart == null) ? Icons.add : Icons.done,color: Colors.white,),
+                                      Text((DataControllers.to.shortServiceResponse.value.data!
+                                          .data![index].addedInMyCart == null) ? "Order Now ":" added ",style: TextStyle(color: Colors.white),)
                                     ],
                                   ),
                                 ),
@@ -494,27 +501,20 @@ class _OnDemandPageState extends State<OnDemandPage> {
       }
   }
   void getAllService() async {
-    //DataControllers.to.profilePercentage.value.data.percentage = 0;
-
-    //await DataControllers.to.getAllLongService("long");
-    //await DataControllers.to.getAllShortService("short");
-    // await DataControllers.to.getAllLongService("long");
     await DataControllers.to.getAllShortService("short");
-    // onProgressBar(false);
-
-    //  await DataControllers.to.postUserServiceResponse(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
-  }
+ }
   void _filterValue() {
 
     searchData = [];
     searchValue = false;
     result.forEach((element) {
       DataControllers.to.shortServiceResponse.value.data!.data!.forEach((value) {
-        if(element == value.serviceCategory!.categoryName)
-          {
-             searchData.add(value);
-             searchValue = true;
+        value.serviceCats!.forEach((categories) {
+          if(element == categories.serviceCategory!.categoryName) {
+            searchData.add(value);
+            searchValue = true;
           }
+        });
       });
     });
 
@@ -542,6 +542,16 @@ class _OnDemandPageState extends State<OnDemandPage> {
     setState(() {});
   }
 
+  void _getUserLocation() async {
+    print('_getUserLocation');
+    var position = await GeolocatorPlatform.instance.getCurrentPosition();
+
+    setState(() {
+      Variables.currentPostion = LatLng(position.latitude, position.longitude);
+
+      print('lat : ${Variables.currentPostion.latitude} \nlong ${Variables.currentPostion.longitude}');
+    });
+  }
 
 
   @override
@@ -665,6 +675,141 @@ class _OnDemandPageState extends State<OnDemandPage> {
                   child: InkWell(
                     onTap: () async{
                       await DataControllers.to.getProviderList("1", "1");
+
+                      // AIzaSyAjik5IqO62F2tGgm-9uTnbQoKEhJjaRlA
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => PlaceMarkerPage(),
+                      //   ),
+                      // );
+              //        23.8252365,90.3686425
+              resultGeo = (await Navigator.push(
+                        context,
+                        MaterialPageRoute<GeocodingResult>(
+                          builder: (cx) {
+                            return MapLocationPicker(
+
+                              origin:Location(lat: Variables.currentPostion.latitude , lng :  Variables.currentPostion.longitude),
+                                desiredAccuracy : LocationAccuracy.high,
+                                location :  Location(lat: Variables.currentPostion.latitude , lng :  Variables.currentPostion.longitude),
+                              apiKey: "AIzaSyB5x56y_2IlWhARk8ivDevq-srAkHYr9HY",
+                              canPopOnNextButtonTaped: true,
+                              onNext: (GeocodingResult? result) {
+                                if (result != null) {
+                                  setState(() {
+                                    resultGeo = result;
+                                    Navigator.pop(cx,resultGeo);
+                                  });
+                                }
+                              }
+                            );
+
+                          },
+                        ),
+                      ))!;
+
+
+              if(resultGeo != null){
+                print('resultGeo');
+                Navigator.push(context, MaterialPageRoute(builder: (cp) => MapPage(result: resultGeo,)),);
+              }
+
+
+
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => PlacePicker(
+                      //       apiKey:'AIzaSyAjik5IqO62F2tGgm-9uTnbQoKEhJjaRlA' ,   // Put YOUR OWN KEY here.
+                      //       selectInitialPosition: true,
+                      //       onPlacePicked: (result) {
+                      //         print(result.formattedAddress);
+                      //         Navigator.of(context).pop();
+                      //       },
+                      //       initialPosition: kInitialPosition,
+                      //       useCurrentLocation: true,
+                      //     ),
+                      //   ),
+                      // );
+
+
+
+                      // late PickResult selectedPlace;
+                      // Navigator.push(context, MaterialPageRoute(
+                      //     builder: (context) {
+                      //       return PlacePicker(
+                      //         apiKey: "MjY5MzpHMEVBUExBNVM5",
+                      //         initialPosition: LatLng(23.8567844, 90.213108),
+                      //         useCurrentLocation: true,
+                      //         selectInitialPosition: true,
+                      //         usePinPointingSearch: true,
+                      //           usePlaceDetailSearch: true,
+                      //         onPlacePicked: (result) {
+                      //           selectedPlace = result;
+                      //           //  Navigator.of(context).pop();
+                      //           setState(() {
+                      //             selectedPlace = result;
+                      //           });
+                      //         },
+                      //
+                      //         automaticallyImplyAppBarLeading: false,
+                      //         selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
+                      //           if (kDebugMode) {
+                      //             print("state: $state, isSearchBarFocused: $isSearchBarFocused");
+                      //           }
+                      //           return isSearchBarFocused
+                      //               ? Container()
+                      //               : FloatingCard(
+                      //             bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
+                      //             leftPosition: 0.0,
+                      //             rightPosition: 0.0,
+                      //             width: 500,
+                      //
+                      //             borderRadius: BorderRadius.circular(12.0),
+                      //             child: state == SearchingState.Searching
+                      //                 ? const Center(child: CircularProgressIndicator())
+                      //                 : Padding(
+                      //               padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 20),
+                      //               child: SizedBox(
+                      //                 height: dynamicSize(0.15),
+                      //                 width: MediaQuery.of(context).size.width/2,
+                      //                 child: Container(
+                      //                   //margin: EdgeInsets.only(bottom: 5),
+                      //                   padding: const EdgeInsets.only(left: 5, right: 5, bottom:10),
+                      //                   child: RaisedButton(
+                      //                     elevation: 10,
+                      //                     shape: RoundedRectangleBorder(
+                      //                       borderRadius: BorderRadius.circular(10),
+                      //                     ),
+                      //                     onPressed: () async{
+                      //
+                      //                       Navigator.of(context).pop();
+                      //                       // print("placeucode: "+selectedPlace.toString());
+                      //                       // print("placeucode: "+selectedPlace!.latitude.toString());
+                      //                       // print("placeucode: "+selectedPlace.longitude.toString());
+                      //                       // print("placeucode: "+selectedPlace.area.toString());
+                      //
+                      //                       Navigator.push(context, MaterialPageRoute(builder: (context) => MapPage(result: selectedPlace)),);
+                      //
+                      //                     },
+                      //                     //padding: EdgeInsets.all(10.0),
+                      //                     color: AllColor.pink_button,
+                      //                     textColor: Colors.white,
+                      //                     child: Text(
+                      //                       "Search Service Provider around You",
+                      //                       style: TextStyle(fontSize: dynamicSize(0.05)),
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           );
+                      //         },
+                      //       );
+                      //     },
+                      //   ),);
                     },
                     child: Container(
                       decoration: const BoxDecoration(
@@ -819,13 +964,56 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       onTap: () {
 
                         setState((){
+                          selectedColor = 5;
+                          searchValue = false;
+                        });
+                      },
+                      child: Container(
+                        child: Row(
+                          children:  [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 10.0, right: 4, top: 4, bottom: 4),
+                              child: Icon(Icons.list_alt,
+                                  color: (selectedColor == 5) ?
+                                  Colors.white : Colors.black
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 4.0, right: 10, top: 4, bottom: 4),
+                              child: Text('All',
+                                  style: TextStyle( color: (selectedColor == 5) ?
+                                  Colors.white : Colors.black)
+                              ),
+                            ),
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+
+                          color: (selectedColor == 5) ?
+                          Colors.pinkAccent : AllColor.shado_color
+
+                          ,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(
+                      width: dynamicSize(0.03),
+                    ),
+                    InkWell(
+                      onTap: () {
+
+                        setState((){
                           selectedColor = 2;
                         });
-                        Navigator.push(
+                   /*     Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const FeedBackPage()),
-                        );
+                        );*/
                       },
                       child: Container(
                         child: Row(
@@ -968,7 +1156,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: dynamicSize(0.07),
+                                  height: dynamicSize(0.12),
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -998,7 +1186,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         child: Container(
                           height: dynamicSize(0.10),
                           width: dynamicSize(0.12),
-                          child: const Card(
+                          child:  Card(
                             color: AllColor.pink_button,
                             margin: EdgeInsets.only(left: 0,right: 0),
                             semanticContainer: true,
@@ -1010,7 +1198,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                               ),
                             ),
                             elevation: 6,
-                            child: Icon(Icons.add,color: Colors.white,),
+                            child: Icon( (_searchResult[index].addedInMyCart == null) ? Icons.add : Icons.done,color: Colors.white,),
                           ),
                         )
                     ),
@@ -1090,7 +1278,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: dynamicSize(0.07),
+                                  height: dynamicSize(0.12),
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -1121,7 +1309,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         child: Container(
                           height: dynamicSize(0.10),
                           width: dynamicSize(0.12),
-                          child: const Card(
+                          child: Card(
                             color: AllColor.pink_button,
                             margin: EdgeInsets.only(left: 0,right: 0),
                             semanticContainer: true,
@@ -1133,7 +1321,9 @@ class _OnDemandPageState extends State<OnDemandPage> {
                               ),
                             ),
                             elevation: 6,
-                            child: Icon(Icons.add,color: Colors.white,),
+                            child: Icon( (searchValue != true) ?
+                            ( ( DataControllers.to.shortServiceResponse.value.data!.data![index].addedInMyCart == null) ? Icons.add : Icons.done) :
+                            ( (searchData[index].addedInMyCart == null) ? Icons.add : Icons.done),color: Colors.white,),
                           ),
                         )
 
@@ -1148,4 +1338,5 @@ class _OnDemandPageState extends State<OnDemandPage> {
       );
     });
   }
+
 }

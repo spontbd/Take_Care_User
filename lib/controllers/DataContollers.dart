@@ -110,11 +110,20 @@ class DataControllers extends GetxController {
     var response = await ApiService.fetchAllCategoriesResponse();
 
     if (response != null) {
-      getCategoriesResponse.value = response;
+      getCategoriesResponse.value.success = response.success;
+      getCategoriesResponse.value.message = response.message;
+      getCategoriesResponse.value.data =[];
+      response.data!.forEach((element) {
+        if(element.serviceType == 'long')
+          {
+            getCategoriesResponse.value.data!.add(element);
+          }
+      });
 
       // responseSuccess(true);
     }
     isLoading(false);
+    return getCategoriesResponse;
   }
 
   Future getAllService() async {

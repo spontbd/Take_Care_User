@@ -28,7 +28,7 @@ class _MassagePageState extends State<MassagePage> {
               child: Row(
                 children: [
                   IconButton(onPressed: (){
-                    Navigator.of(context).pushReplacement(
+                    Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => OnDemandPage()));
                   }, icon: Icon(Icons.arrow_back)),
                   CircleAvatar(
