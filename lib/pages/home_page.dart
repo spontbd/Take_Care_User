@@ -181,151 +181,165 @@ class _HomePageState extends State<HomePage> {
                               Row(
                                 children: [
                                   Expanded(
-                                    child: Stack(
-                                      children: [
-                                        ///Red Back
-                                        Container(
-                                          height: dynamicSize(0.5),
-                                          decoration: const BoxDecoration(
-                                            color:
-                                                AllColor.colorDashboardProfileRed,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10)),
-                                          ),
-                                        ),
-
-                                        ///Top Image
-                                        Positioned(
-                                          right: -size.width * .015,
-                                          top: -size.width * .06,
-                                          child: Image.asset(
-                                            'assets/images/inject_1.png',
-                                            height: size.width * .3,
-                                            width: size.width * .3,
-                                          ),
-                                        ),
-                                        Positioned(
-                                          left: -size.width * .01,
-                                          top: size.width * .12,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: size.width * .04),
-                                            child: Text(
-                                              "Right Now",
-                                              style: TextStyle(
-                                                  fontSize: size.width * .05,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
+                                    child: InkWell(
+                                      onTap: (){
+                                        Navigator.of(context)
+                                            .push(
+                                            MaterialPageRoute(
+                                                builder: (_) =>
+                                                    OnDemandPage()));
+                                      },
+                                      child: Stack(
+                                        children: [
+                                          ///Red Back
+                                          Container(
+                                            height: dynamicSize(0.5),
+                                            decoration: const BoxDecoration(
+                                              color:
+                                                  Colors.pinkAccent,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
                                             ),
                                           ),
-                                        ),
 
-                                        Positioned(
-                                          bottom: size.width * .04,
-                                          left: size.width * .03,
-                                          right: -5.0,
-                                          child: Text('Book Service for\nRight now',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: size.width * .038,
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                        Positioned(
-                                          bottom: size.width * .008,
-                                          right: -size.width * .02,
-                                          child: ElevatedButton(
-                                            onPressed: () {
-
-
-                                                Navigator.of(context)
-                                                    .push(
-                                                        MaterialPageRoute(
-                                                            builder: (_) =>
-                                                                OnDemandPage()));
-                                            },
-                                            child: Icon(Icons.chevron_right,
-                                                size: size.width * .06,
-                                                color: Colors.white),
-                                            style: ElevatedButton.styleFrom(
-                                              shape: const CircleBorder(),
-                                              padding:
-                                                  EdgeInsets.all(size.width * .005),
-                                              primary: AllColor.colorArrow,
-                                              onPrimary: Colors.black,
+                                          ///Top Image
+                                          /*Positioned(
+                                            right: -size.width * .015,
+                                            top: -size.width * .06,
+                                            child: Image.asset(
+                                              'assets/images/inject_1.png',
+                                              height: size.width * .3,
+                                              width: size.width * .3,
+                                            ),
+                                          ),*/
+                                          Positioned(
+                                            left: -size.width * .01,
+                                            top: size.width * .12,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: size.width * .04),
+                                              child: Text(
+                                                "Right Now",
+                                                style: TextStyle(
+                                                    fontSize: size.width * .05,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+
+                                          Positioned(
+                                            bottom: size.width * .04,
+                                            left: size.width * .03,
+                                            right: -5.0,
+                                            child: Text('Book Service for\nRight now',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: size.width * .038,
+                                                    fontWeight: FontWeight.bold)),
+                                          ),
+                                       /*   Positioned(
+                                            bottom: size.width * .008,
+                                            right: -size.width * .02,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+
+
+                                                  Navigator.of(context)
+                                                      .push(
+                                                          MaterialPageRoute(
+                                                              builder: (_) =>
+                                                                  OnDemandPage()));
+                                              },
+                                              child: Icon(Icons.chevron_right,
+                                                  size: size.width * .06,
+                                                  color: Colors.white),
+                                              style: ElevatedButton.styleFrom(
+                                                shape: const CircleBorder(),
+                                                padding:
+                                                    EdgeInsets.all(size.width * .005),
+                                                primary: AllColor.colorArrow,
+                                                onPrimary: Colors.black,
+                                              ),
+                                            ),
+                                          ),*/
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   SizedBox(width: dynamicSize(0.01)),
                                   Expanded(
-                                    child: Stack(
-                                      children: [
-                                        ///Red Back
-                                        Container(
-                                          height: dynamicSize(0.5),
-                                          decoration: const BoxDecoration(
-                                            color: AllColor
-                                                .colorDashboardOnDemand_blue,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10)),
+                                    child: InkWell(
+                                      onTap: (){
+                                        showToast('Coming Soon!!');
+                                      },
+                                      child: Stack(
+                                        children: [
+                                          ///Red Back
+                                          Container(
+                                            height: dynamicSize(0.5),
+                                            decoration: const BoxDecoration(
+                                              color: AllColor
+                                                  .colorDashboardOnDemand_blue,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
+                                            ),
                                           ),
-                                        ),
 
-                                        ///Top Image
-                                        Positioned(
-                                          right: -size.width * .015,
-                                          top: -size.width * .06,
-                                          child: Image.asset(
-                                            'assets/images/inject_1.png',
-                                            height: size.width * .3,
-                                            width: size.width * .3,
-                                          ),
-                                        ),
-                                        Positioned(
-                                          left: -size.width * .01,
-                                          top: size.width * .12,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: size.width * .04),
-                                            child: Text(
-                                              "Schedule",
-                                              style: TextStyle(
-                                                  fontSize: size.width * .05,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
+                                          ///Top Image
+                                         /* Positioned(
+                                            right: -size.width * .015,
+                                            top: -size.width * .06,
+                                            child: Image.asset(
+                                              'assets/images/inject_1.png',
+                                              height: size.width * .3,
+                                              width: size.width * .3,
+                                            ),
+                                          ),*/
+                                          Positioned(
+                                            left: -size.width * .01,
+                                            top: size.width * .12,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: size.width * .04),
+                                              child: Text(
+                                                "Schedule",
+                                                style: TextStyle(
+                                                    fontSize: size.width * .05,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Positioned(
-                                          bottom: size.width * .04,
-                                          left: size.width * .03,
-                                          right: -5.0,
-                                          child: Text('Book Service for\nLater',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: size.width * .038,
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                        Positioned(
-                                          bottom: size.width * .008,
-                                          right: -size.width * .02,
-                                          child: ElevatedButton(
-                                            onPressed: () {},
-                                            child: Icon(Icons.chevron_right,
-                                                size: size.width * .06,
-                                                color: Colors.white),
-                                            style: ElevatedButton.styleFrom(
-                                              shape: const CircleBorder(),
-                                              padding:
-                                                  EdgeInsets.all(size.width * .005),
-                                              primary: AllColor.colorArrow,
-                                              onPrimary: Colors.black,
-                                            ),
+                                          Positioned(
+                                            bottom: size.width * .04,
+                                            left: size.width * .03,
+                                            right: -5.0,
+                                            child: Text('Book Service for\nLater',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: size.width * .038,
+                                                    fontWeight: FontWeight.bold)),
                                           ),
-                                        ),
-                                      ],
+                                         /* Positioned(
+                                            bottom: size.width * .008,
+                                            right: -size.width * .02,
+                                            child: ElevatedButton(
+                                              onPressed: () {},
+                                              child: Icon(Icons.chevron_right,
+                                                  size: size.width * .06,
+                                                  color: Colors.white),
+                                              style: ElevatedButton.styleFrom(
+                                                shape: const CircleBorder(),
+                                                padding:
+                                                    EdgeInsets.all(size.width * .005),
+                                                primary: AllColor.colorArrow,
+                                                onPrimary: Colors.black,
+                                              ),
+                                            ),
+                                          ),*/
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -552,7 +566,7 @@ class _HomePageState extends State<HomePage> {
                                                         shape: const CircleBorder(),
                                                         padding:
                                                         EdgeInsets.all(size.width * .002),
-                                                        primary: AllColor.colorDashboardProfileRed,
+                                                        primary: Colors.pinkAccent,
                                                         onPrimary: Colors.black,
                                                       ),
 

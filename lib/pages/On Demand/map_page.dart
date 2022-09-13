@@ -321,7 +321,8 @@ class _MapPageState extends State<MapPage> {
                           borderRadius: BorderRadius.circular(5),
                         ),
                         onPressed: () async{
-                         // await dc.createRequest(DataControllers.to.getAvailableProviderList.value.data![requestIndex],widget.result,requestIndex);
+
+                         await dc.createRequest(DataControllers.to.getAvailableProviderList.value.data![requestIndex],widget.result,requestIndex);
                         },
                         //padding: EdgeInsets.all(10.0),
                         color: AllColor.pink_button,
