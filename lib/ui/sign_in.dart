@@ -45,7 +45,10 @@ class _SingInState extends State<SingIn> {
                     controller: DataControllers.to.phoneNumber.value,
                     keyboardType: TextInputType.number,
                     obscureText: false,
-                    style: new TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
+                    style: new TextStyle(
+                        fontFamily: 'Muli',
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black),
                     decoration: InputDecoration(
                       contentPadding: new EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
                       border: OutlineInputBorder(),
@@ -81,6 +84,8 @@ class _SingInState extends State<SingIn> {
                   child: Text(
                     "Forget Password?",
                     style: TextStyle(
+                        fontFamily: 'Muli',
+                        fontWeight: FontWeight.w600,
                       color: Colors.red,
                       fontSize: dynamicSize(0.02)
                     ),

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:map_location_picker/map_location_picker.dart';
+import 'package:takecare_user/model/AvailableProviderResponse.dart';
 import 'package:takecare_user/pages/On%20Demand/map_page.dart';
+import 'package:takecare_user/public_variables/variables.dart';
 
 import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
 
 class CancelPage extends StatelessWidget {
-  const CancelPage({Key? key}) : super(key: key);
+  final Providerdata providerInfo;
+
+  const CancelPage( {Key? key,required this.providerInfo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +41,13 @@ class CancelPage extends StatelessWidget {
             ),
             CircleAvatar(
               radius: 40,
-              child: ClipOval(child: Image.asset("assets/images/imam.png")),
+              child: ClipOval(child: Image.network("${providerInfo.profilePhoto}")),
             ),
             SizedBox(
               height: dynamicSize(0.1),
             ),
             Text(
-              "Leya Ajanta Mondol",
+              "${providerInfo.fullName}",
               style: TextStyle(
                   fontSize: dynamicSize(0.06), color: AllColor.themeColor),
             ),
@@ -65,9 +70,37 @@ class CancelPage extends StatelessWidget {
               height: dynamicSize(0.04),
             ),
             TextButton(
-              onPressed: () {
-                /*Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => MapePage()));*/
+              onPressed: () async{
+
+                 GeocodingResult resultGeo;
+
+                resultGeo = (await Navigator.push(
+                context,
+                MaterialPageRoute<GeocodingResult>(
+                    builder: (cx) {
+                  return MapLocationPicker(
+
+                      origin:Location(lat: Variables.currentPostion.latitude , lng :  Variables.currentPostion.longitude),
+                      desiredAccuracy : LocationAccuracy.high,
+                      location :  Location(lat: Variables.currentPostion.latitude , lng :  Variables.currentPostion.longitude),
+                      apiKey: "AIzaSyB5x56y_2IlWhARk8ivDevq-srAkHYr9HY",
+                      canPopOnNextButtonTaped: true,
+                      onNext: (GeocodingResult? result) {
+                        if (result != null) {
+
+                            resultGeo = result;
+                            Navigator.pop(cx,resultGeo);
+
+                        }
+                      }
+                  );
+
+                },
+                ),
+                ))!;
+                if(resultGeo != null){
+                Navigator.push(context, MaterialPageRoute(builder: (cp) => MapPage(result: resultGeo,)),);
+                }
               },
               child: Text(
                 "Request again",

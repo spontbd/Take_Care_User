@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:takecare_user/controller/data_controller.dart';
+import 'package:takecare_user/model/AvailableProviderResponse.dart';
 import 'package:takecare_user/pages/On%20Demand/accepted_page.dart';
 import 'package:takecare_user/pages/On%20Demand/cancel_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
@@ -12,11 +14,14 @@ import 'package:takecare_user/public_variables/size_config.dart';
 import '../../public_variables/variables.dart';
 
 class RequestPage extends StatefulWidget {
-  const RequestPage({Key? key, required this.docId, required this.requestIndex,required this.receiverId}) : super(key: key);
+  const RequestPage({Key? key, required this.docId, required this.requestIndex,required this.receiverId,
+  required this.providerInfo
+  }) : super(key: key);
 
   final int requestIndex;
   final String docId;
   final String receiverId;
+  final Providerdata providerInfo;
 
   @override
   _RequestPageState createState() => _RequestPageState();
@@ -28,8 +33,6 @@ class _RequestPageState extends State<RequestPage> {
     super.initState();
     DataController.dc.autoCancelRequest(widget.docId, widget.receiverId);
   }
-
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DocumentSnapshot>(
@@ -52,7 +55,7 @@ class _RequestPageState extends State<RequestPage> {
             }
             return SafeArea(
               child: Scaffold(
-                  backgroundColor: AllColor.themeColor,
+                  backgroundColor: AllColor.blue_light,
                   body: SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -70,6 +73,8 @@ class _RequestPageState extends State<RequestPage> {
                                 child: Text(
                                   "Cancel",
                                   style: TextStyle(
+                                      fontFamily: 'Muli',
+                                      fontWeight: FontWeight.w600,
                                       color: Colors.white, fontSize: dynamicSize(0.05)),
                                 ),
                               )
@@ -81,19 +86,23 @@ class _RequestPageState extends State<RequestPage> {
                           CircleAvatar(
                             radius: 40,
                             child:
-                            ClipOval(child: Image.asset("assets/images/imam.png")),
+                            ClipOval(child: Image.network("${widget.providerInfo.profilePhoto}")),
                           ),
                           SizedBox(
                             height: dynamicSize(0.1),
                           ),
                           Text(
-                            "Leya Ajanta Mondol",
+                            "${widget.providerInfo.fullName}",
                             style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
                                 fontSize: dynamicSize(0.06), color: Colors.white),
                           ),
                           Text(
                             "is on the way to accept the service. ",
                             style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
                                 fontSize: dynamicSize(0.05), color: Colors.white),
                           ),
                           SizedBox(
@@ -102,13 +111,21 @@ class _RequestPageState extends State<RequestPage> {
                           Text(
                             "Please wait",
                             style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
                                 fontSize: dynamicSize(0.05), color: Colors.white),
                           ),
-                          Text(
+                          Center(
+                            child: LoadingAnimationWidget.prograssiveDots(
+                              color: Colors.white,
+                              size: 70,
+                            ),
+                          ),
+                        /*  Text(
                             ". . . .",
                             style: TextStyle(
                                 fontSize: dynamicSize(0.1), color: Colors.white),
-                          ),
+                          ),*/
                         ],
                       ),
                     ),
@@ -124,6 +141,6 @@ class _RequestPageState extends State<RequestPage> {
 
   void requestForCancel() {
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (_) => const CancelPage()));
+        .pushReplacement(MaterialPageRoute(builder: (_) =>  CancelPage(providerInfo: widget.providerInfo,)));
   }
 }

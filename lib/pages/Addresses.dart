@@ -44,7 +44,10 @@ class _AddressesPageState extends State<AddressesPage> {
         elevation: 0,
         title: Text(
           "Addresses",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+              fontFamily: 'Muli',
+              fontWeight: FontWeight.w600,
+              color: Colors.black),
         ),
       ),
 
@@ -66,6 +69,8 @@ class _AddressesPageState extends State<AddressesPage> {
                             child: Text(
                               "Home",
                               style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
                                 fontSize: dynamicSize(0.05),
                               ),
                             ),
@@ -82,7 +87,9 @@ class _AddressesPageState extends State<AddressesPage> {
                                 "Edit",
                                 style: TextStyle(
                                     color: AllColor.themeColor,
-                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Muli',
+                                    fontWeight: FontWeight.w600,
+
                                     fontSize: dynamicSize(0.05)),
                               ))
                         ],
@@ -102,7 +109,12 @@ class _AddressesPageState extends State<AddressesPage> {
                              cursorHeight: dynamicSize(0.05),
                              decoration: InputDecoration(
                                  border: InputBorder.none,
-                                 hintText: 'Heaven Palace, Uttara, Dhaka',hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.bold)
+                                 hintText: 'Heaven Palace, Uttara, Dhaka',hintStyle: TextStyle(
+
+                               color:Colors.black,
+                               fontFamily: 'Muli',
+                               fontWeight: FontWeight.w700,
+                             )
                              ),
                            ),
                          ),
@@ -137,7 +149,10 @@ class _AddressesPageState extends State<AddressesPage> {
               height: dynamicSize(0.15),
               child: Text(
                 "Add New Address ",
-                style: TextStyle(fontSize: dynamicSize(0.05), color: Colors.white),
+                style: TextStyle(
+                    fontFamily: 'Muli',
+                    fontWeight: FontWeight.w600,
+                    fontSize: dynamicSize(0.05), color: Colors.white),
               ),
             ),
           ),

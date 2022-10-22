@@ -578,6 +578,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "loading_animation_widget",
+      "rootUri": "file:///Users/agmkhair/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/loading_animation_widget-1.2.0+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "logger",
       "rootUri": "file:///Users/agmkhair/Downloads/flutter/.pub-cache/hosted/pub.dartlang.org/logger-1.1.0",
       "packageUri": "lib/",
@@ -932,7 +938,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-09-12T14:22:40.547578Z",
+  "generated": "2022-10-22T08:59:04.258086Z",
   "generator": "pub",
   "generatorVersion": "2.17.6"
 }

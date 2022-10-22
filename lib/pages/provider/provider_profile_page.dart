@@ -126,11 +126,17 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                                       ),
                                       Text(
                                         ("${DataControllers.to.userLoginResponse.value.data!.user!.status}"),
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(
+                                            fontFamily: 'Muli',
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white),
                                       ),
                                       Text(
                                         "/5",
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(
+                                            fontFamily: 'Muli',
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white),
                                       ),
                                     ],
                                   )),
@@ -146,8 +152,9 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                           Text(
                             ("${widget.providerdata.fullName}"),
                             style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
                                 fontSize: dynamicSize(0.05),
-                                fontWeight: FontWeight.bold,
                                 color: Colors.pinkAccent),
                           ),
                           Row(
@@ -185,6 +192,8 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                           child: Text(
                             "Gender",
                             style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
                                 fontSize: dynamicSize(0.03),
                                 color: Colors.grey),
                           ),
@@ -195,6 +204,8 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                           child: Text(
                             ("${widget.providerdata.gender}"),
                             style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
                                 fontSize: dynamicSize(0.04),
                                 color: AllColor.button_color),
                           ),
@@ -222,6 +233,8 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                           child: Text(
                             "Height",
                             style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
                                 fontSize: dynamicSize(0.03),
                                 color: Colors.grey),
                           ),

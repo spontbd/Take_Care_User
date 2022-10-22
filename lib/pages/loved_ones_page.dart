@@ -58,7 +58,10 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
           elevation: 0,
           title: Text(
             "Loved One's",
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(
+                fontFamily: 'Muli',
+                fontWeight: FontWeight.w600,
+                color: Colors.black),
           ),
         ),
         body: ListView.builder(
@@ -98,6 +101,8 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
                           Text(
                             '${addressResponse.data![index].relationship}',
                             style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
                               fontSize: dynamicSize(0.05)
                             ),
                           ),
@@ -112,6 +117,8 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
                               (widget.activity == Variables.homeActivity ) ? Text(
                                 "Edit",
                                 style: TextStyle(
+                                    fontFamily: 'Muli',
+                                    fontWeight: FontWeight.w600,
                                     color: AllColor.themeColor,
                                     fontSize: dynamicSize(0.05)),
                               )   : Container()
@@ -134,11 +141,17 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
                                 children: [
                                   Text(
                                     "Name ",
-                                    style: TextStyle(fontSize: dynamicSize(0.04)),
+                                    style: TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: dynamicSize(0.04)),
                                   ),
                                   Text(
                                     ": ",
-                                    style: TextStyle(fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontSize: dynamicSize(0.05),
+                                      fontFamily: 'Muli',
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -150,7 +163,10 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
                                 padding: const EdgeInsets.only(top: 3.0),
                                 child: Text(
                                   '${addressResponse.data![index].name}',
-                                  style: TextStyle(fontSize: dynamicSize(0.04),fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: dynamicSize(0.04),
+                                    fontFamily: 'Muli',
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
                               ),
                             )
@@ -173,11 +189,17 @@ class _LovedOnesPageState extends State<LovedOnesPage> {
                                   children: [
                                     Text(
                                       "Age ",
-                                      style: TextStyle(fontSize: dynamicSize(0.04)),
+                                      style: TextStyle(
+                                          fontFamily: 'Muli',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: dynamicSize(0.04)),
                                     ),
                                     Text(
                                       ": ",
-                                      style: TextStyle(fontSize: dynamicSize(0.05),fontWeight: FontWeight.bold),
+                                      style: TextStyle(fontSize: dynamicSize(0.05),
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ],
                                 ),

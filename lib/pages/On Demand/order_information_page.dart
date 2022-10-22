@@ -54,7 +54,10 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                           backgroundColor: Colors.white,
                           title: const Text(
                             "Order Information ",
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
                           ),
                           leading: InkWell(
                             onTap: () {
@@ -88,11 +91,14 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                           Text(
                                             "Total Added Service",
                                             style: TextStyle(
+                                                fontFamily: 'Muli',
+                                                fontWeight: FontWeight.w600,
                                                 fontSize: dynamicSize(0.05)),
                                           ),
                                             Row(
                                             children: [
 
+                                              if(widget.activity != null)
                                               Text(
                                             (widget.activity == Variables.onDemandServiceActivity) ? "Total:" : '(${
                                                 DataControllers.to.getAddCardLongServiceResponse.value.data!.length.toString()
@@ -100,13 +106,16 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
 
                                       ,
                                                 style: TextStyle(
+                                                    fontFamily: 'Muli',
+                                                    fontWeight: FontWeight.w600,
                                                     fontSize: dynamicSize(0.05)),
                                               ),
                                               if(widget.activity == Variables.onDemandServiceActivity)
-
                                                 Text(
                                                 "1300/-",
                                                 style: TextStyle(
+                                                    fontFamily: 'Muli',
+                                                    fontWeight: FontWeight.w600,
                                                     fontSize: dynamicSize(0.05)),
                                               ),
                                               if(widget.activity == Variables.onDemandServiceActivity)
@@ -135,10 +144,14 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                           children: [
                                             Text(' Service Duration',
                                               style: TextStyle(
+                                                  fontFamily: 'Muli',
+                                                  fontWeight: FontWeight.w600,
                                                   fontSize: dynamicSize(0.05)),
                                             ),
                                             Text('${Variables.serviceTime} Hrs',
                                               style: TextStyle(
+                                                  fontFamily: 'Muli',
+                                                  fontWeight: FontWeight.w600,
                                                   fontSize: dynamicSize(0.05)),
                                             ),
                                           ],
@@ -164,11 +177,15 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                             Text(
                                               "Base Price",
                                               style: TextStyle(
+                                                  fontFamily: 'Muli',
+                                                  fontWeight: FontWeight.w600,
                                                   fontSize: dynamicSize(0.05)),
                                             ),
                                             Text(
                                               "1,300/-",
                                               style: TextStyle(
+                                                  fontFamily: 'Muli',
+                                                  fontWeight: FontWeight.w600,
                                                   fontSize: dynamicSize(0.05)),
                                             )
                                           ],
@@ -183,11 +200,15 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                             Text(
                                               "Coupon",
                                               style: TextStyle(
+                                                  fontFamily: 'Muli',
+                                                  fontWeight: FontWeight.w600,
                                                   fontSize: dynamicSize(0.05)),
                                             ),
                                             Text(
                                               "- 250/-",
                                               style: TextStyle(
+                                                  fontFamily: 'Muli',
+                                                  fontWeight: FontWeight.w600,
                                                   fontSize: dynamicSize(0.05)),
                                             )
                                           ],
@@ -203,13 +224,15 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                               "Total",
                                               style: TextStyle(
                                                   fontSize: dynamicSize(0.05),
-                                                  fontWeight: FontWeight.bold),
+                                                fontFamily: 'Muli',
+                                                fontWeight: FontWeight.w700,),
                                             ),
                                             Text(
                                               "950/-*",
                                               style: TextStyle(
                                                   fontSize: dynamicSize(0.05),
-                                                  fontWeight: FontWeight.bold),
+                                                fontFamily: 'Muli',
+                                                fontWeight: FontWeight.w700,),
                                             )
                                           ],
                                         ),
@@ -234,6 +257,8 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                       Text(
                                         "Visiting Address",
                                         style: TextStyle(
+                                            fontFamily: 'Muli',
+                                            fontWeight: FontWeight.w600,
                                             fontSize: dynamicSize(0.05)),
                                       ),
                                       SizedBox(
@@ -250,7 +275,8 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                                 "${widget.serviceAddress}",
                                                 style: TextStyle(
                                                     fontSize: dynamicSize(0.05),
-                                                    fontWeight: FontWeight.bold)),
+                                                  fontFamily: 'Muli',
+                                                  fontWeight: FontWeight.w700,)),
                                           ),
                                         ],
                                       ),
@@ -269,11 +295,13 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                       "Service For -",
                                       style: TextStyle(
                                           fontSize: dynamicSize(0.05),
-                                          fontWeight: FontWeight.bold),
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w700),
                                     ),
                                   ],
                                 ),
                               ),
+                              if(widget.serviceHolderInfo != null)
                               Container(
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -287,6 +315,8 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                           Text(
                                             widget.serviceHolderInfo!.relationship ?? '',
                                             style: TextStyle(
+                                                fontFamily: 'Muli',
+                                                fontWeight: FontWeight.w600,
                                                 fontSize: dynamicSize(0.05),
                                                 color: AllColor.black),
                                           ),
@@ -302,6 +332,8 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                               child: Text(
                                                 "Change",
                                                 style: TextStyle(
+                                                    fontFamily: 'Muli',
+                                                    fontWeight: FontWeight.w600,
                                                     color: AllColor.themeColor,
                                                     fontSize: dynamicSize(
                                                         0.05)),
@@ -329,6 +361,8 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                                     Text(
                                                       "Name ",
                                                       style: TextStyle(
+                                                          fontFamily: 'Muli',
+                                                          fontWeight: FontWeight.w600,
                                                           fontSize: dynamicSize(
                                                               0.05)),
                                                     ),
@@ -337,8 +371,8 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                                       style: TextStyle(
                                                           fontSize: dynamicSize(
                                                               0.05),
-                                                          fontWeight: FontWeight
-                                                              .bold),
+                                                        fontFamily: 'Muli',
+                                                        fontWeight: FontWeight.w700,),
                                                     ),
                                                   ],
                                                 ),
@@ -361,8 +395,8 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                                             hintText: widget.serviceHolderInfo!.name ,
                                                             hintStyle: TextStyle(
                                                                 color: Colors.black,
-                                                                fontWeight: FontWeight
-                                                                    .bold)
+                                                              fontFamily: 'Muli',
+                                                              fontWeight: FontWeight.w700,)
 
                                                         ),
                                                       )
@@ -386,16 +420,18 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                                     Text(
                                                       "Age ",
                                                       style: TextStyle(
+                                                          fontFamily: 'Muli',
+                                                          fontWeight: FontWeight.w600,
                                                           fontSize: dynamicSize(
                                                               0.05)),
                                                     ),
                                                     Text(
                                                       ": ",
                                                       style: TextStyle(
+                                                          fontFamily: 'Muli',
+                                                          fontWeight: FontWeight.w700,
                                                           fontSize: dynamicSize(
-                                                              0.05),
-                                                          fontWeight: FontWeight
-                                                              .bold),
+                                                              0.05),),
                                                     ),
                                                   ],
                                                 ),
@@ -406,8 +442,8 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                                 child:
                                                 Text(
                                                   "${widget.serviceHolderInfo!.age!} Year(s)",
-                                                  style: TextStyle( fontWeight: FontWeight
-                                                      .bold,
+                                                  style: TextStyle( fontFamily: 'Muli',
+                                                      fontWeight: FontWeight.w700,
                                                       fontSize: dynamicSize(
                                                           0.05)),
                                                 ),
@@ -433,6 +469,9 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                                       Text(
                                                         "Gender ",
                                                         style: TextStyle(
+                                                            fontFamily: 'Muli',
+                                                            fontWeight: FontWeight.w600,
+
                                                             fontSize: dynamicSize(
                                                                 0.05)),
                                                       ),
@@ -441,8 +480,8 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                                         style: TextStyle(
                                                             fontSize: dynamicSize(
                                                                 0.05),
-                                                            fontWeight: FontWeight
-                                                                .bold),
+                                                          fontFamily: 'Muli',
+                                                          fontWeight: FontWeight.w700,),
                                                       ),
                                                     ],
                                                   ),
@@ -453,8 +492,8 @@ class _OrderInformationPageState extends State<OrderInformationPage> {
                                                   child:
                                                   Text(
                                                     "${widget.serviceHolderInfo!.gender!}",
-                                                    style: TextStyle( fontWeight: FontWeight
-                                                        .bold,
+                                                    style: TextStyle( fontFamily: 'Muli',
+                                                        fontWeight: FontWeight.w700,
                                                         fontSize: dynamicSize(
                                                             0.05)),
                                                   ),

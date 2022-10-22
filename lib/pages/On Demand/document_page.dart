@@ -93,7 +93,8 @@ class _DocumentPageState extends State<DocumentPage> {
                           ),
                           Text(
                             "/5",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white,fontFamily: 'Muli',
+                              fontWeight: FontWeight.w600,),
                           ),
                         ],
                       )),
@@ -110,6 +111,7 @@ class _DocumentPageState extends State<DocumentPage> {
                         // ("${DataControllers.to.userLoginResponse.value.data!.user!.fullName}"),
                         style: TextStyle(
                             fontSize: dynamicSize(0.05),
+                            fontFamily: 'Muli',
                             fontWeight: FontWeight.bold,
                             color: Colors.pinkAccent),
                       ),
@@ -136,7 +138,10 @@ class _DocumentPageState extends State<DocumentPage> {
                       left: 18, right: 18, top: 15, bottom: 15),
                   child: Text(
                     'View Profile',
-                    style: TextStyle(fontSize: dynamicSize(0.05)),
+                    style: TextStyle(fontSize: dynamicSize(0.05),
+                      fontFamily: 'Muli',
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 decoration: BoxDecoration(
@@ -154,6 +159,8 @@ class _DocumentPageState extends State<DocumentPage> {
                 child: Text(
                   "Documents",
                   style: TextStyle(
+                      fontFamily: 'Muli',
+                      fontWeight: FontWeight.w600,
                       fontSize: dynamicSize(0.04), color: Colors.blue),
                 ),
                 alignment: Alignment.topLeft,
@@ -168,7 +175,10 @@ class _DocumentPageState extends State<DocumentPage> {
                 children: [
                   Text(
                     "NID",
-                    style: TextStyle(fontSize: dynamicSize(0.04)),
+                    style: TextStyle(
+                        fontFamily: 'Muli',
+                        fontWeight: FontWeight.w600,
+                        fontSize: dynamicSize(0.04)),
                   ),
                   InkWell(
                     onTap: (){
@@ -190,7 +200,10 @@ class _DocumentPageState extends State<DocumentPage> {
                 children: [
                   Text(
                     "Experience Certificate",
-                    style: TextStyle(fontSize: dynamicSize(0.04)),
+                    style: TextStyle(
+                        fontFamily: 'Muli',
+                        fontWeight: FontWeight.w600,
+                        fontSize: dynamicSize(0.04)),
                   ),
                   InkWell(
                       onTap: (){
@@ -210,7 +223,10 @@ class _DocumentPageState extends State<DocumentPage> {
                 children: [
                   Text(
                     "SSC Certificate",
-                    style: TextStyle(fontSize: dynamicSize(0.04)),
+                    style: TextStyle(
+                        fontFamily: 'Muli',
+                        fontWeight: FontWeight.w600,
+                        fontSize: dynamicSize(0.04)),
                   ),
                   InkWell(
                       onTap: (){

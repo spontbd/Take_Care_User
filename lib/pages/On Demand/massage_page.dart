@@ -37,7 +37,10 @@ class _MassagePageState extends State<MassagePage> {
                     child: Icon(Icons.person,color: Colors.white,size: dynamicSize(.09)),
                   ),
                   SizedBox(width: dynamicSize(.03)),
-                  Text('Mr. Ashik',style: TextStyle(color: AllColor.black,fontSize: dynamicSize(.045)),)
+                  Text('Mr. Ashik',style: TextStyle(
+                      fontFamily: 'Muli',
+                      fontWeight: FontWeight.w600,
+                      color: AllColor.black,fontSize: dynamicSize(.045)),)
                 ],
               ),
             ),

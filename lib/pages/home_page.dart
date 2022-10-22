@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:takecare_user/api_service/ApiService.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
-import 'package:takecare_user/pages/Addresses.dart';
 import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
 import 'package:takecare_user/pages/coupons/coupons_home_page.dart';
 import 'package:takecare_user/pages/long_time_services/long_time_service_page.dart';
@@ -58,7 +57,7 @@ class _HomePageState extends State<HomePage> {
     }catch(e) {}
 
     try
-    {await DataControllers.to.getProviderList("1", "1");}catch(e){}
+    {await DataControllers.to.getProviderList("1", "1","","");}catch(e){}
     onProgressBar(false);
 
     //  await DataControllers.to.postUserServiceResponse(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
@@ -80,7 +79,7 @@ class _HomePageState extends State<HomePage> {
 
     } else{
       if(requests.first.get('engage_end_time')!=null &&
-          DateTime.fromMillisecondsSinceEpoch(requests.first.get('engage_end_time')).difference(DateTime.now()).inMinutes>10){
+          DateTime.fromMillisecondsSinceEpoch(requests.first.get('engage_end_time')).difference(DateTime.now()).inMinutes>2){
 
         await FirebaseFirestore.instance.collection('request').doc(requests.first.get('id')).update({
           'status': Variables.orderStatusData[2].statusCode,
@@ -203,15 +202,15 @@ class _HomePageState extends State<HomePage> {
                                           ),
 
                                           ///Top Image
-                                          /*Positioned(
+                                          Positioned(
                                             right: -size.width * .015,
-                                            top: -size.width * .06,
+                                            top: -size.width * .09,
                                             child: Image.asset(
-                                              'assets/images/inject_1.png',
+                                              'assets/images/right_now_top.png',
                                               height: size.width * .3,
-                                              width: size.width * .3,
+                                              width: size.width * .18,
                                             ),
-                                          ),*/
+                                          ),
                                           Positioned(
                                             left: -size.width * .01,
                                             top: size.width * .12,
@@ -271,7 +270,7 @@ class _HomePageState extends State<HomePage> {
                                   Expanded(
                                     child: InkWell(
                                       onTap: (){
-                                        showToast('Coming Soon!!');
+                                        showToast('Coming Soon!');
                                       },
                                       child: Stack(
                                         children: [
@@ -287,15 +286,15 @@ class _HomePageState extends State<HomePage> {
                                           ),
 
                                           ///Top Image
-                                         /* Positioned(
+                                          Positioned(
                                             right: -size.width * .015,
-                                            top: -size.width * .06,
+                                            top: -size.width * .09,
                                             child: Image.asset(
-                                              'assets/images/inject_1.png',
+                                              'assets/images/schedule_top.png',
                                               height: size.width * .3,
-                                              width: size.width * .3,
+                                              width: size.width * .18,
                                             ),
-                                          ),*/
+                                          ),
                                           Positioned(
                                             left: -size.width * .01,
                                             top: size.width * .12,

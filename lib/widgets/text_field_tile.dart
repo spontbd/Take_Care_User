@@ -33,7 +33,8 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
       style: TextStyle(
         color: Colors.grey.shade900,
         fontSize: size.width*.045,
-        fontWeight: FontWeight.w400,
+        fontFamily: 'Muli',
+        fontWeight: FontWeight.w600,
       ),
       decoration: InputDecoration(
           border: const UnderlineInputBorder(
@@ -43,6 +44,8 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
           contentPadding: EdgeInsets.symmetric(horizontal: dynamicSize(0.04),vertical: dynamicSize(0.03)),
           hintText: widget.hintText,
           labelText: widget.labelText,
+          labelStyle: TextStyle(fontFamily: 'Muli',
+            fontWeight: FontWeight.w600,),
           suffixIconConstraints: BoxConstraints.loose(size),
           suffixIcon: widget.obscure
               ? InkWell(
@@ -91,9 +94,10 @@ class _BorderTextFieldState extends State<BorderTextField> {
       keyboardType: widget.textInputType??TextInputType.text,
       textCapitalization: widget.textCapitalization??TextCapitalization.none,
       style: TextStyle(
+        fontFamily: 'Muli',
+        fontWeight: FontWeight.w600,
         color: Colors.grey.shade900,
         fontSize: size.width*.045,
-        fontWeight: FontWeight.w400,
       ),
       decoration: InputDecoration(
           border: const OutlineInputBorder(),
@@ -102,6 +106,8 @@ class _BorderTextFieldState extends State<BorderTextField> {
           hintText: widget.hintText,
           labelText: widget.labelText,
           //alignLabelWithHint: true,
+          hintStyle: TextStyle(fontFamily: 'Muli',
+            fontWeight: FontWeight.w600,),
           suffixIconConstraints: BoxConstraints.loose(size),
           suffixIcon: widget.obscure
               ? InkWell(

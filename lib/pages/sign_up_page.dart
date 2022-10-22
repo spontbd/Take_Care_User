@@ -64,6 +64,20 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   @override
+  void dispose() {
+    print('dispose sign up');
+    DataControllers.to.name.value.text = "";
+    DataControllers.to.gender.value = "";
+    DataControllers.to.phoneNumber.value.text = "";
+    DataControllers.to.password.value.text = "";
+    // DataControllers.to.name.refresh();
+    // DataControllers.to.gender.refresh();
+    // DataControllers.to.phoneNumber.refresh();
+    // DataControllers.to.password.refresh();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext size) {
     return WillPopScope(
       onWillPop: null,
@@ -76,72 +90,86 @@ class _SignUpPageState extends State<SignUpPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: dynamicSize(0.5),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/clip_path_shape.png"),
-                          //fit:BoxFit.cover
-                          alignment: Alignment.topRight),
-                    ),
+                  Stack(
+                    children: [
+                      Container(
+                        height: dynamicSize(0.5),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/clip_path_shape.png"),
+                              //fit:BoxFit.cover
+                              alignment: Alignment.topRight),
+                        ),
+                      ),
+                      Positioned(
+                        top: dynamicSize(0.15),
+                        left: 20,
+                        child:Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: RichText(
+                          text: TextSpan(
+                            style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
+                                color: AllColor.textColor, fontSize: dynamicSize(.05)),
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Account\n',
+                                  style: TextStyle(
+                                      fontFamily: 'Muli',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: dynamicSize(.09))),
+                              const TextSpan(text: 'Information'),
+                            ],
+                          ),
+                        ),
+                      ),),
+                      Positioned(
+                        bottom: 0.0,
+                        left: dynamicSize(.5),
+                        child:  Center(
+                        child: InkWell(
+                          onTap: () => _getImage(),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: dynamicSize(0.2),
+                            width: dynamicSize(0.2),
+                            decoration: const BoxDecoration(
+                                color: AllColor.blue_light, shape: BoxShape.circle),
+                            child: initialProfile
+                                ? Stack(
+                              children: [
+                                Icon( Icons.account_circle,
+                                  color: Colors.white, size: dynamicSize(0.2), ),
+                                Positioned(
+                                  bottom: 0.0,
+                                  right: 0.0,
+                                  child:
+                                  Icon( Icons.camera_alt_outlined,
+                                    color: Colors.black,),
+                                ),
+                              ],
+                            )
+                                : ClipRRect(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(dynamicSize(0.2))),
+                                child: Image.file(Variables.imageFile,
+                                    height: dynamicSize(0.2),
+                                    width: dynamicSize(0.2),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ),
+                      ),),
+
+                    ],
                   ),
                   ///Heading
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: RichText(
-                      text: TextSpan(
-                        style: TextStyle(
-                            color: AllColor.textColor, fontSize: dynamicSize(.05)),
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: 'Account\n',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: dynamicSize(.09))),
-                          const TextSpan(text: 'Information'),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: dynamicSize(.03)),
-                  Center(
-                    child: InkWell(
-                      onTap: () => _getImage(),
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: dynamicSize(0.22),
-                        width: dynamicSize(0.22),
-                        decoration: const BoxDecoration(
-                            color: AllColor.blue, shape: BoxShape.circle),
-                        child: initialProfile
-                            ? Stack(
-                          children: [
-                            Icon( Icons.account_circle,
-                              color: Colors.white, size: dynamicSize(0.2), ),
-                            Positioned(
-                              bottom: 0.0,
-                              right: 0.0,
-                              child:
-                              Icon( Icons.camera_alt_outlined,
-                                color: Colors.black,),
-                            ),
-                          ],
-                        )
-                            : ClipRRect(
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(dynamicSize(0.2))),
-                            child: Image.file(Variables.imageFile,
-                                height: dynamicSize(0.2),
-                                width: dynamicSize(0.2),
-                                fit: BoxFit.cover)),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: dynamicSize(.03)),
+
+                  SizedBox(height: dynamicSize(.2)),
                   ///Name and Image Field
                   Padding(
-                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: Row(
                       children: [
                         Expanded(
@@ -153,7 +181,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                     border: OutlineInputBorder(),
                                     labelText: 'Name*',
                                     hintStyle:
-                                    TextStyle(fontSize: dynamicSize(0.04))),
+                                    TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: dynamicSize(0.04))),
                               ),
                             ),
 
@@ -182,11 +213,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: dynamicSize(.06)),
+                  SizedBox(height: dynamicSize(.1)),
 
                   ///Gender
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: Row(
                       children: Variables.genderList
                           .map((item) => Expanded(
@@ -213,6 +244,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                     item,
                                     maxLines: 1,
                                     style: TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w600,
                                         fontSize: size.width * .04,
                                         color:
                                             item == DataControllers.to.gender.value
@@ -224,56 +257,66 @@ class _SignUpPageState extends State<SignUpPage> {
                           .toList(),
                     ),
                   ),
-                  SizedBox(height: dynamicSize(.04)),
+                  SizedBox(height: dynamicSize(.1)),
 
                   /// Number
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
                           child: Container(
                             height: dynamicSize(0.12),
                             child: TextField(
+                              textAlign: TextAlign.center,
                               enabled: false,
                               decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.only(bottom: 0.0),
                                   border: OutlineInputBorder(),
                                   hintText: '+88',
                                   hintStyle:
-                                      TextStyle(fontSize: dynamicSize(0.05))),
+                                      TextStyle(
+                                          fontFamily: 'Muli',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: dynamicSize(0.05))),
                             ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 7,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: dynamicSize(0.12),
-                            child: TextField(
-                              keyboardType: TextInputType.phone,
-                              controller:  DataControllers.to.phoneNumber.value,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Enter Your Mobile Number',
-                                  /*hintStyle: TextStyle(fontSize: dynamicSize(0.05) ) */),
+                        Expanded(
+                          flex: 7,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Container(
+                              height: dynamicSize(0.12),
+                              child: TextField(
+                                style: TextStyle(fontFamily: 'Muli',
+                                  fontWeight: FontWeight.w600,),
+                                keyboardType: TextInputType.phone,
+                                controller:  DataControllers.to.phoneNumber.value,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Enter Your Mobile Number',
+                                    hintText: '01XXXXXXXXX',
+                                    hintStyle: TextStyle(fontFamily: 'Muli',
+                                      fontWeight: FontWeight.w600, ) ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   SizedBox(
-                    height: dynamicSize(0.04),
+                    height: dynamicSize(0.1),
                   ),
                   ///Password
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: Container(
-                      height: dynamicSize(0.15),
+                      height: dynamicSize(0.14),
                       child: BorderTextField(
+
                           labelText: "Password*",
                           controller: DataControllers.to.password.value,
                           obscure: true),
@@ -281,106 +324,118 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
 
                   SizedBox(height: dynamicSize(0.02),),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CheckBox(),
-                      Expanded(
-                        child: RichText(
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                   
-                          text: TextSpan(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
 
-                            text: 'By singing up I agree to the all ',
-                            style: TextStyle(fontSize: dynamicSize(0.035), color: Colors.black),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: 'Terms & Condition',
-                                  recognizer: new TapGestureRecognizer()
-                                    ..onTap = () => print('Tap Here onTap'),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red,
-                                      decoration: TextDecoration.underline)),
-                            ],
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const CheckBox(),
+                        Expanded(
+                          child: RichText(
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+
+                            text: TextSpan(
+
+                              text: 'By singing up I agree to the all ',
+                              style: TextStyle(
+                                  fontFamily: 'Muli',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: dynamicSize(0.035), color: Colors.black),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: 'Terms & Condition',
+                                    recognizer: new TapGestureRecognizer()
+                                      ..onTap = () => print('Tap Here onTap'),
+                                    style: TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.red,
+                                        decoration: TextDecoration.underline)),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
 
-                    ],
+                      ],
+                    ),
                   ),
 
-
-                  SizedBox(height: 10,),
-                  Padding(
-                      padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          if(
-                          DataControllers.to.phoneNumber.value.text.isNotEmpty  &&
-                              DataControllers.to.password.value.text.isNotEmpty &&
-                              DataControllers.to.gender.value.isNotEmpty  &&
-                              DataControllers.to.name.value.text.isNotEmpty  &&
-                              (Variables.base64Image.isNotEmpty &&  Variables.base64Image != "") &&
-                              Variables.categoryCheckBoxValue
-                          )
-                          {
-
-                            final signature = await SmsAutoFill().getAppSignature;
-
-
-                            await DataControllers.to.postRegister(
-                                DataControllers.to.name.value.text,
-                                DataControllers.to.phoneNumber.value.text,
-                                DataControllers.to.password.value.text,
-                                DataControllers.to.gender.value,
-                                "4",
-                                Variables.base64Image,
-                                signature
-                            );
-
-                            showToast(DataControllers.to.regsiter.value.message!);
-
-                            if(DataControllers.to.regsiter.value.success == true)
-                            {
-                              Get.to(OtpVerificationPage());
-                              /*   Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const OtpVerificationPage()),
-                                );*/
-                            }
-
-                          }else
-                          {
-                            Fluttertoast.showToast(
-                                msg: "Fil up the filed!!",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0
-                            );
-                          }
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text('Sign Up',
-                                  style: TextStyle(fontSize: dynamicSize(0.045))),
-                            )
-                          ],
-                        ),
-                      )
-                  ),
 
                 ],
               ),
+            ),
+          ),
+          bottomNavigationBar:   Container(
+            margin: EdgeInsets.only(bottom: 30),
+            child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.04)),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if(
+                    DataControllers.to.phoneNumber.value.text.isNotEmpty  &&
+                        DataControllers.to.password.value.text.isNotEmpty &&
+                        DataControllers.to.gender.value.isNotEmpty  &&
+                        DataControllers.to.name.value.text.isNotEmpty  &&
+                        (Variables.base64Image.isNotEmpty &&  Variables.base64Image != "") &&
+                        Variables.categoryCheckBoxValue
+                    )
+                    {
+
+                      final signature = await SmsAutoFill().getAppSignature;
+
+
+                      await DataControllers.to.postRegister(
+                          DataControllers.to.name.value.text,
+                          DataControllers.to.phoneNumber.value.text,
+                          DataControllers.to.password.value.text,
+                          DataControllers.to.gender.value,
+                          "4",
+                          Variables.base64Image,
+                          signature
+                      );
+
+                      showToast(DataControllers.to.regsiter.value.message!);
+
+                      if(DataControllers.to.regsiter.value.success == true)
+                      {
+                        Get.to(OtpVerificationPage());
+                        /*   Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const OtpVerificationPage()),
+                                  );*/
+                      }
+
+                    }else
+                    {
+                      Fluttertoast.showToast(
+                          msg: "Fil up the filed!!",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                      );
+                    }
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text('Sign Up',
+                            style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
+                                fontSize: dynamicSize(0.045))),
+                      )
+                    ],
+                  ),
+                )
             ),
           ),
         ),

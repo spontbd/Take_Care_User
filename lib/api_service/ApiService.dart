@@ -180,7 +180,7 @@ class ApiService {
   static Future<UserLoginResponse> postLogin(String phoneNumber,String pass) async {
     ///Get Device token for push notification
     final String fcmToken = await DataController.dc.generateUserToken();
-    print("fcmToken : "+fcmToken);
+    // print("fcmToken : "+fcmToken);
     var response ;
     try{
    response = await http.post(
@@ -599,9 +599,9 @@ print(e.toString());
 
   /// Service
 
-  static Future<AvailableProviderResponse?> getAvailableProviderList(String status, String available) async {
+  static Future<AvailableProviderResponse?> getAvailableProviderList(String status, String available,String longitude,String lattitude) async {
     var response = await client
-        .get(Uri.parse(BaseURL + 'user/providers-by-status?status=${status}&available=${available}'), headers: <String, String>{
+        .get(Uri.parse(BaseURL + 'user/providers-by-status?status=${status}&available=${available}&longitude${longitude}&lattitude${lattitude}'), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
       'Authorization': bearerToken,

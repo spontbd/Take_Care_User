@@ -42,7 +42,10 @@ class _OnDemandPageState extends State<OnDemandPage> {
   Icon cusIcon = const Icon(Icons.search, color: Colors.black);
   Widget cusSearchbar = Text(
     "On Demand",
-    style: TextStyle(color: Colors.black, fontSize: dynamicSize(0.03)),
+    style: TextStyle(
+        fontFamily: 'Muli',
+        fontWeight: FontWeight.w600,
+        color: Colors.black, fontSize: dynamicSize(0.03)),
   );
 
 
@@ -136,7 +139,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                         .data![index].serviceName!,
                                     style: TextStyle(
                                         fontSize: dynamicSize(0.05),
-                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w700,
                                         color: Colors.white
                                     ),
                                   ),
@@ -173,7 +177,10 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                       Icon( (DataControllers.to.shortServiceResponse.value.data!
                                           .data![index].addedInMyCart == null) ? Icons.add : Icons.done,color: Colors.white,),
                                       Text((DataControllers.to.shortServiceResponse.value.data!
-                                          .data![index].addedInMyCart == null) ? "Order Now ":" added ",style: TextStyle(color: Colors.white),)
+                                          .data![index].addedInMyCart == null) ? "Order Now ":" added ",style: TextStyle(
+                                          fontFamily: 'Muli',
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white),)
                                     ],
                                   ),
                                 ),
@@ -203,6 +210,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                             DataControllers.to.shortServiceResponse.value.data!
                                 .data![index].description!,
                             style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
                               fontSize: dynamicSize(0.04),
                               color: Colors.white
                             ),
@@ -674,17 +683,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                   flex: 2,
                   child: InkWell(
                     onTap: () async{
-                      await DataControllers.to.getProviderList("1", "1");
-
-                      // AIzaSyAjik5IqO62F2tGgm-9uTnbQoKEhJjaRlA
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => PlaceMarkerPage(),
-                      //   ),
-                      // );
-              //        23.8252365,90.3686425
-              resultGeo = (await Navigator.push(
+                      await DataControllers.to.getProviderList("1", "1",Variables.currentPostion.longitude.toString(),Variables.currentPostion.latitude.toString());
+                      resultGeo = (await Navigator.push(
                         context,
                         MaterialPageRoute<GeocodingResult>(
                           builder: (cx) {
@@ -708,108 +708,11 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           },
                         ),
                       ))!;
-
-
-              if(resultGeo != null){
+                      if(resultGeo != null){
                 print('resultGeo');
                 Navigator.push(context, MaterialPageRoute(builder: (cp) => MapPage(result: resultGeo,)),);
               }
 
-
-
-
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => PlacePicker(
-                      //       apiKey:'AIzaSyAjik5IqO62F2tGgm-9uTnbQoKEhJjaRlA' ,   // Put YOUR OWN KEY here.
-                      //       selectInitialPosition: true,
-                      //       onPlacePicked: (result) {
-                      //         print(result.formattedAddress);
-                      //         Navigator.of(context).pop();
-                      //       },
-                      //       initialPosition: kInitialPosition,
-                      //       useCurrentLocation: true,
-                      //     ),
-                      //   ),
-                      // );
-
-
-
-                      // late PickResult selectedPlace;
-                      // Navigator.push(context, MaterialPageRoute(
-                      //     builder: (context) {
-                      //       return PlacePicker(
-                      //         apiKey: "MjY5MzpHMEVBUExBNVM5",
-                      //         initialPosition: LatLng(23.8567844, 90.213108),
-                      //         useCurrentLocation: true,
-                      //         selectInitialPosition: true,
-                      //         usePinPointingSearch: true,
-                      //           usePlaceDetailSearch: true,
-                      //         onPlacePicked: (result) {
-                      //           selectedPlace = result;
-                      //           //  Navigator.of(context).pop();
-                      //           setState(() {
-                      //             selectedPlace = result;
-                      //           });
-                      //         },
-                      //
-                      //         automaticallyImplyAppBarLeading: false,
-                      //         selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
-                      //           if (kDebugMode) {
-                      //             print("state: $state, isSearchBarFocused: $isSearchBarFocused");
-                      //           }
-                      //           return isSearchBarFocused
-                      //               ? Container()
-                      //               : FloatingCard(
-                      //             bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
-                      //             leftPosition: 0.0,
-                      //             rightPosition: 0.0,
-                      //             width: 500,
-                      //
-                      //             borderRadius: BorderRadius.circular(12.0),
-                      //             child: state == SearchingState.Searching
-                      //                 ? const Center(child: CircularProgressIndicator())
-                      //                 : Padding(
-                      //               padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 20),
-                      //               child: SizedBox(
-                      //                 height: dynamicSize(0.15),
-                      //                 width: MediaQuery.of(context).size.width/2,
-                      //                 child: Container(
-                      //                   //margin: EdgeInsets.only(bottom: 5),
-                      //                   padding: const EdgeInsets.only(left: 5, right: 5, bottom:10),
-                      //                   child: RaisedButton(
-                      //                     elevation: 10,
-                      //                     shape: RoundedRectangleBorder(
-                      //                       borderRadius: BorderRadius.circular(10),
-                      //                     ),
-                      //                     onPressed: () async{
-                      //
-                      //                       Navigator.of(context).pop();
-                      //                       // print("placeucode: "+selectedPlace.toString());
-                      //                       // print("placeucode: "+selectedPlace!.latitude.toString());
-                      //                       // print("placeucode: "+selectedPlace.longitude.toString());
-                      //                       // print("placeucode: "+selectedPlace.area.toString());
-                      //
-                      //                       Navigator.push(context, MaterialPageRoute(builder: (context) => MapPage(result: selectedPlace)),);
-                      //
-                      //                     },
-                      //                     //padding: EdgeInsets.all(10.0),
-                      //                     color: AllColor.pink_button,
-                      //                     textColor: Colors.white,
-                      //                     child: Text(
-                      //                       "Search Service Provider around You",
-                      //                       style: TextStyle(fontSize: dynamicSize(0.05)),
-                      //                     ),
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           );
-                      //         },
-                      //       );
-                      //     },
-                      //   ),);
                     },
                     child: Container(
                       decoration: const BoxDecoration(

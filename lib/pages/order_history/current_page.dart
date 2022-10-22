@@ -64,7 +64,10 @@ class _CurrentPageState extends State<CurrentPage> {
                                   padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "Package",
-                                    style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.04)),
+                                    style: TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black45,fontSize: dynamicSize(0.04)),
                           ),
                                 ),
                               ),
@@ -72,7 +75,10 @@ class _CurrentPageState extends State<CurrentPage> {
                                 padding: const EdgeInsets.all(7.0),
                                 child: Text(
                                   "07 days service",
-                                  style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.045),fontWeight: FontWeight.bold),
+                                  style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.045),
+                                    fontFamily: 'Muli',
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
                               ),
                               Padding(
@@ -81,7 +87,8 @@ class _CurrentPageState extends State<CurrentPage> {
                                   "",
                                   style: TextStyle(
                                       fontSize: dynamicSize(0.045),
-                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Muli',
+                                      fontWeight: FontWeight.w600,
                                       color: Colors.green),
                                 ),
                               ),
@@ -104,8 +111,10 @@ class _CurrentPageState extends State<CurrentPage> {
                                   child: Text(
                                     "Dementia Care for Adult",
                                     style: TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w700,
                                         fontSize: dynamicSize(0.05),
-                                        fontWeight: FontWeight.bold),
+                                       ),
                                   ),
                                 ),
                               ],
@@ -129,6 +138,8 @@ class _CurrentPageState extends State<CurrentPage> {
                                     child: Text(
                                       "09 JAN, 2021",
                                       style: TextStyle(
+                                          fontFamily: 'Muli',
+                                          fontWeight: FontWeight.w600,
                                           color: Colors.black,
                                           fontSize: dynamicSize(0.035)),
                                     ),
@@ -147,6 +158,8 @@ class _CurrentPageState extends State<CurrentPage> {
                                           Text(
                                             "3.5/5 (avg.)",
                                             style: TextStyle(
+                                                fontFamily: 'Muli',
+                                                fontWeight: FontWeight.w600,
                                                 fontSize: dynamicSize(0.03),
                                                 color: Colors.black),
                                           ),
@@ -160,7 +173,10 @@ class _CurrentPageState extends State<CurrentPage> {
                             orderAcceped? RaisedButton(
                                 color: Colors.green,
                                 elevation: 0,
-                                child: new Text('Renew',style: TextStyle(color: Colors.white,fontSize: 18),),
+                                child: new Text('Renew',style: TextStyle(
+                                    fontFamily: 'Muli',
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,fontSize: 18),),
                                 onPressed: (){}
 
                             ):
@@ -177,7 +193,10 @@ class _CurrentPageState extends State<CurrentPage> {
                                 RaisedButton(
                                   color: AllColor.button_color,
                                     elevation: 0,
-                                    child: new Text('Details',style: TextStyle(color: Colors.white,fontSize: 18),),
+                                    child: new Text('Details',style: TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,fontSize: 18),),
                                     onPressed: (){
                                     setState(() async{
                                       orderAcceped = true;
@@ -213,6 +232,8 @@ class _CurrentPageState extends State<CurrentPage> {
                                       child: Text(
                                         "Reordering now will ensure continuation of this service with the same Provider.",
                                         style: TextStyle(
+                                            fontFamily: 'Muli',
+                                            fontWeight: FontWeight.w600,
                                             fontSize: dynamicSize(0.04),color: AllColor.blackOrange
                                             ),
                                       ),
@@ -271,7 +292,10 @@ class _CurrentPageState extends State<CurrentPage> {
                                   padding: const EdgeInsets.all(7.0),
                                   child: Text(
                                     "Package",
-                                    style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.04)),
+                                    style: TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black45,fontSize: dynamicSize(0.04)),
                                   ),
                                 ),
                               ),
@@ -281,11 +305,13 @@ class _CurrentPageState extends State<CurrentPage> {
                                   children: [
                                     Text(
                                       "01/",
-                                      style: TextStyle(color: Colors.blue,fontSize: dynamicSize(0.045),fontWeight: FontWeight.bold),
+                                      style: TextStyle(color: Colors.blue,fontSize: dynamicSize(0.045),fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w700,),
                                     ),
                                     Text(
                                       "31 days service",
-                                      style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.045),fontWeight: FontWeight.bold),
+                                      style: TextStyle(color: Colors.black45,fontSize: dynamicSize(0.045),fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w700,),
                                     ),
                                   ],
                                 ),
@@ -296,7 +322,8 @@ class _CurrentPageState extends State<CurrentPage> {
                                   "",
                                   style: TextStyle(
                                       fontSize: dynamicSize(0.045),
-                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Muli',
+                                      fontWeight: FontWeight.w600,
                                       color: Colors.green),
                                 ),
                               ),
@@ -319,8 +346,10 @@ class _CurrentPageState extends State<CurrentPage> {
                                   child: Text(
                                     "Dementia Care for Adult",
                                     style: TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontWeight: FontWeight.w700,
                                         fontSize: dynamicSize(0.05),
-                                        fontWeight: FontWeight.bold),
+                                       ),
                                   ),
                                 ),
                               ],
@@ -343,6 +372,8 @@ class _CurrentPageState extends State<CurrentPage> {
                                 child: Text(
                                   "09 JAN, 2021",
                                   style: TextStyle(
+                                      fontFamily: 'Muli',
+                                      fontWeight: FontWeight.w600,
                                       color: Colors.black,
                                       fontSize: dynamicSize(0.035)),
                                 ),
@@ -359,6 +390,8 @@ class _CurrentPageState extends State<CurrentPage> {
                                         Text(
                                           "3.5/5",
                                           style: TextStyle(
+                                              fontFamily: 'Muli',
+                                              fontWeight: FontWeight.w600,
                                               fontSize: dynamicSize(0.03),
                                               color: Colors.black),
                                         ),
@@ -367,11 +400,15 @@ class _CurrentPageState extends State<CurrentPage> {
                             RaisedButton(
                                 color: AllColor.button_color,
                                 elevation: 0,
-                                child: new Text('Details',style: TextStyle(color: Colors.white,fontSize: 18),),
+                                child: new Text('Details',style: TextStyle(
+                                    fontFamily: 'Muli',
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,fontSize: 18),),
                                 onPressed: (){
                                   setState(() async{
                                     orderAcceped = true;
-                                    await DataControllers.to.getProviderList("1", "1");
+
+                                    await DataControllers.to.getProviderList("1", "1","","");
 
                                     Navigator.of(context)
                                         .push(

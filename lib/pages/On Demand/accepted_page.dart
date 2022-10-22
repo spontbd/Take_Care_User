@@ -35,7 +35,7 @@ class _AcceptedPageState extends State<AcceptedPage> {
             child: Column(
               children: [
                 SizedBox(
-                  height: dynamicSize(0.6),
+                  height: dynamicSize(0.2),
                 ),
                 Row(
                   // crossAxisAlignment:CrossAxisAlignment.end,
@@ -54,8 +54,14 @@ class _AcceptedPageState extends State<AcceptedPage> {
                 SizedBox(
                   height: dynamicSize(0.1),
                 ),
-                Text("Leya Ajanta Mondol",style: TextStyle(fontSize: dynamicSize(0.06),color: Colors.white),),
-                Text("is on the way to accept the service. ",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.white),),
+                Text("Leya Ajanta Mondol",style: TextStyle(
+                    fontFamily: 'Muli',
+                    fontWeight: FontWeight.w600,
+                    fontSize: dynamicSize(0.06),color: Colors.white),),
+                Text("is on the way to accept the service. ",style: TextStyle(
+                    fontFamily: 'Muli',
+                    fontWeight: FontWeight.w600,
+                    fontSize: dynamicSize(0.05),color: Colors.white),),
               
               ],
             ),

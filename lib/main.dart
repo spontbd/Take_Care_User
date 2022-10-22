@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,18 @@ import 'controller/data_controller.dart';
 import 'controllers/DataContollers.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+class PostHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(context)
+  {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
+
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async{
   ///Onclick listener
-  //NotificationService.display(message);
+  NotificationService.display(message);
 }
 
 void main() async{
@@ -27,6 +37,7 @@ void main() async{
 
   /// Set Device orientation
   AllColor.portraitMood;
+  HttpOverrides.global = new PostHttpOverrides();
   runApp(const MyApp());
 }
 

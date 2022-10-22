@@ -158,10 +158,10 @@ class DataControllers extends GetxController {
    *    Post Request
    */
 
-  Future getProviderList(String status, String available) async {
+  Future getProviderList(String status, String available,String longitude,String lattitude) async {
     isLoading(true);
     getAvailableProviderList = AvailableProviderResponse().obs;
-    var response = await ApiService.getAvailableProviderList(status, available);
+    var response = await ApiService.getAvailableProviderList(status, available,longitude,lattitude);
 
     if (response != null) {
       getAvailableProviderList.value = response;

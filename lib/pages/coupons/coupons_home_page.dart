@@ -21,7 +21,10 @@ class _CouponsHomePageState extends State<CouponsHomePage> {
         appBar: AppBar(
           title: Text(
             "Coupons",
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(
+                fontFamily: 'Muli',
+                fontWeight: FontWeight.w600,
+                color: Colors.black),
           ),
           leading: IconButton(
             onPressed: () {

@@ -71,7 +71,10 @@ class _LovedFormPageState extends State<LovedFormPage> {
           elevation: 0,
           title: Text(
             "Loved One's",
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(
+                fontFamily: 'Muli',
+                fontWeight: FontWeight.w600,
+                color: Colors.black),
           ),
         ),
         body: SingleChildScrollView(
@@ -82,7 +85,10 @@ class _LovedFormPageState extends State<LovedFormPage> {
               children: [
                 Text(
                   "Provide few Information to \nconnect with you.",
-                  style: TextStyle(fontSize: dynamicSize(0.06)),
+                  style: TextStyle(
+                      fontFamily: 'Muli',
+                      fontWeight: FontWeight.w600,
+                      fontSize: dynamicSize(0.06)),
                 ),
                 SizedBox(
                   height: dynamicSize(0.12),
@@ -96,7 +102,10 @@ class _LovedFormPageState extends State<LovedFormPage> {
                         border: OutlineInputBorder(),
                         labelText: 'Name*',
                         hintStyle:
-                        TextStyle(fontSize: dynamicSize(0.04))),
+                        TextStyle(
+                            fontFamily: 'Muli',
+                            fontWeight: FontWeight.w600,
+                            fontSize: dynamicSize(0.04))),
                   ),
                 ),
 
@@ -112,7 +121,10 @@ class _LovedFormPageState extends State<LovedFormPage> {
                         border: OutlineInputBorder(),
                         labelText: 'Mobile Number*',
                         hintStyle:
-                        TextStyle(fontSize: dynamicSize(0.04))),
+                        TextStyle(
+                            fontFamily: 'Muli',
+                            fontWeight: FontWeight.w600,
+                            fontSize: dynamicSize(0.04))),
                   ),
                 ),
                 SizedBox(
@@ -122,7 +134,10 @@ class _LovedFormPageState extends State<LovedFormPage> {
                   children: [
                     Expanded(
                         flex: 2,
-                        child: Text("Seeker's Age",style: TextStyle(fontSize: dynamicSize(0.04)),)),
+                        child: Text("Seeker's Age",style: TextStyle(
+                            fontFamily: 'Muli',
+                            fontWeight: FontWeight.w600,
+                            fontSize: dynamicSize(0.04)),)),
                     Expanded(
                       flex: 4,
                       child: SizedBox(
@@ -134,7 +149,10 @@ class _LovedFormPageState extends State<LovedFormPage> {
                                 border: OutlineInputBorder(),
                                 labelText: 'Age*',
                                 hintStyle:
-                                TextStyle(fontSize: dynamicSize(0.04))),
+                                TextStyle(
+                                    fontFamily: 'Muli',
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: dynamicSize(0.04))),
                           ),
                       ),
                     ),
@@ -169,6 +187,8 @@ class _LovedFormPageState extends State<LovedFormPage> {
                             item,
                             maxLines: 1,
                             style: TextStyle(
+                                fontFamily: 'Muli',
+                                fontWeight: FontWeight.w600,
                                 fontSize: size.width * .04,
                                 color:
                                 item == DataControllers.to.gender.value
@@ -191,7 +211,10 @@ class _LovedFormPageState extends State<LovedFormPage> {
                         border: OutlineInputBorder(),
                         labelText: 'Relation*',
                         hintStyle:
-                        TextStyle(fontSize: dynamicSize(0.04))),
+                        TextStyle(
+                            fontFamily: 'Muli',
+                            fontWeight: FontWeight.w600,
+                            fontSize: dynamicSize(0.04))),
                   ),
                 ),
               ],
@@ -217,7 +240,10 @@ class _LovedFormPageState extends State<LovedFormPage> {
                 height: dynamicSize(0.15),
                 child: Text(
                   widget.edit ? 'Edit': "Add",
-                  style: TextStyle(fontSize: dynamicSize(0.05), color: Colors.white),
+                  style: TextStyle(
+                      fontFamily: 'Muli',
+                      fontWeight: FontWeight.w600,
+                      fontSize: dynamicSize(0.05), color: Colors.white),
                 ),
               ),
             ),

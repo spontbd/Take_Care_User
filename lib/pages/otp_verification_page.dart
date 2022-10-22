@@ -61,6 +61,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 child: Text(
                   'Enter 6 digit code that ',
                   style: TextStyle(
+                    fontFamily: 'Muli',
+                    fontWeight: FontWeight.w600,
                     fontSize: dynamicSize(0.07),
                     color: Colors.black,
                   ),
@@ -76,6 +78,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     child: Text(
                       'sent you in',
                       style: TextStyle(
+                        fontFamily: 'Muli',
+                        fontWeight: FontWeight.w600,
                         fontSize: dynamicSize(0.07),
                         color: Colors.black,
                       ),
@@ -88,7 +92,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       DataControllers.to.phoneNumber.value.text,
                       style: TextStyle(
                           color: Colors.red,
-                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Muli',
+                          fontWeight: FontWeight.w700,
                           fontSize: 23),
 
                     )
@@ -107,7 +112,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       "",
                       style: TextStyle(
                           color: Colors.blue,
-                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Muli',
+                          fontWeight: FontWeight.w700,
                           fontSize: dynamicSize(0.07)),
                     )),
               ),
@@ -120,7 +126,10 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
 
                   lineHeight: 0,
                   bgColorBuilder: FixedColorBuilder(Colors.green.withOpacity(0.3)) ,
-                  textStyle: TextStyle(fontSize: 20, color: Colors.black),
+                  textStyle: TextStyle(
+                      fontFamily: 'Muli',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20, color: Colors.black),
                   colorBuilder: FixedColorBuilder(Colors.green.withOpacity(0.3)),
                 ),
                 onCodeSubmitted: (code) {},
@@ -129,7 +138,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   if(completedPin.length == 6)
                     {
                       await DataControllers.to.postVerifyOTP(DataControllers.to.phoneNumber.value.text,completedPin);
-
                       Fluttertoast.showToast(
                           msg: DataControllers.to.userLoginResponse.value.message!,
                           toastLength: Toast.LENGTH_SHORT,
@@ -150,7 +158,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               ),
             ),
             Timers( callback: (){
-              //Navigator.pop(context);
+              Navigator.pop(context);
             },),
          /*   Spacer(),
             SizedBox(
