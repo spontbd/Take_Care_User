@@ -1,14 +1,16 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
 import 'package:takecare_user/model/AvailableProviderResponse.dart';
+import 'package:takecare_user/model/provider/provider_data.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
 
 class ProviderProfilePage extends StatefulWidget {
-  Providerdata providerdata;
+  ProviderData providerdata;
    ProviderProfilePage({Key? key,required this.providerdata}) : super(key: key);
 
   @override
@@ -106,7 +108,21 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                                   image: AssetImage("assets/images/baby.png"),
                                 ),
                               ),
+                              child:  ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(30)),
+                                child: CachedNetworkImage(
+                                  height: 110,
+                                  width: 100,
+                                  fit: BoxFit.cover,
+                                  imageUrl:
+                                  '${widget.providerdata.profilePhoto}',
+
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset('assets/images/baby.png'),
+                                ),
+                              ),
                             ),
+
                             Positioned(
                               bottom: 0 ,
                               child: Container(
@@ -160,7 +176,7 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                           Row(
                             children: [
                               Text(
-                                  ("${widget.providerdata.specialityId}")),
+                                  ("${widget.providerdata.speciality}")),
                               Text(
                                   "${""}"),
                             ],
@@ -968,7 +984,7 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                                                     ),*/
                             //margin: EdgeInsets.only(bottom: 5),
                             /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
-                            child: RaisedButton(
+                            child: MaterialButton(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(10.0),
@@ -1000,7 +1016,7 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                           child: Container(
                             //margin: EdgeInsets.only(bottom: 5),
                             /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
-                            child: RaisedButton(
+                            child: MaterialButton(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(10.0),
@@ -1151,7 +1167,7 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                                                     ),*/
                             //margin: EdgeInsets.only(bottom: 5),
                             /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
-                            child: RaisedButton(
+                            child: MaterialButton(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(10.0),
@@ -1181,7 +1197,7 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                           height: dynamicSize(0.10),
                           width: MediaQuery.of(context).size.width,
                           child: Container(
-                            child: RaisedButton(
+                            child: MaterialButton(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(10.0),
@@ -1345,7 +1361,7 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                                                     ),*/
                             //margin: EdgeInsets.only(bottom: 5),
                             /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
-                            child: RaisedButton(
+                            child: MaterialButton(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(10.0),
@@ -1385,7 +1401,7 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                                                     ),*/
                             //margin: EdgeInsets.only(bottom: 5),
                             /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
-                            child: RaisedButton(
+                            child: MaterialButton(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(10.0),

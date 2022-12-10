@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:map_location_picker/map_location_picker.dart';
 import 'package:takecare_user/model/AvailableProviderResponse.dart';
+import 'package:takecare_user/model/provider/provider_data.dart';
 import 'package:takecare_user/pages/On%20Demand/map_page.dart';
 import 'package:takecare_user/public_variables/variables.dart';
 
@@ -8,7 +9,7 @@ import '../../public_variables/all_colors.dart';
 import '../../public_variables/size_config.dart';
 
 class CancelPage extends StatelessWidget {
-  final Providerdata providerInfo;
+  final ProviderData providerInfo;
 
   const CancelPage( {Key? key,required this.providerInfo}) : super(key: key);
 

@@ -15,7 +15,7 @@ class HomeButton extends StatelessWidget {
     return ButtonTheme(
       minWidth:MediaQuery.of(context).size.width/3,
       height: 50.0,
-      child: new RaisedButton(
+      child: new MaterialButton(
         elevation: 9,
         child: new Text('Sign In',style: TextStyle(color: Colors.white,fontSize: 18),),
         color: AllColor.themeColor,

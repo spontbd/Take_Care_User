@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
+import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 import 'api_service/service.dart';
@@ -30,9 +31,9 @@ void main() async{
   await Firebase.initializeApp();
   NotificationService.initialize();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  final DataController dataController = Get.put(DataController());
-  final DataControllers dataControllers = Get.put(DataControllers());
-  final LanguageController languageController = Get.put(LanguageController());
+  Get.put(DataController());
+  Get.put(DataControllers());
+  Get.put(LanguageController());
 
 
   /// Set Device orientation

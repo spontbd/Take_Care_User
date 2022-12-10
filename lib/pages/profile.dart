@@ -275,7 +275,7 @@ class _ProfileState extends State<Profile> {
                                                       .size
                                                       .width,
                                                   child: Container(
-                                                    child: RaisedButton(
+                                                    child: MaterialButton(
                                                       shape:
                                                       RoundedRectangleBorder(
                                                         borderRadius:
@@ -323,7 +323,7 @@ class _ProfileState extends State<Profile> {
                                                       .size
                                                       .width,
                                                   child: Container(
-                                                    child: RaisedButton(
+                                                    child: MaterialButton(
                                                       shape:
                                                       RoundedRectangleBorder(
                                                         borderRadius:
@@ -490,7 +490,6 @@ class _ProfileState extends State<Profile> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),

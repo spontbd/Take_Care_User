@@ -794,7 +794,7 @@ class _PastOrderDetailsScreenState extends State<PastOrderDetailsScreen> {
                           .width,
                       child: Container(
 
-                        child: RaisedButton(
+                        child: MaterialButton(
                           color: AllColor.colorGreen,
                           shape:
                           RoundedRectangleBorder(
@@ -835,7 +835,7 @@ class _PastOrderDetailsScreenState extends State<PastOrderDetailsScreen> {
                           .size
                           .width,
                       child: Container(
-                        child: RaisedButton(
+                        child: MaterialButton(
                           shape:
                           RoundedRectangleBorder(
                             borderRadius:

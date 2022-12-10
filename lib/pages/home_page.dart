@@ -4,21 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:takecare_user/api_service/ApiService.dart';
+import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
 import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
 import 'package:takecare_user/pages/coupons/coupons_home_page.dart';
 import 'package:takecare_user/pages/long_time_services/long_time_service_page.dart';
+import 'package:takecare_user/pages/menu/help.dart';
 import 'package:takecare_user/pages/menu/setting/setting.dart';
 import 'package:takecare_user/pages/profile.dart';
 import 'package:takecare_user/pages/sign_in_page.dart';
+import 'package:takecare_user/public_variables/all_colors.dart';
+import 'package:takecare_user/public_variables/notifications.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
-import '../controllers/DataContollers.dart';
-import '../public_variables/all_colors.dart';
-import '../public_variables/notifications.dart';
-import '../ui/common.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../public_variables/variables.dart';
-import '../widgets/loading_widget.dart';
+import 'package:takecare_user/public_variables/variables.dart';
+import 'package:takecare_user/ui/common.dart';
+import 'package:takecare_user/widgets/loading_widget.dart';
 import 'On Demand/accepted_page.dart';
 import 'loved_ones_page.dart';
 import 'order_history/order_history_page.dart';
@@ -51,13 +52,13 @@ class _HomePageState extends State<HomePage> {
   void getAllService() async {
     onProgressBar(true);
     try{
-      await DataControllers.to.getAllLongService("long");
-      await DataControllers.to.getAllShortService("short");
       await DataControllers.to.getAllCategories();
     }catch(e) {}
 
     try
-    {await DataControllers.to.getProviderList("1", "1","","");}catch(e){}
+    {
+      await DataControllers.to.getProviderList("1", "1","","");
+    }catch(e){}
     onProgressBar(false);
 
     //  await DataControllers.to.postUserServiceResponse(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
@@ -181,7 +182,10 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   Expanded(
                                     child: InkWell(
-                                      onTap: (){
+                                      onTap: ()async{
+                                        onProgressBar(true);
+                                        await DataControllers.to.getAllShortService("short");
+                                        onProgressBar(false);
                                         Navigator.of(context)
                                             .push(
                                             MaterialPageRoute(
@@ -266,7 +270,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: dynamicSize(0.01)),
+                                  SizedBox(width: dynamicSize(0.02)),
                                   Expanded(
                                     child: InkWell(
                                       onTap: (){
@@ -465,12 +469,15 @@ class _HomePageState extends State<HomePage> {
                                 height: dynamicSize(.55),
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: DataControllers.to.getCategoriesResponse.value.data!.length +1,
+                                  itemCount: DataControllers.to.getLongCategoriesResponse.value.data!.length +1,
                                   itemBuilder: (context, index) => Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 8.0, vertical: 10.0),
                                     child: InkWell(
-                                      onTap: () {
+                                      onTap: () async{
+                                        onProgressBar(true);
+                                        await DataControllers.to.getAllLongService("long");
+                                        onProgressBar(false);
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (_) =>
@@ -478,10 +485,10 @@ class _HomePageState extends State<HomePage> {
                                                           selectedType :
 
                                                           (DataControllers
-                                                              .to.getCategoriesResponse.value.data!.length > index) ?
+                                                              .to.getLongCategoriesResponse.value.data!.length > index) ?
                                                             DataControllers
                                                               .to
-                                                              .getCategoriesResponse
+                                                              .getLongCategoriesResponse
                                                               .value
                                                               .data![index]
                                                               .categoryName!.toString() : ""
@@ -519,7 +526,7 @@ class _HomePageState extends State<HomePage> {
                                               child:
 
                                               (DataControllers
-                                                  .to.getCategoriesResponse.value.data!.length > index)
+                                                  .to.getLongCategoriesResponse.value.data!.length > index)
                                                   ?
 
                                               ClipRRect(
@@ -528,7 +535,7 @@ class _HomePageState extends State<HomePage> {
                                                 child: CachedNetworkImage(
                                                   fit: BoxFit.fill,
                                                   imageUrl:
-                                                      "${ApiService.MainURL+DataControllers.to.getCategoriesResponse.value.data![index].serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                                      "${ApiService.MainURL+DataControllers.to.getLongCategoriesResponse.value.data![index].serviceImage! /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
                                                   errorWidget:
                                                       (context, url, error) =>
                                                           Image.asset(
@@ -577,7 +584,7 @@ class _HomePageState extends State<HomePage> {
                                             Container(
                                                 alignment:
                                                 (DataControllers
-                                                    .to.getCategoriesResponse.value.data!.length > index)
+                                                    .to.getLongCategoriesResponse.value.data!.length > index)
                                                     ?
                                                 Alignment.topLeft : Alignment.center,
                                                 margin: EdgeInsets.only(
@@ -585,7 +592,7 @@ class _HomePageState extends State<HomePage> {
                                                 child:
 
                                                 (DataControllers
-                                                    .to.getCategoriesResponse.value.data!.length > index)
+                                                    .to.getLongCategoriesResponse.value.data!.length > index)
                                                     ?
                                                 Text(
 
@@ -593,14 +600,14 @@ class _HomePageState extends State<HomePage> {
 
                                                   DataControllers
                                                           .to
-                                                          .getCategoriesResponse
+                                                          .getLongCategoriesResponse
                                                           .value
                                                           .data![index]
                                                           .categoryName!
                                                           .isNotEmpty
                                                       ? DataControllers
                                                           .to
-                                                          .getCategoriesResponse
+                                                          .getLongCategoriesResponse
                                                           .value
                                                           .data![index]
                                                           .categoryName!
@@ -623,10 +630,10 @@ class _HomePageState extends State<HomePage> {
                                                       left: 4, bottom: 5, top: 2),
                                                   child:
                                                   (DataControllers
-                                                      .to.getCategoriesResponse.value.data!.length > index)
+                                                      .to.getLongCategoriesResponse.value.data!.length > index)
                                                       ?
                                                   Text(
-                                                    "Starts from ${DataControllers.to.getCategoriesResponse.value.data![index].startPrice!.isNaN ? "0.00" : DataControllers.to.getCategoriesResponse.value.data![index].startPrice!} Tk",
+                                                    "Starts from ${DataControllers.to.getLongCategoriesResponse.value.data![index].startPrice!.isNaN ? "0.00" : DataControllers.to.getLongCategoriesResponse.value.data![index].startPrice!} Tk",
                                                     style: TextStyle(
                                                         fontSize: dynamicSize(0.035)),
                                                   ) : Text('')),
@@ -852,7 +859,7 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.only(top: 15, left: 20),
                             child:  InkWell(
                               onTap: (){
-                                Navigator.of(context).pushReplacement(
+                                Navigator.of(context).push(
                                     MaterialPageRoute(
                                         builder: (_) => LovedOnesPage(activity: Variables.homeActivity,)));
                               },
@@ -869,7 +876,7 @@ class _HomePageState extends State<HomePage> {
                                         padding: const EdgeInsets.only(left: 10.0),
                                         child: TextButton(
                                           onPressed: () {
-                                            Navigator.of(context).pushReplacement(
+                                            Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (_) => LovedOnesPage(activity: Variables.homeActivity)));
                                           },
@@ -957,30 +964,39 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 15, left: 20),
-                            child: Container(
-                                width: dynamicSize(1),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.help_outline),
-                                    Padding(
-                                        padding: const EdgeInsets.only(left: 10.0),
-                                        child: TextButton(
-                                          onPressed: () {
-                                            /* Navigator.of(context)
-                                            .pushReplacement(
-                                            MaterialPageRoute(
-                                                builder: (_) =>
-                                                    HelpPage()));*/
-                                          },
-                                          child: Text(
-                                           lc.helpCenter.value ,
-                                            style: TextStyle(
-                                                fontSize: dynamicSize(0.035),
-                                                color: Colors.black),
-                                          ),
-                                        )),
-                                  ],
-                                )),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.of(context)
+                                    .push(
+                                    MaterialPageRoute(
+                                        builder: (_) =>
+                                            HelpPage()));
+                              },
+                              child: Container(
+                                  width: dynamicSize(1),
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.help_outline),
+                                      Padding(
+                                          padding: const EdgeInsets.only(left: 10.0),
+                                          child: TextButton(
+                                            onPressed: () {
+                                               Navigator.of(context)
+                                              .push(
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      HelpPage()));
+                                            },
+                                            child: Text(
+                                             lc.helpCenter.value ,
+                                              style: TextStyle(
+                                                  fontSize: dynamicSize(0.035),
+                                                  color: Colors.black),
+                                            ),
+                                          )),
+                                    ],
+                                  )),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
@@ -1134,9 +1150,11 @@ class _HomePageState extends State<HomePage> {
     int check = int.parse(formattedDate);
     if (check > 4 && check < 12) {
       message = lc.goodMorning.value;
-    } else if (check >= 12 && check < 14) {
+    } else if (check >= 12 && check < 15) {
       message = lc.goodNoon.value;
-    } else if (check >= 14 && check <= 18) {
+    } else if (check >= 15 && check <= 17) {
+      message = lc.goodAfterNoon.value;
+    } else if (check >= 17 && check <= 19) {
       message = lc.goodEv.value;
     } else {
       message = lc.goodNight.value;

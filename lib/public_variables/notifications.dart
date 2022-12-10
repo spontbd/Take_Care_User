@@ -13,6 +13,11 @@ showToast(String mgs, [Color? color]) => Fluttertoast.showToast(
     backgroundColor: color ?? Colors.black87,
     textColor: Colors.white,
     fontSize: 16.0);
+snackBar(BuildContext context,String msg)
+{
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+
+}
 
 Center loadingWidget({double? loadingSize})=>Center(
   child: SpinKitSpinningLines(color: AllColor.themeColor, size: dynamicSize(loadingSize??0.12)),

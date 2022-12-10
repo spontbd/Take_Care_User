@@ -39,6 +39,7 @@ class LanguageController extends GetxController{
   RxString lovedOnes=''.obs;
   RxString coupons=''.obs;
   RxString helpCenter=''.obs;
+  RxString help=''.obs;
 
   RxString seeAll=''.obs;
   RxString offerNews=''.obs;
@@ -47,6 +48,7 @@ class LanguageController extends GetxController{
 
   RxString goodMorning=''.obs;
   RxString goodNoon=''.obs;
+  RxString goodAfterNoon=''.obs;
   RxString goodEv=''.obs;
   RxString goodNight=''.obs;
 
@@ -109,14 +111,16 @@ class LanguageController extends GetxController{
     lovedOnes(isEnglish.value?'Loved One\'s': 'প্রিয়জনের');
     coupons(isEnglish.value?'Coupons': 'কুপন');
     helpCenter(isEnglish.value?'Help Center': 'সাহায্য কেন্দ্র');
+    help(isEnglish.value?'Help ': 'সাহায্য ');
 
-    seeAll(isEnglish.value?'See All': 'সবগুলো দেখ');
+    seeAll(isEnglish.value?'View All': 'সবগুলো দেখুন');
     offerNews(isEnglish.value?'Offers & News': 'অফার এবং খবর');
 
 
 
     goodMorning(isEnglish.value?'Good Morning!': 'সুপ্রভাত!');
     goodNoon(isEnglish.value?'Good Noon!': 'শুভ মধ্যাহ্ন!');
+    goodAfterNoon(isEnglish.value?'Good Afternoon!': 'শুভ অপরাহ্ন!');
     goodEv(isEnglish.value?'Good Evening!': 'শুভ সন্ধ্যা!');
     goodNight(isEnglish.value?'Good Night!': 'শুভ রাত্রি!');
 

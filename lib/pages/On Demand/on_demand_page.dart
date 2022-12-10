@@ -8,17 +8,16 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_location_picker/map_location_picker.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
+import 'package:takecare_user/controllers/language_controller.dart';
 import 'package:takecare_user/model/AllServiceResponse.dart';
 import 'package:takecare_user/model/CategoriesResponse.dart';
-import 'package:takecare_user/pages/On%20Demand/PlaceMarkerPage.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:intl/intl.dart';
+import 'package:takecare_user/public_variables/all_colors.dart';
+import 'package:takecare_user/public_variables/notifications.dart';
+import 'package:takecare_user/public_variables/size_config.dart';
 import 'package:takecare_user/public_variables/variables.dart';
-import '../../controllers/language_controller.dart';
-import '../../public_variables/all_colors.dart';
-import '../../public_variables/notifications.dart';
-import '../../public_variables/size_config.dart';
-import '../../ui/common.dart';
+import 'package:takecare_user/ui/common.dart';
 import 'feedback_page.dart';
 import 'map_page.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
@@ -68,7 +67,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
     });
     _getUserLocation();
   }
-
   void showButtonDialog(BuildContext context, int index) {
     showModalBottomSheet(
         context: context,
@@ -446,10 +444,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
     setState((){
       searchData;
     });
-    if (
-        DataControllers.to.getAddCardShortServiceResponse.value.data == null
-    )
-      {
+    if (DataControllers.to.getAddCardShortServiceResponse.value.data == null) {
         setState(() {
           showBottom = false;
           addedlist = false;
@@ -472,6 +467,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
     }
 
     setState((){
+      DataControllers.to.shortServiceResponse;
       searchData;
     });
   }
@@ -550,15 +546,20 @@ class _OnDemandPageState extends State<OnDemandPage> {
 
     setState(() {});
   }
-
   void _getUserLocation() async {
     print('_getUserLocation');
+    LocationPermission permission;
+    permission = await Geolocator.requestPermission();
+
     var position = await GeolocatorPlatform.instance.getCurrentPosition();
 
     setState(() {
       Variables.currentPostion = LatLng(position.latitude, position.longitude);
 
       print('lat : ${Variables.currentPostion.latitude} \nlong ${Variables.currentPostion.longitude}');
+
+     double locationDistance =  Geolocator.distanceBetween(position.latitude, position.longitude, 23.742743, 90.418278)/1000;
+     print('distance : ${locationDistance}');
     });
   }
 
@@ -689,7 +690,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         MaterialPageRoute<GeocodingResult>(
                           builder: (cx) {
                             return MapLocationPicker(
-
+                                topCardColor: Colors.white70,
+                              bottomCardColor: Colors.pinkAccent,
                               origin:Location(lat: Variables.currentPostion.latitude , lng :  Variables.currentPostion.longitude),
                                 desiredAccuracy : LocationAccuracy.high,
                                 location :  Location(lat: Variables.currentPostion.latitude , lng :  Variables.currentPostion.longitude),
@@ -701,18 +703,18 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                     resultGeo = result;
                                     Navigator.pop(cx,resultGeo);
                                   });
-                                }
+                                }else
+                                  {
+                                    resultGeo = result!;
+                                  }
                               }
                             );
-
                           },
                         ),
                       ))!;
                       if(resultGeo != null){
-                print('resultGeo');
-                Navigator.push(context, MaterialPageRoute(builder: (cp) => MapPage(result: resultGeo,)),);
-              }
-
+                        Navigator.push(context, MaterialPageRoute(builder: (cp) => MapPage(result: resultGeo,)),);
+                      }
                     },
                     child: Container(
                       decoration: const BoxDecoration(
@@ -990,8 +992,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
           backgroundColor: Colors.white,
           elevation: 0,
         ),
-        body:
-        _searchResult.length != 0 || searchController.text.isNotEmpty ?
+        body: _searchResult.length != 0 || searchController.text.isNotEmpty ?
         ListView(
           padding: const EdgeInsets.only(top: 8,bottom: 8),
           children: List.generate(

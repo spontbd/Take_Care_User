@@ -1,19 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-// import 'package:barikoi_maps_place_picker/barikoi_maps_place_picker.dart';
-// import 'package:maplibre_gl/mapbox_gl.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:map_location_picker/map_location_picker.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
-import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/pages/forgate_pass_page.dart';
 import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/pages/sign_up_page.dart';
@@ -29,7 +23,6 @@ import '../ui/common.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
-  // static final initLatLng = LatLng(23.8567844, 90.213108);
 
   @override
   _SignInPageState createState() => _SignInPageState();
@@ -47,6 +40,8 @@ class _SignInPageState extends State<SignInPage> {
 
   /// Loading
   bool isLoading = false;
+  var userId;
+  var pass;
 
   onProgressBar(bool progress) {
     setState(() {
@@ -59,27 +54,6 @@ class _SignInPageState extends State<SignInPage> {
     sharePreferences(context);
     super.initState();
   }
-
-  @override
-  Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    return GetBuilder<DataControllers>(builder: (dataControllers) {
-      return Stack(
-        children: [
-          Scaffold(
-            /*resizeToAvoidBottomInset: false,*/
-            body: _bodyUI(size, dataControllers),
-            bottomNavigationBar: Padding(
-              padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
-              child: Container(height: 0),
-            ),
-          ),
-          isLoading ? const LoadingWidget() : Container()
-        ],
-      );
-    });
-  }
-
   Widget _bodyUI(Size size, DataControllers dataControllers) => SafeArea(
         child: GetBuilder<LanguageController>(builder: (lg) {
           return SafeArea(
@@ -149,15 +123,11 @@ class _SignInPageState extends State<SignInPage> {
                           height: dynamicSize(0.12),
                           fontSize: dynamicSize(0.045),
                           onToggleCallback: (v) async {
-
-
-                            if
-                            (signIn) {
+                            if (signIn) {
                               Get.to(SignUpPage());
                               setState(() {
                                 signIn = true;
                               });
-
                             } else {
                               setState(() {
                                 signIn = true;
@@ -176,7 +146,6 @@ class _SignInPageState extends State<SignInPage> {
           );
         }),
       );
-
   Widget _loginWidget(Size size, LanguageController lng) => Stack(
         clipBehavior: Clip.none,
         alignment: Alignment.center,
@@ -211,7 +180,9 @@ class _SignInPageState extends State<SignInPage> {
                   SizedBox(height: dynamicSize(0.1)),
                   TextFieldBuilder(
                       controller: _mobileNumber,
-                      hintText: lng.mobileNumber.value),
+                      hintText: lng.mobileNumber.value,
+                      textInputType: TextInputType.number,
+                  ),
                   SizedBox(height: dynamicSize(0.02)),
                   Padding(
                     padding:
@@ -273,7 +244,6 @@ class _SignInPageState extends State<SignInPage> {
           )
         ],
       );
-
   Widget _signUpWidget(Size size) => Container(
         width: dynamicSize(1),
         //height: dynamicSize(0.65),
@@ -387,7 +357,6 @@ class _SignInPageState extends State<SignInPage> {
           ],
         ),
       );
-
   void _getImage() async {
     final ImagePicker _picker = ImagePicker();
     var image = await _picker.pickImage(source: ImageSource.gallery);
@@ -404,11 +373,6 @@ class _SignInPageState extends State<SignInPage> {
       showToast('Image not selected');
     }
   }
-
-  var userId;
-
-  var pass;
-
   void sharePreferences(BuildContext context) async {
     await Common.init();
 
@@ -426,7 +390,6 @@ class _SignInPageState extends State<SignInPage> {
       }
     } catch (e) {}
   }
-
   void loginClass(String user, String pass) async {
     onProgressBar(true);
 
@@ -436,25 +399,43 @@ class _SignInPageState extends State<SignInPage> {
       onProgressBar(false);
       //  isLoading = false;
     }
-    if (DataControllers.to.userLoginResponse.value.success == true)
-    {
-      onProgressBar(false);
+    if (DataControllers.to.userLoginResponse.value.success == true) {
       // isLoading = false;
       // Get.offAll(HomePage());
 
       bearerToken = "Bearer " +
           DataControllers.to.userLoginResponse.value.data!.token.toString();
 
-
       await DataControllers.to.getSlider();
       await DataControllers.to.getAllCategories();
       Common.storeSharedPreferences.setString('userid', user);
       Common.storeSharedPreferences.setString('pass', pass);
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
-    }else
-      {
-        onProgressBar(false);
-        showToast(DataControllers.to.userLoginResponse.value.message!);
-      }
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
+      onProgressBar(false);
+    } else {
+      onProgressBar(false);
+      showToast(DataControllers.to.userLoginResponse.value.message!);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    return GetBuilder<DataControllers>(builder: (dataControllers) {
+      return Stack(
+        children: [
+          Scaffold(
+            /*resizeToAvoidBottomInset: false,*/
+            body: _bodyUI(size, dataControllers),
+            bottomNavigationBar: Padding(
+              padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
+              child: Container(height: 0),
+            ),
+          ),
+          isLoading ? const LoadingWidget() : Container()
+        ],
+      );
+    });
   }
 }

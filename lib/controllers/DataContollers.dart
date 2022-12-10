@@ -5,24 +5,24 @@ import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:map_location_picker/map_location_picker.dart';
 import 'package:takecare_user/api_service/ApiService.dart';
 import 'package:takecare_user/model/AddCardResponse.dart';
+import 'package:takecare_user/model/AllServiceResponse.dart';
 import 'package:takecare_user/model/AvailableProviderResponse.dart';
 import 'package:takecare_user/model/CategoriesResponse.dart';
+import 'package:takecare_user/model/Erorr.dart';
+import 'package:takecare_user/model/Expertise.dart';
 import 'package:takecare_user/model/LovedOnesResponse.dart';
 import 'package:takecare_user/model/RegisterResponse.dart';
 import 'package:takecare_user/model/ResendOTPResponse.dart';
 import 'package:takecare_user/model/SaveAddressResponse.dart';
 import 'package:takecare_user/model/SliderResponse.dart';
 import 'package:takecare_user/model/UserLoginResponse.dart';
-import 'package:takecare_user/public_variables/notifications.dart';
-
-import '../model/AllServiceResponse.dart';
-import '../model/AvailableProviderResponse.dart';
-import '../model/Erorr.dart';
-import '../model/Expertise.dart';
-import '../model/ShortServiceResponse.dart';
-import '../model/UserServiceResponse.dart';
+import 'package:takecare_user/model/UserServiceResponse.dart';
+import 'package:takecare_user/model/app_response.dart';
+import 'package:takecare_user/model/provider/provider_data.dart';
+import 'package:takecare_user/model/provider/provider_response.dart';
 
 class DataControllers extends GetxController {
   static DataControllers to = Get.find();
@@ -55,6 +55,10 @@ class DataControllers extends GetxController {
   ///
   Rx<SliderResponse> sliderResponse = SliderResponse().obs;
 
+ /// Order Request
+  Rx<AppResponse> appResponse = AppResponse().obs;
+  Rx<AppResponse> newRequestResponse = AppResponse().obs;
+
 
   /// Forget password
 
@@ -73,10 +77,11 @@ class DataControllers extends GetxController {
 
   ///Categories
   Rx<CategoriesResponse> getCategoriesResponse = CategoriesResponse().obs;
+  Rx<CategoriesResponse> getLongCategoriesResponse = CategoriesResponse().obs;
 
   ///available provider
-  Rx<AvailableProviderResponse> getAvailableProviderList =
-      AvailableProviderResponse().obs;
+  Rx<AvailableProviderResponseNew> getAvailableProviderList =
+      AvailableProviderResponseNew().obs;
 
   Future getAllLongService(String type) async {
     isLoading(true);
@@ -104,7 +109,7 @@ class DataControllers extends GetxController {
     isLoading(false);
   }
 
-  Future getAllCategories() async {
+  Future getAllCategories({String? type}) async {
     isLoading(true);
 
     var response = await ApiService.fetchAllCategoriesResponse();
@@ -113,10 +118,16 @@ class DataControllers extends GetxController {
       getCategoriesResponse.value.success = response.success;
       getCategoriesResponse.value.message = response.message;
       getCategoriesResponse.value.data =[];
+
+      getCategoriesResponse.value.data!.addAll(response.data!);
+
+
+      getLongCategoriesResponse.value.data =[];
+
       response.data!.forEach((element) {
         if(element.serviceType == 'long')
           {
-            getCategoriesResponse.value.data!.add(element);
+            getLongCategoriesResponse.value.data!.add(element);
           }
       });
 
@@ -160,7 +171,7 @@ class DataControllers extends GetxController {
 
   Future getProviderList(String status, String available,String longitude,String lattitude) async {
     isLoading(true);
-    getAvailableProviderList = AvailableProviderResponse().obs;
+    getAvailableProviderList = AvailableProviderResponseNew().obs;
     var response = await ApiService.getAvailableProviderList(status, available,longitude,lattitude);
 
     if (response != null) {
@@ -237,8 +248,7 @@ class DataControllers extends GetxController {
 
 
 
-  Future forgetPassConfirmMethod(
-      String number, String otp, String newPass) async {
+  Future forgetPassConfirmMethod(String number, String otp, String newPass) async {
     isLoading(true);
     var response = await ApiService.forgetPassConfirm(number, otp, newPass);
 
@@ -286,9 +296,7 @@ class DataControllers extends GetxController {
   }
 
   Future editFavAddress(String id, String name, String age, String contact_no,
-   String relationship,
-
-      String gender) async {
+   String relationship, String gender) async {
     isLoading(true);
     var response = await ApiService.editFavAddress(id, name, age, contact_no, gender, relationship);
 
@@ -476,4 +484,49 @@ class DataControllers extends GetxController {
     }
     isLoading(false);
   }
+
+  //Order List
+
+  Future newRequest( ProviderData providerData,GeocodingResult result) async {
+    isLoading(true);
+    var response = await ApiService.newRequest(providerData : providerData,result: result);
+
+    if (response != null) {
+      newRequestResponse.value = response;
+      // responseSuccess(true);
+    }
+
+    isLoading(false);
+    return newRequestResponse.value;
+  }
+
+
+  Future pleaceOrder(String request_number, ProviderData providerData,GeocodingResult result) async {
+    isLoading(true);
+    var response = await ApiService.placeOrder(request_number,providerData : providerData,result: result);
+
+    if (response != null) {
+      appResponse.value = response;
+      // responseSuccess(true);
+    }
+
+    isLoading(false);
+    return appResponse.value;
+  }
+
+
+  Future providerOrder( String id) async {
+    isLoading(true);
+    var response = await ApiService.providerOrder(id);
+
+    if (response != null) {
+      addServiceResponse.value = response;
+      // responseSuccess(true);
+    }
+
+    isLoading(false);
+    return addServiceResponse.value;
+  }
+
+
 }

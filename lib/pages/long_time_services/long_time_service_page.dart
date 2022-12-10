@@ -53,7 +53,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
   void initState() {
     super.initState();
     setState((){
-      _isChecked = List<bool>.filled(DataControllers.to.getCategoriesResponse.value.data!.length, false);
+      _isChecked = List<bool>.filled(DataControllers.to.getLongCategoriesResponse.value.data!.length, false);
     });
     showBottom = false;
     result = [];
@@ -131,7 +131,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
 
     setState(() {});
   }
-  void showButtonDialog(BuildContext context, int index) {
+  void showButtonDialog(BuildContext context,AllServiceData service) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
@@ -181,7 +181,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                 width: 120,
                                 height: 110,
                                 imageUrl:
-                                "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                "https://takecare.ltd/${service.imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
                                 errorWidget: (context, url, error) => Image.asset(
                                   "assets/images/image.png",
                                 ),
@@ -196,8 +196,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0, top: 30),
                                   child: Text(
-                                    DataControllers.to.shortServiceResponse.value.data!
-                                        .data![index].serviceName!,
+                                    service.serviceName!,
                                     style: TextStyle(
                                         fontSize: dynamicSize(0.05),
                                         fontWeight: FontWeight.bold,
@@ -211,7 +210,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                           InkWell(
                             onTap: () async {
                               Navigator.pop(context);
-                              addCard(index);
+                              addCard(service);
                             },
                             child: Container(
                               height: dynamicSize(0.09),
@@ -233,8 +232,8 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                   padding: const EdgeInsets.only(left: 2.0,),
                                   child: Row(
                                     children: [
-                                      Icon( (searchData[index].addedInMyCart == null) ?  Icons.add : Icons.done,color: Colors.white,),
-                                      Text((searchData[index].addedInMyCart == null) ? "Order Now " : " added ",style: TextStyle(color: Colors.white),)
+                                      Icon( (service.addedInMyCart == null) ?  Icons.add : Icons.done,color: Colors.white,),
+                                      Text((service.addedInMyCart == null) ? "Order Now " : " added ",style: TextStyle(color: Colors.white),)
                                     ],
                                   ),
                                 ),
@@ -261,8 +260,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                         padding: const EdgeInsets.only(left: 8.0, top: 15),
                         child: SingleChildScrollView(
                           child: Text(
-                            DataControllers.to.shortServiceResponse.value.data!
-                                .data![index].description!,
+                            service.description!,
                             style: TextStyle(
                                 fontSize: dynamicSize(0.04),
                                 color: Colors.white
@@ -391,7 +389,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
     dataResponse = [];
     result = [];
     // DataControllers.to.getCategoriesResponse.value.data!.forEach((element) => _setData(element)).toList();
-    DataControllers.to.getCategoriesResponse.value.data!.forEach((element) {
+    DataControllers.to.getLongCategoriesResponse.value.data!.forEach((element) {
       if(element.serviceType == "long"){
         dataResponse.add(element);
       }
@@ -421,10 +419,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                             Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.07),fontWeight: FontWeight.bold),),
                             InkWell(
                                 onTap: (){
-                                  setSt((){_isChecked = List<bool>.filled(DataControllers.to.getCategoriesResponse.value.data!.length, false);});
-
-
-
+                                  setSt((){_isChecked = List<bool>.filled(DataControllers.to.getLongCategoriesResponse.value.data!.length, false);});
                                   setState((){
                                     searchData = [];
                                     result = [];
@@ -529,15 +524,14 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
       getAddCardData();
     }
   }
-  void addCard(int index) async {
+  void addCard(AllServiceData addedService) async {
 
     var now = new DateTime.now();
     var formatter = new DateFormat('yyyy-MM-dd');
     String formattedDate = formatter.format(now);
 
     await DataControllers.to.addCard(
-        DataControllers.to.longServiceResponse
-            .value.data!.data![index].id
+        addedService.id
             .toString(),
         formattedDate);
 
@@ -1166,7 +1160,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  showButtonDialog(context, index);
+                                  showButtonDialog(context, _searchResult[index] );
                                 },
                                 child: Text(
                                   "Details",
@@ -1186,7 +1180,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                     right: 0.0,
                     child: InkWell(
                         onTap: () {
-                          addCard(index);
+                          addCard(_searchResult[index]);
                         },
                         child: Container(
                           height: dynamicSize(0.10),
@@ -1288,7 +1282,8 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  showButtonDialog(context, index);
+                                  showButtonDialog(context, (searchValue != true) ? DataControllers.to.longServiceResponse.value.data!.data![index]
+                                      : searchData[index]);
                                 },
                                 child: Text(
                                   "Details",
@@ -1308,7 +1303,8 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                     right: 0.0,
                     child: InkWell(
                         onTap: () {
-                          addCard(index);
+                          addCard((searchValue != true) ? DataControllers.to.longServiceResponse.value.data!.data![index]
+                              : searchData[index]);
                         },
                         child: Container(
                           height: dynamicSize(0.10),

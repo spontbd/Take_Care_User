@@ -133,7 +133,7 @@ class _PastPageState extends State<PastPage> {
                                 ),
                               ),
                             ),
-                            RaisedButton(
+                            MaterialButton(
                                 color: AllColor.themeColor,
                                 elevation: 0,
                                 child: new Text('Unpaid',style: TextStyle(color: Colors.white,fontSize: 18),),
@@ -246,7 +246,7 @@ class _PastPageState extends State<PastPage> {
                             TextButton(onPressed: (){}, child: Text("Submit Review",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.blue),)),
 
                             if(unpaid)
-                            RaisedButton(
+                            MaterialButton(
                                 color:AllColor.themeColor,
                                 elevation: 0,
                                 child: new Text('Unpaid',style: TextStyle(color: Colors.white,fontSize: 18),),
@@ -434,7 +434,7 @@ class _PastPageState extends State<PastPage> {
                                   ],
                                 )),
                             if(unpaid)
-                              RaisedButton(
+                              MaterialButton(
                                   color: AllColor.themeColor,
                                   elevation: 0,
                                   child: new Text('Unpaid',style: TextStyle(color: Colors.white,fontSize: 18),),
@@ -582,7 +582,7 @@ class _PastPageState extends State<PastPage> {
                                   ],
                                 )),
                             if(unpaid)
-                              RaisedButton(
+                              MaterialButton(
                                 color: AllColor.themeColor,
                                 elevation: 0,
                                 child: new Text('Unpaid',style: TextStyle(color: Colors.white,fontSize: 18),),

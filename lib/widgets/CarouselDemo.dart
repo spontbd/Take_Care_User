@@ -21,7 +21,7 @@ class CarouselDemo extends StatelessWidget {
             initialPage: 2,
           ),
         ),
-        RaisedButton(
+        MaterialButton(
           onPressed: () => buttonCarouselController.nextPage(
               duration: Duration(milliseconds: 300), curve: Curves.linear),
           child: Text('→'),

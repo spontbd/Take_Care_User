@@ -7,15 +7,15 @@ import 'package:map_location_picker/map_location_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:takecare_user/model/AvailableProviderResponse.dart';
+import 'package:takecare_user/model/provider/provider_data.dart';
 import 'package:takecare_user/pages/On%20Demand/request_page.dart';
+import 'package:takecare_user/pages/home_page.dart';
 import 'package:uuid/uuid.dart';
 import '../controllers/DataContollers.dart';
 import '../pages/On Demand/accepted_page.dart';
 import '../pages/On Demand/confirm_order_page.dart';
 import '../public_variables/notifications.dart';
 import '../public_variables/variables.dart';
-
 
 class DataController extends GetxController{
   static DataController dc =Get.find();
@@ -101,7 +101,7 @@ class DataController extends GetxController{
   }
 
 
-  Future<void> createRequest(Providerdata providerData,GeocodingResult result, int requestIndex) async{
+  Future<void> createRequest(ProviderData providerData,GeocodingResult result, int requestIndex, String? invoiceNumber, String? orderId) async{
     try{
       loading(true);update();
       QuerySnapshot receiverShot = await FirebaseFirestore.instance.collection('request')
@@ -121,7 +121,7 @@ class DataController extends GetxController{
         loading(false);update();
         showToast('Provider busy now! Try again');
       } else if(receiverList.isEmpty && senderList.isEmpty){
-        saveData(providerData, result, requestIndex);
+        saveData(providerData, result, requestIndex,invoiceNumber!,orderId!);
       }else{
         loading(false);update();
         showToast('Something went wrong! Try again');
@@ -135,7 +135,7 @@ class DataController extends GetxController{
     }
   }
 
-  Future<void> saveData(Providerdata providerData,GeocodingResult result, int requestIndex)async{
+  Future<void> saveData(ProviderData providerData,GeocodingResult result, int requestIndex,String invoiceNumber,String orderId)async{
     var uuid = const Uuid();
     final String id = uuid.v1();
     await FirebaseFirestore.instance.collection('request').doc(id).set({
@@ -147,6 +147,10 @@ class DataController extends GetxController{
       'lat': result.geometry.location.lat,
       'lng': result.geometry.location.lng,
       'booking_address': result.formattedAddress,
+      'invoiceNumber': invoiceNumber,
+      'provider_id': providerData.id,
+      'seeker_id': DataControllers.to.userLoginResponse.value.data!.user!.id,
+      'order_id': orderId,
       'order_note': '',
       'engage_start_time': DateTime.now().millisecondsSinceEpoch,
       'engage_end_time': null,
@@ -227,7 +231,7 @@ class DataController extends GetxController{
           if(kDebugMode){print('Confirmation success');}
           showToast('Confirmation success');
           Navigator.of(Get.context!).pushReplacement(
-              MaterialPageRoute(builder: (_) => const ConfirmOrderPage()));
+              MaterialPageRoute(builder: (_) => const HomePage()));
         }else{
           showToast('Confirmation Failed');
           if(kDebugMode){print('Confirmation Failed!');}

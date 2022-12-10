@@ -4,14 +4,14 @@ import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:takecare_user/controller/data_controller.dart';
-import 'package:takecare_user/model/AvailableProviderResponse.dart';
+import 'package:takecare_user/model/provider/provider_data.dart';
 import 'package:takecare_user/pages/On%20Demand/accepted_page.dart';
 import 'package:takecare_user/pages/On%20Demand/cancel_page.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/notifications.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
+import 'package:takecare_user/public_variables/variables.dart';
 
-import '../../public_variables/variables.dart';
 
 class RequestPage extends StatefulWidget {
   const RequestPage({Key? key, required this.docId, required this.requestIndex,required this.receiverId,
@@ -21,7 +21,7 @@ class RequestPage extends StatefulWidget {
   final int requestIndex;
   final String docId;
   final String receiverId;
-  final Providerdata providerInfo;
+  final ProviderData providerInfo;
 
   @override
   _RequestPageState createState() => _RequestPageState();
@@ -106,7 +106,7 @@ class _RequestPageState extends State<RequestPage> {
                                 fontSize: dynamicSize(0.05), color: Colors.white),
                           ),
                           SizedBox(
-                            height: dynamicSize(0.8),
+                            height: dynamicSize(0.5),
                           ),
                           Text(
                             "Please wait",
@@ -121,17 +121,13 @@ class _RequestPageState extends State<RequestPage> {
                               size: 70,
                             ),
                           ),
-                        /*  Text(
-                            ". . . .",
-                            style: TextStyle(
-                                fontSize: dynamicSize(0.1), color: Colors.white),
-                          ),*/
                         ],
                       ),
                     ),
                   )),
             );
-          }else{
+          }
+          else{
             return const Center(child: Text('Error getting Data'));
           }
         }

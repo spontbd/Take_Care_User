@@ -170,7 +170,7 @@ class _CurrentPageState extends State<CurrentPage> {
                                 ],
                               ),
                             ),
-                            orderAcceped? RaisedButton(
+                            orderAcceped? MaterialButton(
                                 color: Colors.green,
                                 elevation: 0,
                                 child: new Text('Renew',style: TextStyle(
@@ -190,7 +190,7 @@ class _CurrentPageState extends State<CurrentPage> {
 
                               ),*/
                                 // SizedBox(width: dynamicSize(0.05),),
-                                RaisedButton(
+                                MaterialButton(
                                   color: AllColor.button_color,
                                     elevation: 0,
                                     child: new Text('Details',style: TextStyle(
@@ -397,7 +397,7 @@ class _CurrentPageState extends State<CurrentPage> {
                                         ),
                                       ],
                                     )),
-                            RaisedButton(
+                            MaterialButton(
                                 color: AllColor.button_color,
                                 elevation: 0,
                                 child: new Text('Details',style: TextStyle(

@@ -338,7 +338,7 @@ class AllServiceData {
   String? serviceImageThumbnail;
   String? imagePath;
   dynamic sorting;
-  String? status;
+  dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
   DateTime? bookingDate;

@@ -45,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
               title: Text(
                 languageControler.setting.value,
-                style: TextStyle(color: Colors.black, fontSize: dynamicSize(0.03)),
+                style: TextStyle(color: Colors.black, fontSize: dynamicSize(0.05)),
               ),
 
               backgroundColor: Colors.white,
@@ -54,7 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
             body: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10,top: 15 ),
+                  padding: const EdgeInsets.only(left: 10.0, right: 10,top: 15 ,bottom: 10),
                   child: Card(
                     elevation: 4,
                     shadowColor: Colors.blue,
@@ -143,7 +143,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                                   child: Container(
                                                                     //margin: EdgeInsets.only(bottom: 5),
                                                                     /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
-                                                                    child: RaisedButton(
+                                                                    child: MaterialButton(
                                                                       shape: RoundedRectangleBorder(
                                                                         borderRadius: BorderRadius.circular(5),
                                                                       ),
@@ -253,7 +253,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         Padding(
                           padding: const EdgeInsets.only(
                               top: 10,
-                              left: 10.0, right: 5),
+                              left: 10.0, right: 5,bottom: 30),
                           child: Column(
                             children: [
                               Container(
