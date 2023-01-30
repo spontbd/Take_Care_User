@@ -11,9 +11,9 @@ AvailableProviderResponseNew _$AvailableProviderResponseFromJson(
     AvailableProviderResponseNew(
       success: json['success'] as bool?,
       message: json['message'] as String?,
-      data: (json['data'] as List<dynamic>?)
-          ?.map((e) => ProviderData.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      data:   json['data'] == null
+    ? null
+            : ProviderInitData.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AvailableProviderResponseToJson(

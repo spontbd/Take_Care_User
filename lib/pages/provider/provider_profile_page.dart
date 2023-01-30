@@ -1,17 +1,20 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:takecare_user/api_service/ApiService.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
-import 'package:takecare_user/model/AvailableProviderResponse.dart';
 import 'package:takecare_user/model/provider/provider_data.dart';
-import 'package:takecare_user/pages/home_page.dart';
+import 'package:takecare_user/model/provider/user_documents.dart';
+import 'package:takecare_user/pages/PDFReaderPage.dart';
 import 'package:takecare_user/public_variables/all_colors.dart';
 import 'package:takecare_user/public_variables/size_config.dart';
+import 'package:takecare_user/widgets/image_view.dart';
+import 'package:takecare_user/widgets/video_player_page.dart';
 
 class ProviderProfilePage extends StatefulWidget {
   ProviderData providerdata;
-   ProviderProfilePage({Key? key,required this.providerdata}) : super(key: key);
+
+  ProviderProfilePage({Key? key, required this.providerdata}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -20,33 +23,33 @@ class ProviderProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProviderProfilePage> {
   late List<String> genderList;
 
-  late TextEditingController editPersonalHeight = new TextEditingController();
-  late TextEditingController editPersonalWeight = new TextEditingController();
-  late TextEditingController editPersonalNumber = new TextEditingController();
-  late TextEditingController editPersonalEmail = new TextEditingController();
+  // late TextEditingController editPersonalHeight = new TextEditingController();
+  // late TextEditingController editPersonalWeight = new TextEditingController();
+  // late TextEditingController editPersonalNumber = new TextEditingController();
+  // late TextEditingController editPersonalEmail = new TextEditingController();
+  //
+  // late TextEditingController editAcademicName = new TextEditingController();
+  // late TextEditingController editAcademicYear = new TextEditingController();
+  // late TextEditingController editAcademicSub = new TextEditingController();
+  // late TextEditingController editAcademicCGPA = new TextEditingController();
 
-  late TextEditingController editAcademicName = new TextEditingController();
-  late TextEditingController editAcademicYear = new TextEditingController();
-  late TextEditingController editAcademicSub = new TextEditingController();
-  late TextEditingController editAcademicCGPA = new TextEditingController();
-
-
-  TextEditingController et_personal_commit = TextEditingController();
-  TextEditingController et_other = TextEditingController();
-  TextEditingController et_specialty = TextEditingController();
-  TextEditingController et_past = TextEditingController();
-  TextEditingController et_year = TextEditingController();
-  TextEditingController et_license = TextEditingController();
-
-
-  late TextEditingController editLanguage = new TextEditingController();
-
-  late TextEditingController et_profile_page_language = new TextEditingController();
-  late TextEditingController et_profile_page_academic = new TextEditingController();
-  late TextEditingController et_profile_page_speciality = new TextEditingController();
-  late TextEditingController et_profile_page_other_speciality = new TextEditingController();
-  late TextEditingController et_profile_page_commitment = new TextEditingController();
-  late TextEditingController et_profile_page_old_experience = new TextEditingController();
+  //
+  // TextEditingController et_personal_commit = TextEditingController();
+  // TextEditingController et_other = TextEditingController();
+  // TextEditingController et_specialty = TextEditingController();
+  // TextEditingController et_past = TextEditingController();
+  // TextEditingController et_year = TextEditingController();
+  // TextEditingController et_license = TextEditingController();
+  //
+  //
+  // late TextEditingController editLanguage = new TextEditingController();
+  //
+  // late TextEditingController et_profile_page_language = new TextEditingController();
+  // late TextEditingController et_profile_page_academic = new TextEditingController();
+  // late TextEditingController et_profile_page_speciality = new TextEditingController();
+  // late TextEditingController et_profile_page_other_speciality = new TextEditingController();
+  // late TextEditingController et_profile_page_commitment = new TextEditingController();
+  // late TextEditingController et_profile_page_old_experience = new TextEditingController();
 
   @override
   void initState() {
@@ -74,7 +77,8 @@ class _ProfilePageState extends State<ProviderProfilePage> {
           children: [
             Stack(
               alignment: Alignment.center,
-              clipBehavior: Clip.none, children: [
+              clipBehavior: Clip.none,
+              children: [
                 Container(
                   height: dynamicSize(.2),
                   decoration: BoxDecoration(
@@ -108,23 +112,22 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                                   image: AssetImage("assets/images/baby.png"),
                                 ),
                               ),
-                              child:  ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(30)),
+                              child: ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30)),
                                 child: CachedNetworkImage(
                                   height: 110,
                                   width: 100,
                                   fit: BoxFit.cover,
                                   imageUrl:
-                                  '${widget.providerdata.profilePhoto}',
-
+                                      '${widget.providerdata.profilePhoto}',
                                   errorWidget: (context, url, error) =>
                                       Image.asset('assets/images/baby.png'),
                                 ),
                               ),
                             ),
-
                             Positioned(
-                              bottom: 0 ,
+                              bottom: 0,
                               child: Container(
                                   width: dynamicSize(0.18),
                                   //color: Colors.red,
@@ -133,7 +136,8 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                                     borderRadius: BorderRadius.circular(30),
                                   ),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
@@ -141,7 +145,7 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                                         color: Colors.orangeAccent,
                                       ),
                                       Text(
-                                        ("${DataControllers.to.userLoginResponse.value.data!.user!.status}"),
+                                        ("${widget.providerdata.provider_rating}"),
                                         style: TextStyle(
                                             fontFamily: 'Muli',
                                             fontWeight: FontWeight.w600,
@@ -160,13 +164,15 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                           ],
                         ),
                       ),
-                      SizedBox(height: dynamicSize(0.06),),
+                      SizedBox(
+                        height: dynamicSize(0.06),
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            ("${widget.providerdata.fullName}"),
+                            widget.providerdata.fullName!,
                             style: TextStyle(
                                 fontFamily: 'Muli',
                                 fontWeight: FontWeight.w600,
@@ -175,10 +181,9 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                           ),
                           Row(
                             children: [
-                              Text(
-                                  ("${widget.providerdata.speciality}")),
-                              Text(
-                                  "${""}"),
+                              Text(widget
+                                  .providerdata.speciality!.specialityName!),
+                              Text("${""}"),
                             ],
                           ),
                         ],
@@ -186,15 +191,13 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                     ],
                   ),
                 ),
-
-
               ],
             ),
             SizedBox(
               height: dynamicSize(0.4),
             ),
-
-            Container(child: Wrap(
+            Container(
+                child: Wrap(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -344,15 +347,13 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                         Positioned(
                             top: dynamicSize(0.12),
                             left: dynamicSize(0.13),
-                            child:
-                                Image.asset("assets/images/exp_icon.png")),
+                            child: Image.asset("assets/images/exp_icon.png")),
                       ],
                     ),
                   ),
                 ),
               ],
             )),
-
             SizedBox(
               height: dynamicSize(0.06),
             ),
@@ -372,106 +373,113 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                       alignment: Alignment.topLeft,
                     ),
                     Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5.0),
-                        child: Container(
-                            alignment: Alignment.topLeft,
-                            child: TextField(
-                              cursorHeight: dynamicSize(0.05),
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  //labelText: 'Enter Name',
-                                  hintText: DataControllers.to.userLoginResponse
-                                      .value.data!.user!.phone,
-                                  hintStyle: TextStyle(color: Colors.black)),
-                            )),
-                      ),
                       alignment: Alignment.topLeft,
+                      child: Text(
+                        (widget.providerdata.professionData! == null)
+                            ? 'Loading....'
+                            : widget
+                                .providerdata.professionData!.first.license_no
+                                .toString(),
+                        style: TextStyle(
+                            fontFamily: 'Muli',
+                            fontSize: dynamicSize(0.04),
+                            color: Colors.black),
+                      ),
                     ),
                     SizedBox(
-                      height: dynamicSize(0.02),
+                      height: dynamicSize(0.01),
                     ),
-
 
                     ///Academic Details
                     Container(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 5.0, top: 10),
+                        padding: const EdgeInsets.only(top: 10),
                         child: Column(
                           children: [
                             Container(
                               child: Text(
                                 "Education",
                                 style: TextStyle(
-                                    fontSize: dynamicSize(0.04), color: Colors.blue),
+                                    fontSize: dynamicSize(0.04),
+                                    color: Colors.blue),
                               ),
                               alignment: Alignment.topLeft,
                             ),
                             Container(
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 5.0),
+                                padding: const EdgeInsets.only(bottom: 10.0),
                                 child: Container(
-                                    alignment: Alignment.topLeft,
-                                    child: TextField(
-                                      // controller: et_profile_page_academic,
-                                      cursorHeight: dynamicSize(0.05),
-                                      decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          //labelText: 'Enter Name',
-                                          hintText: et_profile_page_academic.text,
-                                          hintStyle: TextStyle(color: Colors.black)),
-                                    )),
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    (widget.providerdata.academicInfo! == null)
+                                        ? 'Loading....'
+                                        : ("${widget.providerdata.academicInfo!.first.major}"),
+                                    style: TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontSize: dynamicSize(0.04),
+                                        color: Colors.black),
+                                  ),
+                                ),
                               ),
                               alignment: Alignment.topLeft,
+                            ),
+                            SizedBox(
+                              height: dynamicSize(0.01),
                             ),
                             Container(
                               child: Text(
                                 "Institution",
                                 style: TextStyle(
-                                    fontSize: dynamicSize(0.04), color: Colors.blue),
+                                    fontSize: dynamicSize(0.04),
+                                    color: Colors.blue),
                               ),
                               alignment: Alignment.topLeft,
                             ),
                             Container(
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 5.0),
+                                padding: const EdgeInsets.only(bottom: 5.0),
                                 child: Container(
-                                    alignment: Alignment.topLeft,
-                                    child: TextField(
-                                      // controller: et_profile_page_language,
-                                      cursorHeight: dynamicSize(0.05),
-                                      decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          //labelText: 'Enter Name',
-                                          hintText: et_profile_page_language.text,
-                                          hintStyle: TextStyle(color: Colors.black)),
-                                    )),
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    (widget.providerdata.academicInfo! == null)
+                                        ? ''
+                                        : ("${widget.providerdata.academicInfo!.first.institute}"),
+                                    style: TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontSize: dynamicSize(0.04),
+                                        color: Colors.black),
+                                  ),
+                                ),
                               ),
                               alignment: Alignment.topLeft,
                             ),
-
+                            SizedBox(
+                              height: dynamicSize(0.01),
+                            ),
                             Container(
                               child: Text(
                                 "Passing Year",
                                 style: TextStyle(
-                                    fontSize: dynamicSize(0.04), color: Colors.blue),
+                                    fontSize: dynamicSize(0.04),
+                                    color: Colors.blue),
                               ),
                               alignment: Alignment.topLeft,
                             ),
                             Container(
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 5.0),
+                                padding: const EdgeInsets.only(bottom: 10.0),
                                 child: Container(
-                                    alignment: Alignment.topLeft,
-                                    child: TextField(
-                                      // controller: et_profile_page_language,
-                                      cursorHeight: dynamicSize(0.05),
-                                      decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          //labelText: 'Enter Name',
-                                          hintText: et_profile_page_language.text,
-                                          hintStyle: TextStyle(color: Colors.black)),
-                                    )),
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    (widget.providerdata.academicInfo! == null)
+                                        ? ''
+                                        : ("${widget.providerdata.academicInfo!.first.passing_year}"),
+                                    style: TextStyle(
+                                        fontFamily: 'Muli',
+                                        fontSize: dynamicSize(0.04),
+                                        color: Colors.black),
+                                  ),
+                                ),
                               ),
                               alignment: Alignment.topLeft,
                             ),
@@ -479,13 +487,10 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
             ),
-
-
             //Speciality within Domain
             Container(
               color: AllColor.shado_color,
@@ -505,39 +510,26 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                       alignment: Alignment.topLeft,
                     ),
                     Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5.0),
-                        child: Container(
-                            alignment: Alignment.topLeft,
-                            child: TextField(
-                              // controller: et_profile_page_speciality,
-                              //focusNode: professional,
-                              cursorHeight: dynamicSize(0.05),
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  //labelText: 'Enter Name',
-                                  hintText: et_profile_page_speciality.text,
-                                  hintStyle: TextStyle(color: Colors.black)),
-                            )),
-                      ),
                       alignment: Alignment.topLeft,
+                      child: Text(
+                        (widget.providerdata.speciality! == null)
+                            ? 'Loading....'
+                            : ("${widget.providerdata.speciality!.specialityName!}"),
+                        style: TextStyle(
+                            fontFamily: 'Muli',
+                            fontSize: dynamicSize(0.04),
+                            color: Colors.black),
+                      ),
+                    ),
+                    SizedBox(
+                      height: dynamicSize(0.02),
                     ),
                     Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5.0),
-                        child: Container(
-                            alignment: Alignment.topLeft,
-                            child: TextField(
-                              //focusNode: professional,
-                              cursorHeight: dynamicSize(0.05),
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  //labelText: 'Enter Name',
-                                  hintText: '- Specialty 02',
-                                  hintStyle: TextStyle(color: Colors.black)),
-                            )),
-                      ),
-                      alignment: Alignment.topLeft,
+                        alignment: Alignment.topLeft,
+                        child:
+                            Text(widget.providerdata.speciality!.description!)),
+                    SizedBox(
+                      height: dynamicSize(0.02),
                     ),
                   ],
                 ),
@@ -563,22 +555,19 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                       alignment: Alignment.topLeft,
                     ),
                     Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5.0),
-                        child: Container(
-                            alignment: Alignment.topLeft,
-                            child: TextField(
-                          //    controller: et_profile_page_old_experience,
-                              //focusNode: professional,
-                              cursorHeight: dynamicSize(0.05),
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  //labelText: 'Enter Name',
-                                  hintText: et_profile_page_old_experience.text,
-                                  hintStyle: TextStyle(color: Colors.black)),
-                            )),
-                      ),
                       alignment: Alignment.topLeft,
+                      child: Text(
+                        (widget.providerdata.professionData! == null)
+                            ? 'Loading....'
+                            : ("${widget.providerdata.professionData!.first.past_experience ?? ''}"),
+                        style: TextStyle(
+                            fontFamily: 'Muli',
+                            fontSize: dynamicSize(0.04),
+                            color: Colors.black),
+                      ),
+                    ),
+                    SizedBox(
+                      height: dynamicSize(0.02),
                     ),
                   ],
                 ),
@@ -606,36 +595,24 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                       height: dynamicSize(0.01),
                     ),
                     Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5.0),
-                        child: Container(
-                            alignment: Alignment.topLeft,
-                            child: TextField(
-                            //  controller: et_profile_page_commitment,
-                              //enabled: text_enable_professional,
-                              //focusNode: professional,
-                              cursorHeight: dynamicSize(0.05),
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  //labelText: 'Enter Name',
-                                  hintText: et_profile_page_commitment.text
-                                  /* "I will do my best to make you comfortable.\n I strongly believe in ethics; as a health provider being ethical is not just a remembered value, but a strongly observed one."*/
-                                  ,
-                                  hintStyle: TextStyle(color: Colors.black)),
-                            )),
-                      ),
-
-                      /*Text(
-                        "I will do my best to make you comfortable. I strongly believe in ethics; as a health provider being ethical is not just a remembered value, but a strongly observed one.",
-                        style: TextStyle(fontSize: dynamicSize(0.04)),
-                      ),*/
                       alignment: Alignment.topLeft,
+                      child: Text(
+                        (widget.providerdata.professionData! == null)
+                            ? 'Loading....'
+                            : ("${widget.providerdata.professionData!.first.personal_commitment.toString()}"),
+                        style: TextStyle(
+                            fontFamily: 'Muli',
+                            fontSize: dynamicSize(0.04),
+                            color: Colors.black),
+                      ),
+                    ),
+                    SizedBox(
+                      height: dynamicSize(0.02),
                     ),
                   ],
                 ),
               ),
             ),
-
 
             SizedBox(
               height: dynamicSize(0.01),
@@ -660,780 +637,139 @@ class _ProfilePageState extends State<ProviderProfilePage> {
                       ),
                       alignment: Alignment.topLeft,
                     ),
+                    // if(widget.providerdata.user_documents! != null)
+
                     Container(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "NID",
-                            style: TextStyle(fontSize: dynamicSize(0.04)),
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "VIEW",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.04),
-                                  color: Colors.pink),
-                            ),
-                          )
-                        ],
-                      ),
-                      alignment: Alignment.topLeft,
-                    ),
-                    Container(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "License",
-                            style: TextStyle(fontSize: dynamicSize(0.04)),
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "VIEW",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.04),
-                                  color: Colors.pink),
-                            ),
-                          )
-                        ],
-                      ),
-                      alignment: Alignment.topLeft,
-                    ),
-                    Container(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Chairman Certificate",
-                            style: TextStyle(fontSize: dynamicSize(0.04)),
-                          ),
-                          TextButton(
-                            onPressed: () {
+                      height: 200,
+                      child: ListView.builder(
+                          itemCount: (widget.providerdata.user_documents! == null) ? 0 : widget.providerdata.user_documents!.length,
+                          itemBuilder: (context, index) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:  Container(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    widget.providerdata.user_documents![index].title.toString(),
+                                    style: TextStyle(fontSize: dynamicSize(0.04)),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+
+                                      if(widget.providerdata.user_documents![index].extension == 'pdf') {
 
 
-                            },
-                            child: Text(
-                              "VIEW",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.04),
-                                  color: Colors.pink),
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PDFReaderPage('${ApiService.MainURL}${widget.providerdata.user_documents![index].file}')
+                                          ),
+                                        );
+                                      }else if( widget.providerdata.user_documents![index].extension == 'jpg' || widget.providerdata.user_documents![index].extension == 'png')
+                                         {
+                                           Navigator.push(
+                                             context,
+                                             MaterialPageRoute(
+                                                 builder: (context) =>
+                                                     ImageView( url: '${ApiService.MainURL}${widget.providerdata.user_documents![index].file}', name: widget.providerdata.fullName.toString(),)
+                                             ),
+                                           );
+                                         }
+                                    },
+                                    child: Text(
+                                      "VIEW",
+                                      style: TextStyle(
+                                          fontSize: dynamicSize(0.04),
+                                          color: Colors.pink),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          )
-                        ],
-                      ),
-                      alignment: Alignment.topLeft,
+                          )),
                     ),
-                    SizedBox(
-                      height: dynamicSize(0.06),
-                    ),
+
                   ],
                 ),
               ),
             ),
-
           ],
         ),
       ),
     ));
   }
-/*
-  void getProfileEditableInformation() async{
-    et_profile_page_academic.text = DataControllers.to.personProfileResponse
-            .value.data!.userAcademicInfos![0].institute! +
-        " \nCompletion year : " +
-        widget.providerdata
-            .userAcademicInfos![0].passingYear!;
-    et_profile_page_language.text = DataControllers.to.personProfileResponse
-            .value.data!.languageProficiency!.isNotEmpty
-        ? widget.providerdata
-            .languageProficiency![0].languageName!
-        : "";
-    et_profile_page_licence.text = DataControllers
-            .to.personProfileResponse.value.data!.professionData!.isNotEmpty
-        ? DataControllers
-            .to.personProfileResponse.value.data!.professionData![0].licenseNo!
-        : "";
 
-    et_profile_page_experience.text = DataControllers
-            .to.personProfileResponse.value.data!.professionData!.isNotEmpty
-        ? widget.providerdata
-            .professionData![0].yearOfExperience!
-        : "";
-    et_profile_page_old_experience.text = DataControllers
-            .to.personProfileResponse.value.data!.professionData!.isNotEmpty
-        ? widget.providerdata
-            .professionData![0].otherSpeciality!
-        : "";
-    et_profile_page_commitment.text = DataControllers
-            .to.personProfileResponse.value.data!.professionData!.isNotEmpty
-        ? widget.providerdata
-            .professionData![0].personalCommitment!
-        : "";
-
-    et_profile_page_experience_year.text = DataControllers
-            .to.personProfileResponse.value.data!.professionData!.isNotEmpty
-        ? widget.providerdata
-            .professionData![0].yearOfExperience!
-        : "";
-    et_profile_page_speciality.text = DataControllers
-            .to.personProfileResponse.value.data!.professionData!.isNotEmpty
-        ? DataControllers
-            .to.personProfileResponse.value.data!.professionData![0].speciality!
-        : "";
-    et_profile_page_other_speciality.text = DataControllers
-            .to.personProfileResponse.value.data!.professionData!.isNotEmpty
-        ? widget.providerdata
-            .professionData![0].otherSpeciality!
-        : "";
-
-    await DataControllers.to.fetchAcademicInformation(
-        widget.providerdata.id.toString());
-  }
-
-  void getUserInfo() async {
-    await DataControllers.to.getProfileInformation();
-    setState(() {
-      DataControllers.to.personProfileResponse;
-    });
-  }*/
-
-  void personalInformationEditDialog() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              "You can edit your personal information.",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: dynamicSize(0.03), color: Colors.red),
-            ),
-            content: Container(
-              height: 300,
+  Widget buidDocumentation(int index, UserDocuments data) {
+    return Card(
+      margin: EdgeInsets.all(5),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Container(
+        margin:  EdgeInsets.all(8),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            alignment: Alignment.center,
+            child: Align(
+              alignment: Alignment.center,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 40,
-                        child: TextField(
-                          controller: editPersonalHeight,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "in",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 40,
-                        child: TextField(
-                          controller: editPersonalWeight,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "kg",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  ///Number
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "Number",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                      Text(
-                          "${DataControllers.to.userLoginResponse.value.data!.user!.phone}"
-                          // controller: editPersonalNumber,
-                          // DataControllers.to.userServiceResponse.value.data![position].service!.price
-
-                          /* DataControllers.to.allServiceResponse.value.data![index].imagePath*/
-                          ),
-                    ],
-                  ),
-
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "Email",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 200,
-                        child: TextField(
-                          controller: editPersonalEmail,
-                          // DataControllers.to.userServiceResponse.value.data![position].service!.price
-
-                          /* DataControllers.to.allServiceResponse.value.data![index].imagePath*/
-                        ),
-                      )
-                    ],
-                  ),
-
-                  ///Gender
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 20.0,
-                    ),
-                    child: Row(
-                      children: genderList
-                          .map((item) => Expanded(
-                                  child: InkWell(
-                                onTap: () => setState(() =>
-                                    DataControllers.to.gender.value = item),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  margin: EdgeInsets.only(
-                                      right: item ==
-                                                  LanguageController
-                                                      .lc.male.value ||
-                                              item ==
-                                                  LanguageController
-                                                      .lc.female.value
-                                          ? MediaQuery.of(context).size.width *
-                                              .02
-                                          : 0.0),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: AllColor.blue),
-                                      color: item ==
-                                              DataControllers.to.gender.value
-                                          ? AllColor.blue
-                                          : Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              .01))),
-                                  padding: EdgeInsets.symmetric(
-                                      vertical:
-                                          MediaQuery.of(context).size.width *
-                                              .025,
-                                      horizontal:
-                                          MediaQuery.of(context).size.width *
-                                              .04),
-                                  child: Text(
-                                    item,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
-                                                .04,
-                                        color: item ==
-                                                DataControllers.to.gender.value
-                                            ? Colors.white
-                                            : AllColor.textColor),
-                                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    child: data.extension == 'pdf'
+                        ? InkWell(
+                            onTap: () {
+                              PDFReaderPage(
+                                  '${ApiService.MainURL}${data.file}');
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                                height: 55,
+                                width: 100,
+                                color: Colors.blueAccent,
+                                child: Icon(Icons.picture_as_pdf)
+                                // child: PDFReaderPage('${ApiService.MainURL}${data.file}'),
                                 ),
-                              )))
-                          .toList(),
-                    ),
+                          )
+                        : data.extension == 'jpg' || data.extension == 'png'
+                            ? CachedNetworkImage(
+                      height: 170,
+                                fit: BoxFit.fill,
+                                imageUrl: '${ApiService.MainURL}${data.file}',
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                  'assets/images/gallery_image.jpeg',
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              )
+                            : data.extension == 'video'
+                                ? InkWell(
+                                    onTap: () {
+                                      VideoPlayerPage(
+                                        url:
+                                            '${ApiService.MainURL}${data.file}',
+                                      );
+                                    },
+                                    child: Container(
+                                        height: 55,
+                                        width: 100,
+                                        color: Colors.blueAccent,
+                                        child: Icon(Icons.picture_as_pdf)
+                                        // child: PDFReaderPage('${ApiService.MainURL}${data.file}'),
+                                        ),
+                                  )
+                                : Container(),
                   ),
                 ],
               ),
             ),
-            actions: [
-              Column(
-                children: [
-                  Container(
-                    height: dynamicSize(0.003),
-                    width: dynamicSize(1),
-                    color: Colors.grey,
-                  ),
-                  Row(
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: SizedBox(
-                          height: dynamicSize(0.10),
-                          width: MediaQuery.of(context).size.width,
-                          child: Container(
-                            /*decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        width: 1,
-                                                        color: Colors.black,
-                                                      ),
-                                                      borderRadius:
-                                                      BorderRadius.circular(0.0),
-                                                    ),*/
-                            //margin: EdgeInsets.only(bottom: 5),
-                            /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
-                            child: MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(10.0),
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              //color: AllColor.button_color,
-                              textColor: Colors.black,
-                              child: const Text(
-                                "Cancel",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: dynamicSize(0.1),
-                        width: dynamicSize(0.003),
-                        color: Colors.grey,
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: SizedBox(
-                          height: dynamicSize(0.10),
-                          width: MediaQuery.of(context).size.width,
-                          child: Container(
-                            //margin: EdgeInsets.only(bottom: 5),
-                            /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
-                            child: MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(10.0),
-                                ),
-                              ),
-                              onPressed: () async {
-
-                                //showBottomSheetAddedDialog(context);
-                              },
-                              //color: AllColor.button_color,
-                              textColor: Colors.black,
-                              child: const Text(
-                                "Submit",
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.lightBlue),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          );
-        });
+          ),
+        ),
+      ),
+    );
   }
-
-  void academicInformationEditDialog() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              "You can edit your academic information.",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: dynamicSize(0.03), color: Colors.red),
-            ),
-            content: Container(
-              height: 200,
-              child: Column(
-                children: [
-                  ///Education
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "Education ",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 200,
-                        child: TextField(
-                          controller: editAcademicName,
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "Subject",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 200,
-                        child: TextField(
-                          controller: editAcademicSub ,
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "Passing  Year",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 100,
-                        child: TextField(
-                          controller: editAcademicYear,
-                        ),
-                      )
-                    ],
-                  ),
-
-
-
-          Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "CGPA",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 100,
-                        child: TextField(
-                          controller: editAcademicCGPA,
-                        ),
-                      )
-                    ],
-                  ),
-
-
-                ],
-              ),
-            ),
-            actions: [
-              Column(
-                children: [
-                  Container(
-                    height: dynamicSize(0.003),
-                    width: dynamicSize(1),
-                    color: Colors.grey,
-                  ),
-                  Row(
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: SizedBox(
-                          height: dynamicSize(0.10),
-                          width: MediaQuery.of(context).size.width,
-                          child: Container(
-                            /*decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        width: 1,
-                                                        color: Colors.black,
-                                                      ),
-                                                      borderRadius:
-                                                      BorderRadius.circular(0.0),
-                                                    ),*/
-                            //margin: EdgeInsets.only(bottom: 5),
-                            /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
-                            child: MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(10.0),
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              //color: AllColor.button_color,
-                              textColor: Colors.black,
-                              child: const Text(
-                                "Cancel",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: dynamicSize(0.1),
-                        width: dynamicSize(0.003),
-                        color: Colors.grey,
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: SizedBox(
-                          height: dynamicSize(0.10),
-                          width: MediaQuery.of(context).size.width,
-                          child: Container(
-                            child: MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(10.0),
-                                ),
-                              ),
-                              onPressed: () async {
-
-
-                              },
-                              //color: AllColor.button_color,
-                              textColor: Colors.black,
-                              child: const Text(
-                                "Submit",
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.lightBlue),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          );
-        });
-  }
-
-  void professionalInformationEditDialog() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              "You can edit your academic information.",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: dynamicSize(0.03), color: Colors.red),
-            ),
-            content: Container(
-              height: 300,
-              child: Column(
-                children: [
-                  /// Licence
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "Licence ",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 200,
-                        child: TextField(
-                          controller:  et_license,
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "Specialty",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 200,
-                        child: TextField(
-                          controller: et_specialty ,
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "Other Specialty",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 100,
-                        child: TextField(
-                          controller: et_other,
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "Past Specialty",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 100,
-                        child: TextField(
-                          controller: et_past,
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, right: 20, left: 10),
-                        child: Text(
-                          "Year",
-                          style: TextStyle(fontSize: dynamicSize(0.03)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 100,
-                        child: TextField(
-                          controller: et_year,
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            actions: [
-              Column(
-                children: [
-                  Container(
-                    height: dynamicSize(0.003),
-                    width: dynamicSize(1),
-                    color: Colors.grey,
-                  ),
-                  Row(
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: SizedBox(
-                          height: dynamicSize(0.10),
-                          width: MediaQuery.of(context).size.width,
-                          child: Container(
-                            /*decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        width: 1,
-                                                        color: Colors.black,
-                                                      ),
-                                                      borderRadius:
-                                                      BorderRadius.circular(0.0),
-                                                    ),*/
-                            //margin: EdgeInsets.only(bottom: 5),
-                            /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
-                            child: MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(10.0),
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              //color: AllColor.button_color,
-                              textColor: Colors.black,
-                              child: const Text(
-                                "Cancel",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: dynamicSize(0.1),
-                        width: dynamicSize(0.003),
-                        color: Colors.grey,
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: SizedBox(
-                          height: dynamicSize(0.10),
-                          width: MediaQuery.of(context).size.width,
-                          child: Container(
-                            /*  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        width: 1,
-                                                        color: Colors.black,
-                                                      ),
-                                                      borderRadius:
-                                                      BorderRadius.circular(5.0),
-                                                    ),*/
-                            //margin: EdgeInsets.only(bottom: 5),
-                            /*padding: const EdgeInsets.only(left: 0, right: 5, bottom: 10),*/
-                            child: MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(10.0),
-                                ),
-                              ),
-                              onPressed: () async {
-
-                                /*         await DataControllers.to
-                                    .editAcademicInformation(DataControllers.to.academicResponse.value.data![0].id.toString(), DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
-                                    editAcademicName.text,editAcademicSub.text,editAcademicYear.text,editAcademicCGPA.text);*/
-                                Navigator.pop(context);
-
-        //showBottomSheetAddedDialog(context);
-                              },
-                              //color: AllColor.button_color,
-                              textColor: Colors.black,
-                              child: const Text(
-                                "Submit",
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.lightBlue),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          );
-        });
-  }
-
 }

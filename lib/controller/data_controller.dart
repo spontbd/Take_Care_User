@@ -7,15 +7,15 @@ import 'package:map_location_picker/map_location_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/model/provider/provider_data.dart';
+import 'package:takecare_user/pages/On%20Demand/accepted_page.dart';
 import 'package:takecare_user/pages/On%20Demand/request_page.dart';
+import 'package:takecare_user/pages/On%20Demand/service_runing_map_page.dart';
 import 'package:takecare_user/pages/home_page.dart';
+import 'package:takecare_user/public_variables/notifications.dart';
+import 'package:takecare_user/public_variables/variables.dart';
 import 'package:uuid/uuid.dart';
-import '../controllers/DataContollers.dart';
-import '../pages/On Demand/accepted_page.dart';
-import '../pages/On Demand/confirm_order_page.dart';
-import '../public_variables/notifications.dart';
-import '../public_variables/variables.dart';
 
 class DataController extends GetxController{
   static DataController dc =Get.find();
@@ -44,7 +44,6 @@ class DataController extends GetxController{
     update();
     print('Size: ${size.value}');
   }
-
 
   Future<String> generateUserToken()async{
     try{
@@ -100,8 +99,7 @@ class DataController extends GetxController{
     }
   }
 
-
-  Future<void> createRequest(ProviderData providerData,GeocodingResult result, int requestIndex, String? invoiceNumber, String? orderId) async{
+  Future<void> createRequest(request_number,ProviderData providerData,GeocodingResult result, int requestIndex, String? invoiceNumber, String? orderId) async{
     try{
       loading(true);update();
       QuerySnapshot receiverShot = await FirebaseFirestore.instance.collection('request')
@@ -121,7 +119,7 @@ class DataController extends GetxController{
         loading(false);update();
         showToast('Provider busy now! Try again');
       } else if(receiverList.isEmpty && senderList.isEmpty){
-        saveData(providerData, result, requestIndex,invoiceNumber!,orderId!);
+        saveData(request_number,providerData, result, requestIndex, invoiceNumber!,orderId!);
       }else{
         loading(false);update();
         showToast('Something went wrong! Try again');
@@ -135,11 +133,12 @@ class DataController extends GetxController{
     }
   }
 
-  Future<void> saveData(ProviderData providerData,GeocodingResult result, int requestIndex,String invoiceNumber,String orderId)async{
+  Future<void> saveData(String request_number,ProviderData providerData,GeocodingResult result, int requestIndex,String invoiceNumber,String orderId)async{
     var uuid = const Uuid();
     final String id = uuid.v1();
     await FirebaseFirestore.instance.collection('request').doc(id).set({
       'id': id,
+      'request_number': request_number,
       'sender_id': DataControllers.to.userLoginResponse.value.data!.user!.phone,
       'sender_name': DataControllers.to.userLoginResponse.value.data!.user!.fullName,
       'receiver_id': providerData.phone.toString(),
@@ -160,11 +159,11 @@ class DataController extends GetxController{
     }).whenComplete(()async{
       await sendNotification(providerData.phone.toString());
       loading(false);update();
-      Get.to(()=>RequestPage(providerInfo: providerData, docId: id, requestIndex: requestIndex,receiverId: providerData.phone.toString()));
+      Get.to(()=>RequestPage( providerInfo: providerData, docId: id, requestIndex: requestIndex,receiverId: providerData.phone.toString(),geocodingResult :result));
     });
   }
 
-  Future<void> autoCancelRequest(String docId, String receiverId)async{
+  Future<void> autoCancelRequest(String docId, String receiverId) async{
     Future.delayed(const Duration(seconds: 120)).then((value)async{
       QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('request')
           .where('id', isEqualTo: docId).get();
@@ -178,7 +177,7 @@ class DataController extends GetxController{
         Navigator.pop(Get.context!);
       }else if(requestList.first.get('status')==Variables.orderStatusData[1].statusCode){
         showToast('Request accepted');
-        Get.to(()=>AcceptedPage(reqDocId: docId,receiverId: receiverId));
+        Get.to(()=>AcceptedPage(reqDocId: docId,receiverId: receiverId,requestList: requestList.first));
       }else if(requestList[0].get('status')==Variables.orderStatusData[2].statusCode){
         showToast('Request declined');
         Navigator.pop(Get.context!);
@@ -189,12 +188,13 @@ class DataController extends GetxController{
     });
   }
 
-
-  Future<void> confirmOrder(String reqDocId, String receiverId)async{
+  Future<void> confirmOrder(String reqDocId, String receiverId, ProviderData? providerData)async{
     try{
       loading(true);update();
       await FirebaseFirestore.instance.collection('request').doc(reqDocId).update({
         'status': Variables.orderStatusData[3].statusCode,
+        'orderId': DataControllers.to.appResponse.value.data!.orderId,
+        'invoiceNumber': DataControllers.to.appResponse.value.data!.invoiceNumber,
       }).whenComplete(()async{
         QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users')
             .where('phone', isEqualTo: receiverId).get();

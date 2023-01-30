@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:map_location_picker/map_location_picker.dart';
 import 'package:takecare_user/controller/data_controller.dart';
 import 'package:takecare_user/model/provider/provider_data.dart';
 import 'package:takecare_user/pages/On%20Demand/accepted_page.dart';
@@ -15,13 +16,14 @@ import 'package:takecare_user/public_variables/variables.dart';
 
 class RequestPage extends StatefulWidget {
   const RequestPage({Key? key, required this.docId, required this.requestIndex,required this.receiverId,
-  required this.providerInfo
+  required this.providerInfo,  this.geocodingResult
   }) : super(key: key);
 
   final int requestIndex;
   final String docId;
   final String receiverId;
   final ProviderData providerInfo;
+  final GeocodingResult? geocodingResult;
 
   @override
   _RequestPageState createState() => _RequestPageState();
@@ -44,7 +46,7 @@ class _RequestPageState extends State<RequestPage> {
           else if(snapshot.hasData){
             if(snapshot.data!.get('status')==Variables.orderStatusData[1].statusCode){
               SchedulerBinding.instance.addPostFrameCallback((_) {
-                Get.to(()=>AcceptedPage(reqDocId: widget.docId,receiverId: widget.receiverId));
+                Get.to(()=>AcceptedPage(reqDocId: widget.docId,receiverId: widget.receiverId,providerData: widget.providerInfo,requestList: snapshot.data));
               });
             }
             else if(snapshot.data!.get('status')==Variables.orderStatusData[2].statusCode){

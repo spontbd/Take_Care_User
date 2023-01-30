@@ -6,8 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:takecare_user/api_service/ApiService.dart';
 import 'package:takecare_user/controllers/DataContollers.dart';
 import 'package:takecare_user/controllers/language_controller.dart';
+import 'package:takecare_user/model/provider/provider_data.dart';
 import 'package:takecare_user/pages/On%20Demand/on_demand_page.dart';
-import 'package:takecare_user/pages/coupons/coupons_home_page.dart';
 import 'package:takecare_user/pages/long_time_services/long_time_service_page.dart';
 import 'package:takecare_user/pages/menu/help.dart';
 import 'package:takecare_user/pages/menu/setting/setting.dart';
@@ -31,22 +31,20 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 var isLoading = false;
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
-    checkEngaged();
     getAllService();
 
   }
 
   onProgressBar(bool progress) {
-    setState(() {
-      isLoading = progress;
-    });
+    setState(() => isLoading = progress);
   }
 
   void getAllService() async {
@@ -60,7 +58,7 @@ class _HomePageState extends State<HomePage> {
       await DataControllers.to.getProviderList("1", "1","","");
     }catch(e){}
     onProgressBar(false);
-
+    checkEngaged();
     //  await DataControllers.to.postUserServiceResponse(DataControllers.to.userLoginResponse.value.data!.user!.id.toString());
   }
   CarouselController buttonCarouselController = CarouselController();
@@ -76,17 +74,18 @@ class _HomePageState extends State<HomePage> {
         .where('status',isEqualTo: Variables.orderStatusData[1].statusCode).get();
     final List<QueryDocumentSnapshot> requests = snapshot.docs;
 
-    if(requests.isEmpty){
-
-    } else{
+    if(requests.isEmpty){}
+    else{
       if(requests.first.get('engage_end_time')!=null &&
           DateTime.fromMillisecondsSinceEpoch(requests.first.get('engage_end_time')).difference(DateTime.now()).inMinutes>2){
 
         await FirebaseFirestore.instance.collection('request').doc(requests.first.get('id')).update({
           'status': Variables.orderStatusData[2].statusCode,
         });
-      }else{
-        Get.to(()=>AcceptedPage(reqDocId: requests.first.get('id'),receiverId: requests.first.get('receiver_id')));
+      }
+      else{
+        ProviderData providerData = DataControllers.to.getAvailableProviderList.value.data!.provider_data!.firstWhere((element) => element.phone ==  requests.first.get('receiver_id'));
+        Get.to(()=>AcceptedPage(reqDocId: requests.first.get('id'),receiverId: requests.first.get('receiver_id'),requestList: snapshot.docs.first,providerData: providerData,));
       }
     }
   }
@@ -97,7 +96,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return SafeArea(
-      child:  GetBuilder<LanguageController>(builder: (lc)  {
+      child: GetBuilder<LanguageController>(builder: (lc)  {
           return Stack(
             children: [
               Scaffold(
@@ -594,11 +593,7 @@ class _HomePageState extends State<HomePage> {
                                                 (DataControllers
                                                     .to.getLongCategoriesResponse.value.data!.length > index)
                                                     ?
-                                                Text(
-
-
-
-                                                  DataControllers
+                                                Text( DataControllers
                                                           .to
                                                           .getLongCategoriesResponse
                                                           .value
@@ -926,7 +921,7 @@ class _HomePageState extends State<HomePage> {
                                   )),
                             ),
                           ),*/
-                          Padding(
+                         /* Padding(
                             padding: const EdgeInsets.only(top: 15, left: 20),
                             child: InkWell(
                               onTap: (){
@@ -961,7 +956,7 @@ class _HomePageState extends State<HomePage> {
                                     ],
                                   )),
                             ),
-                          ),
+                          ),*/
                           Padding(
                             padding: const EdgeInsets.only(top: 15, left: 20),
                             child: InkWell(

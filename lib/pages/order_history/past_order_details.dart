@@ -54,7 +54,7 @@ class _PastOrderDetailsScreenState extends State<PastOrderDetailsScreen> {
                   height: dynamicSize(0.8),
                   child: ListView.builder(
                       scrollDirection: Axis.vertical,
-                      itemCount:  nullData ? 0 : DataControllers.to.getAvailableProviderList.value.data!.length,
+                      itemCount:  nullData ? 0 : DataControllers.to.getAvailableProviderList.value.data!.provider_data!.length,
                       itemBuilder: (cx,index)=>
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0 ,left: 8,bottom: 15,right: 8),
@@ -79,7 +79,7 @@ class _PastOrderDetailsScreenState extends State<PastOrderDetailsScreen> {
                                                     width: 60,
                                                     fit: BoxFit.cover,
                                                     imageUrl:
-                                                    ApiService.MainURL + DataControllers.to.getAvailableProviderList.value.data![0].profilePhoto.toString(),
+                                                    ApiService.MainURL + DataControllers.to.getAvailableProviderList.value.data!.provider_data!.first.profilePhoto.toString(),
                                                     placeholder: (context, url) =>
                                                         Image.asset('assets/images/imam.png'),
                                                     errorWidget: (context, url, error) =>
@@ -106,7 +106,7 @@ class _PastOrderDetailsScreenState extends State<PastOrderDetailsScreen> {
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  Text("${DataControllers.to.getAvailableProviderList.value.data![0].fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.black,fontWeight: FontWeight.bold),),
+                                                  Text("${DataControllers.to.getAvailableProviderList.value.data!.provider_data!.first.fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.black,fontWeight: FontWeight.bold),),
                                                   Padding(
                                                     padding: const EdgeInsets.all(3.0),
                                                     child: Row(children: const [
@@ -399,7 +399,7 @@ class _PastOrderDetailsScreenState extends State<PastOrderDetailsScreen> {
                                                       width: 60,
                                                       fit: BoxFit.cover,
                                                       imageUrl:
-                                                      ApiService.MainURL + (nullData  ? "": DataControllers.to.getAvailableProviderList.value.data![0].profilePhoto.toString()),
+                                                      ApiService.MainURL + (nullData  ? "": DataControllers.to.getAvailableProviderList.value.data!.provider_data!.first.profilePhoto.toString()),
                                                       placeholder: (context, url) =>
                                                           Image.asset('assets/images/imam.png'),
                                                       errorWidget: (context, url, error) =>
@@ -412,14 +412,14 @@ class _PastOrderDetailsScreenState extends State<PastOrderDetailsScreen> {
                                             ),
                                             InkWell(
                                               onTap: (){
-                                                Navigator.push(context, MaterialPageRoute(builder: (context) => ProviderProfilePage(providerdata: DataControllers.to.getAvailableProviderList.value.data![0])),);
+                                                Navigator.push(context, MaterialPageRoute(builder: (context) => ProviderProfilePage(providerdata: DataControllers.to.getAvailableProviderList.value.data!.provider_data!.first)),);
                                               },
                                               child: Padding(
                                                 padding: const EdgeInsets.only(left: 10.0),
                                                 child: Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
-                                                    Text("${ DataControllers.to.getAvailableProviderList.value.data![0].fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
+                                                    Text("${ DataControllers.to.getAvailableProviderList.value.data!.provider_data!.first.fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
                                                     Padding(
                                                       padding: const EdgeInsets.all(3.0),
                                                       child: Row(children: const [

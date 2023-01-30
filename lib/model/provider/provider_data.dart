@@ -2,6 +2,12 @@
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:takecare_user/model/AvailableProviderResponse.dart';
+import 'package:takecare_user/model/provider/language_proficiency.dart';
+import 'package:takecare_user/model/provider/professional_data.dart';
+import 'package:takecare_user/model/provider/save_address.dart';
+import 'package:takecare_user/model/provider/user_academic_info.dart';
+import 'package:takecare_user/model/provider/user_address.dart';
+import 'package:takecare_user/model/provider/user_documents.dart';
 
 part 'provider_data.g.dart';
 @JsonSerializable()
@@ -36,6 +42,13 @@ class ProviderData {
     this.provider_service_total_price,
     this.role,
     this.speciality,
+    this.provider_rating,
+    this.languageProficiency,
+    this.professionData,
+    this.academicInfo,
+    this.address,
+    this.saveAddress,
+    this.user_documents
   });
 
   int? id;
@@ -65,8 +78,15 @@ class ProviderData {
   DateTime? updatedAt;
   int? providerNumberOfGivenServiceCount;
   int? provider_service_total_price;
+  int? provider_rating;
   Role? role;
   Speciality? speciality;
+  List<LanguageProficiency>? languageProficiency;
+  List<ProfessionData>? professionData;
+  List<SaveAddress>? saveAddress;
+  List<UserAcademicInfo>? academicInfo;
+  List<UserAddress>? address;
+  List<UserDocuments>? user_documents;
 
   factory ProviderData.fromJson(Map<String, dynamic> json) => _$ProviderDataFromJson(json);
 

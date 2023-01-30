@@ -83,6 +83,9 @@ class DataControllers extends GetxController {
   Rx<AvailableProviderResponseNew> getAvailableProviderList =
       AvailableProviderResponseNew().obs;
 
+  /// Coupon
+    Rx<AppResponse> couponPrize = AppResponse().obs;
+
   Future getAllLongService(String type) async {
     isLoading(true);
 
@@ -279,7 +282,6 @@ class DataControllers extends GetxController {
   Future addFavAddress(
       String name, String age, String contact_no,
       String relationship, String gender
-
       ) async {
     isLoading(true);
     var response = await ApiService.addFavAddress(
@@ -501,9 +503,9 @@ class DataControllers extends GetxController {
   }
 
 
-  Future pleaceOrder(String request_number, ProviderData providerData,GeocodingResult result) async {
+  Future pleaceOrder(String request_number, ProviderData? providerData,GeocodingResult result, String? coupon,String? order_note) async {
     isLoading(true);
-    var response = await ApiService.placeOrder(request_number,providerData : providerData,result: result);
+    var response = await ApiService.placeOrder(request_number,providerData : providerData,result: result,coupon_code: coupon!,order_note: order_note!);
 
     if (response != null) {
       appResponse.value = response;
@@ -528,5 +530,30 @@ class DataControllers extends GetxController {
     return addServiceResponse.value;
   }
 
+
+  Future getOrderItem(String invoice) async {
+
+    isLoading(true);
+    try {
+      AppResponse? response = await ApiService.getOrderServiceItem(invoice);
+      if (response != null) {appResponse.value = response;}
+      isLoading(false);
+    } catch (e) {isLoading(false);
+    }
+    return appResponse.value;
+  }
+
+
+  Future checkoutDiscount(String coupon,String amount) async {
+
+    isLoading(true);
+    try {
+      AppResponse response = await ApiService.checkoutDiscount(coupon,amount);
+      if (response != null) {couponPrize.value = response;}
+      isLoading(false);
+    } catch (e) {isLoading(false);
+    }
+    return appResponse.value;
+  }
 
 }

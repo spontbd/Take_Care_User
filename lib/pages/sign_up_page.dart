@@ -192,27 +192,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
 
                             ),
-                            /*SizedBox(width: dynamicSize(.02)),
-                            InkWell(
-                              onTap: () => _getImage(),
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: dynamicSize(0.15),
-                                width: dynamicSize(0.15),
-                                decoration: const BoxDecoration(
-                                    color: AllColor.blue, shape: BoxShape.circle),
-                                child: initialProfile
-                                    ? Icon( CupertinoIcons.person_solid,
-                                        color: Colors.white, )
-                                    : ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(dynamicSize(0.2))),
-                                        child: Image.file(Variables.imageFile,
-                                            height: dynamicSize(0.2),
-                                            width: dynamicSize(0.2),
-                                            fit: BoxFit.cover)),
-                              ),
-                            ),*/
                           ],
                         ),
                       ),

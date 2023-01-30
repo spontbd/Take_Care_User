@@ -21,6 +21,7 @@ import 'package:takecare_user/ui/common.dart';
 import 'feedback_page.dart';
 import 'map_page.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
+
 class OnDemandPage extends StatefulWidget {
   const OnDemandPage({Key? key}) : super(key: key);
 
@@ -34,8 +35,7 @@ var addedlist = false;
 var searchValue = false;
 late List<bool> _isChecked;
 List<String> result = [];
-List<AllServiceData> searchData  = [];
-
+List<AllServiceData> searchData = [];
 
 class _OnDemandPageState extends State<OnDemandPage> {
   Icon cusIcon = const Icon(Icons.search, color: Colors.black);
@@ -44,11 +44,13 @@ class _OnDemandPageState extends State<OnDemandPage> {
     style: TextStyle(
         fontFamily: 'Muli',
         fontWeight: FontWeight.w600,
-        color: Colors.black, fontSize: dynamicSize(0.03)),
+        color: Colors.black,
+        fontSize: dynamicSize(0.03)),
   );
 
+  bool focus = false;
 
-  int selectedColor=0;
+  int selectedColor = 0;
   List<AllServiceData> _searchResult = [];
   TextEditingController searchController = TextEditingController();
 
@@ -57,23 +59,24 @@ class _OnDemandPageState extends State<OnDemandPage> {
   @override
   void initState() {
     super.initState();
-    setState((){
-      _isChecked = List<bool>.filled(DataControllers.to.getCategoriesResponse.value.data!.length, false);
+    setState(() {
+      _isChecked = List<bool>.filled(
+          DataControllers.to.getCategoriesResponse.value.data!.length, false);
     });
     showBottom = false;
     getAddCardData();
-    setState((){
+    setState(() {
       searchData;
     });
     _getUserLocation();
   }
+
   void showButtonDialog(BuildContext context, int index) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
           return Container(
             height: dynamicSize(0.84),
-
             child: Column(
               children: [
                 Align(
@@ -104,22 +107,21 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-
                           Padding(
                             padding: const EdgeInsets.only(left: 10.0, top: 20),
-                            child:  Card(
+                            child: Card(
                               semanticContainer: true,
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15
-                                ),
+                                borderRadius: BorderRadius.circular(15),
                               ),
                               child: CachedNetworkImage(
                                 width: 120,
                                 height: 110,
                                 imageUrl:
-                                "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-                                errorWidget: (context, url, error) => Image.asset(
+                                    "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
                                   "assets/images/image.png",
                                 ),
                               ),
@@ -131,19 +133,18 @@ class _OnDemandPageState extends State<OnDemandPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 8.0, top: 30),
+                                  padding:
+                                      const EdgeInsets.only(left: 8.0, top: 30),
                                   child: Text(
-                                    DataControllers.to.shortServiceResponse.value.data!
-                                        .data![index].serviceName!,
+                                    DataControllers.to.shortServiceResponse
+                                        .value.data!.data![index].serviceName!,
                                     style: TextStyle(
                                         fontSize: dynamicSize(0.05),
                                         fontFamily: 'Muli',
                                         fontWeight: FontWeight.w700,
-                                        color: Colors.white
-                                    ),
+                                        color: Colors.white),
                                   ),
                                 ),
-
                               ],
                             ),
                           ),
@@ -154,31 +155,53 @@ class _OnDemandPageState extends State<OnDemandPage> {
                             },
                             child: Container(
                               height: dynamicSize(0.09),
-
                               margin: EdgeInsets.only(top: 66),
                               child: Card(
                                 color: AllColor.pink_button,
-                                margin: EdgeInsets.only(left: 0,right: 0),
+                                margin: EdgeInsets.only(left: 0, right: 0),
                                 semanticContainer: true,
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(15),
-                                      topLeft: Radius.circular(15)
-                                  ),
+                                      topLeft: Radius.circular(15)),
                                 ),
                                 elevation: 6,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 2.0,),
+                                  padding: const EdgeInsets.only(
+                                    left: 2.0,
+                                  ),
                                   child: Row(
                                     children: [
-                                      Icon( (DataControllers.to.shortServiceResponse.value.data!
-                                          .data![index].addedInMyCart == null) ? Icons.add : Icons.done,color: Colors.white,),
-                                      Text((DataControllers.to.shortServiceResponse.value.data!
-                                          .data![index].addedInMyCart == null) ? "Order Now ":" added ",style: TextStyle(
-                                          fontFamily: 'Muli',
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white),)
+                                      Icon(
+                                        (DataControllers
+                                                    .to
+                                                    .shortServiceResponse
+                                                    .value
+                                                    .data!
+                                                    .data![index]
+                                                    .addedInMyCart ==
+                                                null)
+                                            ? Icons.add
+                                            : Icons.done,
+                                        color: Colors.white,
+                                      ),
+                                      Text(
+                                        (DataControllers
+                                                    .to
+                                                    .shortServiceResponse
+                                                    .value
+                                                    .data!
+                                                    .data![index]
+                                                    .addedInMyCart ==
+                                                null)
+                                            ? "Order Now "
+                                            : " added ",
+                                        style: TextStyle(
+                                            fontFamily: 'Muli',
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -187,7 +210,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                               fit: BoxFit.fill,
                               width: 120,
                               imageUrl:
-                              "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath *//* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath *//*}",
+                              "https://takecare.ltd/${DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath */ /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */ /*}",
                               progressIndicatorBuilder:
                               (context, url, downloadProgress) =>
                               CircularProgressIndicator(),
@@ -200,7 +223,6 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           ),
                         ],
                       ),
-
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0, top: 15),
                         child: SingleChildScrollView(
@@ -210,9 +232,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                             style: TextStyle(
                                 fontFamily: 'Muli',
                                 fontWeight: FontWeight.w600,
-                              fontSize: dynamicSize(0.04),
-                              color: Colors.white
-                            ),
+                                fontSize: dynamicSize(0.04),
+                                color: Colors.white),
                           ),
                         ),
                       ),
@@ -224,6 +245,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
           );
         });
   }
+
   void BottomSheetAddedListDialog(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -250,7 +272,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                   child: ListView(
                     padding: const EdgeInsets.all(8),
                     children: new List.generate(
-                      DataControllers.to.getAddCardShortServiceResponse.value.data!.length,
+                      DataControllers
+                          .to.getAddCardShortServiceResponse.value.data!.length,
                       (index) => Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Container(
@@ -270,14 +293,14 @@ class _OnDemandPageState extends State<OnDemandPage> {
                           child: Row(
                             children: [
                               Card(
-                                margin: EdgeInsets.only(left: 0,top: 10,bottom: 10),
+                                margin: EdgeInsets.only(
+                                    left: 0, top: 10, bottom: 10),
                                 semanticContainer: true,
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                       bottomRight: Radius.circular(15),
-                                      topRight: Radius.circular(15)
-                                  ),
+                                      topRight: Radius.circular(15)),
                                 ),
                                 elevation: 10,
                                 child: CachedNetworkImage(
@@ -285,8 +308,9 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                   width: 120,
                                   height: 110,
                                   imageUrl:
-                                  "https://takecare.ltd/${DataControllers.to.getAddCardShortServiceResponse.value.data![index].service!.imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-                                  errorWidget: (context, url, error) => Image.asset(
+                                      "https://takecare.ltd/${DataControllers.to.getAddCardShortServiceResponse.value.data![index].service!.imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(
                                     "assets/images/image.png",
                                   ),
                                 ),
@@ -297,7 +321,8 @@ class _OnDemandPageState extends State<OnDemandPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 8.0, left: 5,right: 10),
+                                      padding: const EdgeInsets.only(
+                                          top: 8.0, left: 5, right: 10),
                                       child: Text(
                                         "${DataControllers.to.getAddCardShortServiceResponse.value.data![index].service!.serviceName == null ? "Service Name" : DataControllers.to.getAddCardShortServiceResponse.value.data![index].service!.serviceName}",
                                         style: TextStyle(
@@ -333,189 +358,205 @@ class _OnDemandPageState extends State<OnDemandPage> {
           );
         });
   }
+
   void showButtonListDialog(BuildContext context) {
     List<CategoriesData> dataResponse = [];
 
-  // DataControllers.to.getCategoriesResponse.value.data!.forEach((element) => _setData(element)).toList();
+    // DataControllers.to.getCategoriesResponse.value.data!.forEach((element) => _setData(element)).toList();
     DataControllers.to.getCategoriesResponse.value.data!.forEach((element) {
-      if(element.serviceType == "short"){
+      if (element.serviceType == "short") {
         dataResponse.add(element);
       }
     });
 
-  // dataResponse.add( DataControllers.to.getCategoriesResponse.value.data!.map((e) => e.serviceType == "short").toList());
+    // dataResponse.add( DataControllers.to.getCategoriesResponse.value.data!.map((e) => e.serviceType == "short").toList());
 
     showModalBottomSheet(
         context: context,
-        builder: (BuildContext bc)
-        {
+        builder: (BuildContext bc) {
+          return StatefulBuilder(builder: (context, setSt) {
+            return Container(
+              color: Colors.white,
+              /*margin: EdgeInsets.only(left: 10,right: 10),*/
+              height: dynamicSize(2),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Select Category",
+                          style: TextStyle(
+                              fontSize: dynamicSize(0.07),
+                              fontWeight: FontWeight.bold),
+                        ),
+                        InkWell(
+                            onTap: () {
+                              setSt(() {
+                                _isChecked = List<bool>.filled(
+                                    DataControllers.to.getCategoriesResponse
+                                        .value.data!.length,
+                                    false);
+                              });
 
-          return StatefulBuilder(
-            builder: (context,setSt) {
-              return Container(
-                color: Colors.white,
-                /*margin: EdgeInsets.only(left: 10,right: 10),*/
-                height: dynamicSize(2),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Select Category",style: TextStyle(fontSize: dynamicSize(0.07),fontWeight: FontWeight.bold),),
-                          InkWell(
-                              onTap: (){
-                                  setSt((){_isChecked = List<bool>.filled(DataControllers.to.getCategoriesResponse.value.data!.length, false);});
-
-                                  searchData = [];
-                                  result = [];
-                                  searchValue = false;
-                                  setState((){});
-                                  //Navigator.pop(context);
-                              },
-                              child:
-                              _isChecked.contains(true) ?
-
-                              Expanded(child: Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple))) : Container()),
-                        ],
-                      ),
-                      Expanded(
-                        child: Container(
-                          color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child:
-                                ListView(
-                              children: List.generate(
-                                  dataResponse.length,
+                              searchData = [];
+                              result = [];
+                              searchValue = false;
+                              setState(() {});
+                              //Navigator.pop(context);
+                            },
+                            child: _isChecked.contains(true)
+                                ? Text("Deselect All",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.05),
+                                        color: Colors.purple))
+                                : Container()),
+                      ],
+                    ),
+                    Flexible(
+                      child: Container(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ListView(
+                            children: List.generate(
+                                dataResponse.length,
                                 (index) => CheckboxListTile(
-                                      title: Text(dataResponse[index].categoryName!),
+                                      title: Text(
+                                          dataResponse[index].categoryName!),
                                       value: _isChecked[index],
                                       onChanged: (val) {
-                                        if(val!){
-                                          result.add(dataResponse[index].categoryName!);
-                                        }else
-                                          {
-                                            String? value =   result.firstWhereOrNull((element) => element == dataResponse[index].categoryName!);
-                                            result.remove(value);
-                                          }
-                                        setSt(() {_isChecked[index] = val;});
-                                        setState((){});
-
+                                        if (val!) {
+                                          result.add(dataResponse[index]
+                                              .categoryName!);
+                                        } else {
+                                          String? value = result
+                                              .firstWhereOrNull((element) =>
+                                                  element ==
+                                                  dataResponse[index]
+                                                      .categoryName!);
+                                          result.remove(value);
+                                        }
+                                        setSt(() {
+                                          _isChecked[index] = val;
+                                        });
+                                        setState(() {});
                                       },
-                                    )
-                              ),
-                            ),
+                                    )),
                           ),
                         ),
                       ),
-                      _isChecked.contains(true) ? Padding(
-                          padding: EdgeInsets.symmetric(horizontal: dynamicSize(0.08)),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              Navigator.pop(context);
-                                    _filterValue();
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text('Show Listing',
-                                      style: TextStyle(fontSize: dynamicSize(0.045))),
-                                )
-                              ],
-                            ),
-                          )
-                      )  : Container(),
-                    ],
-                  ),
+                    ),
+                    _isChecked.contains(true)
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: dynamicSize(0.08)),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                Navigator.pop(context);
+                                _filterValue();
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text('Show Listing',
+                                        style: TextStyle(
+                                            fontSize: dynamicSize(0.045))),
+                                  )
+                                ],
+                              ),
+                            ))
+                        : Container(),
+                  ],
                 ),
-              );
-            }
-          );
+              ),
+            );
+          });
         });
   }
+
   void getAddCardData() async {
     await DataControllers.to.getCard('short');
     await DataControllers.to.getAllShortService("short");
-    setState((){
+    setState(() {
       searchData;
     });
     if (DataControllers.to.getAddCardShortServiceResponse.value.data == null) {
-        setState(() {
-          showBottom = false;
-          addedlist = false;
-          DataControllers.to.getAddCardShortServiceResponse;
-        });
-      } else if (DataControllers.to.getAddCardShortServiceResponse.value.data!.length > 0) {
+      setState(() {
+        showBottom = false;
+        addedlist = false;
+        DataControllers.to.getAddCardShortServiceResponse;
+      });
+    } else if (DataControllers
+            .to.getAddCardShortServiceResponse.value.data!.length >
+        0) {
       setState(() {
         DataControllers.to.getAddCardShortServiceResponse;
         showBottom = true;
         addedlist = true;
       });
     } else {
-
       setState(() {
         DataControllers.to.getAddCardShortServiceResponse;
         showBottom = false;
         addedlist = false;
       });
-
     }
 
-    setState((){
+    setState(() {
       DataControllers.to.shortServiceResponse;
       searchData;
     });
   }
+
   void deleteAddCardData(int index) async {
     await DataControllers.to.deleteCard(
         DataControllers.to.userLoginResponse.value.data!.user!.id.toString(),
-        DataControllers.to.getAddCardShortServiceResponse.value.data![index].id.toString());
-        showToast(DataControllers.to.addCardResponse.value.message!);
+        DataControllers.to.getAddCardShortServiceResponse.value.data![index].id
+            .toString());
+    showToast(DataControllers.to.addCardResponse.value.message!);
 
     if (DataControllers.to.addCardResponse.value.success!) {
       getAddCardData();
     }
   }
-  void addCard(int index) async{
 
+  void addCard(int index) async {
     var now = new DateTime.now();
     var formatter = new DateFormat('yyyy-MM-dd');
     String formattedDate = formatter.format(now);
 
     await DataControllers.to.addCard(
-        DataControllers.to.shortServiceResponse
-            .value.data!.data![index].id
+        DataControllers.to.shortServiceResponse.value.data!.data![index].id
             .toString(),
         formattedDate);
 
-
-
-    if (DataControllers
-        .to.addCardResponse.value.success!) {
+    if (DataControllers.to.addCardResponse.value.success!) {
       Common.storeSharedPreferences.setString("service", "short");
       getAddCardData();
+    } else {
+      showToast(
+          DataControllers.to.addCardResponse.value.message!, AllColor.blue);
     }
-    else
-      {
-        showToast(DataControllers.to.addCardResponse.value.message!, AllColor.blue);
-      }
   }
+
   void getAllService() async {
     await DataControllers.to.getAllShortService("short");
- }
-  void _filterValue() {
+  }
 
+  void _filterValue() {
     searchData = [];
     searchValue = false;
     result.forEach((element) {
-      DataControllers.to.shortServiceResponse.value.data!.data!.forEach((value) {
+      DataControllers.to.shortServiceResponse.value.data!.data!
+          .forEach((value) {
         value.serviceCats!.forEach((categories) {
-          if(element == categories.serviceCategory!.categoryName) {
+          if (element == categories.serviceCategory!.categoryName) {
             searchData.add(value);
             searchValue = true;
           }
@@ -523,10 +564,11 @@ class _OnDemandPageState extends State<OnDemandPage> {
       });
     });
 
-    setState((){
+    setState(() {
       searchValue;
     });
   }
+
   onSearchTextChanged(String text) async {
     _searchResult.clear();
     if (text.isEmpty) {
@@ -535,17 +577,18 @@ class _OnDemandPageState extends State<OnDemandPage> {
       return;
     }
 
-    DataControllers.to.shortServiceResponse.value.data!.data!.forEach((userDetail) {
-
+    DataControllers.to.shortServiceResponse.value.data!.data!
+        .forEach((userDetail) {
       if (userDetail.serviceName!.toLowerCase().contains(text.toLowerCase())) {
         _searchResult.add(userDetail);
         //print(userDetail.serviceName!);
-       // print(userDetail.added_in_my_service!);
+        // print(userDetail.added_in_my_service!);
       }
     });
 
     setState(() {});
   }
+
   void _getUserLocation() async {
     print('_getUserLocation');
     LocationPermission permission;
@@ -556,13 +599,15 @@ class _OnDemandPageState extends State<OnDemandPage> {
     setState(() {
       Variables.currentPostion = LatLng(position.latitude, position.longitude);
 
-      print('lat : ${Variables.currentPostion.latitude} \nlong ${Variables.currentPostion.longitude}');
+      print(
+          'lat : ${Variables.currentPostion.latitude} \nlong ${Variables.currentPostion.longitude}');
 
-     double locationDistance =  Geolocator.distanceBetween(position.latitude, position.longitude, 23.742743, 90.418278)/1000;
-     print('distance : ${locationDistance}');
+      double locationDistance = Geolocator.distanceBetween(
+              position.latitude, position.longitude, 23.742743, 90.418278) /
+          1000;
+      print('distance : ${locationDistance}');
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -570,189 +615,207 @@ class _OnDemandPageState extends State<OnDemandPage> {
       return Scaffold(
         bottomNavigationBar: showBottom
             ? BlurryContainer(
-          blur: 30,
-          // color: Colors.white.withOpacity(0.15)
-          elevation: 0,
-          color: Colors.transparent.withOpacity(0.001),
-          padding: const EdgeInsets.all(12),
-          borderRadius: const BorderRadius.all(Radius.circular(5)),
-          child: Container(
-            height: dynamicSize(0.18),
-            decoration: const BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.all(
-                  Radius.circular(20)),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: AllColor.themeColor,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(5.0),bottomLeft:Radius.circular(5.0) ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding:
-                            const EdgeInsets.only(left: 8.0, top: 5),
-                            child: Text(
-                              "On Demand",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.035),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
+                blur: 30,
+                // color: Colors.white.withOpacity(0.15)
+                elevation: 0,
+                color: Colors.transparent.withOpacity(0.001),
+                padding: const EdgeInsets.all(12),
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+                child: Container(
+                  height: dynamicSize(0.18),
+                  decoration: const BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: AllColor.themeColor,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5.0),
+                                bottomLeft: Radius.circular(5.0)),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 8.0, top: 5),
+                                  child: Text(
+                                    "On Demand",
+                                    style: TextStyle(
+                                        fontSize: dynamicSize(0.035),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              addedlist
+                                  ? Container(
+                                      alignment: Alignment.topLeft,
+                                      child: InkWell(
+                                        onTap: () {
+                                          BottomSheetAddedListDialog(context);
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8.0, top: 5),
+                                              child: Text(
+                                                DataControllers
+                                                    .to
+                                                    .getAddCardShortServiceResponse
+                                                    .value
+                                                    .data!
+                                                    .length
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontSize: dynamicSize(0.04),
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 5),
+                                              child: Text(
+                                                " Service Added",
+                                                style: TextStyle(
+                                                    fontSize: dynamicSize(0.04),
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                            const Padding(
+                                              padding:
+                                                  EdgeInsets.only(left: 8.0),
+                                              child: Icon(
+                                                Icons.keyboard_arrow_up,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8.0, top: 5),
+                                        child: Text(
+                                          "Attendant for Hospital Visit",
+                                          style: TextStyle(
+                                              fontSize: dynamicSize(0.04),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    )
+                            ],
                           ),
                         ),
-                        addedlist ?
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: InkWell(
-                            onTap: () {
-                              BottomSheetAddedListDialog(context);
-                            },
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: InkWell(
+                          onTap: () async {
+                            await DataControllers.to.getProviderList(
+                                "1",
+                                "1",
+                                Variables.currentPostion.longitude.toString(),
+                                Variables.currentPostion.latitude.toString());
+                            resultGeo = (await Navigator.push(
+                              context,
+                              MaterialPageRoute<GeocodingResult>(
+                                builder: (cx) {
+                                  return MapLocationPicker(
+                                      topCardColor: Colors.white70,
+                                      bottomCardColor: Colors.pinkAccent,
+                                      origin: Location(
+                                          lat:
+                                              Variables.currentPostion.latitude,
+                                          lng: Variables
+                                              .currentPostion.longitude),
+                                      desiredAccuracy: LocationAccuracy.high,
+                                      location: Location(
+                                          lat:
+                                              Variables.currentPostion.latitude,
+                                          lng: Variables
+                                              .currentPostion.longitude),
+                                      apiKey:
+                                          "AIzaSyB5x56y_2IlWhARk8ivDevq-srAkHYr9HY",
+                                      canPopOnNextButtonTaped: true,
+                                      onNext: (GeocodingResult? result) {
+                                        if (result != null) {
+                                          setState(() {
+                                            resultGeo = result;
+                                            Navigator.pop(cx, resultGeo);
+                                          });
+                                        } else {
+                                          resultGeo = result!;
+                                        }
+                                      });
+                                },
+                              ),
+                            ))!;
+                            if (resultGeo != null) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (cp) => MapPage(
+                                          result: resultGeo,
+                                        )),
+                              );
+                            }
+                          },
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: AllColor.button_color,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(5.0),
+                                  bottomRight: Radius.circular(5.0)),
+                            ),
+                            alignment: Alignment.center,
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, top: 5),
+                                  padding: const EdgeInsets.only(left: 8.0),
                                   child: Text(
-                                    DataControllers
-                                        .to
-                                        .getAddCardShortServiceResponse
-                                        .value
-                                        .data!
-                                        .length
-                                        .toString(),
+                                    "Continue",
                                     style: TextStyle(
                                         fontSize: dynamicSize(0.04),
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(top: 5),
-                                  child: Text(
-                                    " Service Added",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.04),
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
+                                SizedBox(
+                                  width: dynamicSize(0.02),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 8.0),
-                                  child: Icon(
-                                    Icons.keyboard_arrow_up,
-                                    color: Colors.white,
-                                  ),
+                                const Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.white,
                                 ),
                               ],
                             ),
                           ),
-                        ) :
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8.0, top: 5),
-                            child: Text(
-                              "Attendant for Hospital Visit",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.04),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: InkWell(
-                    onTap: () async{
-                      await DataControllers.to.getProviderList("1", "1",Variables.currentPostion.longitude.toString(),Variables.currentPostion.latitude.toString());
-                      resultGeo = (await Navigator.push(
-                        context,
-                        MaterialPageRoute<GeocodingResult>(
-                          builder: (cx) {
-                            return MapLocationPicker(
-                                topCardColor: Colors.white70,
-                              bottomCardColor: Colors.pinkAccent,
-                              origin:Location(lat: Variables.currentPostion.latitude , lng :  Variables.currentPostion.longitude),
-                                desiredAccuracy : LocationAccuracy.high,
-                                location :  Location(lat: Variables.currentPostion.latitude , lng :  Variables.currentPostion.longitude),
-                              apiKey: "AIzaSyB5x56y_2IlWhARk8ivDevq-srAkHYr9HY",
-                              canPopOnNextButtonTaped: true,
-                              onNext: (GeocodingResult? result) {
-                                if (result != null) {
-                                  setState(() {
-                                    resultGeo = result;
-                                    Navigator.pop(cx,resultGeo);
-                                  });
-                                }else
-                                  {
-                                    resultGeo = result!;
-                                  }
-                              }
-                            );
-                          },
                         ),
-                      ))!;
-                      if(resultGeo != null){
-                        Navigator.push(context, MaterialPageRoute(builder: (cp) => MapPage(result: resultGeo,)),);
-                      }
-                    },
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: AllColor.button_color,
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(5.0),bottomRight:Radius.circular(5.0) ),
                       ),
-                      alignment: Alignment.center,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              "Continue",
-                              style: TextStyle(
-                                  fontSize: dynamicSize(0.04),
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            width: dynamicSize(0.02),
-                          ),
-                          const Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        )
+              )
             : Container(height: .01),
         appBar: AppBar(
           leading: InkWell(
@@ -770,11 +833,14 @@ class _OnDemandPageState extends State<OnDemandPage> {
           actions: <Widget>[
             IconButton(
               onPressed: () {
+                setState(() {
+                  cusIcon;
+                  focus = true;
+                });
                 if (cusIcon.icon == Icons.search) {
                   setState(() {
                     cusIcon =
-                        Icon(Icons.cancel, color: AllColor
-                            .cancel_icon_color);
+                        Icon(Icons.cancel, color: AllColor.cancel_icon_color);
                     cusSearchbar = Card(
                       color: AllColor.search_field_color,
                       shape: RoundedRectangleBorder(
@@ -784,8 +850,9 @@ class _OnDemandPageState extends State<OnDemandPage> {
                         width: dynamicSize(20),
                         height: dynamicSize(0.09),
                         child: TextField(
+                          autofocus: focus,
                           controller: searchController,
-                          onChanged: (text) =>onSearchTextChanged(text),
+                          onChanged: (text) => onSearchTextChanged(text),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             fillColor: AllColor.search_field_color,
@@ -793,8 +860,7 @@ class _OnDemandPageState extends State<OnDemandPage> {
                             prefixIcon: Icon(Icons.search),
                           ),
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: dynamicSize(0.04)),
+                              color: Colors.black, fontSize: dynamicSize(0.04)),
                         ),
                       ),
                     );
@@ -827,94 +893,102 @@ class _OnDemandPageState extends State<OnDemandPage> {
                   children: [
                     InkWell(
                       onTap: () {
-                        setState((){
+                        setState(() {
                           selectedColor = 1;
                         });
                         showButtonListDialog(context);
                       },
                       child: Container(
                         child: Row(
-                          children:  [
+                          children: [
                             Padding(
                               padding: EdgeInsets.only(
                                   left: 8.0, right: 4, top: 4, bottom: 4),
-                              child: Icon(Icons.filter_alt_outlined,color: (selectedColor == 1) ?
-                              Colors.white : Colors.black),
+                              child: Icon(Icons.filter_alt_outlined,
+                                  color: (selectedColor == 1)
+                                      ? Colors.white
+                                      : Colors.black),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
                                   left: 4.0, right: 4, top: 4, bottom: 4),
-                              child: Text('Categories', style: TextStyle( color: (selectedColor == 1) ?
-                              Colors.white : Colors.black),),
+                              child: Text(
+                                'Categories',
+                                style: TextStyle(
+                                    color: (selectedColor == 1)
+                                        ? Colors.white
+                                        : Colors.black),
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
                                   left: 4.0, right: 8, top: 4, bottom: 4),
-                              child: Icon(Icons.arrow_drop_down,color:  (selectedColor == 1) ?
-                              Colors.white : Colors.black,),
+                              child: Icon(
+                                Icons.arrow_drop_down,
+                                color: (selectedColor == 1)
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
                             ),
                           ],
                         ),
                         decoration: BoxDecoration(
-                          color: (selectedColor == 1) ? Colors.pinkAccent :  AllColor.shado_color ,
+                          color: (selectedColor == 1)
+                              ? Colors.pinkAccent
+                              : AllColor.shado_color,
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                       ),
                     ),
-
                     SizedBox(
                       width: dynamicSize(0.03),
                     ),
                     InkWell(
                       onTap: () {
-
-                        setState((){
+                        setState(() {
                           selectedColor = 5;
                           searchValue = false;
                         });
                       },
                       child: Container(
                         child: Row(
-                          children:  [
+                          children: [
                             Padding(
                               padding: EdgeInsets.only(
                                   left: 10.0, right: 4, top: 4, bottom: 4),
                               child: Icon(Icons.list_alt,
-                                  color: (selectedColor == 5) ?
-                                  Colors.white : Colors.black
-                              ),
+                                  color: (selectedColor == 5)
+                                      ? Colors.white
+                                      : Colors.black),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
                                   left: 4.0, right: 10, top: 4, bottom: 4),
                               child: Text('All',
-                                  style: TextStyle( color: (selectedColor == 5) ?
-                                  Colors.white : Colors.black)
-                              ),
+                                  style: TextStyle(
+                                      color: (selectedColor == 5)
+                                          ? Colors.white
+                                          : Colors.black)),
                             ),
                           ],
                         ),
                         decoration: BoxDecoration(
-
-                          color: (selectedColor == 5) ?
-                          Colors.pinkAccent : AllColor.shado_color
-
-                          ,
+                          color: (selectedColor == 5)
+                              ? Colors.pinkAccent
+                              : AllColor.shado_color,
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                       ),
                     ),
-
                     SizedBox(
                       width: dynamicSize(0.03),
                     ),
                     InkWell(
                       onTap: () {
-
-                        setState((){
+                        setState(() {
                           selectedColor = 2;
                         });
-                   /*     Navigator.push(
+                        /*     Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const FeedBackPage()),
@@ -922,31 +996,30 @@ class _OnDemandPageState extends State<OnDemandPage> {
                       },
                       child: Container(
                         child: Row(
-                          children:  [
+                          children: [
                             Padding(
                               padding: EdgeInsets.only(
                                   left: 10.0, right: 4, top: 4, bottom: 4),
                               child: Icon(Icons.shopping_cart_outlined,
-                                  color: (selectedColor == 2) ?
-                              Colors.white : Colors.black
-                              ),
+                                  color: (selectedColor == 2)
+                                      ? Colors.white
+                                      : Colors.black),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
                                   left: 4.0, right: 10, top: 4, bottom: 4),
                               child: Text('Taken Before',
-                                  style: TextStyle( color: (selectedColor == 2) ?
-                                  Colors.white : Colors.black)
-                              ),
+                                  style: TextStyle(
+                                      color: (selectedColor == 2)
+                                          ? Colors.white
+                                          : Colors.black)),
                             ),
                           ],
                         ),
                         decoration: BoxDecoration(
-
-                          color: (selectedColor == 2) ?
-                        Colors.pinkAccent : AllColor.shado_color
-
-                          ,
+                          color: (selectedColor == 2)
+                              ? Colors.pinkAccent
+                              : AllColor.shado_color,
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                       ),
@@ -992,255 +1065,275 @@ class _OnDemandPageState extends State<OnDemandPage> {
           backgroundColor: Colors.white,
           elevation: 0,
         ),
-        body: _searchResult.length != 0 || searchController.text.isNotEmpty ?
-        ListView(
-          padding: const EdgeInsets.only(top: 8,bottom: 8),
-          children: List.generate(
-            _searchResult.length,
-                (index) => Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      /* borderRadius: BorderRadius.circular(8.0),*/
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 2.0,
-                          spreadRadius: 0.0,
-                          offset:
-                          Offset(2.0, 2.0), // shadow direction: bottom right
-                        )
-                      ],
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+        body: _searchResult.length != 0 || searchController.text.isNotEmpty
+            ? ListView(
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                children: List.generate(
+                  _searchResult.length,
+                  (index) => Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Stack(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
-                          child: Card(
-                            margin: const EdgeInsets.only(left: 0),
-                            semanticContainer: true,
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(15),
-                                  topRight: Radius.circular(15)
-                              ),
-                            ),
-                            elevation: 10,
-                            child: CachedNetworkImage(
-                              fit: BoxFit.fill,
-                              width: 120,
-                              height: 110,
-                              imageUrl:
-                              "https://takecare.ltd/${_searchResult[index].imagePath}",
-                              errorWidget: (context, url, error) => Image.asset(
-                                "assets/images/image.png",
-                              ),
-                            ),
+                          decoration: const BoxDecoration(
+                            /* borderRadius: BorderRadius.circular(8.0),*/
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 2.0,
+                                spreadRadius: 0.0,
+                                offset: Offset(
+                                    2.0, 2.0), // shadow direction: bottom right
+                              )
+                            ],
                           ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only( left: 10),
-                                  child: Text(
-                                    "${  _searchResult[index].serviceName}",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.04),
-                                        fontWeight: FontWeight.bold),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(
+                                    left: 0, top: 10, bottom: 10),
+                                child: Card(
+                                  margin: const EdgeInsets.only(left: 0),
+                                  semanticContainer: true,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(15),
+                                        topRight: Radius.circular(15)),
+                                  ),
+                                  elevation: 10,
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.fill,
+                                    width: 120,
+                                    height: 110,
+                                    imageUrl:
+                                        "https://takecare.ltd/${_searchResult[index].imagePath}",
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(
+                                      "assets/images/image.png",
+                                    ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: dynamicSize(0.12),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    showButtonDialog(context, index);
-                                  },
-                                  child: Text(
-                                    "Details",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.035),
-                                        color: Colors.purple),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          "${_searchResult[index].serviceName}",
+                                          style: TextStyle(
+                                              fontSize: dynamicSize(0.04),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: dynamicSize(0.12),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          showButtonDialog(context, index);
+                                        },
+                                        child: Text(
+                                          "Details",
+                                          style: TextStyle(
+                                              fontSize: dynamicSize(0.035),
+                                              color: Colors.purple),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
+                        Positioned(
+                          bottom: 20.0,
+                          right: 0.0,
+                          child: InkWell(
+                              onTap: () {
+                                addCard(index);
+                              },
+                              child: Container(
+                                height: dynamicSize(0.10),
+                                width: dynamicSize(0.12),
+                                child: Card(
+                                  color: AllColor.pink_button,
+                                  margin: EdgeInsets.only(left: 0, right: 0),
+                                  semanticContainer: true,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(15),
+                                        topLeft: Radius.circular(15)),
+                                  ),
+                                  elevation: 6,
+                                  child: Icon(
+                                    (_searchResult[index].addedInMyCart == null)
+                                        ? Icons.add
+                                        : Icons.done,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )),
+                        )
                       ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 20.0,
-                    right: 0.0,
-                    child: InkWell(
-                        onTap: () {
-                          addCard(index);
-                        },
-                        child: Container(
-                          height: dynamicSize(0.10),
-                          width: dynamicSize(0.12),
-                          child:  Card(
-                            color: AllColor.pink_button,
-                            margin: EdgeInsets.only(left: 0,right: 0),
-                            semanticContainer: true,
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(15),
-                                  topLeft: Radius.circular(15)
-                              ),
-                            ),
-                            elevation: 6,
-                            child: Icon( (_searchResult[index].addedInMyCart == null) ? Icons.add : Icons.done,color: Colors.white,),
-                          ),
-                        )
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ) :
-        ListView(
-          padding: const EdgeInsets.only(top: 8,bottom: 8),
-          children: List.generate(
-            searchValue ?
-            searchData.length : DataControllers.to.shortServiceResponse.value.data!.data!.length,
-                (index) => Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      /* borderRadius: BorderRadius.circular(8.0),*/
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 2.0,
-                          spreadRadius: 0.0,
-                          offset:
-                          Offset(2.0, 2.0), // shadow direction: bottom right
-                        )
-                      ],
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+              )
+            : ListView(
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                children: List.generate(
+                  searchValue
+                      ? searchData.length
+                      : DataControllers
+                          .to.shortServiceResponse.value.data!.data!.length,
+                  (index) => Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Stack(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(left: 0, top: 10,bottom: 10),
-                          child: Card(
-                            margin: const EdgeInsets.only(left: 0),
-                            semanticContainer: true,
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(15),
-                                  topRight: Radius.circular(15)
-                              ),
-                            ),
-                            elevation: 10,
-                            child: CachedNetworkImage(
-                              fit: BoxFit.fill,
-                              width: 120,
-                              height: 110,
-                              imageUrl:
-                              "https://takecare.ltd/${
-                                  (searchValue != true) ?
-                                  DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath  : searchData[index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
-                              errorWidget: (context, url, error) => Image.asset(
-                                "assets/images/image.png",
-                              ),
-                            ),
+                          decoration: const BoxDecoration(
+                            /* borderRadius: BorderRadius.circular(8.0),*/
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 2.0,
+                                spreadRadius: 0.0,
+                                offset: Offset(
+                                    2.0, 2.0), // shadow direction: bottom right
+                              )
+                            ],
                           ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only( left: 10),
-                                  child: Text(
-                                    "${  (searchValue != true) ? DataControllers.to.shortServiceResponse.value.data!.data![index].serviceName : searchData[index].serviceName}",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.04),
-                                        fontWeight: FontWeight.bold),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(
+                                    left: 0, top: 10, bottom: 10),
+                                child: Card(
+                                  margin: const EdgeInsets.only(left: 0),
+                                  semanticContainer: true,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(15),
+                                        topRight: Radius.circular(15)),
+                                  ),
+                                  elevation: 10,
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.fill,
+                                    width: 120,
+                                    height: 110,
+                                    imageUrl:
+                                        "https://takecare.ltd/${(searchValue != true) ? DataControllers.to.shortServiceResponse.value.data!.data![index].imagePath : searchData[index].imagePath /* == null ?   "https://cdn.vectorstock.com/i/1000x1000/21/73/old-people-in-hospital-vector-34042173.webp": DataControllers.to.shortServiceResponse.value.data![index]!.imagePath */}",
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(
+                                      "assets/images/image.png",
+                                    ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: dynamicSize(0.12),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    showButtonDialog(context, index);
-                                  },
-                                  child: Text(
-                                    "Details",
-                                    style: TextStyle(
-                                        fontSize: dynamicSize(0.035),
-                                        color: Colors.purple),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          "${(searchValue != true) ? DataControllers.to.shortServiceResponse.value.data!.data![index].serviceName : searchData[index].serviceName}",
+                                          style: TextStyle(
+                                              fontSize: dynamicSize(0.04),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: dynamicSize(0.12),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          showButtonDialog(context, index);
+                                        },
+                                        child: Text(
+                                          "Details",
+                                          style: TextStyle(
+                                              fontSize: dynamicSize(0.035),
+                                              color: Colors.purple),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
+                        Positioned(
+                          bottom: 20.0,
+                          right: 0.0,
+                          child: InkWell(
+                              onTap: () {
+                                addCard(index);
+                              },
+                              child: Container(
+                                height: dynamicSize(0.10),
+                                width: dynamicSize(0.12),
+                                child: Card(
+                                  color: AllColor.pink_button,
+                                  margin: EdgeInsets.only(left: 0, right: 0),
+                                  semanticContainer: true,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(15),
+                                        topLeft: Radius.circular(15)),
+                                  ),
+                                  elevation: 6,
+                                  child: Icon(
+                                    (searchValue != true)
+                                        ? ((DataControllers
+                                                    .to
+                                                    .shortServiceResponse
+                                                    .value
+                                                    .data!
+                                                    .data![index]
+                                                    .addedInMyCart ==
+                                                null)
+                                            ? Icons.add
+                                            : Icons.done)
+                                        : ((searchData[index].addedInMyCart ==
+                                                null)
+                                            ? Icons.add
+                                            : Icons.done),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )),
+                        )
                       ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 20.0,
-                    right: 0.0,
-
-                    child: InkWell(
-                        onTap: () {
-                          addCard(index);
-                        },
-                        child: Container(
-                          height: dynamicSize(0.10),
-                          width: dynamicSize(0.12),
-                          child: Card(
-                            color: AllColor.pink_button,
-                            margin: EdgeInsets.only(left: 0,right: 0),
-                            semanticContainer: true,
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(15),
-                                  topLeft: Radius.circular(15)
-                              ),
-                            ),
-                            elevation: 6,
-                            child: Icon( (searchValue != true) ?
-                            ( ( DataControllers.to.shortServiceResponse.value.data!.data![index].addedInMyCart == null) ? Icons.add : Icons.done) :
-                            ( (searchData[index].addedInMyCart == null) ? Icons.add : Icons.done),color: Colors.white,),
-                          ),
-                        )
-
-                    ),
-
-                  )
-                ],
+                ),
               ),
-            ),
-          ),
-        ) ,
       );
     });
   }
-
 }

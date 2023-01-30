@@ -9,6 +9,7 @@ class AllColor{
   static const Color black= Color(0xff000000);
   static const Color button_color= Color(0xff39bffe);
   static const Color card_bg= Color(0x51535353);
+  static const Color transBack= Color(0x6C000000);
   static const Color textFieldColor= Color(0xffEEEEF4);
   static final Color textColor= Colors.grey.shade900;
   static const Color search_field_color= Color(0xffd8d8d8);

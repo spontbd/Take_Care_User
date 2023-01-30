@@ -23,7 +23,7 @@ class _RunningPackageDetailsScreenState extends State<RunningPackageDetailsScree
   void initState()
   {
     super.initState();
-    selected = DataControllers.to.getAvailableProviderList.value.data!.map<bool>((v) => false).toList();
+    selected = DataControllers.to.getAvailableProviderList.value.data!.provider_data!.map<bool>((v) => false).toList();
   }
 
   @override
@@ -188,7 +188,7 @@ class _RunningPackageDetailsScreenState extends State<RunningPackageDetailsScree
                                                                           width: 60,
                                                                           fit: BoxFit.cover,
                                                                           imageUrl:
-                                                                          ApiService.MainURL + DataControllers.to.getAvailableProviderList.value.data![0].profilePhoto.toString(),
+                                                                          ApiService.MainURL + DataControllers.to.getAvailableProviderList.value.data!.provider_data!.first.profilePhoto.toString(),
                                                                           placeholder: (context, url) =>
                                                                               Image.asset('assets/images/imam.png'),
                                                                           errorWidget: (context, url, error) =>
@@ -201,14 +201,14 @@ class _RunningPackageDetailsScreenState extends State<RunningPackageDetailsScree
                                                                 ),
                                                                 InkWell(
                                                                   onTap: (){
-                                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ProviderProfilePage(providerdata: DataControllers.to.getAvailableProviderList.value.data![0])),);
+                                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ProviderProfilePage(providerdata: DataControllers.to.getAvailableProviderList.value.data!.provider_data!.first)),);
                                                                   },
                                                                   child: Padding(
                                                                     padding: const EdgeInsets.only(left: 10.0),
                                                                     child: Column(
                                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                                       children: [
-                                                                        Text("${DataControllers.to.getAvailableProviderList.value.data![0].fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
+                                                                        Text("${DataControllers.to.getAvailableProviderList.value.data!.provider_data!.first.fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
                                                                         Padding(
                                                                           padding: const EdgeInsets.all(3.0),
                                                                           child: Row(children: const [
@@ -286,7 +286,7 @@ class _RunningPackageDetailsScreenState extends State<RunningPackageDetailsScree
                                                                 width: 60,
                                                                 fit: BoxFit.cover,
                                                                 imageUrl:
-                                                                ApiService.MainURL + DataControllers.to.getAvailableProviderList.value.data![0].profilePhoto.toString(),
+                                                                ApiService.MainURL + DataControllers.to.getAvailableProviderList.value.data!.provider_data!.first.profilePhoto.toString(),
                                                                 placeholder: (context, url) =>
                                                                     Image.asset('assets/images/imam.png'),
                                                                 errorWidget: (context, url, error) =>
@@ -299,14 +299,14 @@ class _RunningPackageDetailsScreenState extends State<RunningPackageDetailsScree
                                                       ),
                                                       InkWell(
                                                         onTap: (){
-                                                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProviderProfilePage(providerdata: DataControllers.to.getAvailableProviderList.value.data![0])),);
+                                                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProviderProfilePage(providerdata: DataControllers.to.getAvailableProviderList.value.data!.provider_data!.first)),);
                                                         },
                                                         child: Padding(
                                                           padding: const EdgeInsets.only(left: 10.0),
                                                           child: Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
-                                                              Text("${DataControllers.to.getAvailableProviderList.value.data![0].fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
+                                                              Text("${DataControllers.to.getAvailableProviderList.value.data!.provider_data!.first.fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
                                                               Padding(
                                                                 padding: const EdgeInsets.all(3.0),
                                                                 child: Row(children: const [

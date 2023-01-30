@@ -23,7 +23,7 @@ class _RequestAcceptDetailsScreenState extends State<RequestAcceptDetailsScreen>
   void initState()
   {
     super.initState();
-    selected = DataControllers.to.getAvailableProviderList.value.data!.map<bool>((v) => false).toList();
+    selected = DataControllers.to.getAvailableProviderList.value.data!.provider_data!.map<bool>((v) => false).toList();
   }
 
   @override
@@ -211,7 +211,7 @@ class _RequestAcceptDetailsScreenState extends State<RequestAcceptDetailsScreen>
                              child: ListView(
 
                                children: List.generate(
-                                 DataControllers.to.getAvailableProviderList.value.data!.length,
+                                 DataControllers.to.getAvailableProviderList.value.data!.provider_data!.length,
                                      (index) => Container(
                                    color:  selected[index] ? AllColor.selected_color:Colors.white,
                                    child: Padding(
@@ -220,7 +220,7 @@ class _RequestAcceptDetailsScreenState extends State<RequestAcceptDetailsScreen>
                                        onTap: (){
                                          rqbutton =true;
                                          setState(() {
-                                           selected = DataControllers.to.getAvailableProviderList.value.data!.map<bool>((v) => false).toList();
+                                           selected = DataControllers.to.getAvailableProviderList.value.data!.provider_data!.map<bool>((v) => false).toList();
                                            selected[index] = !selected[index];
                                            requestIndex = index;
 
@@ -245,7 +245,7 @@ class _RequestAcceptDetailsScreenState extends State<RequestAcceptDetailsScreen>
                                                          width: 60,
                                                          fit: BoxFit.cover,
                                                          imageUrl:
-                                                         ApiService.MainURL + DataControllers.to.getAvailableProviderList.value.data![index].profilePhoto.toString(),
+                                                         ApiService.MainURL + DataControllers.to.getAvailableProviderList.value.data!.provider_data![index].profilePhoto.toString(),
                                                          placeholder: (context, url) =>
                                                              Image.asset('assets/images/imam.png'),
                                                          errorWidget: (context, url, error) =>
@@ -261,7 +261,7 @@ class _RequestAcceptDetailsScreenState extends State<RequestAcceptDetailsScreen>
 
                                                    Navigator.push(
                                                      context,
-                                                     MaterialPageRoute(builder: (context) => ProviderProfilePage(providerdata: DataControllers.to.getAvailableProviderList.value.data![index])),
+                                                     MaterialPageRoute(builder: (context) => ProviderProfilePage(providerdata: DataControllers.to.getAvailableProviderList.value.data!.provider_data![index])),
                                                    );
                                                    // showToast("Provider Profile");
                                                  },
@@ -270,12 +270,12 @@ class _RequestAcceptDetailsScreenState extends State<RequestAcceptDetailsScreen>
                                                    child: Column(
                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                      children: [
-                                                       Text("${DataControllers.to.getAvailableProviderList.value.data![index].fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
+                                                       Text("${DataControllers.to.getAvailableProviderList.value.data!.provider_data![index].fullName}",style: TextStyle(fontSize: dynamicSize(0.05),color:AllColor.themeColor,fontWeight: FontWeight.bold),),
 
                                                        Padding(
                                                          padding: const EdgeInsets.all(5.0),
                                                          child: Row(children:  [
-                                                           Text("${DataControllers.to.getAvailableProviderList.value.data![index].specialityId}"),
+                                                           Text("${DataControllers.to.getAvailableProviderList.value.data!.provider_data![index].specialityId}"),
                                                            Text(""),
                                                          ],),
                                                        ),

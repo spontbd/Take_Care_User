@@ -349,8 +349,6 @@ class ApiService {
           json.decode(response.body)["success"];
       DataControllers.to.addCardResponse.value.message =
           json.decode(response.body)["message"];
-      //showToast("Please enter your valid user and password!!",Colors.red);
-      //  return errorResponseFromJson(response.body);
       return DataControllers.to.addCardResponse.value;
     }
   }
@@ -543,27 +541,27 @@ class ApiService {
     }
   }
 
-  static Future<ErrorResponse?> getOrderServiceItem() async {
+  static Future<AppResponse?> getOrderServiceItem(String invoice_number) async {
     var response = await client.post(
-      Uri.parse(BaseURL + 'user/order/seeker-orders'),
+      Uri.parse(BaseURL + 'user/order/get-order-service-items'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
         'Authorization': bearerToken,
       },
       body: jsonEncode(<String, String>{
-        "get-order-service-items": DataControllers.to.userLoginResponse.value.data!.user!.id.toString()
+        "invoice_number": invoice_number
       }),);
     if (response.statusCode == 200) {
       print("Api Response : ${response.body}");
-      var jsonString = response.body;
-      return errorResponseFromJson(jsonString);
+      // var jsonString = response.body;
+      return AppResponse.fromJson(jsonDecode(response.body));
     } else {
       DataControllers.to.userServiceResponse.value.success =
       json.decode(response.body)["success"];
       DataControllers.to.userServiceResponse.value.message =
       json.decode(response.body)["message"];
-      return null;
+      return AppResponse.fromJson(jsonDecode(response.body));
     }
   }
 
@@ -747,10 +745,7 @@ class ApiService {
           json.decode(response.body)["success"];
       DataControllers.to.addServiceResponse.value.message =
           json.decode(response.body)["message"];
-      //showToast("Please enter your valid user and password!!",Colors.red);
-      //  return errorResponseFromJson(response.body);
       return DataControllers.to.addServiceResponse.value;
-      throw Exception('add service');
     }
   }
 
@@ -971,7 +966,6 @@ class ApiService {
     print("Api Response  fav-address : ${response.body}");
 
     if (response.statusCode == 200) {
-      // print("Api Response : ${response.body}");
       var jsonString = response.body;
       return lovedOnesResponseFromJson(jsonString);
     } else {
@@ -979,8 +973,6 @@ class ApiService {
           json.decode(response.body)["success"];
       DataControllers.to.getFavAddressResponse.value.message =
           json.decode(response.body)["message"];
-      //showToast("Please enter your valid user and password!!",Colors.red);
-      //  return errorResponseFromJson(response.body);
       return DataControllers.to.getFavAddressResponse.value;
     }
   }
@@ -1006,10 +998,7 @@ class ApiService {
           json.decode(response.body)["success"];
       DataControllers.to.addServiceResponse.value.message =
           json.decode(response.body)["message"];
-      //showToast("Please enter your valid user and password!!",Colors.red);
-      //  return errorResponseFromJson(response.body);
       return DataControllers.to.addServiceResponse.value;
-      throw Exception('add service');
     }
   }
 
@@ -1073,8 +1062,6 @@ class ApiService {
           json.decode(response.body)["success"];
       DataControllers.to.forgetPassConfirm.value.message =
           json.decode(response.body)["message"];
-      //showToast("Please enter your valid user and password!!",Colors.red);
-      //  return errorResponseFromJson(response.body);
       return DataControllers.to.forgetPassConfirm.value;
     }
   }
@@ -1099,8 +1086,6 @@ class ApiService {
           json.decode(response.body)["success"];
       DataControllers.to.getFavAddressResponse.value.message =
           json.decode(response.body)["message"];
-      //showToast("Please enter your valid user and password!!",Colors.red);
-      //  return errorResponseFromJson(response.body);
       return DataControllers.to.getFavAddressResponse.value;
     }
   }
@@ -1130,6 +1115,37 @@ class ApiService {
       //  return errorResponseFromJson(response.body);
       return DataControllers.to.addServiceResponse.value;
       throw Exception('add service');
+    }
+  }
+
+
+  /// checkout-discount
+  static Future<AppResponse> checkoutDiscount(String coupon,String amount) async {
+    final response = await http.post(
+      Uri.parse(BaseURL + 'discount/checkout-discount'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': bearerToken,
+      },
+      body: jsonEncode(<String, String>{
+        'coupon_code': coupon,
+        'amount':amount
+      }),
+    );
+
+
+    print("Api Response -->> Coupon : ${response.body}");
+
+    if (response.statusCode == 200) {
+
+      return AppResponse.fromJson(jsonDecode(response.body));
+    } else {
+      DataControllers.to.couponPrize.value.success =
+      json.decode(response.body)["success"];
+      DataControllers.to.couponPrize.value.message =
+      json.decode(response.body)["message"];
+      return AppResponse.fromJson(jsonDecode(response.body));
     }
   }
 }

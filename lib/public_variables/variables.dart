@@ -44,7 +44,7 @@ class Variables {
   static String lovedOnesActivity = 'love';
   static String homeActivity = 'home';
   static String orderInformationActivity = 'orderInfo';
-  static String serviceTime = '0';
+  static String serviceTime = '1';
 
   static LatLng currentPostion = new LatLng(23.8252365, 90.3686425);
 

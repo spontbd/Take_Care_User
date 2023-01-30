@@ -4,20 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:intl/intl.dart';
+import 'package:takecare_user/controllers/DataContollers.dart';
+import 'package:takecare_user/controllers/language_controller.dart';
 import 'package:takecare_user/model/AllServiceResponse.dart';
 import 'package:takecare_user/model/CategoriesResponse.dart';
+import 'package:takecare_user/pages/home_page.dart';
 import 'package:takecare_user/pages/long_time_services/service_request_form_page.dart';
+import 'package:takecare_user/public_variables/all_colors.dart';
+import 'package:takecare_user/public_variables/notifications.dart';
+import 'package:takecare_user/public_variables/size_config.dart';
+import 'package:takecare_user/ui/common.dart';
 
-import '../../controllers/DataContollers.dart';
-import '../../controllers/language_controller.dart';
-import '../../public_variables/all_colors.dart';
-import '../../public_variables/notifications.dart';
-import '../../public_variables/size_config.dart';
-import '../../ui/common.dart';
-
-import '../On Demand/feedback_page.dart';
-
-import '../home_page.dart';
 
 class LongTimeServicesPage extends StatefulWidget
 {
@@ -48,6 +45,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
   List<AllServiceData> _searchResult = [];
   TextEditingController searchController = TextEditingController();
   List<CategoriesData> dataResponse = [];
+  bool focus = false;
 
   @override
   void initState() {
@@ -431,10 +429,10 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                                 child:
                                 _isChecked.contains(true) ?
 
-                                Expanded(child: Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple))) : Container()),
+                                Text("Deselect All",style: TextStyle(fontSize: dynamicSize(0.05),color: Colors.purple)) : Container()),
                           ],
                         ),
-                        Expanded(
+                        Flexible(
                           child: Container(
                             color: Colors.white,
                             child: Padding(
@@ -863,8 +861,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                   child: InkWell(
                     onTap: () {
 
-                      //addressSelected(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ServiceRequestFormPage(mySelf: 'mySelf',)),);
+                      addressSelected(context);
 
                       },
                     child: Container(
@@ -919,6 +916,10 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
           actions: <Widget>[
             IconButton(
               onPressed: () {
+                setState( (){
+                  cusIcon;
+                  focus = true;
+                });
                 if (cusIcon.icon == Icons.search) {
                   setState(() {
                     cusIcon =
@@ -933,6 +934,7 @@ class _LongTimeServicesPageState extends State<LongTimeServicesPage> {
                         width: dynamicSize(20),
                         height: dynamicSize(0.09),
                         child: TextField(
+                          autofocus:  focus,
                           controller: searchController,
                           onChanged: (text) =>onSearchTextChanged(text),
                           decoration: InputDecoration(
